@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.tongji</groupId>
-    <artifactId>community</artifactId>
+    <artifactId>boying</artifactId>
     <version>1.0-SNAPSHOT</version>
     <!-- 打包成jar包 -->
     <packaging>jar</packaging>

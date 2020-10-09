@@ -1,13 +1,15 @@
 
 # boying
 
-徽章
+<img src="https://img.shields.io/badge/qq号-1254931237-red.svg"><img href="https://github.com/tongji4m3/boying-web" src="https://img.shields.io/badge/前端地址-boying_web-blue.svg">
+
+
 ## 项目简介
-boying项目是娱乐票务平台，包括前台票务购买系统及后台管理系统，基于SpringBoot实现，采用Docker容器化部署。 前台等模块。 后台管理系统包含等模块。
+**boying**是一个娱乐票务平台，包括前台演唱会门票购买系统及后台权限管理系统。该项目基于SpringBoot实现，并采用`Jenkins`自动化部署。 
 
 ## 项目地址
 - 文档地址:
-- 前端Github地址:
+- 前端地址:[boying-web](https://github.com/tongji4m3/boying-web)
 - 项目演示地址:
 - 后端接口地址:
 
@@ -16,7 +18,22 @@ boying项目是娱乐票务平台，包括前台票务购买系统及后台管�
 ### 项目结构
 树形图
 ### 技术选型
-表格
+
+
+
+| 技术 | 说明 | 版本 |
+| :--: | ---- | :--: |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+|      |      |      |
+
+
 ### 架构图
 #### 系统架构图
 #### 业务架构图
@@ -34,3 +51,5 @@ boying项目是娱乐票务平台，包括前台票务购买系统及后台管�
 ## License
 
 boying is [MIT License](https://github.com/tongji4m3/community/blob/master/LICENSE)
+
+Copyright (c) 2020 tongji4m3
