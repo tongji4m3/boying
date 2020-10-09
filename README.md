@@ -1,11 +1,10 @@
-[toc]
 
-# community
+# boying
 
 徽章
 ## 项目简介
-community准备实现一个完整的可用的大学社团管理项目
-后端项目
+boying项目是娱乐票务平台，包括前台票务购买系统及后台管理系统，基于SpringBoot实现，采用Docker容器化部署。 前台等模块。 后台管理系统包含等模块。
+
 ## 项目地址
 - 文档地址:
 - 前端Github地址:
@@ -34,4 +33,4 @@ community准备实现一个完整的可用的大学社团管理项目
 
 ## License
 
-community is [MIT License](https://github.com/tongji4m3/community/blob/master/LICENSE)
+boying is [MIT License](https://github.com/tongji4m3/community/blob/master/LICENSE)
