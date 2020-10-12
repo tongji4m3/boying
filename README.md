@@ -1,8 +1,7 @@
 
 # boying
 
-<img src="https://img.shields.io/badge/qq号-1254931237-red.svg"><img href="https://github.com/tongji4m3/boying-web" src="https://img.shields.io/badge/前端地址-boying_web-blue.svg">
-
+<img src="https://img.shields.io/badge/qq号-1254931237-red.svg">   <img href="https://github.com/tongji4m3/boying-web" src="https://img.shields.io/badge/前端地址-boying_web-blue.svg">   <img src="https://img.shields.io/github/license/tongji4m3/boying">
 
 ## 项目简介
 **boying**是一个娱乐票务平台，包括前台演唱会门票购买系统及后台权限管理系统。该项目基于SpringBoot实现，并采用`Jenkins`自动化部署。 
