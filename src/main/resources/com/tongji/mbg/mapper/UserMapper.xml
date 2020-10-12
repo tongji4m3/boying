@@ -3,8 +3,8 @@
 <mapper namespace="com.tongji.mbg.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.tongji.mbg.model.User">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, password
+    id, password, username
   </sql>
   <select id="selectByExample" parameterType="com.tongji.mbg.model.UserExample" resultMap="BaseResultMap">
     select
@@ -101,8 +101,8 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user (username, password)
-    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+    insert into user (password, username)
+    values (#{password,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.mbg.model.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -110,19 +110,19 @@
     </selectKey>
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="username != null">
-        username,
-      </if>
       <if test="password != null">
         password,
       </if>
+      <if test="username != null">
+        username,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -138,11 +138,11 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
-      </if>
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -152,8 +152,8 @@
   <update id="updateByExample" parameterType="map">
     update user
     set id = #{record.id,jdbcType=INTEGER},
-      username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR}
+      password = #{record.password,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -161,19 +161,19 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tongji.mbg.model.User">
     update user
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tongji.mbg.model.User">
     update user
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR}
+    set password = #{password,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
