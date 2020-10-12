@@ -3,7 +3,17 @@
 
 <img src="https://img.shields.io/badge/qq号-1254931237-red.svg">   <img href="https://github.com/tongji4m3/boying-web" src="https://img.shields.io/badge/前端地址-boying_web-blue.svg">   <img src="https://img.shields.io/github/license/tongji4m3/boying">
 
+
+
+# 开发规范
+
+1. 统一在**`develop`**分支下进行提交
+2. 每次提交前(最好在写代码前),先`pull`最新的版本,避免代码冲突
+3. 每次提交说明修改了哪些地方
+4. 遵循统一的代码风格
+
 ## 项目简介
+
 **boying**是一个娱乐票务平台，包括前台演唱会门票购买系统及后台权限管理系统。该项目基于SpringBoot实现，并采用`Jenkins`自动化部署。 
 
 ## 项目地址
