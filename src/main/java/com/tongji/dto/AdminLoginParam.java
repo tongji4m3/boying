@@ -6,7 +6,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * 用户登录参数
  */
-public class UmsAdminLoginParam {
+public class AdminLoginParam
+{
     @ApiModelProperty(value = "用户名", required = true)
     @NotEmpty(message = "用户名不能为空")
     private String username;
