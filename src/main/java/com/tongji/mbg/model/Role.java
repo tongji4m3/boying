@@ -25,14 +25,14 @@ public class Role implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer admincount;
+    private Integer adminCount;
 
     /**
      * 创建时间
      *
      * @mbg.generated
      */
-    private Date createtime;
+    private Date createTime;
 
     /**
      * 启用状态：0->禁用；1->启用
@@ -74,20 +74,20 @@ public class Role implements Serializable {
         this.description = description;
     }
 
-    public Integer getAdmincount() {
-        return admincount;
+    public Integer getAdminCount() {
+        return adminCount;
     }
 
-    public void setAdmincount(Integer admincount) {
-        this.admincount = admincount;
+    public void setAdminCount(Integer adminCount) {
+        this.adminCount = adminCount;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Integer getStatus() {
@@ -115,8 +115,8 @@ public class Role implements Serializable {
         sb.append(", roleid=").append(roleid);
         sb.append(", name=").append(name);
         sb.append(", description=").append(description);
-        sb.append(", admincount=").append(admincount);
-        sb.append(", createtime=").append(createtime);
+        sb.append(", adminCount=").append(adminCount);
+        sb.append(", createTime=").append(createTime);
         sb.append(", status=").append(status);
         sb.append(", sort=").append(sort);
         sb.append(", serialVersionUID=").append(serialVersionUID);

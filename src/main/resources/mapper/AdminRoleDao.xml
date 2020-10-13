@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tongji.dao.AdminRoleDao">
+    <select id="getPermissionList" resultMap="com.tongji.mbg.mapper.PermissionMapper.BaseResultMap">
+        select * from permission where permission_id in
+            (select permission_id from role_permission where role_id in
+                (select role_id from admin_role
+                    where admin_id=#{adminId}
+                    ));
+    </select>
+</mapper>

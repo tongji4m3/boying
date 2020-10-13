@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Permission implements Serializable {
-    private Integer permissionid;
+    private Integer permissionId;
 
     private Integer pid;
 
@@ -55,7 +55,7 @@ public class Permission implements Serializable {
      *
      * @mbg.generated
      */
-    private Date createtime;
+    private Date createTime;
 
     /**
      * 排序相关
@@ -66,12 +66,12 @@ public class Permission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getPermissionid() {
-        return permissionid;
+    public Integer getPermissionId() {
+        return permissionId;
     }
 
-    public void setPermissionid(Integer permissionid) {
-        this.permissionid = permissionid;
+    public void setPermissionId(Integer permissionId) {
+        this.permissionId = permissionId;
     }
 
     public Integer getPid() {
@@ -130,12 +130,12 @@ public class Permission implements Serializable {
         this.status = status;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Integer getSort() {
@@ -152,7 +152,7 @@ public class Permission implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", permissionid=").append(permissionid);
+        sb.append(", permissionId=").append(permissionId);
         sb.append(", pid=").append(pid);
         sb.append(", name=").append(name);
         sb.append(", value=").append(value);
@@ -160,7 +160,7 @@ public class Permission implements Serializable {
         sb.append(", type=").append(type);
         sb.append(", uri=").append(uri);
         sb.append(", status=").append(status);
-        sb.append(", createtime=").append(createtime);
+        sb.append(", createTime=").append(createTime);
         sb.append(", sort=").append(sort);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

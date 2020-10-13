@@ -5,8 +5,8 @@
     <id column="roleId" jdbcType="INTEGER" property="roleid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="adminCount" jdbcType="INTEGER" property="admincount" />
-    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="admin_count" jdbcType="INTEGER" property="adminCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
   </resultMap>
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    roleId, name, description, adminCount, createTime, status, sort
+    roleId, name, description, admin_count, create_time, status, sort
   </sql>
   <select id="selectByExample" parameterType="com.tongji.mbg.model.RoleExample" resultMap="BaseResultMap">
     select
@@ -103,10 +103,10 @@
   </delete>
   <insert id="insert" parameterType="com.tongji.mbg.model.Role">
     insert into role (roleId, name, description, 
-      adminCount, createTime, status, 
+      admin_count, create_time, status, 
       sort)
     values (#{roleid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{admincount,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{adminCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
       #{sort,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.mbg.model.Role">
@@ -121,11 +121,11 @@
       <if test="description != null">
         description,
       </if>
-      <if test="admincount != null">
-        adminCount,
+      <if test="adminCount != null">
+        admin_count,
       </if>
-      <if test="createtime != null">
-        createTime,
+      <if test="createTime != null">
+        create_time,
       </if>
       <if test="status != null">
         status,
@@ -144,11 +144,11 @@
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="admincount != null">
-        #{admincount,jdbcType=INTEGER},
+      <if test="adminCount != null">
+        #{adminCount,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -176,11 +176,11 @@
       <if test="record.description != null">
         description = #{record.description,jdbcType=VARCHAR},
       </if>
-      <if test="record.admincount != null">
-        adminCount = #{record.admincount,jdbcType=INTEGER},
+      <if test="record.adminCount != null">
+        admin_count = #{record.adminCount,jdbcType=INTEGER},
       </if>
-      <if test="record.createtime != null">
-        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
@@ -198,8 +198,8 @@
     set roleId = #{record.roleid,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
-      adminCount = #{record.admincount,jdbcType=INTEGER},
-      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      admin_count = #{record.adminCount,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       status = #{record.status,jdbcType=INTEGER},
       sort = #{record.sort,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -215,11 +215,11 @@
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="admincount != null">
-        adminCount = #{admincount,jdbcType=INTEGER},
+      <if test="adminCount != null">
+        admin_count = #{adminCount,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null">
-        createTime = #{createtime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -234,8 +234,8 @@
     update role
     set name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      adminCount = #{admincount,jdbcType=INTEGER},
-      createTime = #{createtime,jdbcType=TIMESTAMP},
+      admin_count = #{adminCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=INTEGER},
       sort = #{sort,jdbcType=INTEGER}
     where roleId = #{roleid,jdbcType=INTEGER}

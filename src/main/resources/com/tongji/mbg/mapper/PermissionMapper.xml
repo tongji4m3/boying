@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tongji.mbg.mapper.PermissionMapper">
   <resultMap id="BaseResultMap" type="com.tongji.mbg.model.Permission">
-    <id column="permissionId" jdbcType="INTEGER" property="permissionid" />
+    <id column="permission_id" jdbcType="INTEGER" property="permissionId" />
     <result column="pid" jdbcType="INTEGER" property="pid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="value" jdbcType="VARCHAR" property="value" />
@@ -10,7 +10,7 @@
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="uri" jdbcType="VARCHAR" property="uri" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    permissionId, pid, name, value, icon, type, uri, status, createTime, sort
+    permission_id, pid, name, value, icon, type, uri, status, create_time, sort
   </sql>
   <select id="selectByExample" parameterType="com.tongji.mbg.model.PermissionExample" resultMap="BaseResultMap">
     select
@@ -92,11 +92,11 @@
     select 
     <include refid="Base_Column_List" />
     from permission
-    where permissionId = #{permissionid,jdbcType=INTEGER}
+    where permission_id = #{permissionId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from permission
-    where permissionId = #{permissionid,jdbcType=INTEGER}
+    where permission_id = #{permissionId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.tongji.mbg.model.PermissionExample">
     delete from permission
@@ -105,20 +105,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.mbg.model.Permission">
-    insert into permission (permissionId, pid, name, 
+    insert into permission (permission_id, pid, name, 
       value, icon, type, 
-      uri, status, createTime, 
+      uri, status, create_time, 
       sort)
-    values (#{permissionid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+    values (#{permissionId,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{value,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{uri,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{uri,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{sort,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.mbg.model.Permission">
     insert into permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="permissionid != null">
-        permissionId,
+      <if test="permissionId != null">
+        permission_id,
       </if>
       <if test="pid != null">
         pid,
@@ -141,16 +141,16 @@
       <if test="status != null">
         status,
       </if>
-      <if test="createtime != null">
-        createTime,
+      <if test="createTime != null">
+        create_time,
       </if>
       <if test="sort != null">
         sort,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="permissionid != null">
-        #{permissionid,jdbcType=INTEGER},
+      <if test="permissionId != null">
+        #{permissionId,jdbcType=INTEGER},
       </if>
       <if test="pid != null">
         #{pid,jdbcType=INTEGER},
@@ -173,8 +173,8 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="sort != null">
         #{sort,jdbcType=INTEGER},
@@ -190,8 +190,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update permission
     <set>
-      <if test="record.permissionid != null">
-        permissionId = #{record.permissionid,jdbcType=INTEGER},
+      <if test="record.permissionId != null">
+        permission_id = #{record.permissionId,jdbcType=INTEGER},
       </if>
       <if test="record.pid != null">
         pid = #{record.pid,jdbcType=INTEGER},
@@ -214,8 +214,8 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.createtime != null">
-        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.sort != null">
         sort = #{record.sort,jdbcType=INTEGER},
@@ -227,7 +227,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update permission
-    set permissionId = #{record.permissionid,jdbcType=INTEGER},
+    set permission_id = #{record.permissionId,jdbcType=INTEGER},
       pid = #{record.pid,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       value = #{record.value,jdbcType=VARCHAR},
@@ -235,7 +235,7 @@
       type = #{record.type,jdbcType=VARCHAR},
       uri = #{record.uri,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
-      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       sort = #{record.sort,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -265,14 +265,14 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null">
-        createTime = #{createtime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="sort != null">
         sort = #{sort,jdbcType=INTEGER},
       </if>
     </set>
-    where permissionId = #{permissionid,jdbcType=INTEGER}
+    where permission_id = #{permissionId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tongji.mbg.model.Permission">
     update permission
@@ -283,8 +283,8 @@
       type = #{type,jdbcType=VARCHAR},
       uri = #{uri,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
-      createTime = #{createtime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       sort = #{sort,jdbcType=INTEGER}
-    where permissionId = #{permissionid,jdbcType=INTEGER}
+    where permission_id = #{permissionId,jdbcType=INTEGER}
   </update>
 </mapper>

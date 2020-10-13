@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Admin implements Serializable {
-    private Integer adminid;
+    private Integer adminId;
 
     private String username;
 
@@ -24,14 +24,14 @@ public class Admin implements Serializable {
      *
      * @mbg.generated
      */
-    private Date createtime;
+    private Date createTime;
 
     /**
      * 最后登录时间
      *
      * @mbg.generated
      */
-    private Date logintime;
+    private Date loginTime;
 
     /**
      * 帐号启用状态：0->禁用；1->启用
@@ -42,12 +42,12 @@ public class Admin implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getAdminid() {
-        return adminid;
+    public Integer getAdminId() {
+        return adminId;
     }
 
-    public void setAdminid(Integer adminid) {
-        this.adminid = adminid;
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 
     public String getUsername() {
@@ -82,20 +82,20 @@ public class Admin implements Serializable {
         this.email = email;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getLogintime() {
-        return logintime;
+    public Date getLoginTime() {
+        return loginTime;
     }
 
-    public void setLogintime(Date logintime) {
-        this.logintime = logintime;
+    public void setLoginTime(Date loginTime) {
+        this.loginTime = loginTime;
     }
 
     public Integer getStatus() {
@@ -112,13 +112,13 @@ public class Admin implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", adminid=").append(adminid);
+        sb.append(", adminId=").append(adminId);
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", icon=").append(icon);
         sb.append(", email=").append(email);
-        sb.append(", createtime=").append(createtime);
-        sb.append(", logintime=").append(logintime);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", loginTime=").append(loginTime);
         sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

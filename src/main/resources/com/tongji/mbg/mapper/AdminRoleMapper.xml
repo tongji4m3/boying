@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tongji.mbg.mapper.AdminroleMapper">
-  <resultMap id="BaseResultMap" type="com.tongji.mbg.model.Adminrole">
-    <id column="adminRoleId" jdbcType="INTEGER" property="adminroleid" />
-    <result column="adminId" jdbcType="INTEGER" property="adminid" />
-    <result column="roleId" jdbcType="INTEGER" property="roleid" />
+<mapper namespace="com.tongji.mbg.mapper.AdminRoleMapper">
+  <resultMap id="BaseResultMap" type="com.tongji.mbg.model.AdminRole">
+    <id column="admin_role_id" jdbcType="INTEGER" property="adminRoleId" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    adminRoleId, adminId, roleId
+    admin_role_id, admin_id, role_id
   </sql>
-  <select id="selectByExample" parameterType="com.tongji.mbg.model.AdminroleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.tongji.mbg.model.AdminRoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from adminRole
+    from admin_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,67 +84,67 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from adminRole
-    where adminRoleId = #{adminroleid,jdbcType=INTEGER}
+    from admin_role
+    where admin_role_id = #{adminRoleId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from adminRole
-    where adminRoleId = #{adminroleid,jdbcType=INTEGER}
+    delete from admin_role
+    where admin_role_id = #{adminRoleId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tongji.mbg.model.AdminroleExample">
-    delete from adminRole
+  <delete id="deleteByExample" parameterType="com.tongji.mbg.model.AdminRoleExample">
+    delete from admin_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tongji.mbg.model.Adminrole">
-    insert into adminRole (adminRoleId, adminId, roleId
+  <insert id="insert" parameterType="com.tongji.mbg.model.AdminRole">
+    insert into admin_role (admin_role_id, admin_id, role_id
       )
-    values (#{adminroleid,jdbcType=INTEGER}, #{adminid,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}
+    values (#{adminRoleId,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tongji.mbg.model.Adminrole">
-    insert into adminRole
+  <insert id="insertSelective" parameterType="com.tongji.mbg.model.AdminRole">
+    insert into admin_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="adminroleid != null">
-        adminRoleId,
+      <if test="adminRoleId != null">
+        admin_role_id,
       </if>
-      <if test="adminid != null">
-        adminId,
+      <if test="adminId != null">
+        admin_id,
       </if>
-      <if test="roleid != null">
-        roleId,
+      <if test="roleId != null">
+        role_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="adminroleid != null">
-        #{adminroleid,jdbcType=INTEGER},
+      <if test="adminRoleId != null">
+        #{adminRoleId,jdbcType=INTEGER},
       </if>
-      <if test="adminid != null">
-        #{adminid,jdbcType=INTEGER},
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
       </if>
-      <if test="roleid != null">
-        #{roleid,jdbcType=INTEGER},
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tongji.mbg.model.AdminroleExample" resultType="java.lang.Long">
-    select count(*) from adminRole
+  <select id="countByExample" parameterType="com.tongji.mbg.model.AdminRoleExample" resultType="java.lang.Long">
+    select count(*) from admin_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update adminRole
+    update admin_role
     <set>
-      <if test="record.adminroleid != null">
-        adminRoleId = #{record.adminroleid,jdbcType=INTEGER},
+      <if test="record.adminRoleId != null">
+        admin_role_id = #{record.adminRoleId,jdbcType=INTEGER},
       </if>
-      <if test="record.adminid != null">
-        adminId = #{record.adminid,jdbcType=INTEGER},
+      <if test="record.adminId != null">
+        admin_id = #{record.adminId,jdbcType=INTEGER},
       </if>
-      <if test="record.roleid != null">
-        roleId = #{record.roleid,jdbcType=INTEGER},
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -152,30 +152,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update adminRole
-    set adminRoleId = #{record.adminroleid,jdbcType=INTEGER},
-      adminId = #{record.adminid,jdbcType=INTEGER},
-      roleId = #{record.roleid,jdbcType=INTEGER}
+    update admin_role
+    set admin_role_id = #{record.adminRoleId,jdbcType=INTEGER},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      role_id = #{record.roleId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.mbg.model.Adminrole">
-    update adminRole
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.mbg.model.AdminRole">
+    update admin_role
     <set>
-      <if test="adminid != null">
-        adminId = #{adminid,jdbcType=INTEGER},
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=INTEGER},
       </if>
-      <if test="roleid != null">
-        roleId = #{roleid,jdbcType=INTEGER},
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
       </if>
     </set>
-    where adminRoleId = #{adminroleid,jdbcType=INTEGER}
+    where admin_role_id = #{adminRoleId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tongji.mbg.model.Adminrole">
-    update adminRole
-    set adminId = #{adminid,jdbcType=INTEGER},
-      roleId = #{roleid,jdbcType=INTEGER}
-    where adminRoleId = #{adminroleid,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.tongji.mbg.model.AdminRole">
+    update admin_role
+    set admin_id = #{adminId,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=INTEGER}
+    where admin_role_id = #{adminRoleId,jdbcType=INTEGER}
   </update>
 </mapper>

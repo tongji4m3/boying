@@ -10,7 +10,7 @@ public interface PermissionMapper {
 
     int deleteByExample(PermissionExample example);
 
-    int deleteByPrimaryKey(Integer permissionid);
+    int deleteByPrimaryKey(Integer permissionId);
 
     int insert(Permission record);
 
@@ -18,7 +18,7 @@ public interface PermissionMapper {
 
     List<Permission> selectByExample(PermissionExample example);
 
-    Permission selectByPrimaryKey(Integer permissionid);
+    Permission selectByPrimaryKey(Integer permissionId);
 
     int updateByExampleSelective(@Param("record") Permission record, @Param("example") PermissionExample example);
 
