@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tongji.mbg.mapper.AdminroleMapper">
+  <resultMap id="BaseResultMap" type="com.tongji.mbg.model.Adminrole">
+    <id column="adminRoleId" jdbcType="INTEGER" property="adminroleid" />
+    <result column="adminId" jdbcType="INTEGER" property="adminid" />
+    <result column="roleId" jdbcType="INTEGER" property="roleid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    adminRoleId, adminId, roleId
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.mbg.model.AdminroleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from adminRole
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from adminRole
+    where adminRoleId = #{adminroleid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from adminRole
+    where adminRoleId = #{adminroleid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.mbg.model.AdminroleExample">
+    delete from adminRole
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.mbg.model.Adminrole">
+    insert into adminRole (adminRoleId, adminId, roleId
+      )
+    values (#{adminroleid,jdbcType=INTEGER}, #{adminid,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.mbg.model.Adminrole">
+    insert into adminRole
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adminroleid != null">
+        adminRoleId,
+      </if>
+      <if test="adminid != null">
+        adminId,
+      </if>
+      <if test="roleid != null">
+        roleId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adminroleid != null">
+        #{adminroleid,jdbcType=INTEGER},
+      </if>
+      <if test="adminid != null">
+        #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.mbg.model.AdminroleExample" resultType="java.lang.Long">
+    select count(*) from adminRole
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update adminRole
+    <set>
+      <if test="record.adminroleid != null">
+        adminRoleId = #{record.adminroleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminid != null">
+        adminId = #{record.adminid,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleid != null">
+        roleId = #{record.roleid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update adminRole
+    set adminRoleId = #{record.adminroleid,jdbcType=INTEGER},
+      adminId = #{record.adminid,jdbcType=INTEGER},
+      roleId = #{record.roleid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.mbg.model.Adminrole">
+    update adminRole
+    <set>
+      <if test="adminid != null">
+        adminId = #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null">
+        roleId = #{roleid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where adminRoleId = #{adminroleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.mbg.model.Adminrole">
+    update adminRole
+    set adminId = #{adminid,jdbcType=INTEGER},
+      roleId = #{roleid,jdbcType=INTEGER}
+    where adminRoleId = #{adminroleid,jdbcType=INTEGER}
+  </update>
+</mapper>
