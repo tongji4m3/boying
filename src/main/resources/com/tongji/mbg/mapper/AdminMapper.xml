@@ -9,7 +9,7 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
-    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status" jdbcType="BIT" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -108,7 +108,7 @@
       login_time, status)
     values (#{adminId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{icon,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{loginTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
+      #{loginTime,jdbcType=TIMESTAMP}, #{status,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.mbg.model.Admin">
     insert into admin
@@ -161,7 +161,7 @@
         #{loginTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
-        #{status,jdbcType=INTEGER},
+        #{status,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -196,7 +196,7 @@
         login_time = #{record.loginTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
+        status = #{record.status,jdbcType=BIT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -212,7 +212,7 @@
       email = #{record.email,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       login_time = #{record.loginTime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -239,7 +239,7 @@
         login_time = #{loginTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+        status = #{status,jdbcType=BIT},
       </if>
     </set>
     where admin_id = #{adminId,jdbcType=INTEGER}
@@ -252,7 +252,7 @@
       email = #{email,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       login_time = #{loginTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=BIT}
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
 </mapper>

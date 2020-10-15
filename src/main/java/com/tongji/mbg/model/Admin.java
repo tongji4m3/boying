@@ -38,7 +38,7 @@ public class Admin implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer status;
+    private Boolean status;
 
     private static final long serialVersionUID = 1L;
 
@@ -98,11 +98,11 @@ public class Admin implements Serializable {
         this.loginTime = loginTime;
     }
 
-    public Integer getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

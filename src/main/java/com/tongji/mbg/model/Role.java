@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Role implements Serializable {
-    private Integer roleid;
+    private Integer roleId;
 
     /**
      * 角色名称
@@ -39,7 +39,7 @@ public class Role implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer status;
+    private Byte status;
 
     /**
      * 用于排序
@@ -50,12 +50,12 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getRoleid() {
-        return roleid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public String getName() {
@@ -90,11 +90,11 @@ public class Role implements Serializable {
         this.createTime = createTime;
     }
 
-    public Integer getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
@@ -112,7 +112,7 @@ public class Role implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", roleid=").append(roleid);
+        sb.append(", roleId=").append(roleId);
         sb.append(", name=").append(name);
         sb.append(", description=").append(description);
         sb.append(", adminCount=").append(adminCount);

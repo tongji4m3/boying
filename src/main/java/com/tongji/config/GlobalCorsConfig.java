@@ -10,13 +10,15 @@ import org.springframework.web.filter.CorsFilter;
  * 全局跨域配置
  */
 @Configuration
-public class GlobalCorsConfig {
+public class GlobalCorsConfig
+{
 
     /**
      * 允许跨域调用的过滤器
      */
     @Bean
-    public CorsFilter corsFilter() {
+    public CorsFilter corsFilter()
+    {
         CorsConfiguration config = new CorsConfiguration();
         //允许所有域名进行跨域调用
         config.addAllowedOrigin("*");

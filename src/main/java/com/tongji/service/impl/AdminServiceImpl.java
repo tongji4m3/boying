@@ -64,7 +64,7 @@ public class AdminServiceImpl implements AdminService
         Admin Admin = new Admin();
         BeanUtils.copyProperties(AdminParam, Admin);
         Admin.setCreateTime(new Date());
-        Admin.setStatus(1);
+        Admin.setStatus(false);
         //查询是否有相同用户名的用户
         AdminExample example = new AdminExample();
         example.createCriteria().andUsernameEqualTo(Admin.getUsername());
