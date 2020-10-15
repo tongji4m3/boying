@@ -8,7 +8,11 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/boying-security/pom.xml" />
+        <option value="$PROJECT_DIR$/boying-admin/pom.xml" />
+        <option value="$PROJECT_DIR$/boying-common/pom.xml" />
+        <option value="$PROJECT_DIR$/boying-mbg/pom.xml" />
+        <option value="$PROJECT_DIR$/boying-user/pom.xml" />
+        <option value="$PROJECT_DIR$/boying-search/pom.xml" />
       </list>
     </option>
   </component>
