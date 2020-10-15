@@ -9,12 +9,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="boying" />
         <module name="community" />
+        <module name="boying-security" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="boying" options="-parameters" />
+      <module name="boying-security" options="-parameters" />
       <module name="community" options="-parameters" />
     </option>
   </component>
