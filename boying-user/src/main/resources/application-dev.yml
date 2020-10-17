@@ -42,7 +42,7 @@ spring:
 logging:
   level:
     root: info
-    com.macro.boying: debug
+    com.tongji.boying: debug
 
 logstash:
   host: localhost

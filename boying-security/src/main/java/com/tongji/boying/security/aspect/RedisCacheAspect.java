@@ -24,7 +24,7 @@ public class RedisCacheAspect
 {
     private static Logger LOGGER = LoggerFactory.getLogger(RedisCacheAspect.class);
 
-    @Pointcut("execution(public * com.tongji.boying.user.service.*CacheService.*(..)) || execution(public * com.tongji.boying.service.*CacheService.*(..))")
+    @Pointcut("execution(public * com.tongji.boying.service.*CacheService.*(..)) || execution(public * com.tongji.boying.service.*CacheService.*(..))")
     public void cacheAspect()
     {
     }

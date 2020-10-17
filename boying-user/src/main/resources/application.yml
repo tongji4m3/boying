@@ -48,10 +48,3 @@ redis:
     authCode: 90 # 验证码超期时间
     common: 86400 # 24小时
 
-# 消息队列定义
-rabbitmq:
-  queue:
-    name:
-      cancelOrder: cancelOrderQueue
-
-

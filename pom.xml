@@ -55,7 +55,6 @@
         <jjwt.version>0.9.0</jjwt.version>
         <aliyun-oss.version>2.5.0</aliyun-oss.version>
         <logstash-logback.version>5.3</logstash-logback.version>
-        <minio.version>7.1.0</minio.version>
 
         <boying-common.version>1.0-SNAPSHOT</boying-common.version>
         <boying-mbg.version>1.0-SNAPSHOT</boying-mbg.version>
@@ -206,12 +205,6 @@
                 <groupId>net.logstash.logback</groupId>
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>${logstash-logback.version}</version>
-            </dependency>
-            <!--MinIO JAVA SDK-->
-            <dependency>
-                <groupId>io.minio</groupId>
-                <artifactId>minio</artifactId>
-                <version>${minio.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
