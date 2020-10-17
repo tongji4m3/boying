@@ -8,7 +8,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class WebLog {
+public class WebLog
+{
     /**
      * 操作描述
      */

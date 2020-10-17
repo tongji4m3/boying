@@ -1,9 +1,7 @@
 package com.tongji.boying.service.impl;
 
 import com.tongji.boying.bo.BoyingUserDetails;
-import com.tongji.boying.mapper.AdminMapper;
 import com.tongji.boying.mapper.UserMapper;
-import com.tongji.boying.model.Admin;
 import com.tongji.boying.model.User;
 import com.tongji.boying.model.UserExample;
 import com.tongji.boying.security.util.JwtTokenUtil;
@@ -101,12 +99,12 @@ public class UserServiceImpl implements UserService
     {
         String token = null;
         //密码需要客户端加密后传递
-        System.out.println("前端密码:"+password);
-        System.out.println("修改:"+passwordEncoder.encode(password));
+        System.out.println("前端密码:" + password);
+        System.out.println("修改:" + passwordEncoder.encode(password));
         try
         {
             UserDetails userDetails = loadUserByUsername(username);
-            System.out.println("数据库的:"+userDetails.getPassword());
+            System.out.println("数据库的:" + userDetails.getPassword());
             if (!passwordEncoder.matches(password, userDetails.getPassword()))
             {
                 throw new BadCredentialsException("密码不正确");

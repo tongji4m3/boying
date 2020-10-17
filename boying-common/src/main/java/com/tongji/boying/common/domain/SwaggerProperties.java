@@ -10,7 +10,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Builder
-public class SwaggerProperties {
+public class SwaggerProperties
+{
     /**
      * API文档生成基础路径
      */

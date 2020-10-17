@@ -2,10 +2,12 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.Menu;
 import com.tongji.boying.model.MenuExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface MenuMapper {
+import java.util.List;
+
+public interface MenuMapper
+{
     long countByExample(MenuExample example);
 
     int deleteByExample(MenuExample example);

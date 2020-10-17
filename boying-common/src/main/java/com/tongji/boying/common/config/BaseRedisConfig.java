@@ -27,7 +27,8 @@ public class BaseRedisConfig
 {
 
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory)
+    {
         RedisSerializer<Object> serializer = redisSerializer();
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
@@ -40,7 +41,8 @@ public class BaseRedisConfig
     }
 
     @Bean
-    public RedisSerializer<Object> redisSerializer() {
+    public RedisSerializer<Object> redisSerializer()
+    {
         //创建JSON序列化器
         Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -52,7 +54,8 @@ public class BaseRedisConfig
     }
 
     @Bean
-    public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
+    public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory)
+    {
         RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory);
         //设置Redis缓存有效期为1天
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
@@ -62,7 +65,8 @@ public class BaseRedisConfig
 
 
     @Bean
-    public RedisService redisService(){
+    public RedisService redisService()
+    {
         return new RedisServiceImpl();
     }
 

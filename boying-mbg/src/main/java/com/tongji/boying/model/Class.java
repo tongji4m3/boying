@@ -1,67 +1,75 @@
 package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Class implements Serializable {
+public class Class implements Serializable
+{
+    private static final long serialVersionUID = 1L;
     private Integer classId;
-
     private Integer showsessionid;
-
     @ApiModelProperty(value = "所属哪个级别,例如A等座,B等座")
     private Integer grade;
-
     @ApiModelProperty(value = "该级别座位的容量")
     private Integer capacity;
-
     @ApiModelProperty(value = "该级别座位的定价")
     private BigDecimal price;
 
-    private static final long serialVersionUID = 1L;
-
-    public Integer getClassId() {
+    public Integer getClassId()
+    {
         return classId;
     }
 
-    public void setClassId(Integer classId) {
+    public void setClassId(Integer classId)
+    {
         this.classId = classId;
     }
 
-    public Integer getShowsessionid() {
+    public Integer getShowsessionid()
+    {
         return showsessionid;
     }
 
-    public void setShowsessionid(Integer showsessionid) {
+    public void setShowsessionid(Integer showsessionid)
+    {
         this.showsessionid = showsessionid;
     }
 
-    public Integer getGrade() {
+    public Integer getGrade()
+    {
         return grade;
     }
 
-    public void setGrade(Integer grade) {
+    public void setGrade(Integer grade)
+    {
         this.grade = grade;
     }
 
-    public Integer getCapacity() {
+    public Integer getCapacity()
+    {
         return capacity;
     }
 
-    public void setCapacity(Integer capacity) {
+    public void setCapacity(Integer capacity)
+    {
         this.capacity = capacity;
     }
 
-    public BigDecimal getPrice() {
+    public BigDecimal getPrice()
+    {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(BigDecimal price)
+    {
         this.price = price;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");

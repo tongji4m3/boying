@@ -6,12 +6,15 @@ import com.tongji.boying.common.api.IErrorCode;
 /**
  * 断言处理类，用于抛出各种API异常
  */
-public class Asserts {
-    public static void fail(String message) {
+public class Asserts
+{
+    public static void fail(String message)
+    {
         throw new ApiException(message);
     }
 
-    public static void fail(IErrorCode errorCode) {
+    public static void fail(IErrorCode errorCode)
+    {
         throw new ApiException(errorCode);
     }
 }

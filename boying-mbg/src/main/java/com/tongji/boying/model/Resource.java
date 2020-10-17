@@ -1,76 +1,85 @@
 package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class Resource implements Serializable {
+public class Resource implements Serializable
+{
+    private static final long serialVersionUID = 1L;
     private Integer resourceId;
-
     private Integer resourceCategoryId;
-
     private Date createTime;
-
     private String name;
-
     @ApiModelProperty(value = "资源URL")
     private String url;
-
     @ApiModelProperty(value = "资源描述")
     private String description;
 
-    private static final long serialVersionUID = 1L;
-
-    public Integer getResourceId() {
+    public Integer getResourceId()
+    {
         return resourceId;
     }
 
-    public void setResourceId(Integer resourceId) {
+    public void setResourceId(Integer resourceId)
+    {
         this.resourceId = resourceId;
     }
 
-    public Integer getResourceCategoryId() {
+    public Integer getResourceCategoryId()
+    {
         return resourceCategoryId;
     }
 
-    public void setResourceCategoryId(Integer resourceCategoryId) {
+    public void setResourceCategoryId(Integer resourceCategoryId)
+    {
         this.resourceCategoryId = resourceCategoryId;
     }
 
-    public Date getCreateTime() {
+    public Date getCreateTime()
+    {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Date createTime)
+    {
         this.createTime = createTime;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public String getUrl() {
+    public String getUrl()
+    {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(String url)
+    {
         this.url = url;
     }
 
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
         this.description = description;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");

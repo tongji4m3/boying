@@ -1,43 +1,47 @@
 package com.tongji.boying.model;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
-public class Ticket implements Serializable {
+public class Ticket implements Serializable
+{
+    private static final long serialVersionUID = 1L;
     private Integer ticketid;
-
     private Integer frequentid;
-
     private Integer classid;
 
-    private static final long serialVersionUID = 1L;
-
-    public Integer getTicketid() {
+    public Integer getTicketid()
+    {
         return ticketid;
     }
 
-    public void setTicketid(Integer ticketid) {
+    public void setTicketid(Integer ticketid)
+    {
         this.ticketid = ticketid;
     }
 
-    public Integer getFrequentid() {
+    public Integer getFrequentid()
+    {
         return frequentid;
     }
 
-    public void setFrequentid(Integer frequentid) {
+    public void setFrequentid(Integer frequentid)
+    {
         this.frequentid = frequentid;
     }
 
-    public Integer getClassid() {
+    public Integer getClassid()
+    {
         return classid;
     }
 
-    public void setClassid(Integer classid) {
+    public void setClassid(Integer classid)
+    {
         this.classid = classid;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");

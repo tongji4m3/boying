@@ -2,10 +2,12 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.User;
 import com.tongji.boying.model.UserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface UserMapper {
+import java.util.List;
+
+public interface UserMapper
+{
     long countByExample(UserExample example);
 
     int deleteByExample(UserExample example);

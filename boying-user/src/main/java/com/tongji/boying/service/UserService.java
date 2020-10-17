@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 用户管理Service
+ *
  * @author tongji4m3
  */
 public interface UserService
@@ -22,6 +23,7 @@ public interface UserService
 
     /**
      * 用户注册
+     *
      * @Transactional 注解管理事务
      */
     @Transactional

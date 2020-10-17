@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan({"com.tongji.boying.mapper","com.tongji.boying.dao"})
-public class MyBatisConfig {
+@MapperScan({"com.tongji.boying.mapper", "com.tongji.boying.dao"})
+public class MyBatisConfig
+{
 }
