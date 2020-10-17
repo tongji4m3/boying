@@ -85,7 +85,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from resource
     where resource_id = #{resourceId,jdbcType=INTEGER}
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Resource">
-    insert into resource (resource_id, resource_category_id, create_time,
+    insert into resource (resource_id, resource_category_id, create_time, 
       name, url, description
       )
-    values (#{resourceId,jdbcType=INTEGER}, #{resourceCategoryId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+    values (#{resourceId,jdbcType=INTEGER}, #{resourceCategoryId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
       )
   </insert>

@@ -1,5 +1,6 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class Ticket implements Serializable {

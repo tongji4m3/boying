@@ -1,53 +1,30 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
 public class Menu implements Serializable {
     private Integer menuId;
 
-    /**
-     * 父级ID
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "父级ID")
     private Integer parentId;
 
-    /**
-     * 创建时间
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    /**
-     * 菜单名称
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "菜单名称")
     private String title;
 
-    /**
-     * 菜单级数
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "菜单级数")
     private Integer level;
 
-    /**
-     * 菜单排序
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "菜单排序")
     private Integer sort;
 
     private String icon;
 
-    /**
-     * 控制前端是否隐藏
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "控制前端是否隐藏")
     private Boolean hidden;
 
     private static final long serialVersionUID = 1L;

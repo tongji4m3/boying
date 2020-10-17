@@ -1,5 +1,6 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -8,25 +9,13 @@ public class Class implements Serializable {
 
     private Integer showsessionid;
 
-    /**
-     * 所属哪个级别,例如A等座,B等座
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "所属哪个级别,例如A等座,B等座")
     private Integer grade;
 
-    /**
-     * 该级别座位的容量
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "该级别座位的容量")
     private Integer capacity;
 
-    /**
-     * 该级别座位的定价
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "该级别座位的定价")
     private BigDecimal price;
 
     private static final long serialVersionUID = 1L;

@@ -86,7 +86,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from category
     where category_id = #{categoryId,jdbcType=INTEGER}
@@ -102,11 +102,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Category">
-    insert into category (category_id, parent_id, name,
-      level, weight, icon,
+    insert into category (category_id, parent_id, name, 
+      level, weight, icon, 
       description)
-    values (#{categoryId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
-      #{level,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR},
+    values (#{categoryId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Category">

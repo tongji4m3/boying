@@ -1,5 +1,6 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class Address implements Serializable {
@@ -11,46 +12,22 @@ public class Address implements Serializable {
 
     private String phone;
 
-    /**
-     * 省份
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "省份")
     private String province;
 
-    /**
-     * 城市
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "城市")
     private String city;
 
-    /**
-     * 城区
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "城区")
     private String region;
 
-    /**
-     * 街道
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "街道")
     private String street;
 
-    /**
-     * 街道后的详细地址
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "街道后的详细地址")
     private String details;
 
-    /**
-     * 是否是默认地址,bool类型
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "是否是默认地址,bool类型")
     private Boolean defaultAddress;
 
     private static final long serialVersionUID = 1L;

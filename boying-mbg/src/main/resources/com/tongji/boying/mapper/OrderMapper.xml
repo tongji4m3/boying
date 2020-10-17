@@ -85,7 +85,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from order
     where order_id = #{orderId,jdbcType=INTEGER}
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Order">
-    insert into order (order_id, show_session_id, user_id,
+    insert into order (order_id, show_session_id, user_id, 
       status, time, address_id
       )
-    values (#{orderId,jdbcType=INTEGER}, #{showSessionId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+    values (#{orderId,jdbcType=INTEGER}, #{showSessionId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{addressId,jdbcType=INTEGER}
       )
   </insert>

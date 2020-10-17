@@ -87,7 +87,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from menu
     where menu_id = #{menuId,jdbcType=INTEGER}
@@ -103,11 +103,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Menu">
-    insert into menu (menu_id, parent_id, create_time,
-      title, level, sort,
+    insert into menu (menu_id, parent_id, create_time, 
+      title, level, sort, 
       icon, hidden)
-    values (#{menuId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
-      #{title,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER},
+    values (#{menuId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{title,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
       #{icon,jdbcType=VARCHAR}, #{hidden,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Menu">

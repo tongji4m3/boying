@@ -1,16 +1,13 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
 public class ShowSession implements Serializable {
     private Integer showSessionId;
 
-    /**
-     * 所属哪个演唱会
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "所属哪个演唱会")
     private Integer showId;
 
     private String city;
@@ -19,18 +16,10 @@ public class ShowSession implements Serializable {
 
     private Date endTime;
 
-    /**
-     * 具体演出地址
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "具体演出地址")
     private String address;
 
-    /**
-     * 上映后,已下架等,以及显示的优先级
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "上映后,已下架等,以及显示的优先级")
     private Integer weight;
 
     private static final long serialVersionUID = 1L;

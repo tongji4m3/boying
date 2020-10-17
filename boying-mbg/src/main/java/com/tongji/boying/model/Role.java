@@ -1,51 +1,28 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
 public class Role implements Serializable {
     private Integer roleId;
 
-    /**
-     * 角色名称
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "角色名称")
     private String name;
 
-    /**
-     * 角色描述
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "角色描述")
     private String description;
 
-    /**
-     * 后台用户数量
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "后台用户数量")
     private Integer adminCount;
 
-    /**
-     * 创建时间
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    /**
-     * 启用状态：0->禁用；1->启用
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "启用状态：0->禁用；1->启用")
     private Byte status;
 
-    /**
-     * 用于排序
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "用于排序")
     private Integer sort;
 
     private static final long serialVersionUID = 1L;

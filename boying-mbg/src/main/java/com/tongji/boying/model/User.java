@@ -1,5 +1,6 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -9,18 +10,10 @@ public class User implements Serializable {
 
     private String password;
 
-    /**
-     * 用户真实姓名
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "用户真实姓名")
     private String realName;
 
-    /**
-     * 用户身份证号
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "用户身份证号")
     private String identityNumber;
 
     private String phone;
@@ -29,12 +22,11 @@ public class User implements Serializable {
 
     private Integer age;
 
-    /**
-     * 用户性别 1->男,0->女
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "用户性别 1->男,0->女")
     private Boolean gender;
+
+    @ApiModelProperty(value = "帐号启用状态：0->禁用；1->启用")
+    private Boolean status;
 
     private static final long serialVersionUID = 1L;
 
@@ -110,6 +102,14 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -125,6 +125,7 @@ public class User implements Serializable {
         sb.append(", email=").append(email);
         sb.append(", age=").append(age);
         sb.append(", gender=").append(gender);
+        sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

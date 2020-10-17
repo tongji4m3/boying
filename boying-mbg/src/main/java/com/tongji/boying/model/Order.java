@@ -1,5 +1,6 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,11 +11,7 @@ public class Order implements Serializable {
 
     private Integer userId;
 
-    /**
-     *  已取消,待付款,待使用,待评价
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = " 已取消,待付款,待使用,待评价")
     private Integer status;
 
     private Date time;

@@ -11,6 +11,7 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="gender" jdbcType="BIT" property="gender" />
+    <result column="status" jdbcType="BIT" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, username, password, real_name, identity_number, phone, email, age, gender
+    user_id, username, password, real_name, identity_number, phone, email, age, gender, 
+    status
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.UserExample" resultMap="BaseResultMap">
     select
@@ -88,7 +90,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from user
     where user_id = #{userId,jdbcType=INTEGER}
@@ -104,12 +106,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.User">
-    insert into user (user_id, username, password,
-      real_name, identity_number, phone,
-      email, age, gender)
-    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-      #{realName,jdbcType=VARCHAR}, #{identityNumber,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
-      #{email,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{gender,jdbcType=BIT})
+    insert into user (user_id, username, password, 
+      real_name, identity_number, phone, 
+      email, age, gender, status
+      )
+    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{identityNumber,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{gender,jdbcType=BIT}, #{status,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.User">
     insert into user
@@ -141,6 +145,9 @@
       <if test="gender != null">
         gender,
       </if>
+      <if test="status != null">
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -169,6 +176,9 @@
       </if>
       <if test="gender != null">
         #{gender,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -208,6 +218,9 @@
       <if test="record.gender != null">
         gender = #{record.gender,jdbcType=BIT},
       </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -223,7 +236,8 @@
       phone = #{record.phone,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       age = #{record.age,jdbcType=INTEGER},
-      gender = #{record.gender,jdbcType=BIT}
+      gender = #{record.gender,jdbcType=BIT},
+      status = #{record.status,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -255,6 +269,9 @@
       <if test="gender != null">
         gender = #{gender,jdbcType=BIT},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -267,7 +284,8 @@
       phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
-      gender = #{gender,jdbcType=BIT}
+      gender = #{gender,jdbcType=BIT},
+      status = #{status,jdbcType=BIT}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

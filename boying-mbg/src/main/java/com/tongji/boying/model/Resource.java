@@ -1,5 +1,6 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,18 +13,10 @@ public class Resource implements Serializable {
 
     private String name;
 
-    /**
-     * 资源URL
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "资源URL")
     private String url;
 
-    /**
-     * 资源描述
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "资源描述")
     private String description;
 
     private static final long serialVersionUID = 1L;

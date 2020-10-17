@@ -1,5 +1,6 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -8,32 +9,16 @@ public class Show implements Serializable {
 
     private String name;
 
-    /**
-     * 所属的目录
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "所属的目录")
     private Integer categoryId;
 
-    /**
-     * 该演唱会的海报信息
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "该演唱会的海报信息")
     private String poster;
 
-    /**
-     * 该演唱会的最低价
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "该演唱会的最低价")
     private BigDecimal minPrice;
 
-    /**
-     * 存储该演唱会等的图文信息
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "存储该演唱会等的图文信息")
     private byte[] details;
 
     private static final long serialVersionUID = 1L;

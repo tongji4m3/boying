@@ -106,7 +106,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select
+    select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -124,10 +124,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Show">
-    insert into show (show_id, name, category_id,
+    insert into show (show_id, name, category_id, 
       poster, min_price, details
       )
-    values (#{showId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER},
+    values (#{showId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
       #{poster,jdbcType=VARCHAR}, #{minPrice,jdbcType=DECIMAL}, #{details,jdbcType=LONGVARBINARY}
       )
   </insert>

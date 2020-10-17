@@ -84,7 +84,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from frequent_buyers
     where frequent_id = #{frequentId,jdbcType=INTEGER}
@@ -100,9 +100,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.FrequentBuyers">
-    insert into frequent_buyers (frequent_id, user_id, name,
+    insert into frequent_buyers (frequent_id, user_id, name, 
       identity_number, default_buyer)
-    values (#{frequentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+    values (#{frequentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{identityNumber,jdbcType=VARCHAR}, #{defaultBuyer,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.FrequentBuyers">

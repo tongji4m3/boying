@@ -1,5 +1,6 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class FrequentBuyers implements Serializable {
@@ -9,18 +10,10 @@ public class FrequentBuyers implements Serializable {
 
     private String name;
 
-    /**
-     * 常用购票人的身份证号码
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "常用购票人的身份证号码")
     private String identityNumber;
 
-    /**
-     * 是否为默认常用购票人
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "是否为默认常用购票人")
     private Boolean defaultBuyer;
 
     private static final long serialVersionUID = 1L;

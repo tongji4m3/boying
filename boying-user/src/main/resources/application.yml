@@ -32,7 +32,7 @@ secure:
       - /webjars/springfox-swagger-ui/**
       - /druid/**
       - /actuator/**
-      - /sso/**
+      - /user/**
       - /home/**
       - /product/**
       - /brand/**

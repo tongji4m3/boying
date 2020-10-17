@@ -84,7 +84,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from class
     where class_id = #{classId,jdbcType=INTEGER}
@@ -100,9 +100,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Class">
-    insert into class (class_id, showSessionId, grade,
+    insert into class (class_id, showSessionId, grade, 
       capacity, price)
-    values (#{classId,jdbcType=INTEGER}, #{showsessionid,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER},
+    values (#{classId,jdbcType=INTEGER}, #{showsessionid,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
       #{capacity,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Class">

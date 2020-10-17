@@ -86,7 +86,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from show_session
     where show_session_id = #{showSessionId,jdbcType=INTEGER}
@@ -102,11 +102,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.ShowSession">
-    insert into show_session (show_session_id, show_id, city,
-      start_time, end_time, address,
+    insert into show_session (show_session_id, show_id, city, 
+      start_time, end_time, address, 
       weight)
-    values (#{showSessionId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR},
-      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR},
+    values (#{showSessionId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
       #{weight,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.ShowSession">

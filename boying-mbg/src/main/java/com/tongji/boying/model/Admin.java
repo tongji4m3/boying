@@ -1,5 +1,6 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,34 +11,18 @@ public class Admin implements Serializable {
 
     private String password;
 
-    /**
-     * 头像
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "头像")
     private String icon;
 
     private String email;
 
-    /**
-     * 创建时间
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    /**
-     * 最后登录时间
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "最后登录时间")
     private Date loginTime;
 
-    /**
-     * 帐号启用状态：0->禁用；1->启用
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "帐号启用状态：0->禁用；1->启用")
     private Boolean status;
 
     private static final long serialVersionUID = 1L;

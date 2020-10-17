@@ -89,7 +89,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from address
     where address_id = #{addressId,jdbcType=INTEGER}
@@ -105,13 +105,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Address">
-    insert into address (address_id, user_id, receiver,
-      phone, province, city,
-      region, street, details,
+    insert into address (address_id, user_id, receiver, 
+      phone, province, city, 
+      region, street, details, 
       default_address)
-    values (#{addressId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{receiver,jdbcType=VARCHAR},
-      #{phone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
-      #{region,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR},
+    values (#{addressId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{receiver,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{region,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, 
       #{defaultAddress,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Address">

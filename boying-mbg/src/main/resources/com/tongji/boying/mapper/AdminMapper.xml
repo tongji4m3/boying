@@ -87,7 +87,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from admin
     where admin_id = #{adminId,jdbcType=INTEGER}
@@ -103,11 +103,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Admin">
-    insert into admin (admin_id, username, password,
-      icon, email, create_time,
+    insert into admin (admin_id, username, password, 
+      icon, email, create_time, 
       login_time, status)
-    values (#{adminId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-      #{icon,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+    values (#{adminId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{loginTime,jdbcType=TIMESTAMP}, #{status,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Admin">
