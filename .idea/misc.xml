@@ -8,7 +8,16 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/boying-admin/pom.xml" />
+        <option value="$PROJECT_DIR$/boying-common/pom.xml" />
+        <option value="$PROJECT_DIR$/boying-mbg/pom.xml" />
+        <option value="$PROJECT_DIR$/boying-user/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/boying-search/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
