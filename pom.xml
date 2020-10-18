@@ -18,7 +18,6 @@
         <module>boying-mbg</module>
         <module>boying-security</module>
         <module>boying-admin</module>
-        <module>boying-search</module>
         <module>boying-user</module>
     </modules>
 
