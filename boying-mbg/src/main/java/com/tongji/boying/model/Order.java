@@ -1,84 +1,75 @@
 package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
 import java.util.Date;
 
-public class Order implements Serializable
-{
-    private static final long serialVersionUID = 1L;
+public class Order implements Serializable {
     private Integer orderId;
+
     private Integer showSessionId;
+
     private Integer userId;
+
     @ApiModelProperty(value = " 已取消,待付款,待使用,待评价")
     private Integer status;
+
     private Date time;
+
     private Integer addressId;
 
-    public Integer getOrderId()
-    {
+    private static final long serialVersionUID = 1L;
+
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId)
-    {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
-    public Integer getShowSessionId()
-    {
+    public Integer getShowSessionId() {
         return showSessionId;
     }
 
-    public void setShowSessionId(Integer showSessionId)
-    {
+    public void setShowSessionId(Integer showSessionId) {
         this.showSessionId = showSessionId;
     }
 
-    public Integer getUserId()
-    {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId)
-    {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public Integer getStatus()
-    {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status)
-    {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public Date getTime()
-    {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(Date time)
-    {
+    public void setTime(Date time) {
         this.time = time;
     }
 
-    public Integer getAddressId()
-    {
+    public Integer getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(Integer addressId)
-    {
+    public void setAddressId(Integer addressId) {
         this.addressId = addressId;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");

@@ -3,359 +3,296 @@ package com.tongji.boying.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoleMenuExample
-{
+public class RoleMenuExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public RoleMenuExample()
-    {
+    public RoleMenuExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
-    public String getOrderByClause()
-    {
-        return orderByClause;
-    }
-
-    public void setOrderByClause(String orderByClause)
-    {
+    public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    public boolean isDistinct()
-    {
-        return distinct;
+    public String getOrderByClause() {
+        return orderByClause;
     }
 
-    public void setDistinct(boolean distinct)
-    {
+    public void setDistinct(boolean distinct) {
         this.distinct = distinct;
     }
 
-    public List<Criteria> getOredCriteria()
-    {
+    public boolean isDistinct() {
+        return distinct;
+    }
+
+    public List<Criteria> getOredCriteria() {
         return oredCriteria;
     }
 
-    public void or(Criteria criteria)
-    {
+    public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }
 
-    public Criteria or()
-    {
+    public Criteria or() {
         Criteria criteria = createCriteriaInternal();
         oredCriteria.add(criteria);
         return criteria;
     }
 
-    public Criteria createCriteria()
-    {
+    public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
-        if (oredCriteria.size() == 0)
-        {
+        if (oredCriteria.size() == 0) {
             oredCriteria.add(criteria);
         }
         return criteria;
     }
 
-    protected Criteria createCriteriaInternal()
-    {
+    protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
         return criteria;
     }
 
-    public void clear()
-    {
+    public void clear() {
         oredCriteria.clear();
         orderByClause = null;
         distinct = false;
     }
 
-    protected abstract static class GeneratedCriteria
-    {
+    protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
 
-        protected GeneratedCriteria()
-        {
+        protected GeneratedCriteria() {
             super();
             criteria = new ArrayList<Criterion>();
         }
 
-        public boolean isValid()
-        {
+        public boolean isValid() {
             return criteria.size() > 0;
         }
 
-        public List<Criterion> getAllCriteria()
-        {
+        public List<Criterion> getAllCriteria() {
             return criteria;
         }
 
-        public List<Criterion> getCriteria()
-        {
+        public List<Criterion> getCriteria() {
             return criteria;
         }
 
-        protected void addCriterion(String condition)
-        {
-            if (condition == null)
-            {
+        protected void addCriterion(String condition) {
+            if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
             }
             criteria.add(new Criterion(condition));
         }
 
-        protected void addCriterion(String condition, Object value, String property)
-        {
-            if (value == null)
-            {
+        protected void addCriterion(String condition, Object value, String property) {
+            if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value));
         }
 
-        protected void addCriterion(String condition, Object value1, Object value2, String property)
-        {
-            if (value1 == null || value2 == null)
-            {
+        protected void addCriterion(String condition, Object value1, Object value2, String property) {
+            if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andRoleMenuIdIsNull()
-        {
+        public Criteria andRoleMenuIdIsNull() {
             addCriterion("role_menu_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleMenuIdIsNotNull()
-        {
+        public Criteria andRoleMenuIdIsNotNull() {
             addCriterion("role_menu_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleMenuIdEqualTo(Integer value)
-        {
+        public Criteria andRoleMenuIdEqualTo(Integer value) {
             addCriterion("role_menu_id =", value, "roleMenuId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleMenuIdNotEqualTo(Integer value)
-        {
+        public Criteria andRoleMenuIdNotEqualTo(Integer value) {
             addCriterion("role_menu_id <>", value, "roleMenuId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleMenuIdGreaterThan(Integer value)
-        {
+        public Criteria andRoleMenuIdGreaterThan(Integer value) {
             addCriterion("role_menu_id >", value, "roleMenuId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleMenuIdGreaterThanOrEqualTo(Integer value)
-        {
+        public Criteria andRoleMenuIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("role_menu_id >=", value, "roleMenuId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleMenuIdLessThan(Integer value)
-        {
+        public Criteria andRoleMenuIdLessThan(Integer value) {
             addCriterion("role_menu_id <", value, "roleMenuId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleMenuIdLessThanOrEqualTo(Integer value)
-        {
+        public Criteria andRoleMenuIdLessThanOrEqualTo(Integer value) {
             addCriterion("role_menu_id <=", value, "roleMenuId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleMenuIdIn(List<Integer> values)
-        {
+        public Criteria andRoleMenuIdIn(List<Integer> values) {
             addCriterion("role_menu_id in", values, "roleMenuId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleMenuIdNotIn(List<Integer> values)
-        {
+        public Criteria andRoleMenuIdNotIn(List<Integer> values) {
             addCriterion("role_menu_id not in", values, "roleMenuId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleMenuIdBetween(Integer value1, Integer value2)
-        {
+        public Criteria andRoleMenuIdBetween(Integer value1, Integer value2) {
             addCriterion("role_menu_id between", value1, value2, "roleMenuId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleMenuIdNotBetween(Integer value1, Integer value2)
-        {
+        public Criteria andRoleMenuIdNotBetween(Integer value1, Integer value2) {
             addCriterion("role_menu_id not between", value1, value2, "roleMenuId");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdIsNull()
-        {
+        public Criteria andMenuIdIsNull() {
             addCriterion("menu_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdIsNotNull()
-        {
+        public Criteria andMenuIdIsNotNull() {
             addCriterion("menu_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdEqualTo(Integer value)
-        {
+        public Criteria andMenuIdEqualTo(Integer value) {
             addCriterion("menu_id =", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdNotEqualTo(Integer value)
-        {
+        public Criteria andMenuIdNotEqualTo(Integer value) {
             addCriterion("menu_id <>", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdGreaterThan(Integer value)
-        {
+        public Criteria andMenuIdGreaterThan(Integer value) {
             addCriterion("menu_id >", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdGreaterThanOrEqualTo(Integer value)
-        {
+        public Criteria andMenuIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("menu_id >=", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdLessThan(Integer value)
-        {
+        public Criteria andMenuIdLessThan(Integer value) {
             addCriterion("menu_id <", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdLessThanOrEqualTo(Integer value)
-        {
+        public Criteria andMenuIdLessThanOrEqualTo(Integer value) {
             addCriterion("menu_id <=", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdIn(List<Integer> values)
-        {
+        public Criteria andMenuIdIn(List<Integer> values) {
             addCriterion("menu_id in", values, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdNotIn(List<Integer> values)
-        {
+        public Criteria andMenuIdNotIn(List<Integer> values) {
             addCriterion("menu_id not in", values, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdBetween(Integer value1, Integer value2)
-        {
+        public Criteria andMenuIdBetween(Integer value1, Integer value2) {
             addCriterion("menu_id between", value1, value2, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andMenuIdNotBetween(Integer value1, Integer value2)
-        {
+        public Criteria andMenuIdNotBetween(Integer value1, Integer value2) {
             addCriterion("menu_id not between", value1, value2, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdIsNull()
-        {
+        public Criteria andRoleIdIsNull() {
             addCriterion("role_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdIsNotNull()
-        {
+        public Criteria andRoleIdIsNotNull() {
             addCriterion("role_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdEqualTo(Integer value)
-        {
+        public Criteria andRoleIdEqualTo(Integer value) {
             addCriterion("role_id =", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotEqualTo(Integer value)
-        {
+        public Criteria andRoleIdNotEqualTo(Integer value) {
             addCriterion("role_id <>", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdGreaterThan(Integer value)
-        {
+        public Criteria andRoleIdGreaterThan(Integer value) {
             addCriterion("role_id >", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdGreaterThanOrEqualTo(Integer value)
-        {
+        public Criteria andRoleIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("role_id >=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdLessThan(Integer value)
-        {
+        public Criteria andRoleIdLessThan(Integer value) {
             addCriterion("role_id <", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdLessThanOrEqualTo(Integer value)
-        {
+        public Criteria andRoleIdLessThanOrEqualTo(Integer value) {
             addCriterion("role_id <=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdIn(List<Integer> values)
-        {
+        public Criteria andRoleIdIn(List<Integer> values) {
             addCriterion("role_id in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotIn(List<Integer> values)
-        {
+        public Criteria andRoleIdNotIn(List<Integer> values) {
             addCriterion("role_id not in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdBetween(Integer value1, Integer value2)
-        {
+        public Criteria andRoleIdBetween(Integer value1, Integer value2) {
             addCriterion("role_id between", value1, value2, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIdNotBetween(Integer value1, Integer value2)
-        {
+        public Criteria andRoleIdNotBetween(Integer value1, Integer value2) {
             addCriterion("role_id not between", value1, value2, "roleId");
             return (Criteria) this;
         }
     }
 
-    public static class Criteria extends GeneratedCriteria
-    {
+    public static class Criteria extends GeneratedCriteria {
 
-        protected Criteria()
-        {
+        protected Criteria() {
             super();
         }
     }
 
-    public static class Criterion
-    {
+    public static class Criterion {
         private String condition;
 
         private Object value;
@@ -372,37 +309,62 @@ public class RoleMenuExample
 
         private String typeHandler;
 
-        protected Criterion(String condition)
-        {
+        public String getCondition() {
+            return condition;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+
+        public Object getSecondValue() {
+            return secondValue;
+        }
+
+        public boolean isNoValue() {
+            return noValue;
+        }
+
+        public boolean isSingleValue() {
+            return singleValue;
+        }
+
+        public boolean isBetweenValue() {
+            return betweenValue;
+        }
+
+        public boolean isListValue() {
+            return listValue;
+        }
+
+        public String getTypeHandler() {
+            return typeHandler;
+        }
+
+        protected Criterion(String condition) {
             super();
             this.condition = condition;
             this.typeHandler = null;
             this.noValue = true;
         }
 
-        protected Criterion(String condition, Object value, String typeHandler)
-        {
+        protected Criterion(String condition, Object value, String typeHandler) {
             super();
             this.condition = condition;
             this.value = value;
             this.typeHandler = typeHandler;
-            if (value instanceof List<?>)
-            {
+            if (value instanceof List<?>) {
                 this.listValue = true;
-            }
-            else
-            {
+            } else {
                 this.singleValue = true;
             }
         }
 
-        protected Criterion(String condition, Object value)
-        {
+        protected Criterion(String condition, Object value) {
             this(condition, value, null);
         }
 
-        protected Criterion(String condition, Object value, Object secondValue, String typeHandler)
-        {
+        protected Criterion(String condition, Object value, Object secondValue, String typeHandler) {
             super();
             this.condition = condition;
             this.value = value;
@@ -411,49 +373,8 @@ public class RoleMenuExample
             this.betweenValue = true;
         }
 
-        protected Criterion(String condition, Object value, Object secondValue)
-        {
+        protected Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
-        }
-
-        public String getCondition()
-        {
-            return condition;
-        }
-
-        public Object getValue()
-        {
-            return value;
-        }
-
-        public Object getSecondValue()
-        {
-            return secondValue;
-        }
-
-        public boolean isNoValue()
-        {
-            return noValue;
-        }
-
-        public boolean isSingleValue()
-        {
-            return singleValue;
-        }
-
-        public boolean isBetweenValue()
-        {
-            return betweenValue;
-        }
-
-        public boolean isListValue()
-        {
-            return listValue;
-        }
-
-        public String getTypeHandler()
-        {
-            return typeHandler;
         }
     }
 }

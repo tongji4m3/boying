@@ -1,100 +1,90 @@
 package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
 import java.util.Date;
 
-public class Role implements Serializable
-{
-    private static final long serialVersionUID = 1L;
+public class Role implements Serializable {
     private Integer roleId;
+
     @ApiModelProperty(value = "角色名称")
     private String name;
+
     @ApiModelProperty(value = "角色描述")
     private String description;
+
     @ApiModelProperty(value = "后台用户数量")
     private Integer adminCount;
+
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
+
     @ApiModelProperty(value = "启用状态：0->禁用；1->启用")
     private Byte status;
+
     @ApiModelProperty(value = "用于排序")
     private Integer sort;
 
-    public Integer getRoleId()
-    {
+    private static final long serialVersionUID = 1L;
+
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId)
-    {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public Integer getAdminCount()
-    {
+    public Integer getAdminCount() {
         return adminCount;
     }
 
-    public void setAdminCount(Integer adminCount)
-    {
+    public void setAdminCount(Integer adminCount) {
         this.adminCount = adminCount;
     }
 
-    public Date getCreateTime()
-    {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime)
-    {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Byte getStatus()
-    {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status)
-    {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
-    public Integer getSort()
-    {
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(Integer sort)
-    {
+    public void setSort(Integer sort) {
         this.sort = sort;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");

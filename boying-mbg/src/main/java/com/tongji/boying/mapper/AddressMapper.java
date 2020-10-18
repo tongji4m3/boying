@@ -2,12 +2,10 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.Address;
 import com.tongji.boying.model.AddressExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
-public interface AddressMapper
-{
+public interface AddressMapper {
     long countByExample(AddressExample example);
 
     int deleteByExample(AddressExample example);
