@@ -1,3 +1,4 @@
+//实现整个项目安全管理的内容，链接boying-security，security涉及到
 package com.tongji.boying.bo;
 
 import com.tongji.boying.model.User;

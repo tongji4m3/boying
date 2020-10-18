@@ -7,7 +7,7 @@ public class CommonResult<T>
 {
     private long code;
     private String message;
-    private T data;
+    private T data;//后端返回的信息
 
     protected CommonResult()
     {

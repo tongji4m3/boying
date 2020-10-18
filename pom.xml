@@ -22,6 +22,7 @@
         <module>boying-user</module>
     </modules>
 
+    <!--    父工程-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -29,6 +30,7 @@
     </parent>
 
     <!--    项目中所有要使用到的jar包的版本都集中由父工程管理。这样你在写其他工程pom文件中maven依赖时就不需要写版本号-->
+    <!--    版本号-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -61,6 +63,7 @@
         <boying-security.version>1.0-SNAPSHOT</boying-security.version>
     </properties>
 
+    <!--依赖-->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -212,6 +215,7 @@
     <build>
         <finalName>boying</finalName>
         <!--        指定maven编译的jdk版本-->
+        <!--        版本-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
