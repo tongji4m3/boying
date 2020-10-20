@@ -40,18 +40,21 @@ public class BoyingUserDetails implements UserDetails
         return user.getUsername();
     }
 
+    //账号未过期
     @Override
     public boolean isAccountNonExpired()
     {
         return true;
     }
 
+    //账号未被锁定
     @Override
     public boolean isAccountNonLocked()
     {
         return true;
     }
 
+    //凭证未过期
     @Override
     public boolean isCredentialsNonExpired()
     {

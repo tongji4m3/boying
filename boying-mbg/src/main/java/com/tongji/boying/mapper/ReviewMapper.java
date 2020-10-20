@@ -2,10 +2,12 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.Review;
 import com.tongji.boying.model.ReviewExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface ReviewMapper {
+import java.util.List;
+
+public interface ReviewMapper
+{
     long countByExample(ReviewExample example);
 
     int deleteByExample(ReviewExample example);

@@ -2,10 +2,12 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.Ticket;
 import com.tongji.boying.model.TicketExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface TicketMapper {
+import java.util.List;
+
+public interface TicketMapper
+{
     long countByExample(TicketExample example);
 
     int deleteByExample(TicketExample example);

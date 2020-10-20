@@ -13,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig extends BaseSwaggerConfig
 {
 
+    //    该写法其实就是创建一个类,只不过@Builder运行它这样写
     @Override
     public SwaggerProperties swaggerProperties()
     {

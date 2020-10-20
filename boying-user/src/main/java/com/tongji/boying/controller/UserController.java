@@ -2,6 +2,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.model.User;
+import com.tongji.boying.model.UserExample;
 import com.tongji.boying.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -72,6 +73,15 @@ public class UserController
             return CommonResult.unauthorized(null);
         }
         User user = userService.getCurrentUser();
+
+        return CommonResult.success(user);
+    }
+
+    @ApiOperation("完整导入")
+    @RequestMapping(value = "/import", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult test(User user)
+    {
         return CommonResult.success(user);
     }
 }

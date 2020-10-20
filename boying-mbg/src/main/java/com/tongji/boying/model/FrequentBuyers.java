@@ -1,65 +1,73 @@
 package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
-public class FrequentBuyers implements Serializable {
+public class FrequentBuyers implements Serializable
+{
+    private static final long serialVersionUID = 1L;
     private Integer frequentId;
-
     private Integer userId;
-
     private String name;
-
     @ApiModelProperty(value = "常用购票人的身份证号码")
     private String identityNumber;
-
     @ApiModelProperty(value = "是否为默认常用购票人")
     private Boolean defaultBuyer;
 
-    private static final long serialVersionUID = 1L;
-
-    public Integer getFrequentId() {
+    public Integer getFrequentId()
+    {
         return frequentId;
     }
 
-    public void setFrequentId(Integer frequentId) {
+    public void setFrequentId(Integer frequentId)
+    {
         this.frequentId = frequentId;
     }
 
-    public Integer getUserId() {
+    public Integer getUserId()
+    {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Integer userId)
+    {
         this.userId = userId;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public String getIdentityNumber() {
+    public String getIdentityNumber()
+    {
         return identityNumber;
     }
 
-    public void setIdentityNumber(String identityNumber) {
+    public void setIdentityNumber(String identityNumber)
+    {
         this.identityNumber = identityNumber;
     }
 
-    public Boolean getDefaultBuyer() {
+    public Boolean getDefaultBuyer()
+    {
         return defaultBuyer;
     }
 
-    public void setDefaultBuyer(Boolean defaultBuyer) {
+    public void setDefaultBuyer(Boolean defaultBuyer)
+    {
         this.defaultBuyer = defaultBuyer;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");

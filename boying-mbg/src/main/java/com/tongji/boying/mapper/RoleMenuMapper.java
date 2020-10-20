@@ -2,10 +2,12 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.RoleMenu;
 import com.tongji.boying.model.RoleMenuExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface RoleMenuMapper {
+import java.util.List;
+
+public interface RoleMenuMapper
+{
     long countByExample(RoleMenuExample example);
 
     int deleteByExample(RoleMenuExample example);

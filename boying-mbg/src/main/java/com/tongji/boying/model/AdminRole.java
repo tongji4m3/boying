@@ -1,43 +1,47 @@
 package com.tongji.boying.model;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
-public class AdminRole implements Serializable {
+public class AdminRole implements Serializable
+{
+    private static final long serialVersionUID = 1L;
     private Integer adminRoleId;
-
     private Integer adminId;
-
     private Integer roleId;
 
-    private static final long serialVersionUID = 1L;
-
-    public Integer getAdminRoleId() {
+    public Integer getAdminRoleId()
+    {
         return adminRoleId;
     }
 
-    public void setAdminRoleId(Integer adminRoleId) {
+    public void setAdminRoleId(Integer adminRoleId)
+    {
         this.adminRoleId = adminRoleId;
     }
 
-    public Integer getAdminId() {
+    public Integer getAdminId()
+    {
         return adminId;
     }
 
-    public void setAdminId(Integer adminId) {
+    public void setAdminId(Integer adminId)
+    {
         this.adminId = adminId;
     }
 
-    public Integer getRoleId() {
+    public Integer getRoleId()
+    {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Integer roleId)
+    {
         this.roleId = roleId;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");

@@ -2,10 +2,12 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.FrequentBuyers;
 import com.tongji.boying.model.FrequentBuyersExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface FrequentBuyersMapper {
+import java.util.List;
+
+public interface FrequentBuyersMapper
+{
     long countByExample(FrequentBuyersExample example);
 
     int deleteByExample(FrequentBuyersExample example);

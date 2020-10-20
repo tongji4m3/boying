@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Swagger自定义配置
+ * 注解@Builder注释为类生成相对略微复杂的构建器API
+ * 例如:SwaggerProperties.builder().version("1.0").enableSecurity(true).build();
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -1,78 +1,87 @@
 package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Show implements Serializable {
+public class Show implements Serializable
+{
+    private static final long serialVersionUID = 1L;
     private Integer showId;
-
     private String name;
-
     @ApiModelProperty(value = "所属的目录")
     private Integer categoryId;
-
     @ApiModelProperty(value = "该演唱会的海报信息")
     private String poster;
-
     @ApiModelProperty(value = "该演唱会的最低价")
     private BigDecimal minPrice;
-
     @ApiModelProperty(value = "存储该演唱会等的图文信息")
     private byte[] details;
 
-    private static final long serialVersionUID = 1L;
-
-    public Integer getShowId() {
+    public Integer getShowId()
+    {
         return showId;
     }
 
-    public void setShowId(Integer showId) {
+    public void setShowId(Integer showId)
+    {
         this.showId = showId;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public Integer getCategoryId() {
+    public Integer getCategoryId()
+    {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Integer categoryId)
+    {
         this.categoryId = categoryId;
     }
 
-    public String getPoster() {
+    public String getPoster()
+    {
         return poster;
     }
 
-    public void setPoster(String poster) {
+    public void setPoster(String poster)
+    {
         this.poster = poster;
     }
 
-    public BigDecimal getMinPrice() {
+    public BigDecimal getMinPrice()
+    {
         return minPrice;
     }
 
-    public void setMinPrice(BigDecimal minPrice) {
+    public void setMinPrice(BigDecimal minPrice)
+    {
         this.minPrice = minPrice;
     }
 
-    public byte[] getDetails() {
+    public byte[] getDetails()
+    {
         return details;
     }
 
-    public void setDetails(byte[] details) {
+    public void setDetails(byte[] details)
+    {
         this.details = details;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");

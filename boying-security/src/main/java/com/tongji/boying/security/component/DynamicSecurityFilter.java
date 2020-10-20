@@ -20,6 +20,9 @@ import java.io.IOException;
 public class DynamicSecurityFilter extends AbstractSecurityInterceptor implements Filter
 {
 
+    /**
+     * 用于获取当前访问路径所需资源
+     */
     @Autowired
     private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
     @Autowired

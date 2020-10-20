@@ -1,54 +1,59 @@
 package com.tongji.boying.model;
 
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ResourceCategory implements Serializable {
+public class ResourceCategory implements Serializable
+{
+    private static final long serialVersionUID = 1L;
     private Integer resourceCategoryId;
-
     private Date createTime;
-
     private String name;
-
     private Integer sort;
 
-    private static final long serialVersionUID = 1L;
-
-    public Integer getResourceCategoryId() {
+    public Integer getResourceCategoryId()
+    {
         return resourceCategoryId;
     }
 
-    public void setResourceCategoryId(Integer resourceCategoryId) {
+    public void setResourceCategoryId(Integer resourceCategoryId)
+    {
         this.resourceCategoryId = resourceCategoryId;
     }
 
-    public Date getCreateTime() {
+    public Date getCreateTime()
+    {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Date createTime)
+    {
         this.createTime = createTime;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public Integer getSort() {
+    public Integer getSort()
+    {
         return sort;
     }
 
-    public void setSort(Integer sort) {
+    public void setSort(Integer sort)
+    {
         this.sort = sort;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");

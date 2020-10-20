@@ -12,6 +12,7 @@ import java.io.IOException;
 
 /**
  * 自定义返回结果：没有权限访问时
+ * 返回403相关信息
  */
 public class RestfulAccessDeniedHandler implements AccessDeniedHandler
 {
@@ -20,6 +21,8 @@ public class RestfulAccessDeniedHandler implements AccessDeniedHandler
                        HttpServletResponse response,
                        AccessDeniedException e) throws IOException, ServletException
     {
+        //当前端跨域访问没有权限的接口时，会出现跨域问题，
+        // 只需要在没有权限访问的处理类RestfulAccessDeniedHandler中添加允许跨域访问的响应头即可。
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Cache-Control", "no-cache");
         response.setCharacterEncoding("UTF-8");

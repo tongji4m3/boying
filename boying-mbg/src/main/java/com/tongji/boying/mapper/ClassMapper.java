@@ -2,10 +2,12 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.Class;
 import com.tongji.boying.model.ClassExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface ClassMapper {
+import java.util.List;
+
+public interface ClassMapper
+{
     long countByExample(ClassExample example);
 
     int deleteByExample(ClassExample example);

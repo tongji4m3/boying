@@ -5,6 +5,9 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Controller层的日志封装类
+ * lombok注解中@Data注解包含了get，set和toString方法
+ * 其中@EqualsAndHashCode(callSuper = false)使得若不调用父类的属性
+ * 那么子类属性里面的相同的话，那hashcode的值就相同
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -2,10 +2,12 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.Order;
 import com.tongji.boying.model.OrderExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface OrderMapper {
+import java.util.List;
+
+public interface OrderMapper
+{
     long countByExample(OrderExample example);
 
     int deleteByExample(OrderExample example);
