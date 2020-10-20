@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
- * mall-security模块相关配置
+ * boying-security模块相关配置
  */
 @Configuration
 @EnableWebSecurity
