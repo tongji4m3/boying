@@ -20,7 +20,7 @@ spring:
     database: 0 # Redis数据库索引（默认为0）
     port: 6379 # Redis服务器连接端口
     password: redis # Redis服务器连接密码（默认为空）
-    timeout: 3000ms # 连接超时时间（毫秒）
+    timeout: 300ms # 连接超时时间（毫秒）
     jedis:
       pool:
         max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
@@ -35,7 +35,7 @@ logging:
     com.tongji.boying: debug
 
 logstash:
-  host: localhost
+  host: 47.103.203.188
 
 # OSS相关配置信息
 aliyun:
@@ -46,7 +46,7 @@ aliyun:
     bucketName: tongji-boying # oss的存储空间
     policy:
       expire: 300 # 签名有效期(S)
-    maxSize: 10 # 上传文件大小(M)
+    maxSize: 20 # 上传文件大小(M)
     callback: http://localhost:8000/aliyun/oss/callback # 文件上传成功后的回调地址
     dir:
       prefix: boying/images/ # 上传文件夹路径前缀

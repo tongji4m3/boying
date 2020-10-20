@@ -1,8 +1,8 @@
 package com.tongji.boying.service;
 
 
-import com.tongji.boying.dto.OssCallbackResult;
-import com.tongji.boying.dto.OssPolicyResult;
+import com.tongji.boying.domain.OssCallbackResult;
+import com.tongji.boying.domain.OssPolicyResult;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -29,7 +29,8 @@ public class BoyingSecurityConfig extends SecurityConfig
     @Bean
     public UserDetailsService userDetailsService()
     {
-        //获取登录用户信息
+        //为UserDetailsService定义一个适用与boying-user组件的获取登录用户信息的方法
         return username -> userService.loadUserByUsername(username);
     }
+    //不添加基于路径的动态权限控制
 }

@@ -2,8 +2,8 @@ package com.tongji.boying.controller;
 
 
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.dto.OssCallbackResult;
-import com.tongji.boying.dto.OssPolicyResult;
+import com.tongji.boying.domain.OssCallbackResult;
+import com.tongji.boying.domain.OssPolicyResult;
 import com.tongji.boying.service.impl.OssServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
