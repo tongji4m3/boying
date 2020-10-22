@@ -2,12 +2,10 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.Admin;
 import com.tongji.boying.model.AdminExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
-public interface AdminMapper
-{
+public interface AdminMapper {
     long countByExample(AdminExample example);
 
     int deleteByExample(AdminExample example);

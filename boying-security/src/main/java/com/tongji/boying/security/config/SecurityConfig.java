@@ -28,8 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     private DynamicSecurityService dynamicSecurityService;
 
     /**
-     *用于配置需要拦截的url路径、jwt过滤器及出异常后的处理器；
+     * 用于配置需要拦截的url路径、jwt过滤器及出异常后的处理器；
      * 安全拦截器
+     *
      * @param httpSecurity
      * @throws Exception
      */
@@ -74,6 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
     /**
      * 用于配置UserDetailsService及PasswordEncoder
+     *
      * @param auth
      * @throws Exception
      */
@@ -87,6 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     /**
      * SpringSecurity定义的用于对密码进行编码及比对的接口，目前使用的是BCryptPasswordEncoder
      * 密码编码器
+     *
      * @return
      */
     @Bean
@@ -97,6 +100,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
     /**
      * 在用户名和密码校验前添加的过滤器，如果有jwt的token，会自行根据token信息进行登录。
+     *
      * @return
      */
     @Bean
@@ -115,6 +119,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     /**
      * 当用户没有访问权限时,将调用该方法。是没有访问权限时的处理器，用于返回JSON格式的处理结果
      * RestfulAccessDeniedHandler自行定义
+     *
      * @return
      */
     @Bean
@@ -126,6 +131,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
     /**
      * 当未登录或token失效时，返回JSON格式的结果
+     *
      * @return
      */
     @Bean

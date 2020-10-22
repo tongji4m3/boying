@@ -2,12 +2,10 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.ShowSession;
 import com.tongji.boying.model.ShowSessionExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
-public interface ShowSessionMapper
-{
+public interface ShowSessionMapper {
     long countByExample(ShowSessionExample example);
 
     int deleteByExample(ShowSessionExample example);

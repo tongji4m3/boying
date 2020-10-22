@@ -12,7 +12,8 @@ public class DateUtil
     /**
      * 从Date类型的时间中提取日期部分
      */
-    public static Date getDate(Date date) {
+    public static Date getDate(Date date)
+    {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -24,7 +25,8 @@ public class DateUtil
     /**
      * 从Date类型的时间中提取时间部分
      */
-    public static Date getTime(Date date) {
+    public static Date getTime(Date date)
+    {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.YEAR, 1970);

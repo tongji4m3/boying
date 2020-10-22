@@ -1,272 +1,270 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tongji.boying.mapper.ShowMapper">
-    <resultMap id="BaseResultMap" type="com.tongji.boying.model.Show">
-        <id column="show_id" jdbcType="INTEGER" property="showId"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="category_id" jdbcType="INTEGER" property="categoryId"/>
-        <result column="poster" jdbcType="VARCHAR" property="poster"/>
-        <result column="min_price" jdbcType="DECIMAL" property="minPrice"/>
-    </resultMap>
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tongji.boying.model.Show">
-        <result column="details" jdbcType="LONGVARBINARY" property="details"/>
-    </resultMap>
-    <sql id="Example_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.Show">
+    <id column="show_id" jdbcType="INTEGER" property="showId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="poster" jdbcType="VARCHAR" property="poster" />
+    <result column="min_price" jdbcType="DECIMAL" property="minPrice" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tongji.boying.model.Show">
+    <result column="details" jdbcType="LONGVARBINARY" property="details" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-    <sql id="Update_By_Example_Where_Clause">
-        <where>
-            <foreach collection="example.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
-                                             separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-    <sql id="Base_Column_List">
-        show_id, name, category_id, poster, min_price
-    </sql>
-    <sql id="Blob_Column_List">
-        details
-    </sql>
-    <select id="selectByExampleWithBLOBs" parameterType="com.tongji.boying.model.ShowExample"
-            resultMap="ResultMapWithBLOBs">
-        select
-        <if test="distinct">
-            distinct
+          </trim>
         </if>
-        <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
-        from show
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-    </select>
-    <select id="selectByExample" parameterType="com.tongji.boying.model.ShowExample" resultMap="BaseResultMap">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        <include refid="Base_Column_List"/>
-        from show
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-    </select>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-        select
-        <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
-        from show
-        where show_id = #{showId,jdbcType=INTEGER}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete
-        from show
-        where show_id = #{showId,jdbcType=INTEGER}
-    </delete>
-    <delete id="deleteByExample" parameterType="com.tongji.boying.model.ShowExample">
-        delete from show
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </delete>
-    <insert id="insert" parameterType="com.tongji.boying.model.Show">
-        insert into show (show_id, name, category_id,
-                          poster, min_price, details)
-        values (#{showId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER},
-                #{poster,jdbcType=VARCHAR}, #{minPrice,jdbcType=DECIMAL}, #{details,jdbcType=LONGVARBINARY})
-    </insert>
-    <insert id="insertSelective" parameterType="com.tongji.boying.model.Show">
-        insert into show
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="showId != null">
-                show_id,
-            </if>
-            <if test="name != null">
-                name,
-            </if>
-            <if test="categoryId != null">
-                category_id,
-            </if>
-            <if test="poster != null">
-                poster,
-            </if>
-            <if test="minPrice != null">
-                min_price,
-            </if>
-            <if test="details != null">
-                details,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="showId != null">
-                #{showId,jdbcType=INTEGER},
-            </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="categoryId != null">
-                #{categoryId,jdbcType=INTEGER},
-            </if>
-            <if test="poster != null">
-                #{poster,jdbcType=VARCHAR},
-            </if>
-            <if test="minPrice != null">
-                #{minPrice,jdbcType=DECIMAL},
-            </if>
-            <if test="details != null">
-                #{details,jdbcType=LONGVARBINARY},
-            </if>
-        </trim>
-    </insert>
-    <select id="countByExample" parameterType="com.tongji.boying.model.ShowExample" resultType="java.lang.Long">
-        select count(*) from show
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-    </select>
-    <update id="updateByExampleSelective" parameterType="map">
-        update show
-        <set>
-            <if test="record.showId != null">
-                show_id = #{record.showId,jdbcType=INTEGER},
-            </if>
-            <if test="record.name != null">
-                name = #{record.name,jdbcType=VARCHAR},
-            </if>
-            <if test="record.categoryId != null">
-                category_id = #{record.categoryId,jdbcType=INTEGER},
-            </if>
-            <if test="record.poster != null">
-                poster = #{record.poster,jdbcType=VARCHAR},
-            </if>
-            <if test="record.minPrice != null">
-                min_price = #{record.minPrice,jdbcType=DECIMAL},
-            </if>
-            <if test="record.details != null">
-                details = #{record.details,jdbcType=LONGVARBINARY},
-            </if>
-        </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByExampleWithBLOBs" parameterType="map">
-        update show
-        set show_id = #{record.showId,jdbcType=INTEGER},
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    show_id, name, category_id, poster, min_price
+  </sql>
+  <sql id="Blob_Column_List">
+    details
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.tongji.boying.model.ShowExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from show
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.ShowExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from show
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from show
+    where show_id = #{showId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from show
+    where show_id = #{showId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.ShowExample">
+    delete from show
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.Show">
+    insert into show (show_id, name, category_id, 
+      poster, min_price, details
+      )
+    values (#{showId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
+      #{poster,jdbcType=VARCHAR}, #{minPrice,jdbcType=DECIMAL}, #{details,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.Show">
+    insert into show
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="showId != null">
+        show_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="poster != null">
+        poster,
+      </if>
+      <if test="minPrice != null">
+        min_price,
+      </if>
+      <if test="details != null">
+        details,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="showId != null">
+        #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="poster != null">
+        #{poster,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null">
+        #{minPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.ShowExample" resultType="java.lang.Long">
+    select count(*) from show
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update show
+    <set>
+      <if test="record.showId != null">
+        show_id = #{record.showId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryId != null">
         category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.poster != null">
         poster = #{record.poster,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minPrice != null">
         min_price = #{record.minPrice,jdbcType=DECIMAL},
-        details = #{record.details,jdbcType=LONGVARBINARY}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByExample" parameterType="map">
-        update show
-        set show_id = #{record.showId,jdbcType=INTEGER},
-        name = #{record.name,jdbcType=VARCHAR},
-        category_id = #{record.categoryId,jdbcType=INTEGER},
-        poster = #{record.poster,jdbcType=VARCHAR},
-        min_price = #{record.minPrice,jdbcType=DECIMAL}
-        <if test="_parameter != null">
-            <include refid="Update_By_Example_Where_Clause"/>
-        </if>
-    </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.Show">
-        update show
-        <set>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="categoryId != null">
-                category_id = #{categoryId,jdbcType=INTEGER},
-            </if>
-            <if test="poster != null">
-                poster = #{poster,jdbcType=VARCHAR},
-            </if>
-            <if test="minPrice != null">
-                min_price = #{minPrice,jdbcType=DECIMAL},
-            </if>
-            <if test="details != null">
-                details = #{details,jdbcType=LONGVARBINARY},
-            </if>
-        </set>
-        where show_id = #{showId,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tongji.boying.model.Show">
-        update show
-        set name        = #{name,jdbcType=VARCHAR},
-            category_id = #{categoryId,jdbcType=INTEGER},
-            poster      = #{poster,jdbcType=VARCHAR},
-            min_price   = #{minPrice,jdbcType=DECIMAL},
-            details     = #{details,jdbcType=LONGVARBINARY}
-        where show_id = #{showId,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.Show">
-        update show
-        set name        = #{name,jdbcType=VARCHAR},
-            category_id = #{categoryId,jdbcType=INTEGER},
-            poster      = #{poster,jdbcType=VARCHAR},
-            min_price   = #{minPrice,jdbcType=DECIMAL}
-        where show_id = #{showId,jdbcType=INTEGER}
-    </update>
+      </if>
+      <if test="record.details != null">
+        details = #{record.details,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update show
+    set show_id = #{record.showId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      poster = #{record.poster,jdbcType=VARCHAR},
+      min_price = #{record.minPrice,jdbcType=DECIMAL},
+      details = #{record.details,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update show
+    set show_id = #{record.showId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      poster = #{record.poster,jdbcType=VARCHAR},
+      min_price = #{record.minPrice,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.Show">
+    update show
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="poster != null">
+        poster = #{poster,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null">
+        min_price = #{minPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="details != null">
+        details = #{details,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where show_id = #{showId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tongji.boying.model.Show">
+    update show
+    set name = #{name,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      poster = #{poster,jdbcType=VARCHAR},
+      min_price = #{minPrice,jdbcType=DECIMAL},
+      details = #{details,jdbcType=LONGVARBINARY}
+    where show_id = #{showId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.Show">
+    update show
+    set name = #{name,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      poster = #{poster,jdbcType=VARCHAR},
+      min_price = #{minPrice,jdbcType=DECIMAL}
+    where show_id = #{showId,jdbcType=INTEGER}
+  </update>
 </mapper>

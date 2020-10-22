@@ -37,17 +37,4 @@ logging:
 logstash:
   host: 47.103.203.188
 
-# OSS相关配置信息
-aliyun:
-  oss:
-    endpoint: oss-cn-shanghai.aliyuncs.com # oss对外服务的访问域名
-    accessKeyId: LTAI4G94MzD6ozcAAS3yq3zS # 访问身份验证中用到用户标识
-    accessKeySecret: xdeS40tkkA3zC3F7d8szDJ7fu1N3Ch # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
-    bucketName: tongji-boying # oss的存储空间
-    policy:
-      expire: 300 # 签名有效期(S)
-    maxSize: 20 # 上传文件大小(M)
-    callback: http://localhost:8000/aliyun/oss/callback # 文件上传成功后的回调地址
-    dir:
-      prefix: boying/images/ # 上传文件夹路径前缀
 

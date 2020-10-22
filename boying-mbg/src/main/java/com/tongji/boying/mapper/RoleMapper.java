@@ -2,12 +2,10 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.Role;
 import com.tongji.boying.model.RoleExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
-public interface RoleMapper
-{
+public interface RoleMapper {
     long countByExample(RoleExample example);
 
     int deleteByExample(RoleExample example);

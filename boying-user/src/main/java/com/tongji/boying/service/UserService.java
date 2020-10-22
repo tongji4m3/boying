@@ -17,11 +17,6 @@ public interface UserService
     User getByUsername(String username);
 
     /**
-     * 根据用户Id获取用户
-     */
-    User getById(int id);
-
-    /**
      * 用户注册
      *
      * @Transactional 注解管理事务
@@ -32,7 +27,7 @@ public interface UserService
     /**
      * 生成验证码
      */
-    String generateCheckCode(String telephone);
+    String generateAuthCode(String telephone);
 
     /**
      * 修改密码
@@ -59,4 +54,9 @@ public interface UserService
      * 刷新token
      */
     String refreshToken(String token);
+
+    /**
+     * 更新用户信息
+     */
+    void updateInfo(int age,boolean gender);
 }

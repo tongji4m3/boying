@@ -1,54 +1,61 @@
 package com.tongji.boying.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
-public class Ticket implements Serializable
-{
+public class Ticket implements Serializable {
+    private Integer ticketId;
+
+    private Integer frequentId;
+
+    private Integer classId;
+
+    private Integer orderId;
+
     private static final long serialVersionUID = 1L;
-    private Integer ticketid;
-    private Integer frequentid;
-    private Integer classid;
 
-    public Integer getTicketid()
-    {
-        return ticketid;
+    public Integer getTicketId() {
+        return ticketId;
     }
 
-    public void setTicketid(Integer ticketid)
-    {
-        this.ticketid = ticketid;
+    public void setTicketId(Integer ticketId) {
+        this.ticketId = ticketId;
     }
 
-    public Integer getFrequentid()
-    {
-        return frequentid;
+    public Integer getFrequentId() {
+        return frequentId;
     }
 
-    public void setFrequentid(Integer frequentid)
-    {
-        this.frequentid = frequentid;
+    public void setFrequentId(Integer frequentId) {
+        this.frequentId = frequentId;
     }
 
-    public Integer getClassid()
-    {
-        return classid;
+    public Integer getClassId() {
+        return classId;
     }
 
-    public void setClassid(Integer classid)
-    {
-        this.classid = classid;
+    public void setClassId(Integer classId) {
+        this.classId = classId;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", ticketid=").append(ticketid);
-        sb.append(", frequentid=").append(frequentid);
-        sb.append(", classid=").append(classid);
+        sb.append(", ticketId=").append(ticketId);
+        sb.append(", frequentId=").append(frequentId);
+        sb.append(", classId=").append(classId);
+        sb.append(", orderId=").append(orderId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

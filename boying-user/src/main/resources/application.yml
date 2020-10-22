@@ -40,7 +40,7 @@ secure:
 redis:
   database: boying
   key:
-    authCode: 'authCode'
+    authCode: 'user:authCode'
     user: 'user'
   expire:
     authCode: 90 # 验证码超期时间

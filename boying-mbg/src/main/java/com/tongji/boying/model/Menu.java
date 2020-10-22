@@ -1,111 +1,100 @@
 package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
 import java.util.Date;
 
-public class Menu implements Serializable
-{
-    private static final long serialVersionUID = 1L;
+public class Menu implements Serializable {
     private Integer menuId;
+
     @ApiModelProperty(value = "父级ID")
     private Integer parentId;
+
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
+
     @ApiModelProperty(value = "菜单名称")
     private String title;
+
     @ApiModelProperty(value = "菜单级数")
     private Integer level;
+
     @ApiModelProperty(value = "菜单排序")
     private Integer sort;
+
     private String icon;
+
     @ApiModelProperty(value = "控制前端是否隐藏")
     private Boolean hidden;
 
-    public Integer getMenuId()
-    {
+    private static final long serialVersionUID = 1L;
+
+    public Integer getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(Integer menuId)
-    {
+    public void setMenuId(Integer menuId) {
         this.menuId = menuId;
     }
 
-    public Integer getParentId()
-    {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId)
-    {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 
-    public Date getCreateTime()
-    {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime)
-    {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public Integer getLevel()
-    {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level)
-    {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
-    public Integer getSort()
-    {
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(Integer sort)
-    {
+    public void setSort(Integer sort) {
         this.sort = sort;
     }
 
-    public String getIcon()
-    {
+    public String getIcon() {
         return icon;
     }
 
-    public void setIcon(String icon)
-    {
+    public void setIcon(String icon) {
         this.icon = icon;
     }
 
-    public Boolean getHidden()
-    {
+    public Boolean getHidden() {
         return hidden;
     }
 
-    public void setHidden(Boolean hidden)
-    {
+    public void setHidden(Boolean hidden) {
         this.hidden = hidden;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");

@@ -2,12 +2,10 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.ResourceCategory;
 import com.tongji.boying.model.ResourceCategoryExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
-public interface ResourceCategoryMapper
-{
+public interface ResourceCategoryMapper {
     long countByExample(ResourceCategoryExample example);
 
     int deleteByExample(ResourceCategoryExample example);

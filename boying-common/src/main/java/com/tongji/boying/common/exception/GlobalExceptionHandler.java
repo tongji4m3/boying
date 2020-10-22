@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 全局异常处理
  * 注解@ControllerAdvice:指定一个组件，这个组件主要用于增强@Controller注解修饰的类的功能，比如说进行全局异常处理。
  * 其抽象级别应该是用于对Controller进行“切面”环绕的，而具体的业务织入方式则是通过结合其他的注解来实现的
- *
  */
 @ControllerAdvice
 public class GlobalExceptionHandler

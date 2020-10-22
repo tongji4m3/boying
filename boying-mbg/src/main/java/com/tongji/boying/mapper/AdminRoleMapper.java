@@ -2,12 +2,10 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.AdminRole;
 import com.tongji.boying.model.AdminRoleExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
-public interface AdminRoleMapper
-{
+public interface AdminRoleMapper {
     long countByExample(AdminRoleExample example);
 
     int deleteByExample(AdminRoleExample example);

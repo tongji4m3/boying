@@ -2,17 +2,15 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.Ticket;
 import com.tongji.boying.model.TicketExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
-public interface TicketMapper
-{
+public interface TicketMapper {
     long countByExample(TicketExample example);
 
     int deleteByExample(TicketExample example);
 
-    int deleteByPrimaryKey(Integer ticketid);
+    int deleteByPrimaryKey(Integer ticketId);
 
     int insert(Ticket record);
 
@@ -20,7 +18,7 @@ public interface TicketMapper
 
     List<Ticket> selectByExample(TicketExample example);
 
-    Ticket selectByPrimaryKey(Integer ticketid);
+    Ticket selectByPrimaryKey(Integer ticketId);
 
     int updateByExampleSelective(@Param("record") Ticket record, @Param("example") TicketExample example);
 
