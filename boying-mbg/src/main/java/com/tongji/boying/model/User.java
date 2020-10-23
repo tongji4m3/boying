@@ -28,6 +28,9 @@ public class User implements Serializable {
     @ApiModelProperty(value = "帐号启用状态：0->禁用；1->启用")
     private Boolean status;
 
+    @ApiModelProperty(value = "个人头像")
+    private String icon;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getUserId() {
@@ -110,6 +113,14 @@ public class User implements Serializable {
         this.status = status;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -126,6 +137,7 @@ public class User implements Serializable {
         sb.append(", age=").append(age);
         sb.append(", gender=").append(gender);
         sb.append(", status=").append(status);
+        sb.append(", icon=").append(icon);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

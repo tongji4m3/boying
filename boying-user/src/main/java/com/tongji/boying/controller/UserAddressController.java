@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Controller
 @Api(tags = "UserAddressController", description = "用户收货地址管理")
-@RequestMapping("/userInfo/address")
+@RequestMapping("/user/address")
 public class UserAddressController
 {
     @Autowired

@@ -27,7 +27,7 @@ public interface UserService
     /**
      * 生成验证码
      */
-    String generateAuthCode(String telephone);
+    void generateAuthCode(String telephone);
 
     /**
      * 修改密码
@@ -58,5 +58,9 @@ public interface UserService
     /**
      * 更新用户信息
      */
-    void updateInfo(int age,boolean gender);
+    void updateInfo(String realName, String identityNumber, String email, String icon, int age, boolean gender);
+
+    String telephoneLogin(String telephone, String password);
+
+    String authCodeLogin(String telephone, String authCode);
 }

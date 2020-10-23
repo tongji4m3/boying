@@ -1,5 +1,13 @@
 package com.tongji.boying.service.impl;
 
+import com.aliyuncs.CommonRequest;
+import com.aliyuncs.CommonResponse;
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.IAcsClient;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.exceptions.ServerException;
+import com.aliyuncs.http.MethodType;
+import com.aliyuncs.profile.DefaultProfile;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.domain.BoyingUserDetails;
 import com.tongji.boying.mapper.UserMapper;
@@ -27,6 +35,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Random;
+
 
 /**
  * 用户管理Service实现类
@@ -108,10 +117,12 @@ public class UserServiceImpl implements UserService
         user.setPassword(passwordEncoder.encode(password));//存储加密后的
         user.setStatus(true);
         userMapper.insert(user);
+        //注册完删除验证码,每个验证码只能使用一次
+        userCacheService.delAuthCode(telephone);
     }
 
     @Override
-    public String generateAuthCode(String telephone)
+    public void generateAuthCode(String telephone)
     {
         //简单生成6位验证码
         StringBuilder sb = new StringBuilder();
@@ -122,7 +133,34 @@ public class UserServiceImpl implements UserService
         }
         //为该手机号生成验证码
         userCacheService.setAuthCode(telephone, sb.toString());
-        return sb.toString();
+
+//        阿里云 短信服务代码
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4G94MzD6ozcAAS3yq3zS", "xdeS40tkkA3zC3F7d8szDJ7fu1N3Ch");
+        IAcsClient client = new DefaultAcsClient(profile);
+
+        CommonRequest request = new CommonRequest();
+        request.setSysMethod(MethodType.POST);
+        request.setSysDomain("dysmsapi.aliyuncs.com");
+        request.setSysVersion("2017-05-25");
+        request.setSysAction("SendSms");
+        request.putQueryParameter("RegionId", "cn-hangzhou");
+        request.putQueryParameter("PhoneNumbers", telephone);
+        request.putQueryParameter("SignName", "博影娱乐票务平台");
+        request.putQueryParameter("TemplateCode", "SMS_205120016");
+        request.putQueryParameter("TemplateParam", "{\"code\":" + sb.toString() + "}");
+        try
+        {
+            CommonResponse response = client.getCommonResponse(request);
+            System.out.println(response.getData());
+        }
+        catch (ServerException e)
+        {
+            e.printStackTrace();
+        }
+        catch (ClientException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
@@ -144,7 +182,11 @@ public class UserServiceImpl implements UserService
         User user = userList.get(0);
         user.setPassword(passwordEncoder.encode(password));//密码加密
         userMapper.updateByPrimaryKeySelective(user);//只更新不为空的字段
+
         userCacheService.delUser(user.getUserId());//删除无效缓存
+
+        //注册完删除验证码,每个验证码只能使用一次
+        userCacheService.delAuthCode(telephone);
     }
 
     @Override
@@ -194,20 +236,105 @@ public class UserServiceImpl implements UserService
         return token;
     }
 
+
     @Override
-    public void updateInfo(int age,boolean gender)
+    public String telephoneLogin(String telephone, String password)
     {
-        User currentUser = getCurrentUser();
-        currentUser.setGender(gender);
-        currentUser.setAge(age);
-        userMapper.updateByPrimaryKeySelective(currentUser);//只更新不为空的字段
-        userCacheService.delUser(currentUser.getUserId());//删除无效缓存
+        String token = null;
+        //密码需要客户端加密后传递,但是传递的仍然是明文
+        try
+        {
+            User user = userCacheService.getUserByTelephone(telephone);
+            //缓存里面没有数据
+            if (user == null)
+            {
+                UserExample example = new UserExample();
+                example.createCriteria().andPhoneEqualTo(telephone);//根据userExample进行where语句的查询
+                List<User> userList = userMapper.selectByExample(example);
+                if (!CollectionUtils.isEmpty(userList))
+                {
+                    user = userList.get(0);
+                    userCacheService.setUser(user);//将查询到的数据放入缓存中
+                }
+                else
+                {
+                    Asserts.fail("手机号不存在");
+                }
+                if (!passwordEncoder.matches(password, user.getPassword()))
+                {
+                    throw new BadCredentialsException("密码不正确");
+                }
+            }
+            UserDetails userDetails = loadUserByUsername(user.getUsername());
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            token = jwtTokenUtil.generateToken(userDetails);
+        }
+        catch (AuthenticationException e)
+        {
+            LOGGER.warn("登录异常:{}", e.getMessage());
+        }
+        return token;
+    }
+
+    @Override
+    public String authCodeLogin(String telephone, String authCode)
+    {
+        //验证验证码
+        if (!verifyAuthCode(authCode, telephone))
+        {
+            Asserts.fail("验证码错误");
+        }
+        String token = null;
+        //密码需要客户端加密后传递,但是传递的仍然是明文
+        try
+        {
+            User user = userCacheService.getUserByTelephone(telephone);
+            //缓存里面没有数据
+            if (user == null)
+            {
+                UserExample example = new UserExample();
+                example.createCriteria().andPhoneEqualTo(telephone);//根据userExample进行where语句的查询
+                List<User> userList = userMapper.selectByExample(example);
+                if (!CollectionUtils.isEmpty(userList))
+                {
+                    user = userList.get(0);
+                    userCacheService.setUser(user);//将查询到的数据放入缓存中
+                }
+                //不需要在校验手机号是否存在
+            }
+            UserDetails userDetails = loadUserByUsername(user.getUsername());
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            token = jwtTokenUtil.generateToken(userDetails);
+        }
+        catch (AuthenticationException e)
+        {
+            LOGGER.warn("登录异常:{}", e.getMessage());
+        }
+        //注册完删除验证码,每个验证码只能使用一次
+        userCacheService.delAuthCode(telephone);
+        return token;
     }
 
     @Override
     public String refreshToken(String token)
     {
         return jwtTokenUtil.refreshHeadToken(token);
+    }
+
+    @Override
+    public void updateInfo(String realName, String identityNumber, String email, String icon, int age, boolean gender)
+    {
+        User currentUser = getCurrentUser();
+        currentUser.setRealName(realName);
+        currentUser.setIdentityNumber(identityNumber);
+        currentUser.setEmail(email);
+        currentUser.setIcon(icon);
+        currentUser.setGender(gender);
+        currentUser.setAge(age);
+        userMapper.updateByPrimaryKeySelective(currentUser);//只更新不为空的字段
+        userCacheService.delUser(currentUser.getUserId());//删除无效缓存
     }
 
     //对输入的验证码进行校验

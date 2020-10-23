@@ -18,6 +18,13 @@ public interface UserCacheService
     User getUser(String username);
 
     /**
+     * 根据手机号获取用户缓存
+     */
+    User getUserByTelephone(String telephone);
+
+
+
+    /**
      * 设置用户缓存
      */
     void setUser(User User);
@@ -31,4 +38,9 @@ public interface UserCacheService
      * 获取验证码
      */
     String getAuthCode(String telephone);
+
+    /**
+     * 获取验证码
+     */
+    void delAuthCode(String telephone);
 }

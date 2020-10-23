@@ -36,7 +36,9 @@ public class UserCacheServiceImpl implements UserCacheService
         if(user!=null)
         {
             String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getUsername();
+            String key2 = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getPhone();
             redisService.del(key);
+            redisService.del(key2);
         }
     }
 
@@ -49,10 +51,21 @@ public class UserCacheServiceImpl implements UserCacheService
     }
 
     @Override
+    public User getUserByTelephone(String telephone)
+    {
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + telephone;
+
+        return (User)redisService.get(key);
+    }
+
+    @Override
     public void setUser(User user)
     {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getUsername();
+        String key2 = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getPhone();
+//        设置两条,能通过手机号,用户名查到该用户
         redisService.set(key, user, REDIS_EXPIRE);
+        redisService.set(key2, user, REDIS_EXPIRE);
     }
 
     @Override
@@ -67,5 +80,12 @@ public class UserCacheServiceImpl implements UserCacheService
     {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_AUTH_CODE + ":" + telephone;
         return (String)redisService.get(key);
+    }
+
+    @Override
+    public void delAuthCode(String telephone)
+    {
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_AUTH_CODE + ":" + telephone;
+        redisService.del(key);
     }
 }

@@ -2,6 +2,7 @@ package com.tongji.boying.security.util;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.tongji.boying.common.exception.Asserts;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -146,7 +147,15 @@ public class JwtTokenUtil
         {
             return null;
         }
-        String token = oldToken.substring(tokenHead.length());
+        String token="";
+        try
+        {
+            token = oldToken.substring(tokenHead.length());
+        }
+        catch (Exception e)
+        {
+            Asserts.fail("未登录!");
+        }
         if (StrUtil.isEmpty(token))
         {
             return null;

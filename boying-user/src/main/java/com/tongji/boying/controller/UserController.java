@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Controller
 @Api(tags = "UserController", description = "用户登录注册管理")
-@RequestMapping("/user")
+@RequestMapping("/user/user")
 public class UserController
 {
     @Value("${jwt.tokenHeader}")
@@ -111,19 +111,24 @@ public class UserController
         return CommonResult.success(user);
     }
 
-    @ApiOperation("更新个人性别与年龄")
-    @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
+    @ApiOperation("更新个人信息")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult updateInfo(Principal principal,
-                                   @RequestParam int age,
-                                   @RequestParam boolean gender)
+                                   @RequestParam(required = false) String realName,
+                                   @RequestParam(required = false) String identityNumber,
+                                   @RequestParam(required = false) String email,
+                                   @RequestParam(required = false, defaultValue = "https://tongji4m3.oss-cn-beijing.aliyuncs.com/f_f_object_156_s512_f_object_156_0.png") String icon,
+                                   @RequestParam(required = false) int age,
+                                   @RequestParam(required = false, defaultValue = "true") boolean gender
+    )
     {
         //        防止直接查询时报错
         if (principal == null)
         {
             return CommonResult.unauthorized(null);
         }
-        userService.updateInfo(age, gender);
+        userService.updateInfo(realName, identityNumber, email, icon, age, gender);
         return CommonResult.success("更新个人信息成功!");
     }
 
@@ -133,8 +138,8 @@ public class UserController
     @ResponseBody
     public CommonResult getAuthCode(@RequestParam String telephone)
     {
-        String authCode = userService.generateAuthCode(telephone);
-        return CommonResult.success(authCode, "获取验证码成功");
+        userService.generateAuthCode(telephone);
+        return CommonResult.success("获取验证码成功");
     }
 
     @ApiOperation("修改密码")
