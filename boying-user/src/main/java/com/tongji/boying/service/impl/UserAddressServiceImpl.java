@@ -26,6 +26,7 @@ public class UserAddressServiceImpl implements UserAddressService
     {
         User user = userService.getCurrentUser();
         address.setUserId(user.getUserId());
+        address.setAddressId(null);
         //        要设置为默认地址,则将默认地址抹除
         if(address.getDefaultAddress())
         {
@@ -54,6 +55,8 @@ public class UserAddressServiceImpl implements UserAddressService
 
         //不能自己给别人增加收货地址
         address.setUserId(user.getUserId());
+//        不能篡改ID
+        address.setAddressId(null);
 //        要设置为默认地址,则将默认地址抹除
         if(address.getDefaultAddress())
         {

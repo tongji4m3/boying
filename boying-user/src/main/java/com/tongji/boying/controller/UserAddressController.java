@@ -12,17 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @RequestParam String receiver,
- * @RequestParam String phone,
- * @RequestParam String province,
- * @RequestParam String city,
- * @RequestParam String region,
- * @RequestParam String street,
- * @RequestParam String details,
- * @RequestParam(required = false, defaultValue = "false") boolean defaultAddress
- */
-
-/**
  * 用户收货地址管理Controller
  */
 @Controller
