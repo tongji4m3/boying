@@ -7,6 +7,11 @@
     <result column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="poster" jdbcType="VARCHAR" property="poster" />
     <result column="min_price" jdbcType="DECIMAL" property="minPrice" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="price_range" jdbcType="VARCHAR" property="priceRange" />
+    <result column="time_range" jdbcType="VARCHAR" property="timeRange" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tongji.boying.model.Show">
     <result column="details" jdbcType="LONGVARBINARY" property="details" />
@@ -70,7 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    show_id, name, category_id, poster, min_price
+    show_id, name, category_id, poster, min_price, weight, city, address, price_range, 
+    time_range
   </sql>
   <sql id="Blob_Column_List">
     details
@@ -125,11 +131,13 @@
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Show">
     insert into show (show_id, name, category_id, 
-      poster, min_price, details
-      )
+      poster, min_price, weight, 
+      city, address, price_range, 
+      time_range, details)
     values (#{showId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
-      #{poster,jdbcType=VARCHAR}, #{minPrice,jdbcType=DECIMAL}, #{details,jdbcType=LONGVARBINARY}
-      )
+      #{poster,jdbcType=VARCHAR}, #{minPrice,jdbcType=DECIMAL}, #{weight,jdbcType=INTEGER}, 
+      #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{priceRange,jdbcType=VARCHAR}, 
+      #{timeRange,jdbcType=VARCHAR}, #{details,jdbcType=LONGVARBINARY})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Show">
     insert into show
@@ -148,6 +156,21 @@
       </if>
       <if test="minPrice != null">
         min_price,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="priceRange != null">
+        price_range,
+      </if>
+      <if test="timeRange != null">
+        time_range,
       </if>
       <if test="details != null">
         details,
@@ -168,6 +191,21 @@
       </if>
       <if test="minPrice != null">
         #{minPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="priceRange != null">
+        #{priceRange,jdbcType=VARCHAR},
+      </if>
+      <if test="timeRange != null">
+        #{timeRange,jdbcType=VARCHAR},
       </if>
       <if test="details != null">
         #{details,jdbcType=LONGVARBINARY},
@@ -198,6 +236,21 @@
       <if test="record.minPrice != null">
         min_price = #{record.minPrice,jdbcType=DECIMAL},
       </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priceRange != null">
+        price_range = #{record.priceRange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeRange != null">
+        time_range = #{record.timeRange,jdbcType=VARCHAR},
+      </if>
       <if test="record.details != null">
         details = #{record.details,jdbcType=LONGVARBINARY},
       </if>
@@ -213,6 +266,11 @@
       category_id = #{record.categoryId,jdbcType=INTEGER},
       poster = #{record.poster,jdbcType=VARCHAR},
       min_price = #{record.minPrice,jdbcType=DECIMAL},
+      weight = #{record.weight,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      price_range = #{record.priceRange,jdbcType=VARCHAR},
+      time_range = #{record.timeRange,jdbcType=VARCHAR},
       details = #{record.details,jdbcType=LONGVARBINARY}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -224,7 +282,12 @@
       name = #{record.name,jdbcType=VARCHAR},
       category_id = #{record.categoryId,jdbcType=INTEGER},
       poster = #{record.poster,jdbcType=VARCHAR},
-      min_price = #{record.minPrice,jdbcType=DECIMAL}
+      min_price = #{record.minPrice,jdbcType=DECIMAL},
+      weight = #{record.weight,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      price_range = #{record.priceRange,jdbcType=VARCHAR},
+      time_range = #{record.timeRange,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -244,6 +307,21 @@
       <if test="minPrice != null">
         min_price = #{minPrice,jdbcType=DECIMAL},
       </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="priceRange != null">
+        price_range = #{priceRange,jdbcType=VARCHAR},
+      </if>
+      <if test="timeRange != null">
+        time_range = #{timeRange,jdbcType=VARCHAR},
+      </if>
       <if test="details != null">
         details = #{details,jdbcType=LONGVARBINARY},
       </if>
@@ -256,6 +334,11 @@
       category_id = #{categoryId,jdbcType=INTEGER},
       poster = #{poster,jdbcType=VARCHAR},
       min_price = #{minPrice,jdbcType=DECIMAL},
+      weight = #{weight,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      price_range = #{priceRange,jdbcType=VARCHAR},
+      time_range = #{timeRange,jdbcType=VARCHAR},
       details = #{details,jdbcType=LONGVARBINARY}
     where show_id = #{showId,jdbcType=INTEGER}
   </update>
@@ -264,7 +347,12 @@
     set name = #{name,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       poster = #{poster,jdbcType=VARCHAR},
-      min_price = #{minPrice,jdbcType=DECIMAL}
+      min_price = #{minPrice,jdbcType=DECIMAL},
+      weight = #{weight,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      price_range = #{priceRange,jdbcType=VARCHAR},
+      time_range = #{timeRange,jdbcType=VARCHAR}
     where show_id = #{showId,jdbcType=INTEGER}
   </update>
 </mapper>

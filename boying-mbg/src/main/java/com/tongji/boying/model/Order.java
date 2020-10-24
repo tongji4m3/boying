@@ -16,8 +16,6 @@ public class Order implements Serializable {
 
     private Date time;
 
-    private Integer addressId;
-
     private static final long serialVersionUID = 1L;
 
     public Integer getOrderId() {
@@ -60,14 +58,6 @@ public class Order implements Serializable {
         this.time = time;
     }
 
-    public Integer getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -79,7 +69,6 @@ public class Order implements Serializable {
         sb.append(", userId=").append(userId);
         sb.append(", status=").append(status);
         sb.append(", time=").append(time);
-        sb.append(", addressId=").append(addressId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

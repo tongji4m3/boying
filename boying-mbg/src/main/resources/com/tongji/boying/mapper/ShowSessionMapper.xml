@@ -4,10 +4,8 @@
   <resultMap id="BaseResultMap" type="com.tongji.boying.model.ShowSession">
     <id column="show_session_id" jdbcType="INTEGER" property="showSessionId" />
     <result column="show_id" jdbcType="INTEGER" property="showId" />
-    <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="weight" jdbcType="INTEGER" property="weight" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    show_session_id, show_id, city, start_time, end_time, address, weight
+    show_session_id, show_id, start_time, end_time, weight
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.ShowSessionExample" resultMap="BaseResultMap">
     select
@@ -102,12 +100,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.ShowSession">
-    insert into show_session (show_session_id, show_id, city, 
-      start_time, end_time, address, 
-      weight)
-    values (#{showSessionId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, 
-      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
-      #{weight,jdbcType=INTEGER})
+    insert into show_session (show_session_id, show_id, start_time, 
+      end_time, weight)
+    values (#{showSessionId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{weight,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.ShowSession">
     insert into show_session
@@ -118,17 +114,11 @@
       <if test="showId != null">
         show_id,
       </if>
-      <if test="city != null">
-        city,
-      </if>
       <if test="startTime != null">
         start_time,
       </if>
       <if test="endTime != null">
         end_time,
-      </if>
-      <if test="address != null">
-        address,
       </if>
       <if test="weight != null">
         weight,
@@ -141,17 +131,11 @@
       <if test="showId != null">
         #{showId,jdbcType=INTEGER},
       </if>
-      <if test="city != null">
-        #{city,jdbcType=VARCHAR},
-      </if>
       <if test="startTime != null">
         #{startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="endTime != null">
         #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
       </if>
       <if test="weight != null">
         #{weight,jdbcType=INTEGER},
@@ -173,17 +157,11 @@
       <if test="record.showId != null">
         show_id = #{record.showId,jdbcType=INTEGER},
       </if>
-      <if test="record.city != null">
-        city = #{record.city,jdbcType=VARCHAR},
-      </if>
       <if test="record.startTime != null">
         start_time = #{record.startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.endTime != null">
         end_time = #{record.endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
       </if>
       <if test="record.weight != null">
         weight = #{record.weight,jdbcType=INTEGER},
@@ -197,10 +175,8 @@
     update show_session
     set show_session_id = #{record.showSessionId,jdbcType=INTEGER},
       show_id = #{record.showId,jdbcType=INTEGER},
-      city = #{record.city,jdbcType=VARCHAR},
       start_time = #{record.startTime,jdbcType=TIMESTAMP},
       end_time = #{record.endTime,jdbcType=TIMESTAMP},
-      address = #{record.address,jdbcType=VARCHAR},
       weight = #{record.weight,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,17 +188,11 @@
       <if test="showId != null">
         show_id = #{showId,jdbcType=INTEGER},
       </if>
-      <if test="city != null">
-        city = #{city,jdbcType=VARCHAR},
-      </if>
       <if test="startTime != null">
         start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="endTime != null">
         end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
       </if>
       <if test="weight != null">
         weight = #{weight,jdbcType=INTEGER},
@@ -233,10 +203,8 @@
   <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.ShowSession">
     update show_session
     set show_id = #{showId,jdbcType=INTEGER},
-      city = #{city,jdbcType=VARCHAR},
       start_time = #{startTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
-      address = #{address,jdbcType=VARCHAR},
       weight = #{weight,jdbcType=INTEGER}
     where show_session_id = #{showSessionId,jdbcType=INTEGER}
   </update>

@@ -10,14 +10,9 @@ public class ShowSession implements Serializable {
     @ApiModelProperty(value = "所属哪个演唱会")
     private Integer showId;
 
-    private String city;
-
     private Date startTime;
 
     private Date endTime;
-
-    @ApiModelProperty(value = "具体演出地址")
-    private String address;
 
     @ApiModelProperty(value = "上映后,已下架等,以及显示的优先级")
     private Integer weight;
@@ -40,14 +35,6 @@ public class ShowSession implements Serializable {
         this.showId = showId;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public Date getStartTime() {
         return startTime;
     }
@@ -62,14 +49,6 @@ public class ShowSession implements Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public Integer getWeight() {
@@ -88,10 +67,8 @@ public class ShowSession implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", showSessionId=").append(showSessionId);
         sb.append(", showId=").append(showId);
-        sb.append(", city=").append(city);
         sb.append(", startTime=").append(startTime);
         sb.append(", endTime=").append(endTime);
-        sb.append(", address=").append(address);
         sb.append(", weight=").append(weight);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
