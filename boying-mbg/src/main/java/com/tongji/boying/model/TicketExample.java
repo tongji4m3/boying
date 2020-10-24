@@ -224,63 +224,63 @@ public class TicketExample {
             return (Criteria) this;
         }
 
-        public Criteria andClassIdIsNull() {
-            addCriterion("class_id is null");
+        public Criteria andShowClassIdIsNull() {
+            addCriterion("show_class_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdIsNotNull() {
-            addCriterion("class_id is not null");
+        public Criteria andShowClassIdIsNotNull() {
+            addCriterion("show_class_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdEqualTo(Integer value) {
-            addCriterion("class_id =", value, "classId");
+        public Criteria andShowClassIdEqualTo(Integer value) {
+            addCriterion("show_class_id =", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdNotEqualTo(Integer value) {
-            addCriterion("class_id <>", value, "classId");
+        public Criteria andShowClassIdNotEqualTo(Integer value) {
+            addCriterion("show_class_id <>", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdGreaterThan(Integer value) {
-            addCriterion("class_id >", value, "classId");
+        public Criteria andShowClassIdGreaterThan(Integer value) {
+            addCriterion("show_class_id >", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("class_id >=", value, "classId");
+        public Criteria andShowClassIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("show_class_id >=", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdLessThan(Integer value) {
-            addCriterion("class_id <", value, "classId");
+        public Criteria andShowClassIdLessThan(Integer value) {
+            addCriterion("show_class_id <", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdLessThanOrEqualTo(Integer value) {
-            addCriterion("class_id <=", value, "classId");
+        public Criteria andShowClassIdLessThanOrEqualTo(Integer value) {
+            addCriterion("show_class_id <=", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdIn(List<Integer> values) {
-            addCriterion("class_id in", values, "classId");
+        public Criteria andShowClassIdIn(List<Integer> values) {
+            addCriterion("show_class_id in", values, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdNotIn(List<Integer> values) {
-            addCriterion("class_id not in", values, "classId");
+        public Criteria andShowClassIdNotIn(List<Integer> values) {
+            addCriterion("show_class_id not in", values, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdBetween(Integer value1, Integer value2) {
-            addCriterion("class_id between", value1, value2, "classId");
+        public Criteria andShowClassIdBetween(Integer value1, Integer value2) {
+            addCriterion("show_class_id between", value1, value2, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("class_id not between", value1, value2, "classId");
+        public Criteria andShowClassIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("show_class_id not between", value1, value2, "showClassId");
             return (Criteria) this;
         }
 

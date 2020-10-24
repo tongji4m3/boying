@@ -8,7 +8,7 @@ public class Ticket implements Serializable {
 
     private Integer frequentId;
 
-    private Integer classId;
+    private Integer showClassId;
 
     private Integer orderId;
 
@@ -30,12 +30,12 @@ public class Ticket implements Serializable {
         this.frequentId = frequentId;
     }
 
-    public Integer getClassId() {
-        return classId;
+    public Integer getShowClassId() {
+        return showClassId;
     }
 
-    public void setClassId(Integer classId) {
-        this.classId = classId;
+    public void setShowClassId(Integer showClassId) {
+        this.showClassId = showClassId;
     }
 
     public Integer getOrderId() {
@@ -54,7 +54,7 @@ public class Ticket implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", ticketId=").append(ticketId);
         sb.append(", frequentId=").append(frequentId);
-        sb.append(", classId=").append(classId);
+        sb.append(", showClassId=").append(showClassId);
         sb.append(", orderId=").append(orderId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
