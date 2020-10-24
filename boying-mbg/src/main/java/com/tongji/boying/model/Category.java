@@ -11,9 +11,6 @@ public class Category implements Serializable {
 
     private String name;
 
-    @ApiModelProperty(value = "分类级别")
-    private Integer level;
-
     @ApiModelProperty(value = "用于排序,0则不显示")
     private Integer weight;
 
@@ -46,14 +43,6 @@ public class Category implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public Integer getWeight() {
@@ -89,7 +78,6 @@ public class Category implements Serializable {
         sb.append(", categoryId=").append(categoryId);
         sb.append(", parentId=").append(parentId);
         sb.append(", name=").append(name);
-        sb.append(", level=").append(level);
         sb.append(", weight=").append(weight);
         sb.append(", icon=").append(icon);
         sb.append(", description=").append(description);

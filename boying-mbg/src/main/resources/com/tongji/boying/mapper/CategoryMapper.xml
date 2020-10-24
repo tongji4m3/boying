@@ -5,7 +5,6 @@
     <id column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="level" jdbcType="INTEGER" property="level" />
     <result column="weight" jdbcType="INTEGER" property="weight" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="description" jdbcType="VARCHAR" property="description" />
@@ -69,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    category_id, parent_id, name, level, weight, icon, description
+    category_id, parent_id, name, weight, icon, description
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.CategoryExample" resultMap="BaseResultMap">
     select
@@ -103,11 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Category">
     insert into category (category_id, parent_id, name, 
-      level, weight, icon, 
-      description)
+      weight, icon, description
+      )
     values (#{categoryId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{level,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR})
+      #{weight,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Category">
     insert into category
@@ -120,9 +119,6 @@
       </if>
       <if test="name != null">
         name,
-      </if>
-      <if test="level != null">
-        level,
       </if>
       <if test="weight != null">
         weight,
@@ -143,9 +139,6 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="level != null">
-        #{level,jdbcType=INTEGER},
       </if>
       <if test="weight != null">
         #{weight,jdbcType=INTEGER},
@@ -176,9 +169,6 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.level != null">
-        level = #{record.level,jdbcType=INTEGER},
-      </if>
       <if test="record.weight != null">
         weight = #{record.weight,jdbcType=INTEGER},
       </if>
@@ -198,7 +188,6 @@
     set category_id = #{record.categoryId,jdbcType=INTEGER},
       parent_id = #{record.parentId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      level = #{record.level,jdbcType=INTEGER},
       weight = #{record.weight,jdbcType=INTEGER},
       icon = #{record.icon,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR}
@@ -214,9 +203,6 @@
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="level != null">
-        level = #{level,jdbcType=INTEGER},
       </if>
       <if test="weight != null">
         weight = #{weight,jdbcType=INTEGER},
@@ -234,7 +220,6 @@
     update category
     set parent_id = #{parentId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
-      level = #{level,jdbcType=INTEGER},
       weight = #{weight,jdbcType=INTEGER},
       icon = #{icon,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR}

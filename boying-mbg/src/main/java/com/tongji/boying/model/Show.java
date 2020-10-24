@@ -3,6 +3,7 @@ package com.tongji.boying.model;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class Show implements Serializable {
     private Integer showId;
@@ -18,6 +19,9 @@ public class Show implements Serializable {
     @ApiModelProperty(value = "该演唱会的最低价")
     private BigDecimal minPrice;
 
+    @ApiModelProperty(value = "该演唱会的最高价")
+    private BigDecimal maxPrice;
+
     @ApiModelProperty(value = "该演出展示的优先基本,0为不展示")
     private Integer weight;
 
@@ -26,11 +30,11 @@ public class Show implements Serializable {
     @ApiModelProperty(value = "具体演出地址")
     private String address;
 
-    @ApiModelProperty(value = "价格区间(文本描述)")
-    private String priceRange;
+    @ApiModelProperty(value = "演出开始日期")
+    private Date dayStart;
 
-    @ApiModelProperty(value = "演出时间区间(文本描述)")
-    private String timeRange;
+    @ApiModelProperty(value = "演出结束日期")
+    private Date dayEnd;
 
     @ApiModelProperty(value = "存储该演唱会等的图文信息")
     private byte[] details;
@@ -77,6 +81,14 @@ public class Show implements Serializable {
         this.minPrice = minPrice;
     }
 
+    public BigDecimal getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(BigDecimal maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+
     public Integer getWeight() {
         return weight;
     }
@@ -101,20 +113,20 @@ public class Show implements Serializable {
         this.address = address;
     }
 
-    public String getPriceRange() {
-        return priceRange;
+    public Date getDayStart() {
+        return dayStart;
     }
 
-    public void setPriceRange(String priceRange) {
-        this.priceRange = priceRange;
+    public void setDayStart(Date dayStart) {
+        this.dayStart = dayStart;
     }
 
-    public String getTimeRange() {
-        return timeRange;
+    public Date getDayEnd() {
+        return dayEnd;
     }
 
-    public void setTimeRange(String timeRange) {
-        this.timeRange = timeRange;
+    public void setDayEnd(Date dayEnd) {
+        this.dayEnd = dayEnd;
     }
 
     public byte[] getDetails() {
@@ -136,11 +148,12 @@ public class Show implements Serializable {
         sb.append(", categoryId=").append(categoryId);
         sb.append(", poster=").append(poster);
         sb.append(", minPrice=").append(minPrice);
+        sb.append(", maxPrice=").append(maxPrice);
         sb.append(", weight=").append(weight);
         sb.append(", city=").append(city);
         sb.append(", address=").append(address);
-        sb.append(", priceRange=").append(priceRange);
-        sb.append(", timeRange=").append(timeRange);
+        sb.append(", dayStart=").append(dayStart);
+        sb.append(", dayEnd=").append(dayEnd);
         sb.append(", details=").append(details);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

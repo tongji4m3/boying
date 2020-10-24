@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 查看菜单目录Controller
@@ -23,11 +24,20 @@ public class CategoryController
     private CategoryService categoryService;
 
     @ApiOperation("获取所有的父级菜单列表或某个父级菜单的所有二级子菜单")
-    @RequestMapping(value = "/categoryList", method = RequestMethod.GET)
+    @RequestMapping(value = "/categoryList", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<Category>> getCategoryList(@RequestParam int parentId)
     {
         List<Category> categories = categoryService.categoryList(parentId);
         return CommonResult.success(categories);
+    }
+
+    @ApiOperation("获取以Map结构获取所有商品分类 (父级菜单,该父级菜单的所有二级菜单)")
+    @RequestMapping(value = "/categoryMap", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<Map<Category, List<Category>>> getCategoryMap()
+    {
+        Map<Category, List<Category>> map = categoryService.categoryMap();
+        return CommonResult.success(map);
     }
 }

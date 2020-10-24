@@ -4,6 +4,7 @@ import com.tongji.boying.model.Address;
 import com.tongji.boying.model.Category;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CategoryService
 {
@@ -13,4 +14,14 @@ public interface CategoryService
      */
     List<Category> categoryList(int parentId);
 
+
+    /**
+     * 以Map结构获取所有商品分类 (父级菜单,该父级菜单的所有二级菜单)
+     */
+    Map<Category,List<Category>> categoryMap();
+
+    /**
+     * 判断是否是子目录
+     */
+    boolean isSonCategory(int id);
 }

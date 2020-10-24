@@ -2,6 +2,8 @@ package com.tongji.boying.model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class ShowExample {
@@ -103,6 +105,32 @@ public class ShowExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value.getTime()), property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
+            if (values == null || values.size() == 0) {
+                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
+            }
+            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
+            Iterator<Date> iter = values.iterator();
+            while (iter.hasNext()) {
+                dateList.add(new java.sql.Date(iter.next().getTime()));
+            }
+            addCriterion(condition, dateList, property);
+        }
+
+        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andShowIdIsNull() {
@@ -425,6 +453,66 @@ public class ShowExample {
             return (Criteria) this;
         }
 
+        public Criteria andMaxPriceIsNull() {
+            addCriterion("max_price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceIsNotNull() {
+            addCriterion("max_price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceEqualTo(BigDecimal value) {
+            addCriterion("max_price =", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceNotEqualTo(BigDecimal value) {
+            addCriterion("max_price <>", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceGreaterThan(BigDecimal value) {
+            addCriterion("max_price >", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("max_price >=", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceLessThan(BigDecimal value) {
+            addCriterion("max_price <", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("max_price <=", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceIn(List<BigDecimal> values) {
+            addCriterion("max_price in", values, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceNotIn(List<BigDecimal> values) {
+            addCriterion("max_price not in", values, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("max_price between", value1, value2, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("max_price not between", value1, value2, "maxPrice");
+            return (Criteria) this;
+        }
+
         public Criteria andWeightIsNull() {
             addCriterion("weight is null");
             return (Criteria) this;
@@ -625,143 +713,123 @@ public class ShowExample {
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeIsNull() {
-            addCriterion("price_range is null");
+        public Criteria andDayStartIsNull() {
+            addCriterion("day_start is null");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeIsNotNull() {
-            addCriterion("price_range is not null");
+        public Criteria andDayStartIsNotNull() {
+            addCriterion("day_start is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeEqualTo(String value) {
-            addCriterion("price_range =", value, "priceRange");
+        public Criteria andDayStartEqualTo(Date value) {
+            addCriterionForJDBCDate("day_start =", value, "dayStart");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeNotEqualTo(String value) {
-            addCriterion("price_range <>", value, "priceRange");
+        public Criteria andDayStartNotEqualTo(Date value) {
+            addCriterionForJDBCDate("day_start <>", value, "dayStart");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeGreaterThan(String value) {
-            addCriterion("price_range >", value, "priceRange");
+        public Criteria andDayStartGreaterThan(Date value) {
+            addCriterionForJDBCDate("day_start >", value, "dayStart");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeGreaterThanOrEqualTo(String value) {
-            addCriterion("price_range >=", value, "priceRange");
+        public Criteria andDayStartGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("day_start >=", value, "dayStart");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeLessThan(String value) {
-            addCriterion("price_range <", value, "priceRange");
+        public Criteria andDayStartLessThan(Date value) {
+            addCriterionForJDBCDate("day_start <", value, "dayStart");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeLessThanOrEqualTo(String value) {
-            addCriterion("price_range <=", value, "priceRange");
+        public Criteria andDayStartLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("day_start <=", value, "dayStart");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeLike(String value) {
-            addCriterion("price_range like", value, "priceRange");
+        public Criteria andDayStartIn(List<Date> values) {
+            addCriterionForJDBCDate("day_start in", values, "dayStart");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeNotLike(String value) {
-            addCriterion("price_range not like", value, "priceRange");
+        public Criteria andDayStartNotIn(List<Date> values) {
+            addCriterionForJDBCDate("day_start not in", values, "dayStart");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeIn(List<String> values) {
-            addCriterion("price_range in", values, "priceRange");
+        public Criteria andDayStartBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("day_start between", value1, value2, "dayStart");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeNotIn(List<String> values) {
-            addCriterion("price_range not in", values, "priceRange");
+        public Criteria andDayStartNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("day_start not between", value1, value2, "dayStart");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeBetween(String value1, String value2) {
-            addCriterion("price_range between", value1, value2, "priceRange");
+        public Criteria andDayEndIsNull() {
+            addCriterion("day_end is null");
             return (Criteria) this;
         }
 
-        public Criteria andPriceRangeNotBetween(String value1, String value2) {
-            addCriterion("price_range not between", value1, value2, "priceRange");
+        public Criteria andDayEndIsNotNull() {
+            addCriterion("day_end is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTimeRangeIsNull() {
-            addCriterion("time_range is null");
+        public Criteria andDayEndEqualTo(Date value) {
+            addCriterionForJDBCDate("day_end =", value, "dayEnd");
             return (Criteria) this;
         }
 
-        public Criteria andTimeRangeIsNotNull() {
-            addCriterion("time_range is not null");
+        public Criteria andDayEndNotEqualTo(Date value) {
+            addCriterionForJDBCDate("day_end <>", value, "dayEnd");
             return (Criteria) this;
         }
 
-        public Criteria andTimeRangeEqualTo(String value) {
-            addCriterion("time_range =", value, "timeRange");
+        public Criteria andDayEndGreaterThan(Date value) {
+            addCriterionForJDBCDate("day_end >", value, "dayEnd");
             return (Criteria) this;
         }
 
-        public Criteria andTimeRangeNotEqualTo(String value) {
-            addCriterion("time_range <>", value, "timeRange");
+        public Criteria andDayEndGreaterThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("day_end >=", value, "dayEnd");
             return (Criteria) this;
         }
 
-        public Criteria andTimeRangeGreaterThan(String value) {
-            addCriterion("time_range >", value, "timeRange");
+        public Criteria andDayEndLessThan(Date value) {
+            addCriterionForJDBCDate("day_end <", value, "dayEnd");
             return (Criteria) this;
         }
 
-        public Criteria andTimeRangeGreaterThanOrEqualTo(String value) {
-            addCriterion("time_range >=", value, "timeRange");
+        public Criteria andDayEndLessThanOrEqualTo(Date value) {
+            addCriterionForJDBCDate("day_end <=", value, "dayEnd");
             return (Criteria) this;
         }
 
-        public Criteria andTimeRangeLessThan(String value) {
-            addCriterion("time_range <", value, "timeRange");
+        public Criteria andDayEndIn(List<Date> values) {
+            addCriterionForJDBCDate("day_end in", values, "dayEnd");
             return (Criteria) this;
         }
 
-        public Criteria andTimeRangeLessThanOrEqualTo(String value) {
-            addCriterion("time_range <=", value, "timeRange");
+        public Criteria andDayEndNotIn(List<Date> values) {
+            addCriterionForJDBCDate("day_end not in", values, "dayEnd");
             return (Criteria) this;
         }
 
-        public Criteria andTimeRangeLike(String value) {
-            addCriterion("time_range like", value, "timeRange");
+        public Criteria andDayEndBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("day_end between", value1, value2, "dayEnd");
             return (Criteria) this;
         }
 
-        public Criteria andTimeRangeNotLike(String value) {
-            addCriterion("time_range not like", value, "timeRange");
-            return (Criteria) this;
-        }
-
-        public Criteria andTimeRangeIn(List<String> values) {
-            addCriterion("time_range in", values, "timeRange");
-            return (Criteria) this;
-        }
-
-        public Criteria andTimeRangeNotIn(List<String> values) {
-            addCriterion("time_range not in", values, "timeRange");
-            return (Criteria) this;
-        }
-
-        public Criteria andTimeRangeBetween(String value1, String value2) {
-            addCriterion("time_range between", value1, value2, "timeRange");
-            return (Criteria) this;
-        }
-
-        public Criteria andTimeRangeNotBetween(String value1, String value2) {
-            addCriterion("time_range not between", value1, value2, "timeRange");
+        public Criteria andDayEndNotBetween(Date value1, Date value2) {
+            addCriterionForJDBCDate("day_end not between", value1, value2, "dayEnd");
             return (Criteria) this;
         }
     }
