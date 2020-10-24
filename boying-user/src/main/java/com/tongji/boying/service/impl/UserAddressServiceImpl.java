@@ -51,6 +51,9 @@ public class UserAddressServiceImpl implements UserAddressService
         User user = userService.getCurrentUser();
         AddressExample addressExample = new AddressExample();
         addressExample.createCriteria().andUserIdEqualTo(user.getUserId()).andAddressIdEqualTo(id);
+
+        //不能自己给别人增加收货地址
+        address.setUserId(user.getUserId());
 //        要设置为默认地址,则将默认地址抹除
         if(address.getDefaultAddress())
         {
