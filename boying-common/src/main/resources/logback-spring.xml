@@ -5,13 +5,16 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <!--使用默认的控制台日志输出实现-->
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-    <!--应用名称-->
-    <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultValue="springBoot"/>
+    <!-- 读取application.yml配置文件中spring.application.name中的属性来生成日志文件名全局变量 -->
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultValue="boying"/>
     <!--日志文件保存路径-->
+    <!--保存到用户路径,例如我的为:C:\Users\12549\AppData\Local\Temp\logs\debug-->
     <property name="LOG_FILE_PATH" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/logs}"/>
+
     <!--LogStash访问host-->
     <springProperty name="LOG_STASH_HOST" scope="context" source="logstash.host" defaultValue="localhost"/>
 
+    <!--Appender:日志输出目的地，负责日志的输出-->
     <!--DEBUG日志输出到文件-->
     <appender name="FILE_DEBUG"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -178,6 +181,11 @@
     <logger name="org.springframework" level="INFO"/>
     <logger name="org.hibernate.validator" level="INFO"/>
 
+<!--    <root>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个loger-->
+<!--    也是<loger>元素，但是它是根loger。只有一个level属性-->
+<!--    <root level="INFO">将root的打印级别设置为“INFO”-->
+<!--    root将级别为“DEBUG”及大于“DEBUG”的日志信息交给已经配置好的appender处理，appender将信息打印到控制台和文件中-->
+<!--    使用root可以配置全局打印级别，指定appender用来控制打印格式、目的地、文件信息等-->
     <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE_DEBUG"/>

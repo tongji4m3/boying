@@ -4,7 +4,7 @@ import com.tongji.boying.model.ShowSession;
 
 import java.util.List;
 
-public interface SessionService
+public interface ShowSessionService
 {
     ShowSession detail(Integer sessionId);
 

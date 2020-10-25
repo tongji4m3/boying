@@ -6,7 +6,7 @@ import com.tongji.boying.mapper.ShowMapper;
 import com.tongji.boying.model.Category;
 import com.tongji.boying.model.Show;
 import com.tongji.boying.model.ShowExample;
-import com.tongji.boying.service.CategoryService;
+import com.tongji.boying.service.ShowCategoryService;
 import com.tongji.boying.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class ShowServiceImpl implements ShowService
     @Autowired
     private ShowMapper showMapper;
     @Autowired
-    private CategoryService categoryService;
+    private ShowCategoryService showCategoryService;
 
     @Override
     public List<Show> search(String keyword, String city, Integer categoryId, Date date, Integer pageNum, Integer pageSize, Integer sort)
@@ -43,14 +43,14 @@ public class ShowServiceImpl implements ShowService
         if (categoryId != null)
         {
             //说明是子目录,可以直接查
-            if(categoryService.isSonCategory(categoryId))
+            if(showCategoryService.isSonCategory(categoryId))
             {
                 criteria.andCategoryIdEqualTo(categoryId);
             }
             else
             {
                 //show中的分类都是二级分类,所以如果只是直接搜索一级分类的,就需要先把一级分类的所有二级分类先查询
-                List<Category> categories = categoryService.categoryList(categoryId);
+                List<Category> categories = showCategoryService.categoryList(categoryId);
                 List<Integer> categoriesId = new LinkedList<>();
                 for (Category category : categories)
                 {

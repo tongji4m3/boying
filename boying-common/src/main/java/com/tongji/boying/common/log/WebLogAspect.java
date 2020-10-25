@@ -1,7 +1,5 @@
 package com.tongji.boying.common.log;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.URLUtil;
 import com.tongji.boying.common.domain.WebLog;
 import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.JoinPoint;
@@ -22,10 +20,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 统一日志处理切面
@@ -38,9 +34,9 @@ import java.util.Map;
 public class WebLogAspect
 {
     //    使用指定的类WebLogAspect初始化日志对象，方便在日志输出的时候，可以打印出日志信息所属的类。
-//    创建日志实例,定义成static final,速度快,节省空间,只能指向本logger
+    //    创建日志实例,定义成static final,速度快,节省空间,只能指向本logger
     private static final Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
-    //    定义换行符号
+    //    定义换行符号,方便日志打印时换行
     private static final String LINE_SP = System.lineSeparator();
 
     /**
@@ -57,6 +53,7 @@ public class WebLogAspect
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable
     {
+//        可以帮助我们知道访问该接口的日志开始位置
         LOGGER.info("========================================== Start ==========================================" + LINE_SP);
     }
 
@@ -64,6 +61,7 @@ public class WebLogAspect
     @AfterReturning(value = "webLog()", returning = "ret")
     public void doAfterReturning(Object ret) throws Throwable
     {
+//        标识该接口的日志结束位置
         LOGGER.info("=========================================== End ===========================================" + LINE_SP);
     }
 
@@ -71,39 +69,58 @@ public class WebLogAspect
     @Around("webLog()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable
     {
+        //获取方法没执行时的时间
         long startTime = System.currentTimeMillis();
-        //获取当前请求对象
+        Date startDate = new Date(startTime);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = simpleDateFormat.format(startDate);
+
+        //获取当前请求对象request
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        //记录请求信息(通过Logstash传入Elasticsearch)
+
+        //日志信息实体类
         WebLog webLog = new WebLog();
+
+        //执行目标方法
         Object result = joinPoint.proceed();
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         Method method = methodSignature.getMethod();
+        //获取ApiOperation注解中的描述信息
         if (method.isAnnotationPresent(ApiOperation.class))
         {
             ApiOperation log = method.getAnnotation(ApiOperation.class);
             webLog.setDescription(log.value());
         }
+
+        //执行结束时间
         long endTime = System.currentTimeMillis();
-        String urlStr = request.getRequestURL().toString();
-        webLog.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
-        webLog.setIp(request.getRemoteUser());
-        webLog.setMethod(request.getMethod());
-        webLog.setParameter(getParameter(method, joinPoint.getArgs()));
-        webLog.setResult(result);
-        webLog.setSpendTime((int) (endTime - startTime));
-        webLog.setStartTime(startTime);
-        webLog.setUri(request.getRequestURI());
+        //获取用户请求的url
         webLog.setUrl(request.getRequestURL().toString());
-        Map<String, Object> logMap = new HashMap<>();
+        //获取用户请求执行的controller方法
+        webLog.setMethod(request.getMethod());
+        //获取执行参数
+        webLog.setParameter(getParameter(method, joinPoint.getArgs()));
+        //获取程序返回结果
+        webLog.setResult(result);
+        //获取开始时间
+        webLog.setStartTime(startTime);
+        //获取一共花费的时间
+        webLog.setSpendTime((int) (endTime - startTime));
+
+        //选择要输出的内容
+        Map<String, Object> logMap = new LinkedHashMap<>();
+        //对日期进行相应处理
+        String spendTime = webLog.getSpendTime() + "ms";
+
+        logMap.put("description", webLog.getDescription());
         logMap.put("url", webLog.getUrl());
         logMap.put("method", webLog.getMethod());
         logMap.put("parameter", webLog.getParameter());
-        logMap.put("spendTime", webLog.getSpendTime());
-        logMap.put("description", webLog.getDescription());
-//        LOGGER.info("{}", JSONUtil.parse(webLog));
+        logMap.put("result", webLog.getResult());
+        logMap.put("startTime", time);
+        logMap.put("spendTime", spendTime);
 
 //        按格式打印日志信息
         for (String key : logMap.keySet())
@@ -111,7 +128,6 @@ public class WebLogAspect
             LOGGER.info(key + ": " + logMap.get(key) + LINE_SP);
         }
 
-//        LOGGER.info(Markers.appendEntries(logMap), JSONUtil.parse(webLog).toString());
         return result;
     }
 

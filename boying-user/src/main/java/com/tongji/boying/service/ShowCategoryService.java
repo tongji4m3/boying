@@ -6,7 +6,7 @@ import com.tongji.boying.model.Category;
 import java.util.List;
 import java.util.Map;
 
-public interface CategoryService
+public interface ShowCategoryService
 {
     /**
      * 如果parentId=0,则返回当前所有的父级菜单

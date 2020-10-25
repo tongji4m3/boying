@@ -3,17 +3,16 @@ package com.tongji.boying.service.impl;
 import com.tongji.boying.mapper.CategoryMapper;
 import com.tongji.boying.model.Category;
 import com.tongji.boying.model.CategoryExample;
-import com.tongji.boying.service.CategoryService;
+import com.tongji.boying.service.ShowCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class CategoryServiceImpl implements CategoryService
+public class ShowCategoryServiceImpl implements ShowCategoryService
 {
     @Autowired
     private CategoryMapper categoryMapper;

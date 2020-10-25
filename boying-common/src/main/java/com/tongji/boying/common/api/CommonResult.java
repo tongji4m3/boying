@@ -143,4 +143,14 @@ public class CommonResult<T>
     {
         this.data = data;
     }
+
+    @Override
+    public String toString()
+    {
+        return "CommonResult{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }
