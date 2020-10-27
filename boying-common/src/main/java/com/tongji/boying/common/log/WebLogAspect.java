@@ -33,7 +33,7 @@ import java.util.*;
 @Order(1)
 public class WebLogAspect
 {
-    //    使用指定的类WebLogAspect初始化日志对象，方便在日志输出的时候，可以打印出日志信息所属的类。
+    //    使用指定的类WebLogAspect的全限定类名为logger的名字来实例化一个logger,方便在日志输出的时候，打印出日志信息所属的类。
     //    创建日志实例,定义成static final,速度快,节省空间,只能指向本logger
     private static final Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
     //    定义换行符号,方便日志打印时换行
@@ -53,7 +53,10 @@ public class WebLogAspect
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable
     {
-//        可以帮助我们知道访问该接口的日志开始位置
+        //        如果一条的日志的打印级别大于 logger 的有效级别，该条日志才可以被打印出来
+        //        日志级别在logback-spring.xml配置文件中设为了debug,即只输出debug及以上的日志信息
+        //        该条日志的打印级别为info,级别更高,所以该信息能打印(TRACE < DEBUG < INFO < WARN < ERROR
+        //        该条日志标识了访问该接口的日志开始位置
         LOGGER.info("========================================== Start ==========================================" + LINE_SP);
     }
 
