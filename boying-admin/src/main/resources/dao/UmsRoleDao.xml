@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tongji.boying.dao.UmsRoleDao">
+
+    <select id="getMenuList" resultType="com.tongji.boying.model.Menu">
+        SELECT
+            m.menu_id menuId,
+            m.parent_id parentId,
+            m.create_time createTime,
+            m.title title,
+            m.level level,
+            m.sort sort,
+            m.title title,
+            m.icon icon,
+            m.hidden hidden
+        FROM
+            admin_role arr
+                LEFT JOIN role r ON arr.role_id = r.role_id
+                LEFT JOIN role_menu rmr ON r.role_id = rmr.role_id
+                LEFT JOIN menu m ON rmr.menu_id = m.menu_id
+        WHERE
+            arr.admin_id = #{adminId}
+          AND m.menu_id IS NOT NULL
+        GROUP BY
+            m.menu_id
+    </select>
+    <select id="getMenuListByRoleId" resultType="com.tongji.boying.model.Menu">
+        SELECT
+            m.menu_id menuId,
+            m.parent_id parentId,
+            m.create_time createTime,
+            m.title title,
+            m.level level,
+            m.sort sort,
+            m.title title,
+            m.icon icon,
+            m.hidden hidden
+        FROM
+             role_menu rmr
+                LEFT JOIN menu m ON rmr.menu_id = m.menu_id
+        WHERE
+            rmr.role_id = #{roleId}
+          AND m.menu_id IS NOT NULL
+        GROUP BY
+            m.menu_id
+    </select>
+    <select id="getResourceListByRoleId" resultType="com.tongji.boying.model.Resource">
+        SELECT
+            r.resource_id resourceId,
+            r.create_time createTime,
+            r.`name` `name`,
+            r.url url,
+            r.description description,
+            r.resource_category_id resourceCategoryId
+        FROM
+            role_resource rrr
+                LEFT JOIN resource r ON rrr.resource_id = r.resource_id
+        WHERE
+            rrr.role_id = #{roleId}
+          AND r.resource_id IS NOT NULL
+        GROUP BY
+            r.resource_id
+    </select>
+</mapper>

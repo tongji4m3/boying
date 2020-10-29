@@ -713,66 +713,6 @@ public class AddressExample {
             addCriterion("details not between", value1, value2, "details");
             return (Criteria) this;
         }
-
-        public Criteria andDefaultAddressIsNull() {
-            addCriterion("default_address is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDefaultAddressIsNotNull() {
-            addCriterion("default_address is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDefaultAddressEqualTo(Boolean value) {
-            addCriterion("default_address =", value, "defaultAddress");
-            return (Criteria) this;
-        }
-
-        public Criteria andDefaultAddressNotEqualTo(Boolean value) {
-            addCriterion("default_address <>", value, "defaultAddress");
-            return (Criteria) this;
-        }
-
-        public Criteria andDefaultAddressGreaterThan(Boolean value) {
-            addCriterion("default_address >", value, "defaultAddress");
-            return (Criteria) this;
-        }
-
-        public Criteria andDefaultAddressGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("default_address >=", value, "defaultAddress");
-            return (Criteria) this;
-        }
-
-        public Criteria andDefaultAddressLessThan(Boolean value) {
-            addCriterion("default_address <", value, "defaultAddress");
-            return (Criteria) this;
-        }
-
-        public Criteria andDefaultAddressLessThanOrEqualTo(Boolean value) {
-            addCriterion("default_address <=", value, "defaultAddress");
-            return (Criteria) this;
-        }
-
-        public Criteria andDefaultAddressIn(List<Boolean> values) {
-            addCriterion("default_address in", values, "defaultAddress");
-            return (Criteria) this;
-        }
-
-        public Criteria andDefaultAddressNotIn(List<Boolean> values) {
-            addCriterion("default_address not in", values, "defaultAddress");
-            return (Criteria) this;
-        }
-
-        public Criteria andDefaultAddressBetween(Boolean value1, Boolean value2) {
-            addCriterion("default_address between", value1, value2, "defaultAddress");
-            return (Criteria) this;
-        }
-
-        public Criteria andDefaultAddressNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("default_address not between", value1, value2, "defaultAddress");
-            return (Criteria) this;
-        }
     }
 
     public static class Criteria extends GeneratedCriteria {

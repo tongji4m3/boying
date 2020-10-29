@@ -32,8 +32,8 @@ public class UmsResourceCategoryController {
     @ApiOperation("添加后台资源分类")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult create(@RequestBody ResourceCategory umsResourceCategory) {
-        int count = resourceCategoryService.create(umsResourceCategory);
+    public CommonResult create(@RequestBody ResourceCategory resourceCategory) {
+        int count = resourceCategoryService.create(resourceCategory);
         if (count > 0) {
             return CommonResult.success(count);
         } else {
@@ -45,8 +45,8 @@ public class UmsResourceCategoryController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult update(@PathVariable Integer id,
-                               @RequestBody ResourceCategory umsResourceCategory) {
-        int count = resourceCategoryService.update(id, umsResourceCategory);
+                               @RequestBody ResourceCategory resourceCategory) {
+        int count = resourceCategoryService.update(id, resourceCategory);
         if (count > 0) {
             return CommonResult.success(count);
         } else {

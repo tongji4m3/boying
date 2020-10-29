@@ -6,11 +6,12 @@ import java.io.Serializable;
 public class Ticket implements Serializable {
     private Integer ticketId;
 
-    private Integer frequentId;
-
-    private Integer showClassId;
-
     private Integer orderId;
+
+    private Integer classId;
+
+    @ApiModelProperty(value = "二维码图片,供观影人验证入场")
+    private String qrCodeUrl;
 
     private static final long serialVersionUID = 1L;
 
@@ -22,28 +23,28 @@ public class Ticket implements Serializable {
         this.ticketId = ticketId;
     }
 
-    public Integer getFrequentId() {
-        return frequentId;
-    }
-
-    public void setFrequentId(Integer frequentId) {
-        this.frequentId = frequentId;
-    }
-
-    public Integer getShowClassId() {
-        return showClassId;
-    }
-
-    public void setShowClassId(Integer showClassId) {
-        this.showClassId = showClassId;
-    }
-
     public Integer getOrderId() {
         return orderId;
     }
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public Integer getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Integer classId) {
+        this.classId = classId;
+    }
+
+    public String getQrCodeUrl() {
+        return qrCodeUrl;
+    }
+
+    public void setQrCodeUrl(String qrCodeUrl) {
+        this.qrCodeUrl = qrCodeUrl;
     }
 
     @Override
@@ -53,9 +54,9 @@ public class Ticket implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", ticketId=").append(ticketId);
-        sb.append(", frequentId=").append(frequentId);
-        sb.append(", showClassId=").append(showClassId);
         sb.append(", orderId=").append(orderId);
+        sb.append(", classId=").append(classId);
+        sb.append(", qrCodeUrl=").append(qrCodeUrl);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

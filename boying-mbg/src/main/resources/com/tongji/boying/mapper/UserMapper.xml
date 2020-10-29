@@ -13,6 +13,8 @@
     <result column="gender" jdbcType="BIT" property="gender" />
     <result column="status" jdbcType="BIT" property="status" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="default_frequent" jdbcType="INTEGER" property="defaultFrequent" />
+    <result column="default_address" jdbcType="INTEGER" property="defaultAddress" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List">
     user_id, username, password, real_name, identity_number, phone, email, age, gender, 
-    status, icon
+    status, icon, default_frequent, default_address
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.UserExample" resultMap="BaseResultMap">
     select
@@ -110,11 +112,13 @@
     insert into user (user_id, username, password, 
       real_name, identity_number, phone, 
       email, age, gender, status, 
-      icon)
+      icon, default_frequent, default_address
+      )
     values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{realName,jdbcType=VARCHAR}, #{identityNumber,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{gender,jdbcType=BIT}, #{status,jdbcType=BIT}, 
-      #{icon,jdbcType=VARCHAR})
+      #{icon,jdbcType=VARCHAR}, #{defaultFrequent,jdbcType=INTEGER}, #{defaultAddress,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.User">
     insert into user
@@ -152,6 +156,12 @@
       <if test="icon != null">
         icon,
       </if>
+      <if test="defaultFrequent != null">
+        default_frequent,
+      </if>
+      <if test="defaultAddress != null">
+        default_address,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -186,6 +196,12 @@
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultFrequent != null">
+        #{defaultFrequent,jdbcType=INTEGER},
+      </if>
+      <if test="defaultAddress != null">
+        #{defaultAddress,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -231,6 +247,12 @@
       <if test="record.icon != null">
         icon = #{record.icon,jdbcType=VARCHAR},
       </if>
+      <if test="record.defaultFrequent != null">
+        default_frequent = #{record.defaultFrequent,jdbcType=INTEGER},
+      </if>
+      <if test="record.defaultAddress != null">
+        default_address = #{record.defaultAddress,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -248,7 +270,9 @@
       age = #{record.age,jdbcType=INTEGER},
       gender = #{record.gender,jdbcType=BIT},
       status = #{record.status,jdbcType=BIT},
-      icon = #{record.icon,jdbcType=VARCHAR}
+      icon = #{record.icon,jdbcType=VARCHAR},
+      default_frequent = #{record.defaultFrequent,jdbcType=INTEGER},
+      default_address = #{record.defaultAddress,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -286,6 +310,12 @@
       <if test="icon != null">
         icon = #{icon,jdbcType=VARCHAR},
       </if>
+      <if test="defaultFrequent != null">
+        default_frequent = #{defaultFrequent,jdbcType=INTEGER},
+      </if>
+      <if test="defaultAddress != null">
+        default_address = #{defaultAddress,jdbcType=INTEGER},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -300,7 +330,9 @@
       age = #{age,jdbcType=INTEGER},
       gender = #{gender,jdbcType=BIT},
       status = #{status,jdbcType=BIT},
-      icon = #{icon,jdbcType=VARCHAR}
+      icon = #{icon,jdbcType=VARCHAR},
+      default_frequent = #{defaultFrequent,jdbcType=INTEGER},
+      default_address = #{defaultAddress,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

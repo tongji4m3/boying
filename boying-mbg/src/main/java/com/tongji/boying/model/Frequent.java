@@ -3,7 +3,7 @@ package com.tongji.boying.model;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
-public class FrequentBuyers implements Serializable {
+public class Frequent implements Serializable {
     private Integer frequentId;
 
     private Integer userId;
@@ -13,8 +13,7 @@ public class FrequentBuyers implements Serializable {
     @ApiModelProperty(value = "常用购票人的身份证号码")
     private String identityNumber;
 
-    @ApiModelProperty(value = "是否为默认常用购票人")
-    private Boolean defaultBuyer;
+    private String phone;
 
     private static final long serialVersionUID = 1L;
 
@@ -50,12 +49,12 @@ public class FrequentBuyers implements Serializable {
         this.identityNumber = identityNumber;
     }
 
-    public Boolean getDefaultBuyer() {
-        return defaultBuyer;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setDefaultBuyer(Boolean defaultBuyer) {
-        this.defaultBuyer = defaultBuyer;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override
@@ -68,7 +67,7 @@ public class FrequentBuyers implements Serializable {
         sb.append(", userId=").append(userId);
         sb.append(", name=").append(name);
         sb.append(", identityNumber=").append(identityNumber);
-        sb.append(", defaultBuyer=").append(defaultBuyer);
+        sb.append(", phone=").append(phone);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

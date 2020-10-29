@@ -27,9 +27,6 @@ public class Address implements Serializable {
     @ApiModelProperty(value = "街道后的详细地址")
     private String details;
 
-    @ApiModelProperty(value = "是否是默认地址,bool类型")
-    private Boolean defaultAddress;
-
     private static final long serialVersionUID = 1L;
 
     public Integer getAddressId() {
@@ -104,14 +101,6 @@ public class Address implements Serializable {
         this.details = details;
     }
 
-    public Boolean getDefaultAddress() {
-        return defaultAddress;
-    }
-
-    public void setDefaultAddress(Boolean defaultAddress) {
-        this.defaultAddress = defaultAddress;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -127,7 +116,6 @@ public class Address implements Serializable {
         sb.append(", region=").append(region);
         sb.append(", street=").append(street);
         sb.append(", details=").append(details);
-        sb.append(", defaultAddress=").append(defaultAddress);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

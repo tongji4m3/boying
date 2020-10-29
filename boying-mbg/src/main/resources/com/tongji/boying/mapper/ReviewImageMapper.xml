@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tongji.boying.mapper.ClassMapper">
-  <resultMap id="BaseResultMap" type="com.tongji.boying.model.Class">
-    <id column="class_id" jdbcType="INTEGER" property="classId" />
-    <result column="session_id" jdbcType="INTEGER" property="sessionId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="capacity" jdbcType="INTEGER" property="capacity" />
-    <result column="price" jdbcType="DECIMAL" property="price" />
+<mapper namespace="com.tongji.boying.mapper.ReviewImageMapper">
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.ReviewImage">
+    <id column="review_image_id" jdbcType="INTEGER" property="reviewImageId" />
+    <result column="review_id" jdbcType="INTEGER" property="reviewId" />
+    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    class_id, session_id, name, capacity, price
+    review_image_id, review_id, image_url
   </sql>
-  <select id="selectByExample" parameterType="com.tongji.boying.model.ClassExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.tongji.boying.model.ReviewImageExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from class
+    from review_image
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,85 +84,67 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from class
-    where class_id = #{classId,jdbcType=INTEGER}
+    from review_image
+    where review_image_id = #{reviewImageId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from class
-    where class_id = #{classId,jdbcType=INTEGER}
+    delete from review_image
+    where review_image_id = #{reviewImageId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tongji.boying.model.ClassExample">
-    delete from class
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.ReviewImageExample">
+    delete from review_image
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tongji.boying.model.Class">
-    insert into class (class_id, session_id, name, 
-      capacity, price)
-    values (#{classId,jdbcType=INTEGER}, #{sessionId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{capacity,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL})
+  <insert id="insert" parameterType="com.tongji.boying.model.ReviewImage">
+    insert into review_image (review_image_id, review_id, image_url
+      )
+    values (#{reviewImageId,jdbcType=INTEGER}, #{reviewId,jdbcType=INTEGER}, #{imageUrl,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.tongji.boying.model.Class">
-    insert into class
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.ReviewImage">
+    insert into review_image
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="classId != null">
-        class_id,
+      <if test="reviewImageId != null">
+        review_image_id,
       </if>
-      <if test="sessionId != null">
-        session_id,
+      <if test="reviewId != null">
+        review_id,
       </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="capacity != null">
-        capacity,
-      </if>
-      <if test="price != null">
-        price,
+      <if test="imageUrl != null">
+        image_url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="classId != null">
-        #{classId,jdbcType=INTEGER},
+      <if test="reviewImageId != null">
+        #{reviewImageId,jdbcType=INTEGER},
       </if>
-      <if test="sessionId != null">
-        #{sessionId,jdbcType=INTEGER},
+      <if test="reviewId != null">
+        #{reviewId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="capacity != null">
-        #{capacity,jdbcType=INTEGER},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=DECIMAL},
+      <if test="imageUrl != null">
+        #{imageUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tongji.boying.model.ClassExample" resultType="java.lang.Long">
-    select count(*) from class
+  <select id="countByExample" parameterType="com.tongji.boying.model.ReviewImageExample" resultType="java.lang.Long">
+    select count(*) from review_image
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update class
+    update review_image
     <set>
-      <if test="record.classId != null">
-        class_id = #{record.classId,jdbcType=INTEGER},
+      <if test="record.reviewImageId != null">
+        review_image_id = #{record.reviewImageId,jdbcType=INTEGER},
       </if>
-      <if test="record.sessionId != null">
-        session_id = #{record.sessionId,jdbcType=INTEGER},
+      <if test="record.reviewId != null">
+        review_id = #{record.reviewId,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.capacity != null">
-        capacity = #{record.capacity,jdbcType=INTEGER},
-      </if>
-      <if test="record.price != null">
-        price = #{record.price,jdbcType=DECIMAL},
+      <if test="record.imageUrl != null">
+        image_url = #{record.imageUrl,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -172,40 +152,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update class
-    set class_id = #{record.classId,jdbcType=INTEGER},
-      session_id = #{record.sessionId,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
-      capacity = #{record.capacity,jdbcType=INTEGER},
-      price = #{record.price,jdbcType=DECIMAL}
+    update review_image
+    set review_image_id = #{record.reviewImageId,jdbcType=INTEGER},
+      review_id = #{record.reviewId,jdbcType=INTEGER},
+      image_url = #{record.imageUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.Class">
-    update class
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.ReviewImage">
+    update review_image
     <set>
-      <if test="sessionId != null">
-        session_id = #{sessionId,jdbcType=INTEGER},
+      <if test="reviewId != null">
+        review_id = #{reviewId,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="capacity != null">
-        capacity = #{capacity,jdbcType=INTEGER},
-      </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
+      <if test="imageUrl != null">
+        image_url = #{imageUrl,jdbcType=VARCHAR},
       </if>
     </set>
-    where class_id = #{classId,jdbcType=INTEGER}
+    where review_image_id = #{reviewImageId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.Class">
-    update class
-    set session_id = #{sessionId,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      capacity = #{capacity,jdbcType=INTEGER},
-      price = #{price,jdbcType=DECIMAL}
-    where class_id = #{classId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.ReviewImage">
+    update review_image
+    set review_id = #{reviewId,jdbcType=INTEGER},
+      image_url = #{imageUrl,jdbcType=VARCHAR}
+    where review_image_id = #{reviewImageId,jdbcType=INTEGER}
   </update>
 </mapper>

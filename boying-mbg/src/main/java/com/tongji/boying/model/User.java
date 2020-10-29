@@ -31,6 +31,12 @@ public class User implements Serializable {
     @ApiModelProperty(value = "个人头像")
     private String icon;
 
+    @ApiModelProperty(value = "默认观影者")
+    private Integer defaultFrequent;
+
+    @ApiModelProperty(value = "默认地址")
+    private Integer defaultAddress;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getUserId() {
@@ -121,6 +127,22 @@ public class User implements Serializable {
         this.icon = icon;
     }
 
+    public Integer getDefaultFrequent() {
+        return defaultFrequent;
+    }
+
+    public void setDefaultFrequent(Integer defaultFrequent) {
+        this.defaultFrequent = defaultFrequent;
+    }
+
+    public Integer getDefaultAddress() {
+        return defaultAddress;
+    }
+
+    public void setDefaultAddress(Integer defaultAddress) {
+        this.defaultAddress = defaultAddress;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -138,6 +160,8 @@ public class User implements Serializable {
         sb.append(", gender=").append(gender);
         sb.append(", status=").append(status);
         sb.append(", icon=").append(icon);
+        sb.append(", defaultFrequent=").append(defaultFrequent);
+        sb.append(", defaultAddress=").append(defaultAddress);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

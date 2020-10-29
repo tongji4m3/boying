@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
-import com.tongji.boying.domain.AdminUserDetails;
+import com.tongji.boying.config.AdminUserDetails;
 import com.tongji.boying.dto.AdminParam;
 import com.tongji.boying.dto.AdminPasswordParam;
 import com.tongji.boying.mapper.AdminMapper;
@@ -13,6 +13,7 @@ import com.tongji.boying.model.*;
 import com.tongji.boying.security.util.JwtTokenUtil;
 import com.tongji.boying.service.UmsAdminCacheService;
 import com.tongji.boying.service.UmsAdminService;
+import com.tongji.boying.dao.UmsAdminRoleDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -30,7 +31,6 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * UmsAdminService实现类
@@ -46,9 +46,13 @@ public class UmsAdminServiceImpl implements UmsAdminService
     @Autowired
     private AdminMapper adminMapper;
     @Autowired
-    private AdminRoleMapper adminRoleRelationMapper;
+    private AdminRoleMapper adminRoleMapper;
     @Autowired
     private UmsAdminCacheService adminCacheService;
+
+    @Autowired
+    private UmsAdminRoleDao adminRoleDao;
+
 
     @Override
     public Admin getAdminByUsername(String username)
@@ -70,23 +74,23 @@ public class UmsAdminServiceImpl implements UmsAdminService
     @Override
     public Admin register(AdminParam adminParam)
     {
-        Admin umsAdmin = new Admin();
-        BeanUtils.copyProperties(adminParam, umsAdmin);
-        umsAdmin.setCreateTime(new Date());
-        umsAdmin.setStatus(true);
+        Admin admin = new Admin();
+        BeanUtils.copyProperties(adminParam, admin);
+        admin.setCreateTime(new Date());
+        admin.setStatus(true);
         //查询是否有相同用户名的用户
         AdminExample example = new AdminExample();
-        example.createCriteria().andUsernameEqualTo(umsAdmin.getUsername());
+        example.createCriteria().andUsernameEqualTo(admin.getUsername());
         List<Admin> umsAdminList = adminMapper.selectByExample(example);
         if (umsAdminList.size() > 0)
         {
             return null;
         }
         //将密码进行加密操作
-        String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
-        umsAdmin.setPassword(encodePassword);
-        adminMapper.insert(umsAdmin);
-        return umsAdmin;
+        String encodePassword = passwordEncoder.encode(admin.getPassword());
+        admin.setPassword(encodePassword);
+        adminMapper.insert(admin);
+        return admin;
     }
 
     @Override
@@ -108,7 +112,6 @@ public class UmsAdminServiceImpl implements UmsAdminService
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
-//            updateLoginTimeByUsername(username);
         }
         catch (AuthenticationException e)
         {
@@ -160,23 +163,8 @@ public class UmsAdminServiceImpl implements UmsAdminService
     {
         admin.setAdminId(id);
         Admin rawAdmin = adminMapper.selectByPrimaryKey(id);
-        if (rawAdmin.getPassword().equals(admin.getPassword()))
-        {
-            //与原加密密码相同的不需要修改
-            admin.setPassword(null);
-        }
-        else
-        {
-            //与原加密密码不同的需要加密修改
-            if (StrUtil.isEmpty(admin.getPassword()))
-            {
-                admin.setPassword(null);
-            }
-            else
-            {
-                admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-            }
-        }
+        //不对密码进行更新
+        admin.setPassword(null);
         int count = adminMapper.updateByPrimaryKeySelective(admin);
         adminCacheService.delAdmin(id);
         return count;
@@ -196,21 +184,21 @@ public class UmsAdminServiceImpl implements UmsAdminService
     {
         int count = roleIds == null ? 0 : roleIds.size();
         //先删除原来的关系
-        AdminRoleExample adminRoleRelationExample = new AdminRoleExample();
-        adminRoleRelationExample.createCriteria().andAdminIdEqualTo(adminId);
-        adminRoleRelationMapper.deleteByExample(adminRoleRelationExample);
+        AdminRoleExample adminRoleExample = new AdminRoleExample();
+        adminRoleExample.createCriteria().andAdminIdEqualTo(adminId);
+        adminRoleMapper.deleteByExample(adminRoleExample);
         //建立新关系
         if (!CollectionUtils.isEmpty(roleIds))
         {
             List<AdminRole> list = new ArrayList<>();
             for (Integer roleId : roleIds)
             {
-                AdminRole roleRelation = new AdminRole();
-                roleRelation.setAdminId(adminId);
-                roleRelation.setRoleId(roleId);
-                list.add(roleRelation);
+                AdminRole adminRole = new AdminRole();
+                adminRole.setAdminId(adminId);
+                adminRole.setRoleId(roleId);
+                list.add(adminRole);
             }
-            adminRoleRelationDao.insertList(list);
+            adminRoleDao.insertList(list);
         }
         adminCacheService.delResourceList(adminId);
         return count;
@@ -219,7 +207,7 @@ public class UmsAdminServiceImpl implements UmsAdminService
     @Override
     public List<Role> getRoleList(Integer adminId)
     {
-        return adminRoleRelationDao.getRoleList(adminId);
+        return adminRoleDao.getRoleList(adminId);
     }
 
     @Override
@@ -230,7 +218,7 @@ public class UmsAdminServiceImpl implements UmsAdminService
         {
             return resourceList;
         }
-        resourceList = adminRoleRelationDao.getResourceList(adminId);
+        resourceList = adminRoleDao.getResourceList(adminId);
         if (CollUtil.isNotEmpty(resourceList))
         {
             adminCacheService.setResourceList(adminId, resourceList);

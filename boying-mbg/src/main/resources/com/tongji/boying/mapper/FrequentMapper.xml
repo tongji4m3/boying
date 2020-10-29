@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tongji.boying.mapper.ShowSessionMapper">
-  <resultMap id="BaseResultMap" type="com.tongji.boying.model.ShowSession">
-    <id column="show_session_id" jdbcType="INTEGER" property="showSessionId" />
-    <result column="show_id" jdbcType="INTEGER" property="showId" />
-    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
-    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="weight" jdbcType="INTEGER" property="weight" />
+<mapper namespace="com.tongji.boying.mapper.FrequentMapper">
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.Frequent">
+    <id column="frequent_id" jdbcType="INTEGER" property="frequentId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="identity_number" jdbcType="VARCHAR" property="identityNumber" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    show_session_id, show_id, start_time, end_time, weight
+    frequent_id, user_id, name, identity_number, phone
   </sql>
-  <select id="selectByExample" parameterType="com.tongji.boying.model.ShowSessionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.tongji.boying.model.FrequentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from show_session
+    from frequent
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,85 +86,85 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from show_session
-    where show_session_id = #{showSessionId,jdbcType=INTEGER}
+    from frequent
+    where frequent_id = #{frequentId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from show_session
-    where show_session_id = #{showSessionId,jdbcType=INTEGER}
+    delete from frequent
+    where frequent_id = #{frequentId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tongji.boying.model.ShowSessionExample">
-    delete from show_session
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.FrequentExample">
+    delete from frequent
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tongji.boying.model.ShowSession">
-    insert into show_session (show_session_id, show_id, start_time, 
-      end_time, weight)
-    values (#{showSessionId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{weight,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.tongji.boying.model.Frequent">
+    insert into frequent (frequent_id, user_id, name, 
+      identity_number, phone)
+    values (#{frequentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{identityNumber,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tongji.boying.model.ShowSession">
-    insert into show_session
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.Frequent">
+    insert into frequent
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="showSessionId != null">
-        show_session_id,
+      <if test="frequentId != null">
+        frequent_id,
       </if>
-      <if test="showId != null">
-        show_id,
+      <if test="userId != null">
+        user_id,
       </if>
-      <if test="startTime != null">
-        start_time,
+      <if test="name != null">
+        name,
       </if>
-      <if test="endTime != null">
-        end_time,
+      <if test="identityNumber != null">
+        identity_number,
       </if>
-      <if test="weight != null">
-        weight,
+      <if test="phone != null">
+        phone,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="showSessionId != null">
-        #{showSessionId,jdbcType=INTEGER},
+      <if test="frequentId != null">
+        #{frequentId,jdbcType=INTEGER},
       </if>
-      <if test="showId != null">
-        #{showId,jdbcType=INTEGER},
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
-      <if test="startTime != null">
-        #{startTime,jdbcType=TIMESTAMP},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="endTime != null">
-        #{endTime,jdbcType=TIMESTAMP},
+      <if test="identityNumber != null">
+        #{identityNumber,jdbcType=VARCHAR},
       </if>
-      <if test="weight != null">
-        #{weight,jdbcType=INTEGER},
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tongji.boying.model.ShowSessionExample" resultType="java.lang.Long">
-    select count(*) from show_session
+  <select id="countByExample" parameterType="com.tongji.boying.model.FrequentExample" resultType="java.lang.Long">
+    select count(*) from frequent
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update show_session
+    update frequent
     <set>
-      <if test="record.showSessionId != null">
-        show_session_id = #{record.showSessionId,jdbcType=INTEGER},
+      <if test="record.frequentId != null">
+        frequent_id = #{record.frequentId,jdbcType=INTEGER},
       </if>
-      <if test="record.showId != null">
-        show_id = #{record.showId,jdbcType=INTEGER},
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.startTime != null">
-        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.endTime != null">
-        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      <if test="record.identityNumber != null">
+        identity_number = #{record.identityNumber,jdbcType=VARCHAR},
       </if>
-      <if test="record.weight != null">
-        weight = #{record.weight,jdbcType=INTEGER},
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -172,40 +172,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update show_session
-    set show_session_id = #{record.showSessionId,jdbcType=INTEGER},
-      show_id = #{record.showId,jdbcType=INTEGER},
-      start_time = #{record.startTime,jdbcType=TIMESTAMP},
-      end_time = #{record.endTime,jdbcType=TIMESTAMP},
-      weight = #{record.weight,jdbcType=INTEGER}
+    update frequent
+    set frequent_id = #{record.frequentId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      identity_number = #{record.identityNumber,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.ShowSession">
-    update show_session
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.Frequent">
+    update frequent
     <set>
-      <if test="showId != null">
-        show_id = #{showId,jdbcType=INTEGER},
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="startTime != null">
-        start_time = #{startTime,jdbcType=TIMESTAMP},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="endTime != null">
-        end_time = #{endTime,jdbcType=TIMESTAMP},
+      <if test="identityNumber != null">
+        identity_number = #{identityNumber,jdbcType=VARCHAR},
       </if>
-      <if test="weight != null">
-        weight = #{weight,jdbcType=INTEGER},
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
     </set>
-    where show_session_id = #{showSessionId,jdbcType=INTEGER}
+    where frequent_id = #{frequentId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.ShowSession">
-    update show_session
-    set show_id = #{showId,jdbcType=INTEGER},
-      start_time = #{startTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      weight = #{weight,jdbcType=INTEGER}
-    where show_session_id = #{showSessionId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.Frequent">
+    update frequent
+    set user_id = #{userId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      identity_number = #{identityNumber,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR}
+    where frequent_id = #{frequentId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -6,11 +6,11 @@ import com.tongji.boying.model.Category;
 import com.tongji.boying.model.Menu;
 import com.tongji.boying.model.MenuExample;
 import com.tongji.boying.service.UmsMenuService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -76,13 +76,21 @@ public class UmsMenuServiceImpl implements UmsMenuService
     }
 
     @Override
-    public Map<Category, List<Category>> categoryMap()
+    public Map<Menu, List<Menu>> categoryMap()
     {
-        List<Menu> menuList = menuMapper.selectByExample(new UmsMenuExample());
-        Map<Category, List<Category>> result = menuList.stream()
-                .filter(menu -> menu.getParentId().equals(0L))
-                .map(menu -> covertMenuNode(menu, menuList)).collect(Collectors.toList());
-        return result;
+        //用LinkedHashMap保持插入顺序,保证最后结果的权重
+        Map<Menu, List<Menu>> map = new LinkedHashMap<>();
+        MenuExample example = new MenuExample();
+        example.createCriteria().andParentIdEqualTo(0);
+        List<Menu> parents = menuMapper.selectByExample(example);
+        for (Menu parent : parents)
+        {
+            MenuExample menuExample = new MenuExample();
+            menuExample.setOrderByClause("sort desc");
+            menuExample.createCriteria().andParentIdEqualTo(parent.getParentId());
+            map.put(parent, menuMapper.selectByExample(menuExample));
+        }
+        return map;
     }
 
 

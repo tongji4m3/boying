@@ -2,7 +2,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.model.Category;
+import com.tongji.boying.model.Menu;
 import com.tongji.boying.model.Menu;
 import com.tongji.boying.service.UmsMenuService;
 import io.swagger.annotations.Api;
@@ -83,15 +83,15 @@ public class UmsMenuController {
     @ApiOperation("树形结构返回所有菜单列表")
     @RequestMapping(value = "/treeList", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<Map<Category,List<Category>>> treeList() {
-        Map<Category,List<Category>> map = menuService.categoryMap();
+    public CommonResult<Map<Menu,List<Menu>>> treeList() {
+        Map<Menu,List<Menu>> map = menuService.categoryMap();
         return CommonResult.success(map);
     }
 
     @ApiOperation("修改菜单显示状态")
     @RequestMapping(value = "/updateHidden/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updateHidden(@PathVariable Integer id, @RequestParam("hidden") Integer hidden) {
+    public CommonResult updateHidden(@PathVariable Integer id, @RequestParam("hidden") Boolean hidden) {
         int count = menuService.updateHidden(id, hidden);
         if (count > 0) {
             return CommonResult.success(count);

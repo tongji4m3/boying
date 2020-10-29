@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface UmsAdminService {
     /**
-     * 根据用户名获取后台管理员
+     * 根据管理员名获取后台管理员
      */
     Admin getAdminByUsername(String username);
 
@@ -26,7 +26,7 @@ public interface UmsAdminService {
 
     /**
      * 登录功能
-     * @param username 用户名
+     * @param username 管理员名
      * @param password 密码
      * @return 生成的JWT的token
      */
@@ -39,47 +39,41 @@ public interface UmsAdminService {
     String refreshToken(String oldToken);
 
     /**
-     * 根据用户id获取用户
+     * 根据管理员id获取管理员
      */
     Admin getItem(Integer id);
 
     /**
-     * 根据用户名或昵称分页查询用户
+     * 根据管理员名分页查询管理员
      */
     List<Admin> list(String keyword, Integer pageSize, Integer pageNum);
 
     /**
-     * 修改指定用户信息
+     * 修改指定管理员信息
      */
     int update(Integer id, Admin admin);
 
     /**
-     * 删除指定用户
+     * 删除指定管理员
      */
     int delete(Integer id);
 
     /**
-     * 修改用户角色关系
+     * 修改管理员角色关系
      */
     @Transactional
     int updateRole(Integer adminId, List<Integer> roleIds);
 
     /**
-     * 获取用户对于角色
+     * 获取管理员对于角色
      */
     List<Role> getRoleList(Integer adminId);
 
     /**
-     * 获取指定用户的可访问资源
+     * 获取指定管理员的可访问资源
      */
     List<Resource> getResourceList(Integer adminId);
 
-
-
-    /**
-     * 修改密码
-     */
-    int updatePassword(String username,String oldPassword,String newPassword);
 
     /**
      * 修改密码
@@ -87,7 +81,7 @@ public interface UmsAdminService {
     int updatePassword(AdminPasswordParam passwordParam);
 
     /**
-     * 获取用户信息
+     * 获取管理员信息
      */
     UserDetails loadUserByUsername(String username);
 }

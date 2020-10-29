@@ -20,7 +20,7 @@ public class Role implements Serializable {
     private Date createTime;
 
     @ApiModelProperty(value = "启用状态：0->禁用；1->启用")
-    private Byte status;
+    private Boolean status;
 
     @ApiModelProperty(value = "用于排序")
     private Integer sort;
@@ -67,11 +67,11 @@ public class Role implements Serializable {
         this.createTime = createTime;
     }
 
-    public Byte getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

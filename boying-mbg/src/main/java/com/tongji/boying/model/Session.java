@@ -4,8 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ShowSession implements Serializable {
-    private Integer showSessionId;
+public class Session implements Serializable {
+    private Integer sessionId;
 
     @ApiModelProperty(value = "所属哪个演唱会")
     private Integer showId;
@@ -19,12 +19,12 @@ public class ShowSession implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getShowSessionId() {
-        return showSessionId;
+    public Integer getSessionId() {
+        return sessionId;
     }
 
-    public void setShowSessionId(Integer showSessionId) {
-        this.showSessionId = showSessionId;
+    public void setSessionId(Integer sessionId) {
+        this.sessionId = sessionId;
     }
 
     public Integer getShowId() {
@@ -65,7 +65,7 @@ public class ShowSession implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", showSessionId=").append(showSessionId);
+        sb.append(", sessionId=").append(sessionId);
         sb.append(", showId=").append(showId);
         sb.append(", startTime=").append(startTime);
         sb.append(", endTime=").append(endTime);

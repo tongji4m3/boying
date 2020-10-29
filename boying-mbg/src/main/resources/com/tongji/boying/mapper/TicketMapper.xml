@@ -3,9 +3,9 @@
 <mapper namespace="com.tongji.boying.mapper.TicketMapper">
   <resultMap id="BaseResultMap" type="com.tongji.boying.model.Ticket">
     <id column="ticket_id" jdbcType="INTEGER" property="ticketId" />
-    <result column="frequent_id" jdbcType="INTEGER" property="frequentId" />
-    <result column="show_class_id" jdbcType="INTEGER" property="showClassId" />
     <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="qr_code_url" jdbcType="VARCHAR" property="qrCodeUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ticket_id, frequent_id, show_class_id, order_id
+    ticket_id, order_id, class_id, qr_code_url
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.TicketExample" resultMap="BaseResultMap">
     select
@@ -99,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Ticket">
-    insert into ticket (ticket_id, frequent_id, show_class_id, 
-      order_id)
-    values (#{ticketId,jdbcType=INTEGER}, #{frequentId,jdbcType=INTEGER}, #{showClassId,jdbcType=INTEGER}, 
-      #{orderId,jdbcType=INTEGER})
+    insert into ticket (ticket_id, order_id, class_id, 
+      qr_code_url)
+    values (#{ticketId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}, 
+      #{qrCodeUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Ticket">
     insert into ticket
@@ -110,28 +110,28 @@
       <if test="ticketId != null">
         ticket_id,
       </if>
-      <if test="frequentId != null">
-        frequent_id,
-      </if>
-      <if test="showClassId != null">
-        show_class_id,
-      </if>
       <if test="orderId != null">
         order_id,
+      </if>
+      <if test="classId != null">
+        class_id,
+      </if>
+      <if test="qrCodeUrl != null">
+        qr_code_url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="ticketId != null">
         #{ticketId,jdbcType=INTEGER},
       </if>
-      <if test="frequentId != null">
-        #{frequentId,jdbcType=INTEGER},
-      </if>
-      <if test="showClassId != null">
-        #{showClassId,jdbcType=INTEGER},
-      </if>
       <if test="orderId != null">
         #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="qrCodeUrl != null">
+        #{qrCodeUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -147,14 +147,14 @@
       <if test="record.ticketId != null">
         ticket_id = #{record.ticketId,jdbcType=INTEGER},
       </if>
-      <if test="record.frequentId != null">
-        frequent_id = #{record.frequentId,jdbcType=INTEGER},
-      </if>
-      <if test="record.showClassId != null">
-        show_class_id = #{record.showClassId,jdbcType=INTEGER},
-      </if>
       <if test="record.orderId != null">
         order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.classId != null">
+        class_id = #{record.classId,jdbcType=INTEGER},
+      </if>
+      <if test="record.qrCodeUrl != null">
+        qr_code_url = #{record.qrCodeUrl,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -164,9 +164,9 @@
   <update id="updateByExample" parameterType="map">
     update ticket
     set ticket_id = #{record.ticketId,jdbcType=INTEGER},
-      frequent_id = #{record.frequentId,jdbcType=INTEGER},
-      show_class_id = #{record.showClassId,jdbcType=INTEGER},
-      order_id = #{record.orderId,jdbcType=INTEGER}
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      class_id = #{record.classId,jdbcType=INTEGER},
+      qr_code_url = #{record.qrCodeUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -174,23 +174,23 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.Ticket">
     update ticket
     <set>
-      <if test="frequentId != null">
-        frequent_id = #{frequentId,jdbcType=INTEGER},
-      </if>
-      <if test="showClassId != null">
-        show_class_id = #{showClassId,jdbcType=INTEGER},
-      </if>
       <if test="orderId != null">
         order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null">
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="qrCodeUrl != null">
+        qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR},
       </if>
     </set>
     where ticket_id = #{ticketId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.Ticket">
     update ticket
-    set frequent_id = #{frequentId,jdbcType=INTEGER},
-      show_class_id = #{showClassId,jdbcType=INTEGER},
-      order_id = #{orderId,jdbcType=INTEGER}
+    set order_id = #{orderId,jdbcType=INTEGER},
+      class_id = #{classId,jdbcType=INTEGER},
+      qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR}
     where ticket_id = #{ticketId,jdbcType=INTEGER}
   </update>
 </mapper>

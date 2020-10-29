@@ -833,6 +833,126 @@ public class UserExample {
             addCriterion("icon not between", value1, value2, "icon");
             return (Criteria) this;
         }
+
+        public Criteria andDefaultFrequentIsNull() {
+            addCriterion("default_frequent is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultFrequentIsNotNull() {
+            addCriterion("default_frequent is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultFrequentEqualTo(Integer value) {
+            addCriterion("default_frequent =", value, "defaultFrequent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultFrequentNotEqualTo(Integer value) {
+            addCriterion("default_frequent <>", value, "defaultFrequent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultFrequentGreaterThan(Integer value) {
+            addCriterion("default_frequent >", value, "defaultFrequent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultFrequentGreaterThanOrEqualTo(Integer value) {
+            addCriterion("default_frequent >=", value, "defaultFrequent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultFrequentLessThan(Integer value) {
+            addCriterion("default_frequent <", value, "defaultFrequent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultFrequentLessThanOrEqualTo(Integer value) {
+            addCriterion("default_frequent <=", value, "defaultFrequent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultFrequentIn(List<Integer> values) {
+            addCriterion("default_frequent in", values, "defaultFrequent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultFrequentNotIn(List<Integer> values) {
+            addCriterion("default_frequent not in", values, "defaultFrequent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultFrequentBetween(Integer value1, Integer value2) {
+            addCriterion("default_frequent between", value1, value2, "defaultFrequent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultFrequentNotBetween(Integer value1, Integer value2) {
+            addCriterion("default_frequent not between", value1, value2, "defaultFrequent");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressIsNull() {
+            addCriterion("default_address is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressIsNotNull() {
+            addCriterion("default_address is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressEqualTo(Integer value) {
+            addCriterion("default_address =", value, "defaultAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressNotEqualTo(Integer value) {
+            addCriterion("default_address <>", value, "defaultAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressGreaterThan(Integer value) {
+            addCriterion("default_address >", value, "defaultAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressGreaterThanOrEqualTo(Integer value) {
+            addCriterion("default_address >=", value, "defaultAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressLessThan(Integer value) {
+            addCriterion("default_address <", value, "defaultAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressLessThanOrEqualTo(Integer value) {
+            addCriterion("default_address <=", value, "defaultAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressIn(List<Integer> values) {
+            addCriterion("default_address in", values, "defaultAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressNotIn(List<Integer> values) {
+            addCriterion("default_address not in", values, "defaultAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressBetween(Integer value1, Integer value2) {
+            addCriterion("default_address between", value1, value2, "defaultAddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andDefaultAddressNotBetween(Integer value1, Integer value2) {
+            addCriterion("default_address not between", value1, value2, "defaultAddress");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tongji.boying.dao.UmsAdminRoleDao">
+    <!--批量新增回写主键支持-->
+    <insert id="insertList">
+        INSERT INTO admin_role (admin_id, role_id) VALUES
+        <foreach collection="list" separator="," item="item" index="index">
+            (#{item.adminId,jdbcType=INTEGER},
+            #{item.roleId,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+    <select id="getRoleList" resultMap="com.tongji.boying.mapper.RoleMapper.BaseResultMap">
+        select r.*
+        from admin_role ar left join role r on ar.role_id = r.role_id
+        where ar.admin_id = #{adminId}
+    </select>
+
+
+    <select id="getResourceList" resultType="com.tongji.boying.model.Resource">
+        SELECT
+            ur.resource_id id,
+            ur.create_time createTime,
+            ur.`name` `name`,
+            ur.url url,
+            ur.description description,
+            ur.resource_category_id categoryId
+        FROM
+            admin_role ar
+        LEFT JOIN role r ON ar.role_id = r.role_id
+        LEFT JOIN role_resource rrr ON r.role_id = rrr.role_id
+        LEFT JOIN resource ur ON ur.resource_id = rrr.resource_id
+        WHERE
+            ar.admin_id = #{adminId}
+        AND ur.resource_id IS NOT NULL
+        GROUP BY
+            ur.resource_id
+    </select>
+    <select id="getAdminIdList" resultType="java.lang.Integer">
+        SELECT
+            DISTINCT ar.admin_id
+        FROM
+            role_resource rr
+                LEFT JOIN admin_role ar ON rr.role_id = ar.role_id
+        WHERE rr.resource_id=#{resourceId}
+    </select>
+</mapper>

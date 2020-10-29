@@ -3,14 +3,14 @@ package com.tongji.boying.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FrequentBuyersExample {
+public class FrequentExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public FrequentBuyersExample() {
+    public FrequentExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -364,63 +364,73 @@ public class FrequentBuyersExample {
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerIsNull() {
-            addCriterion("default_buyer is null");
+        public Criteria andPhoneIsNull() {
+            addCriterion("phone is null");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerIsNotNull() {
-            addCriterion("default_buyer is not null");
+        public Criteria andPhoneIsNotNull() {
+            addCriterion("phone is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerEqualTo(Boolean value) {
-            addCriterion("default_buyer =", value, "defaultBuyer");
+        public Criteria andPhoneEqualTo(String value) {
+            addCriterion("phone =", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerNotEqualTo(Boolean value) {
-            addCriterion("default_buyer <>", value, "defaultBuyer");
+        public Criteria andPhoneNotEqualTo(String value) {
+            addCriterion("phone <>", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerGreaterThan(Boolean value) {
-            addCriterion("default_buyer >", value, "defaultBuyer");
+        public Criteria andPhoneGreaterThan(String value) {
+            addCriterion("phone >", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("default_buyer >=", value, "defaultBuyer");
+        public Criteria andPhoneGreaterThanOrEqualTo(String value) {
+            addCriterion("phone >=", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerLessThan(Boolean value) {
-            addCriterion("default_buyer <", value, "defaultBuyer");
+        public Criteria andPhoneLessThan(String value) {
+            addCriterion("phone <", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerLessThanOrEqualTo(Boolean value) {
-            addCriterion("default_buyer <=", value, "defaultBuyer");
+        public Criteria andPhoneLessThanOrEqualTo(String value) {
+            addCriterion("phone <=", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerIn(List<Boolean> values) {
-            addCriterion("default_buyer in", values, "defaultBuyer");
+        public Criteria andPhoneLike(String value) {
+            addCriterion("phone like", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerNotIn(List<Boolean> values) {
-            addCriterion("default_buyer not in", values, "defaultBuyer");
+        public Criteria andPhoneNotLike(String value) {
+            addCriterion("phone not like", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerBetween(Boolean value1, Boolean value2) {
-            addCriterion("default_buyer between", value1, value2, "defaultBuyer");
+        public Criteria andPhoneIn(List<String> values) {
+            addCriterion("phone in", values, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBuyerNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("default_buyer not between", value1, value2, "defaultBuyer");
+        public Criteria andPhoneNotIn(List<String> values) {
+            addCriterion("phone not in", values, "phone");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneBetween(String value1, String value2) {
+            addCriterion("phone between", value1, value2, "phone");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneNotBetween(String value1, String value2) {
+            addCriterion("phone not between", value1, value2, "phone");
             return (Criteria) this;
         }
     }

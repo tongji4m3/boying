@@ -1,17 +1,17 @@
 package com.tongji.boying.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class ShowClassExample {
+public class SessionExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ShowClassExample() {
+    public SessionExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -105,303 +105,303 @@ public class ShowClassExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andShowClassIdIsNull() {
-            addCriterion("show_class_id is null");
+        public Criteria andSessionIdIsNull() {
+            addCriterion("session_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andShowClassIdIsNotNull() {
-            addCriterion("show_class_id is not null");
+        public Criteria andSessionIdIsNotNull() {
+            addCriterion("session_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andShowClassIdEqualTo(Integer value) {
-            addCriterion("show_class_id =", value, "showClassId");
+        public Criteria andSessionIdEqualTo(Integer value) {
+            addCriterion("session_id =", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andShowClassIdNotEqualTo(Integer value) {
-            addCriterion("show_class_id <>", value, "showClassId");
+        public Criteria andSessionIdNotEqualTo(Integer value) {
+            addCriterion("session_id <>", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andShowClassIdGreaterThan(Integer value) {
-            addCriterion("show_class_id >", value, "showClassId");
+        public Criteria andSessionIdGreaterThan(Integer value) {
+            addCriterion("session_id >", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andShowClassIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("show_class_id >=", value, "showClassId");
+        public Criteria andSessionIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("session_id >=", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andShowClassIdLessThan(Integer value) {
-            addCriterion("show_class_id <", value, "showClassId");
+        public Criteria andSessionIdLessThan(Integer value) {
+            addCriterion("session_id <", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andShowClassIdLessThanOrEqualTo(Integer value) {
-            addCriterion("show_class_id <=", value, "showClassId");
+        public Criteria andSessionIdLessThanOrEqualTo(Integer value) {
+            addCriterion("session_id <=", value, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andShowClassIdIn(List<Integer> values) {
-            addCriterion("show_class_id in", values, "showClassId");
+        public Criteria andSessionIdIn(List<Integer> values) {
+            addCriterion("session_id in", values, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andShowClassIdNotIn(List<Integer> values) {
-            addCriterion("show_class_id not in", values, "showClassId");
+        public Criteria andSessionIdNotIn(List<Integer> values) {
+            addCriterion("session_id not in", values, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andShowClassIdBetween(Integer value1, Integer value2) {
-            addCriterion("show_class_id between", value1, value2, "showClassId");
+        public Criteria andSessionIdBetween(Integer value1, Integer value2) {
+            addCriterion("session_id between", value1, value2, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andShowClassIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("show_class_id not between", value1, value2, "showClassId");
+        public Criteria andSessionIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("session_id not between", value1, value2, "sessionId");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdIsNull() {
-            addCriterion("show_session_id is null");
+        public Criteria andShowIdIsNull() {
+            addCriterion("show_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdIsNotNull() {
-            addCriterion("show_session_id is not null");
+        public Criteria andShowIdIsNotNull() {
+            addCriterion("show_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdEqualTo(Integer value) {
-            addCriterion("show_session_id =", value, "showSessionId");
+        public Criteria andShowIdEqualTo(Integer value) {
+            addCriterion("show_id =", value, "showId");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdNotEqualTo(Integer value) {
-            addCriterion("show_session_id <>", value, "showSessionId");
+        public Criteria andShowIdNotEqualTo(Integer value) {
+            addCriterion("show_id <>", value, "showId");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdGreaterThan(Integer value) {
-            addCriterion("show_session_id >", value, "showSessionId");
+        public Criteria andShowIdGreaterThan(Integer value) {
+            addCriterion("show_id >", value, "showId");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("show_session_id >=", value, "showSessionId");
+        public Criteria andShowIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("show_id >=", value, "showId");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdLessThan(Integer value) {
-            addCriterion("show_session_id <", value, "showSessionId");
+        public Criteria andShowIdLessThan(Integer value) {
+            addCriterion("show_id <", value, "showId");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdLessThanOrEqualTo(Integer value) {
-            addCriterion("show_session_id <=", value, "showSessionId");
+        public Criteria andShowIdLessThanOrEqualTo(Integer value) {
+            addCriterion("show_id <=", value, "showId");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdIn(List<Integer> values) {
-            addCriterion("show_session_id in", values, "showSessionId");
+        public Criteria andShowIdIn(List<Integer> values) {
+            addCriterion("show_id in", values, "showId");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdNotIn(List<Integer> values) {
-            addCriterion("show_session_id not in", values, "showSessionId");
+        public Criteria andShowIdNotIn(List<Integer> values) {
+            addCriterion("show_id not in", values, "showId");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdBetween(Integer value1, Integer value2) {
-            addCriterion("show_session_id between", value1, value2, "showSessionId");
+        public Criteria andShowIdBetween(Integer value1, Integer value2) {
+            addCriterion("show_id between", value1, value2, "showId");
             return (Criteria) this;
         }
 
-        public Criteria andShowSessionIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("show_session_id not between", value1, value2, "showSessionId");
+        public Criteria andShowIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("show_id not between", value1, value2, "showId");
             return (Criteria) this;
         }
 
-        public Criteria andGradeIsNull() {
-            addCriterion("grade is null");
+        public Criteria andStartTimeIsNull() {
+            addCriterion("start_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andGradeIsNotNull() {
-            addCriterion("grade is not null");
+        public Criteria andStartTimeIsNotNull() {
+            addCriterion("start_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGradeEqualTo(Integer value) {
-            addCriterion("grade =", value, "grade");
+        public Criteria andStartTimeEqualTo(Date value) {
+            addCriterion("start_time =", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andGradeNotEqualTo(Integer value) {
-            addCriterion("grade <>", value, "grade");
+        public Criteria andStartTimeNotEqualTo(Date value) {
+            addCriterion("start_time <>", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andGradeGreaterThan(Integer value) {
-            addCriterion("grade >", value, "grade");
+        public Criteria andStartTimeGreaterThan(Date value) {
+            addCriterion("start_time >", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andGradeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("grade >=", value, "grade");
+        public Criteria andStartTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("start_time >=", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andGradeLessThan(Integer value) {
-            addCriterion("grade <", value, "grade");
+        public Criteria andStartTimeLessThan(Date value) {
+            addCriterion("start_time <", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andGradeLessThanOrEqualTo(Integer value) {
-            addCriterion("grade <=", value, "grade");
+        public Criteria andStartTimeLessThanOrEqualTo(Date value) {
+            addCriterion("start_time <=", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andGradeIn(List<Integer> values) {
-            addCriterion("grade in", values, "grade");
+        public Criteria andStartTimeIn(List<Date> values) {
+            addCriterion("start_time in", values, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andGradeNotIn(List<Integer> values) {
-            addCriterion("grade not in", values, "grade");
+        public Criteria andStartTimeNotIn(List<Date> values) {
+            addCriterion("start_time not in", values, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andGradeBetween(Integer value1, Integer value2) {
-            addCriterion("grade between", value1, value2, "grade");
+        public Criteria andStartTimeBetween(Date value1, Date value2) {
+            addCriterion("start_time between", value1, value2, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andGradeNotBetween(Integer value1, Integer value2) {
-            addCriterion("grade not between", value1, value2, "grade");
+        public Criteria andStartTimeNotBetween(Date value1, Date value2) {
+            addCriterion("start_time not between", value1, value2, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityIsNull() {
-            addCriterion("capacity is null");
+        public Criteria andEndTimeIsNull() {
+            addCriterion("end_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityIsNotNull() {
-            addCriterion("capacity is not null");
+        public Criteria andEndTimeIsNotNull() {
+            addCriterion("end_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityEqualTo(Integer value) {
-            addCriterion("capacity =", value, "capacity");
+        public Criteria andEndTimeEqualTo(Date value) {
+            addCriterion("end_time =", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityNotEqualTo(Integer value) {
-            addCriterion("capacity <>", value, "capacity");
+        public Criteria andEndTimeNotEqualTo(Date value) {
+            addCriterion("end_time <>", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityGreaterThan(Integer value) {
-            addCriterion("capacity >", value, "capacity");
+        public Criteria andEndTimeGreaterThan(Date value) {
+            addCriterion("end_time >", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityGreaterThanOrEqualTo(Integer value) {
-            addCriterion("capacity >=", value, "capacity");
+        public Criteria andEndTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("end_time >=", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityLessThan(Integer value) {
-            addCriterion("capacity <", value, "capacity");
+        public Criteria andEndTimeLessThan(Date value) {
+            addCriterion("end_time <", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityLessThanOrEqualTo(Integer value) {
-            addCriterion("capacity <=", value, "capacity");
+        public Criteria andEndTimeLessThanOrEqualTo(Date value) {
+            addCriterion("end_time <=", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityIn(List<Integer> values) {
-            addCriterion("capacity in", values, "capacity");
+        public Criteria andEndTimeIn(List<Date> values) {
+            addCriterion("end_time in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityNotIn(List<Integer> values) {
-            addCriterion("capacity not in", values, "capacity");
+        public Criteria andEndTimeNotIn(List<Date> values) {
+            addCriterion("end_time not in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityBetween(Integer value1, Integer value2) {
-            addCriterion("capacity between", value1, value2, "capacity");
+        public Criteria andEndTimeBetween(Date value1, Date value2) {
+            addCriterion("end_time between", value1, value2, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCapacityNotBetween(Integer value1, Integer value2) {
-            addCriterion("capacity not between", value1, value2, "capacity");
+        public Criteria andEndTimeNotBetween(Date value1, Date value2) {
+            addCriterion("end_time not between", value1, value2, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andPriceIsNull() {
-            addCriterion("price is null");
+        public Criteria andWeightIsNull() {
+            addCriterion("weight is null");
             return (Criteria) this;
         }
 
-        public Criteria andPriceIsNotNull() {
-            addCriterion("price is not null");
+        public Criteria andWeightIsNotNull() {
+            addCriterion("weight is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPriceEqualTo(BigDecimal value) {
-            addCriterion("price =", value, "price");
+        public Criteria andWeightEqualTo(Integer value) {
+            addCriterion("weight =", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andPriceNotEqualTo(BigDecimal value) {
-            addCriterion("price <>", value, "price");
+        public Criteria andWeightNotEqualTo(Integer value) {
+            addCriterion("weight <>", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andPriceGreaterThan(BigDecimal value) {
-            addCriterion("price >", value, "price");
+        public Criteria andWeightGreaterThan(Integer value) {
+            addCriterion("weight >", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andPriceGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("price >=", value, "price");
+        public Criteria andWeightGreaterThanOrEqualTo(Integer value) {
+            addCriterion("weight >=", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andPriceLessThan(BigDecimal value) {
-            addCriterion("price <", value, "price");
+        public Criteria andWeightLessThan(Integer value) {
+            addCriterion("weight <", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andPriceLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("price <=", value, "price");
+        public Criteria andWeightLessThanOrEqualTo(Integer value) {
+            addCriterion("weight <=", value, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andPriceIn(List<BigDecimal> values) {
-            addCriterion("price in", values, "price");
+        public Criteria andWeightIn(List<Integer> values) {
+            addCriterion("weight in", values, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andPriceNotIn(List<BigDecimal> values) {
-            addCriterion("price not in", values, "price");
+        public Criteria andWeightNotIn(List<Integer> values) {
+            addCriterion("weight not in", values, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andPriceBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("price between", value1, value2, "price");
+        public Criteria andWeightBetween(Integer value1, Integer value2) {
+            addCriterion("weight between", value1, value2, "weight");
             return (Criteria) this;
         }
 
-        public Criteria andPriceNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("price not between", value1, value2, "price");
+        public Criteria andWeightNotBetween(Integer value1, Integer value2) {
+            addCriterion("weight not between", value1, value2, "weight");
             return (Criteria) this;
         }
     }

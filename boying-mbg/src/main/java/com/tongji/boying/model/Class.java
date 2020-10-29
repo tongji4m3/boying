@@ -7,10 +7,10 @@ import java.math.BigDecimal;
 public class Class implements Serializable {
     private Integer classId;
 
-    private Integer showsessionId;
+    private Integer sessionId;
 
-    @ApiModelProperty(value = "所属哪个级别,例如A等座,B等座")
-    private Integer grade;
+    @ApiModelProperty(value = "所属哪个级别,例如'学生单日票', '预售单日票', '全价单日票', 'PRO单日票'等等")
+    private String name;
 
     @ApiModelProperty(value = "该级别座位的容量")
     private Integer capacity;
@@ -28,20 +28,20 @@ public class Class implements Serializable {
         this.classId = classId;
     }
 
-    public Integer getShowsessionId() {
-        return showsessionId;
+    public Integer getSessionId() {
+        return sessionId;
     }
 
-    public void setShowsessionId(Integer showsessionId) {
-        this.showsessionId = showsessionId;
+    public void setSessionId(Integer sessionId) {
+        this.sessionId = sessionId;
     }
 
-    public Integer getGrade() {
-        return grade;
+    public String getName() {
+        return name;
     }
 
-    public void setGrade(Integer grade) {
-        this.grade = grade;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getCapacity() {
@@ -67,8 +67,8 @@ public class Class implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", classId=").append(classId);
-        sb.append(", showsessionId=").append(showsessionId);
-        sb.append(", grade=").append(grade);
+        sb.append(", sessionId=").append(sessionId);
+        sb.append(", name=").append(name);
         sb.append(", capacity=").append(capacity);
         sb.append(", price=").append(price);
         sb.append(", serialVersionUID=").append(serialVersionUID);

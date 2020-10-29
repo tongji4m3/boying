@@ -9,7 +9,7 @@ import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.tongji.boying.common.exception.Asserts;
-import com.tongji.boying.domain.BoyingUserDetails;
+import com.tongji.boying.config.BoyingUserDetails;
 import com.tongji.boying.mapper.UserMapper;
 import com.tongji.boying.model.User;
 import com.tongji.boying.model.UserExample;

@@ -1,7 +1,6 @@
 package com.tongji.boying.service;
 
 
-import com.tongji.boying.model.Category;
 import com.tongji.boying.model.Menu;
 
 import java.util.List;
@@ -38,8 +37,9 @@ public interface UmsMenuService {
 
     /**
      * 树形结构返回所有菜单列表
+     * @return
      */
-    Map<Category,List<Category>> categoryMap();
+    Map<Menu,List<Menu>> categoryMap();
 
     /**
      * 修改菜单显示状态

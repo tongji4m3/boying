@@ -7,11 +7,11 @@ import com.tongji.boying.mapper.RoleResourceMapper;
 import com.tongji.boying.model.*;
 import com.tongji.boying.service.UmsAdminCacheService;
 import com.tongji.boying.service.UmsRoleService;
+import com.tongji.boying.dao.UmsRoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +29,10 @@ public class UmsRoleServiceImpl implements UmsRoleService
     private RoleResourceMapper roleResourceRelationMapper;
     @Autowired
     private UmsAdminCacheService adminCacheService;
+
+    @Autowired
+    private UmsRoleDao roleDao;
+
     @Override
     public int create(Role role) {
         role.setCreateTime(new Date());

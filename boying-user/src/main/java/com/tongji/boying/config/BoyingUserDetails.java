@@ -1,4 +1,4 @@
-package com.tongji.boying.domain;
+package com.tongji.boying.config;
 
 //实现整个项目安全管理的内容，boying-security，security涉及到
 

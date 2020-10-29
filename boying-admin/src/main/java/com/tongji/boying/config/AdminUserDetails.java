@@ -1,4 +1,4 @@
-package com.tongji.boying.domain;
+package com.tongji.boying.config;
 
 import com.tongji.boying.model.Admin;
 import com.tongji.boying.model.Resource;

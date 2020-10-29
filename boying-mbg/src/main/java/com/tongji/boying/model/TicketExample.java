@@ -164,126 +164,6 @@ public class TicketExample {
             return (Criteria) this;
         }
 
-        public Criteria andFrequentIdIsNull() {
-            addCriterion("frequent_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFrequentIdIsNotNull() {
-            addCriterion("frequent_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFrequentIdEqualTo(Integer value) {
-            addCriterion("frequent_id =", value, "frequentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andFrequentIdNotEqualTo(Integer value) {
-            addCriterion("frequent_id <>", value, "frequentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andFrequentIdGreaterThan(Integer value) {
-            addCriterion("frequent_id >", value, "frequentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andFrequentIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("frequent_id >=", value, "frequentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andFrequentIdLessThan(Integer value) {
-            addCriterion("frequent_id <", value, "frequentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andFrequentIdLessThanOrEqualTo(Integer value) {
-            addCriterion("frequent_id <=", value, "frequentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andFrequentIdIn(List<Integer> values) {
-            addCriterion("frequent_id in", values, "frequentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andFrequentIdNotIn(List<Integer> values) {
-            addCriterion("frequent_id not in", values, "frequentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andFrequentIdBetween(Integer value1, Integer value2) {
-            addCriterion("frequent_id between", value1, value2, "frequentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andFrequentIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("frequent_id not between", value1, value2, "frequentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdIsNull() {
-            addCriterion("show_class_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdIsNotNull() {
-            addCriterion("show_class_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdEqualTo(Integer value) {
-            addCriterion("show_class_id =", value, "showClassId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdNotEqualTo(Integer value) {
-            addCriterion("show_class_id <>", value, "showClassId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdGreaterThan(Integer value) {
-            addCriterion("show_class_id >", value, "showClassId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("show_class_id >=", value, "showClassId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdLessThan(Integer value) {
-            addCriterion("show_class_id <", value, "showClassId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdLessThanOrEqualTo(Integer value) {
-            addCriterion("show_class_id <=", value, "showClassId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdIn(List<Integer> values) {
-            addCriterion("show_class_id in", values, "showClassId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdNotIn(List<Integer> values) {
-            addCriterion("show_class_id not in", values, "showClassId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdBetween(Integer value1, Integer value2) {
-            addCriterion("show_class_id between", value1, value2, "showClassId");
-            return (Criteria) this;
-        }
-
-        public Criteria andShowClassIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("show_class_id not between", value1, value2, "showClassId");
-            return (Criteria) this;
-        }
-
         public Criteria andOrderIdIsNull() {
             addCriterion("order_id is null");
             return (Criteria) this;
@@ -341,6 +221,136 @@ public class TicketExample {
 
         public Criteria andOrderIdNotBetween(Integer value1, Integer value2) {
             addCriterion("order_id not between", value1, value2, "orderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdIsNull() {
+            addCriterion("class_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdIsNotNull() {
+            addCriterion("class_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdEqualTo(Integer value) {
+            addCriterion("class_id =", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdNotEqualTo(Integer value) {
+            addCriterion("class_id <>", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdGreaterThan(Integer value) {
+            addCriterion("class_id >", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("class_id >=", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdLessThan(Integer value) {
+            addCriterion("class_id <", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdLessThanOrEqualTo(Integer value) {
+            addCriterion("class_id <=", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdIn(List<Integer> values) {
+            addCriterion("class_id in", values, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdNotIn(List<Integer> values) {
+            addCriterion("class_id not in", values, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdBetween(Integer value1, Integer value2) {
+            addCriterion("class_id between", value1, value2, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("class_id not between", value1, value2, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlIsNull() {
+            addCriterion("qr_code_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlIsNotNull() {
+            addCriterion("qr_code_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlEqualTo(String value) {
+            addCriterion("qr_code_url =", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlNotEqualTo(String value) {
+            addCriterion("qr_code_url <>", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlGreaterThan(String value) {
+            addCriterion("qr_code_url >", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("qr_code_url >=", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlLessThan(String value) {
+            addCriterion("qr_code_url <", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlLessThanOrEqualTo(String value) {
+            addCriterion("qr_code_url <=", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlLike(String value) {
+            addCriterion("qr_code_url like", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlNotLike(String value) {
+            addCriterion("qr_code_url not like", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlIn(List<String> values) {
+            addCriterion("qr_code_url in", values, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlNotIn(List<String> values) {
+            addCriterion("qr_code_url not in", values, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlBetween(String value1, String value2) {
+            addCriterion("qr_code_url between", value1, value2, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlNotBetween(String value1, String value2) {
+            addCriterion("qr_code_url not between", value1, value2, "qrCodeUrl");
             return (Criteria) this;
         }
     }
