@@ -2,6 +2,7 @@ package com.tongji.boying.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
+import com.tongji.boying.dto.ResourceParam;
 import com.tongji.boying.mapper.ResourceMapper;
 import com.tongji.boying.model.Resource;
 import com.tongji.boying.model.ResourceExample;
@@ -24,15 +25,25 @@ public class UmsResourceServiceImpl implements UmsResourceService
     @Autowired
     private UmsAdminCacheService adminCacheService;
     @Override
-    public int create(Resource umsResource) {
-        umsResource.setCreateTime(new Date());
-        return resourceMapper.insert(umsResource);
+    public int create(ResourceParam param) {
+        Resource resource = new Resource();
+        resource.setCreateTime(new Date());
+        resource.setResourceCategoryId(param.getResourceCategoryId());
+        resource.setName(param.getName());
+        resource.setUrl(param.getUrl());
+        resource.setDescription(param.getDescription());
+        return resourceMapper.insert(resource);
     }
 
     @Override
-    public int update(Integer id, Resource umsResource) {
-        umsResource.setResourceId(id);
-        int count = resourceMapper.updateByPrimaryKeySelective(umsResource);
+    public int update(Integer id, ResourceParam param) {
+        Resource resource = new Resource();
+        resource.setResourceCategoryId(param.getResourceCategoryId());
+        resource.setName(param.getName());
+        resource.setUrl(param.getUrl());
+        resource.setDescription(param.getDescription());
+        resource.setResourceId(id);
+        int count = resourceMapper.updateByPrimaryKeySelective(resource);
         adminCacheService.delResourceListByResource(id);
         return count;
     }

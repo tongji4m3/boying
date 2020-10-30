@@ -18,12 +18,12 @@ public interface UmsResourceCategoryService {
     /**
      * 创建资源分类
      */
-    int create(ResourceCategory resourceCategory);
+    int create(String name,Integer sort);
 
     /**
      * 修改资源分类
      */
-    int update(Integer id, ResourceCategory resourceCategory);
+    int update(Integer id, String name,Integer sort);
 
     /**
      * 删除资源分类

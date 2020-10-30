@@ -1,6 +1,7 @@
 package com.tongji.boying.service;
 
 
+import com.tongji.boying.dto.MenuParam;
 import com.tongji.boying.model.Menu;
 
 import java.util.List;
@@ -12,13 +13,14 @@ import java.util.Map;
 public interface UmsMenuService {
     /**
      * 创建后台菜单
+     * @param param
      */
-    int create(Menu umsMenu);
+    int create(MenuParam param);
 
     /**
      * 修改后台菜单
      */
-    int update(Integer id, Menu umsMenu);
+    int update(Integer id, MenuParam param);
 
     /**
      * 根据ID获取菜单详情
@@ -34,6 +36,7 @@ public interface UmsMenuService {
      * 分页查询后台菜单
      */
     List<Menu> list(Integer parentId, Integer pageSize, Integer pageNum);
+
 
     /**
      * 树形结构返回所有菜单列表

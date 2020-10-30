@@ -22,7 +22,8 @@
             <!--            %颜色(内容)  可以将()中的内容颜色改变-->
             <!--            示例:[boying-user][http-nio-8000-exec-1][WebLogAspect][2020-10-27 08:29:28][INFO]:method: POST-->
             <!--            分别输出了应用名,所用线程,输出日志的类名,日志时间,日志级别,日志具体信息-->
-            <pattern>[%boldMagenta(${APP_NAME})][%blue(%thread)][%green(%logger{0})][%yellow(%d{yyyy-MM-dd HH:mm:ss})][%red(%level)]:%msg%n</pattern>
+<!--            <pattern>[%boldMagenta(${APP_NAME})][%blue(%thread)][%green(%logger{0})][%yellow(%d{yyyy-MM-dd HH:mm:ss})][%red(%level)]:%msg%n</pattern>-->
+            <pattern>[%green(%logger{0})][%red(%level)]:%msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
         <!--输出DEBUG以上级别日志-->
@@ -84,6 +85,12 @@
         </rollingPolicy>
     </appender>
 
+    <!--控制框架输出日志-->
+    <logger name="org.slf4j" level="INFO"/>
+    <logger name="springfox" level="INFO"/>
+    <logger name="io.swagger" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.hibernate.validator" level="INFO"/>
 
     <!--    <root>也是<loger>元素，但是它是根loger。只有一个level属性-->
     <!--    使用root可以配置全局logger级别，指定appender用来控制打印格式、目的地、文件信息等-->
@@ -93,12 +100,13 @@
         <!--将Debug,Error日志信息写入磁盘中,便于以后排查问题-->
         <appender-ref ref="FILE_DEBUG"/>
         <appender-ref ref="FILE_ERROR"/>
+        <appender-ref ref="FILE_CONSOLE"/>
     </root>
 
     <!--    用来设置某一个包或者具体的某一个类的logger日志级别-->
     <!--    将控制boying包下的WebLogAspect类日志的打印-->
     <logger name="com.tongji.boying.common.log.WebLogAspect" level="DEBUG">
         <!--        引用名为FILE_DEBUG的appender,将日志信息打印到控制台上   -->
-        <appender-ref ref="FILE_CONSOLE"/>
+<!--        <appender-ref ref="FILE_CONSOLE"/>-->
     </logger>
 </configuration>

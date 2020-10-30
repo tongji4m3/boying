@@ -1,8 +1,9 @@
 package com.tongji.boying.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.dto.MenuParam;
 import com.tongji.boying.mapper.MenuMapper;
-import com.tongji.boying.model.Category;
 import com.tongji.boying.model.Menu;
 import com.tongji.boying.model.MenuExample;
 import com.tongji.boying.service.UmsMenuService;
@@ -13,7 +14,6 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * 后台菜单管理Service实现类
@@ -25,8 +25,15 @@ public class UmsMenuServiceImpl implements UmsMenuService
     private MenuMapper menuMapper;
 
     @Override
-    public int create(Menu menu) {
+    public int create(MenuParam param) {
+        //不能自己更新菜单level
+        Menu menu = new Menu();
         menu.setCreateTime(new Date());
+        menu.setHidden(param.getHidden());
+        menu.setIcon(param.getIcon());
+        menu.setParentId(param.getParentId());
+        menu.setSort(param.getSort());
+        menu.setTitle(param.getTitle());
         updateLevel(menu);
         return menuMapper.insert(menu);
     }
@@ -50,7 +57,14 @@ public class UmsMenuServiceImpl implements UmsMenuService
     }
 
     @Override
-    public int update(Integer id, Menu menu) {
+    public int update(Integer id, MenuParam param) {
+        //不能自己更新菜单level
+        Menu menu = new Menu();
+        menu.setHidden(param.getHidden());
+        menu.setIcon(param.getIcon());
+        menu.setParentId(param.getParentId());
+        menu.setSort(param.getSort());
+        menu.setTitle(param.getTitle());
         menu.setMenuId(id);
         updateLevel(menu);
         return menuMapper.updateByPrimaryKeySelective(menu);
@@ -63,8 +77,27 @@ public class UmsMenuServiceImpl implements UmsMenuService
 
     @Override
     public int delete(Integer id) {
+        Menu menu = getItem(id);
+        if(menu==null)
+        {
+            Asserts.fail("要删除的菜单不存在!");
+        }
+        System.out.println(menu);
+        if(menu.getParentId()==0)
+        {
+            //说明是父级菜单
+            MenuExample example = new MenuExample();
+            example.createCriteria().andParentIdEqualTo(menu.getMenuId());
+            if(!menuMapper.selectByExample(example).isEmpty())
+            {
+                //说明有子菜单
+                Asserts.fail("该菜单还有子菜单,不能删除!");
+            }
+        }
         return menuMapper.deleteByPrimaryKey(id);
     }
+
+
 
     @Override
     public List<Menu> list(Integer parentId, Integer pageSize, Integer pageNum) {
@@ -87,7 +120,7 @@ public class UmsMenuServiceImpl implements UmsMenuService
         {
             MenuExample menuExample = new MenuExample();
             menuExample.setOrderByClause("sort desc");
-            menuExample.createCriteria().andParentIdEqualTo(parent.getParentId());
+            menuExample.createCriteria().andParentIdEqualTo(parent.getMenuId());
             map.put(parent, menuMapper.selectByExample(menuExample));
         }
         return map;

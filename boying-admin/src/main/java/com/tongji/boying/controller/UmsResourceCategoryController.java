@@ -1,12 +1,14 @@
 package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.ResourceCategoryParam;
 import com.tongji.boying.model.ResourceCategory;
 import com.tongji.boying.service.UmsResourceCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,8 +34,8 @@ public class UmsResourceCategoryController {
     @ApiOperation("添加后台资源分类")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult create(@RequestBody ResourceCategory resourceCategory) {
-        int count = resourceCategoryService.create(resourceCategory);
+    public CommonResult create(@Validated @RequestBody ResourceCategoryParam param) {
+        int count = resourceCategoryService.create(param.getName(),param.getSort());
         if (count > 0) {
             return CommonResult.success(count);
         } else {
@@ -45,8 +47,8 @@ public class UmsResourceCategoryController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult update(@PathVariable Integer id,
-                               @RequestBody ResourceCategory resourceCategory) {
-        int count = resourceCategoryService.update(id, resourceCategory);
+                               @Validated @RequestBody ResourceCategoryParam param) {
+        int count = resourceCategoryService.update(id, param.getName(),param.getSort());
         if (count > 0) {
             return CommonResult.success(count);
         } else {

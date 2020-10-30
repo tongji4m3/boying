@@ -3,6 +3,7 @@ package com.tongji.boying.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
  * 用户登录参数
  */
 @Data
+@ToString
 @EqualsAndHashCode(callSuper = false)
 public class AdminLoginParam
 {

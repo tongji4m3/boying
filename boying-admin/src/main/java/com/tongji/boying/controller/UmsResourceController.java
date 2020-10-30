@@ -2,6 +2,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.ResourceParam;
 import com.tongji.boying.model.Resource;
 import com.tongji.boying.security.component.DynamicSecurityMetadataSource;
 import com.tongji.boying.service.UmsResourceService;
@@ -9,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,8 @@ public class UmsResourceController {
     @ApiOperation("添加后台资源")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult create(@RequestBody Resource resource) {
-        int count = resourceService.create(resource);
+    public CommonResult create(@Validated @RequestBody ResourceParam param) {
+        int count = resourceService.create(param);
         dynamicSecurityMetadataSource.clearDataSource();
         if (count > 0) {
             return CommonResult.success(count);
@@ -43,8 +45,8 @@ public class UmsResourceController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult update(@PathVariable Integer id,
-                               @RequestBody Resource resource) {
-        int count = resourceService.update(id, resource);
+                               @Validated @RequestBody ResourceParam param) {
+        int count = resourceService.update(id, param);
         dynamicSecurityMetadataSource.clearDataSource();
         if (count > 0) {
             return CommonResult.success(count);
