@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class ReviewImage implements Serializable {
     private Integer reviewImageId;
 
+    @ApiModelProperty(value = "该图片所属评论Id")
     private Integer reviewId;
 
     @ApiModelProperty(value = "图片链接地址")

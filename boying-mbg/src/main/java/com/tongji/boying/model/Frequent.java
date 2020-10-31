@@ -6,13 +6,16 @@ import java.io.Serializable;
 public class Frequent implements Serializable {
     private Integer frequentId;
 
+    @ApiModelProperty(value = "所属用户Id")
     private Integer userId;
 
+    @ApiModelProperty(value = "真实姓名")
     private String name;
 
     @ApiModelProperty(value = "常用购票人的身份证号码")
     private String identityNumber;
 
+    @ApiModelProperty(value = "联系电话")
     private String phone;
 
     private static final long serialVersionUID = 1L;

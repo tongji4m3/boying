@@ -63,4 +63,8 @@ public interface UserService
     String telephoneLogin(String telephone, String password);
 
     String authCodeLogin(String telephone, String authCode);
+
+    void setDefaultFrequent(Integer frequentId);
+
+    void setDefaultAddress(Integer addressId);
 }

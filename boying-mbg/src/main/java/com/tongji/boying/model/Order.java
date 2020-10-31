@@ -7,8 +7,10 @@ import java.util.Date;
 public class Order implements Serializable {
     private Integer orderId;
 
+    @ApiModelProperty(value = "所属用户Id")
     private Integer userId;
 
+    @ApiModelProperty(value = "所属场次Id")
     private Integer sessionId;
 
     @ApiModelProperty(value = "这些票要邮寄到什么地方")
@@ -20,6 +22,7 @@ public class Order implements Serializable {
     @ApiModelProperty(value = "待评价,已完成")
     private Integer status;
 
+    @ApiModelProperty(value = "订单支付时间")
     private Date time;
 
     @ApiModelProperty(value = "订单支付方式")

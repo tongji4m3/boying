@@ -1,11 +1,13 @@
 package com.tongji.boying.service.impl;
 
+import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.dto.AddressParam;
 import com.tongji.boying.mapper.AddressMapper;
-import com.tongji.boying.model.Address;
-import com.tongji.boying.model.AddressExample;
-import com.tongji.boying.model.User;
+import com.tongji.boying.mapper.AddressMapper;
+import com.tongji.boying.model.*;
 import com.tongji.boying.service.UserAddressService;
 import com.tongji.boying.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -22,16 +24,12 @@ public class UserAddressServiceImpl implements UserAddressService
 
 
     @Override
-    public int add(Address address)
+    public int add(AddressParam param)
     {
         User user = userService.getCurrentUser();
+        Address address = new Address();
+        BeanUtils.copyProperties(param, address);
         address.setUserId(user.getUserId());
-        address.setAddressId(null);
-        //        要设置为默认地址,则将默认地址抹除
-        if(address.getDefaultAddress())
-        {
-            changeDefault();
-        }
         return addressMapper.insert(address);
     }
 
@@ -46,23 +44,23 @@ public class UserAddressServiceImpl implements UserAddressService
     }
 
     @Override
-    public int update(int id, Address address)
+    public int update(int id, AddressParam param)
     {
         //得到了对应的Id
         User user = userService.getCurrentUser();
+
+        //判断信息是否存在
         AddressExample addressExample = new AddressExample();
         addressExample.createCriteria().andUserIdEqualTo(user.getUserId()).andAddressIdEqualTo(id);
+        List<Address> addressList = addressMapper.selectByExample(addressExample);
+        if(addressList.size()==0) Asserts.fail("要更新的收货地址不存在!");
 
-        //不能自己给别人增加收货地址
+        //传入字段,并更新
+        Address address = new Address();
+        BeanUtils.copyProperties(param, address);
         address.setUserId(user.getUserId());
-//        不能篡改ID
-        address.setAddressId(null);
-//        要设置为默认地址,则将默认地址抹除
-        if(address.getDefaultAddress())
-        {
-            changeDefault();
-        }
-        return addressMapper.updateByExampleSelective(address,addressExample);
+        address.setAddressId(id);
+        return addressMapper.updateByPrimaryKeySelective(address);
     }
 
     @Override
@@ -80,29 +78,40 @@ public class UserAddressServiceImpl implements UserAddressService
         User user = userService.getCurrentUser();
         AddressExample addressExample = new AddressExample();
         addressExample.createCriteria().andUserIdEqualTo(user.getUserId()).andAddressIdEqualTo(id);
-        List<Address> addresses = addressMapper.selectByExample(addressExample);
+        List<Address> address = addressMapper.selectByExample(addressExample);
 
-        if (!CollectionUtils.isEmpty(addresses))
+        if (!CollectionUtils.isEmpty(address))
         {
-            return addresses.get(0);
+            return address.get(0);
         }
         return null;
     }
 
     @Override
-    public void changeDefault()
+    public void setDefault(int id)
+    {
+        Address item = getItem(id);
+        if(item==null) Asserts.fail("要设为默认的收货地址不存在!");
+        User user = userService.getCurrentUser();
+        user.setDefaultAddress(id);
+    }
+
+    @Override
+    public Address getDefault()
     {
         User user = userService.getCurrentUser();
+        Integer defaultAddress = user.getDefaultAddress();
+        if(defaultAddress==null) Asserts.fail("无收货地址");
         AddressExample addressExample = new AddressExample();
-//        找到默认地址
-        addressExample.createCriteria().andUserIdEqualTo(user.getUserId()).andDefaultAddressEqualTo(true);
-        List<Address> addresses = addressMapper.selectByExample(addressExample);
-//        默认地址要么无,要么只有一个
-        if(addresses.size()==1)
+        addressExample.createCriteria().andAddressIdEqualTo(defaultAddress);
+        List<Address> address = addressMapper.selectByExample(addressExample);
+//        说明删除了收货地址,但是没在用户名进行更新
+        if(address.isEmpty())
         {
-            addresses.get(0).setDefaultAddress(false);
-            addressMapper.updateByExampleSelective(addresses.get(0),addressExample);
+//            在这里对用户表进行延迟更新
+            userService.setDefaultAddress(null);
+            Asserts.fail("无收货地址");
         }
-
+        return null;
     }
 }

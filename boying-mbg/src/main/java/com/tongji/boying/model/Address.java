@@ -6,10 +6,13 @@ import java.io.Serializable;
 public class Address implements Serializable {
     private Integer addressId;
 
+    @ApiModelProperty(value = "所属用户Id")
     private Integer userId;
 
+    @ApiModelProperty(value = "接收人")
     private String receiver;
 
+    @ApiModelProperty(value = "接收电话")
     private String phone;
 
     @ApiModelProperty(value = "省份")

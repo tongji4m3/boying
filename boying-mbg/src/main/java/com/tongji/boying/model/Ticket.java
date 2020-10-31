@@ -6,8 +6,10 @@ import java.io.Serializable;
 public class Ticket implements Serializable {
     private Integer ticketId;
 
+    @ApiModelProperty(value = "所属订单Id")
     private Integer orderId;
 
+    @ApiModelProperty(value = "所属座次Id")
     private Integer classId;
 
     @ApiModelProperty(value = "二维码图片,供观影人验证入场")

@@ -1,6 +1,8 @@
 package com.tongji.boying.service;
 
+import com.tongji.boying.dto.AddressParam;
 import com.tongji.boying.model.Address;
+import com.tongji.boying.model.Frequent;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -10,7 +12,7 @@ public interface UserAddressService
     /**
      * 添加收货地址
      */
-    int add(Address address);
+    int add(AddressParam param);
 
     /**
      * 删除收货地址
@@ -21,10 +23,9 @@ public interface UserAddressService
     /**
      * 修改收货地址
      * @param id 地址表的id
-     * @param address 修改的收货地址信息
      */
     @Transactional
-    int update(int id, Address address);
+    int update(int id, AddressParam param);
 
     /**
      * 返回当前用户的收货地址
@@ -38,7 +39,12 @@ public interface UserAddressService
     Address getItem(int id);
 
     /**
-     * 将默认收货地址都变为非默认地址
+     * 设为收货地址
      */
-    void changeDefault();
+    void setDefault(int id);
+
+    /**
+     * 获取收货地址
+     */
+    Address getDefault();
 }

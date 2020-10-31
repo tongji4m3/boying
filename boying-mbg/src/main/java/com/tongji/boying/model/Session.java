@@ -7,11 +7,13 @@ import java.util.Date;
 public class Session implements Serializable {
     private Integer sessionId;
 
-    @ApiModelProperty(value = "所属哪个演唱会")
+    @ApiModelProperty(value = "所属演唱会Id")
     private Integer showId;
 
+    @ApiModelProperty(value = "演出场次开始时间")
     private Date startTime;
 
+    @ApiModelProperty(value = "演出场次结束时间")
     private Date endTime;
 
     @ApiModelProperty(value = "上映后,已下架等,以及显示的优先级")

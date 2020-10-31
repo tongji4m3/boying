@@ -6,8 +6,10 @@ import java.io.Serializable;
 public class User implements Serializable {
     private Integer userId;
 
+    @ApiModelProperty(value = "用户名")
     private String username;
 
+    @ApiModelProperty(value = "密码")
     private String password;
 
     @ApiModelProperty(value = "用户真实姓名")
@@ -16,10 +18,13 @@ public class User implements Serializable {
     @ApiModelProperty(value = "用户身份证号")
     private String identityNumber;
 
+    @ApiModelProperty(value = "联系电话")
     private String phone;
 
+    @ApiModelProperty(value = "邮箱")
     private String email;
 
+    @ApiModelProperty(value = "年龄")
     private Integer age;
 
     @ApiModelProperty(value = "用户性别 1->男,0->女")

@@ -1,12 +1,15 @@
 package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.AddressParam;
 import com.tongji.boying.model.Address;
+import com.tongji.boying.model.Frequent;
 import com.tongji.boying.service.UserAddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,9 +28,9 @@ public class UserAddressController
     @ApiOperation("添加收货地址")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult add(@RequestBody Address address)
+    public CommonResult add(@Validated @RequestBody AddressParam param)
     {
-        int count = userAddressService.add(address);
+        int count = userAddressService.add(param);
         if (count > 0)
         {
             return CommonResult.success(count);
@@ -51,9 +54,9 @@ public class UserAddressController
     @ApiOperation("修改收货地址")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult update(@PathVariable int id, @RequestBody Address address)
+    public CommonResult update(@PathVariable int id, @Validated @RequestBody AddressParam param)
     {
-        int count = userAddressService.update(id, address);
+        int count = userAddressService.update(id, param);
         if (count > 0)
         {
             return CommonResult.success(count);
@@ -67,6 +70,7 @@ public class UserAddressController
     public CommonResult<List<Address>> list()
     {
         List<Address> addressList = userAddressService.list();
+        if(addressList.size()==0) return CommonResult.failed("当前用户无收货地址!");
         return CommonResult.success(addressList);
     }
 
@@ -78,5 +82,24 @@ public class UserAddressController
         Address address = userAddressService.getItem(id);
         if(address==null) return CommonResult.failed("当前用户无此收货地址!");
         return CommonResult.success(address);
+    }
+
+    @ApiOperation("获取默认收货地址")
+    @RequestMapping(value = "/getDefault", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<Frequent> getDefault()
+    {
+        Frequent frequent = userAddressService.getDefault();
+        if(frequent==null) return CommonResult.failed("当前用户无默认收货地址!");
+        return CommonResult.success(frequent);
+    }
+
+    @ApiOperation("设置为默认收货地址")
+    @RequestMapping(value = "/setDefault/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult setDefault(@PathVariable int id)
+    {
+        userAddressService.setDefault(id);
+        return CommonResult.success("设置默认收货地址成功");
     }
 }

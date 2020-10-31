@@ -7,12 +7,16 @@ import java.util.Date;
 public class Review implements Serializable {
     private Integer reviewId;
 
+    @ApiModelProperty(value = "该评论所属用户Id")
     private Integer userId;
 
+    @ApiModelProperty(value = "该评论所属演出Id")
     private Integer showId;
 
+    @ApiModelProperty(value = "对演出打出的星级")
     private Integer star;
 
+    @ApiModelProperty(value = "评论时间")
     private Date time;
 
     @ApiModelProperty(value = "点赞数量")
@@ -27,6 +31,7 @@ public class Review implements Serializable {
     @ApiModelProperty(value = "评论权重,管理员操作,你懂的")
     private Integer weight;
 
+    @ApiModelProperty(value = "评论内容")
     private byte[] content;
 
     private static final long serialVersionUID = 1L;

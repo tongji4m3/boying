@@ -1,17 +1,17 @@
 package com.tongji.boying.service;
 
-import com.tongji.boying.model.FrequentBuyers;
-import com.tongji.boying.model.FrequentBuyers;
+import com.tongji.boying.dto.FrequentParam;
+import com.tongji.boying.model.Frequent;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface UserFrequentBuyersService
+public interface UserFrequentService
 {
     /**
      * 添加常用联系人
      */
-    int add(FrequentBuyers frequentBuyers);
+    int add(FrequentParam param);
 
     /**
      * 删除常用联系人
@@ -22,24 +22,28 @@ public interface UserFrequentBuyersService
     /**
      * 修改常用联系人
      * @param id 常用联系人表的id
-     * @param frequentBuyers 修改的常用联系人信息
      */
     @Transactional
-    int update(int id, FrequentBuyers frequentBuyers);
+    int update(int id, FrequentParam param);
 
     /**
      * 返回当前用户的常用联系人
      */
-    List<FrequentBuyers> list();
+    List<Frequent> list();
 
     /**
      * 获取常用联系人详情
      * @param id 常用联系人id
      */
-    FrequentBuyers getItem(int id);
+    Frequent getItem(int id);
 
     /**
-     * 将默认常用联系人都变为非默认常用联系人
+     * 设为默认常用联系人
      */
-    void changeDefault();
+    void setDefault(int id);
+
+    /**
+     * 获取默认常用联系人
+     */
+    Frequent getDefault();
 }

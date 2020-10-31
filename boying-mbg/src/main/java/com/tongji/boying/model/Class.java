@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 public class Class implements Serializable {
     private Integer classId;
 
+    @ApiModelProperty(value = "所属场次Id")
     private Integer sessionId;
 
     @ApiModelProperty(value = "所属哪个级别,例如'学生单日票', '预售单日票', '全价单日票', 'PRO单日票'等等")

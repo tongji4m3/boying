@@ -318,6 +318,20 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
+    public void setDefaultFrequent(Integer frequentId)
+    {
+        User currentUser = getCurrentUser();
+        currentUser.setDefaultFrequent(frequentId);
+    }
+
+    @Override
+    public void setDefaultAddress(Integer addressId)
+    {
+        User currentUser = getCurrentUser();
+        currentUser.setDefaultAddress(addressId);
+    }
+
+    @Override
     public String refreshToken(String token)
     {
         return jwtTokenUtil.refreshHeadToken(token);
