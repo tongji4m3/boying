@@ -1,6 +1,8 @@
 package com.tongji.boying.controller;
 
+import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.model.Show;
 import com.tongji.boying.model.ShowSession;
 import com.tongji.boying.service.ShowSessionService;
 import io.swagger.annotations.Api;
@@ -15,7 +17,7 @@ import java.util.List;
  */
 @Controller
 @Api(tags = "ShowSessionController", description = "前台演出场次管理")
-@RequestMapping("/user/session")
+@RequestMapping("/session")
 public class ShowSessionController
 {
     private ShowSessionService showSessionService;
@@ -32,10 +34,12 @@ public class ShowSessionController
     @ApiOperation("获取某演唱会的所有场次")
     @RequestMapping(value = "/sessionList", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<ShowSession>> getShowSessionList(@RequestParam int showId)
+    public CommonResult<CommonPage<ShowSession>> getShowSessionList(@RequestParam int showId,
+                                                             @RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                             @RequestParam(required = false, defaultValue = "5") Integer pageSize)
     {
-        List<ShowSession> list = showSessionService.getShowSessionList(showId);
-        return CommonResult.success(list);
+        List<ShowSession> list = showSessionService.getShowSessionList(showId,pageNum, pageSize);
+        return CommonResult.success(CommonPage.restPage(list));
     }
 
 }

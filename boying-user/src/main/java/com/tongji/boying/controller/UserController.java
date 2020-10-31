@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Controller
 @Api(tags = "UserController", description = "用户登录注册管理")
-@RequestMapping("/user/user")
+@RequestMapping("/user")
 public class UserController
 {
     @Value("${jwt.tokenHeader}")

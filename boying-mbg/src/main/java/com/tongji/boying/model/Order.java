@@ -11,7 +11,7 @@ public class Order implements Serializable {
     private Integer userId;
 
     @ApiModelProperty(value = "所属场次Id")
-    private Integer sessionId;
+    private Integer showSessionId;
 
     @ApiModelProperty(value = "这些票要邮寄到什么地方")
     private Integer addressId;
@@ -55,12 +55,12 @@ public class Order implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getSessionId() {
-        return sessionId;
+    public Integer getShowSessionId() {
+        return showSessionId;
     }
 
-    public void setSessionId(Integer sessionId) {
-        this.sessionId = sessionId;
+    public void setShowSessionId(Integer showSessionId) {
+        this.showSessionId = showSessionId;
     }
 
     public Integer getAddressId() {
@@ -135,7 +135,7 @@ public class Order implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", orderId=").append(orderId);
         sb.append(", userId=").append(userId);
-        sb.append(", sessionId=").append(sessionId);
+        sb.append(", showSessionId=").append(showSessionId);
         sb.append(", addressId=").append(addressId);
         sb.append(", frequentId=").append(frequentId);
         sb.append(", status=").append(status);

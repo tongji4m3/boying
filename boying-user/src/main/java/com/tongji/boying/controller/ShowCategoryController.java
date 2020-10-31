@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Controller
 @Api(tags = "ShowCategoryController", description = "查看演出菜单目录")
-@RequestMapping("/user/category")
+@RequestMapping("/category")
 public class ShowCategoryController
 {
     @Autowired

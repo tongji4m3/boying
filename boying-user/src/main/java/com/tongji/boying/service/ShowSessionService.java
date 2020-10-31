@@ -8,5 +8,5 @@ public interface ShowSessionService
 {
     ShowSession detail(Integer sessionId);
 
-    List<ShowSession> getShowSessionList(int showId);
+    List<ShowSession> getShowSessionList(int id, Integer pageNum, Integer pageSize);
 }

@@ -1,8 +1,8 @@
 package com.tongji.boying.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.AddressParam;
-import com.tongji.boying.mapper.AddressMapper;
 import com.tongji.boying.mapper.AddressMapper;
 import com.tongji.boying.model.*;
 import com.tongji.boying.service.UserAddressService;
@@ -64,8 +64,9 @@ public class UserAddressServiceImpl implements UserAddressService
     }
 
     @Override
-    public List<Address> list()
+    public List<Address> list(Integer pageNum, Integer pageSize)
     {
+        PageHelper.startPage(pageNum, pageSize);//分页相关
         User user = userService.getCurrentUser();
         AddressExample addressExample = new AddressExample();
         addressExample.createCriteria().andUserIdEqualTo(user.getUserId());

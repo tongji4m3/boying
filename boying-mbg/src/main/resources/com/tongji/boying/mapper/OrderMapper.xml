@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.tongji.boying.model.Order">
     <id column="order_id" jdbcType="INTEGER" property="orderId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="session_id" jdbcType="INTEGER" property="sessionId" />
+    <result column="show_session_id" jdbcType="INTEGER" property="showSessionId" />
     <result column="address_id" jdbcType="INTEGER" property="addressId" />
     <result column="frequent_id" jdbcType="INTEGER" property="frequentId" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -73,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    order_id, user_id, session_id, address_id, frequent_id, status, time, payment, user_delete, 
-    money, ticket_count
+    order_id, user_id, show_session_id, address_id, frequent_id, status, time, payment, 
+    user_delete, money, ticket_count
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.OrderExample" resultMap="BaseResultMap">
     select
@@ -107,11 +107,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Order">
-    insert into order (order_id, user_id, session_id, 
+    insert into order (order_id, user_id, show_session_id, 
       address_id, frequent_id, status, 
       time, payment, user_delete, 
       money, ticket_count)
-    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{sessionId,jdbcType=INTEGER}, 
+    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{showSessionId,jdbcType=INTEGER}, 
       #{addressId,jdbcType=INTEGER}, #{frequentId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{time,jdbcType=TIMESTAMP}, #{payment,jdbcType=VARCHAR}, #{userDelete,jdbcType=BIT}, 
       #{money,jdbcType=INTEGER}, #{ticketCount,jdbcType=INTEGER})
@@ -125,8 +125,8 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="sessionId != null">
-        session_id,
+      <if test="showSessionId != null">
+        show_session_id,
       </if>
       <if test="addressId != null">
         address_id,
@@ -160,8 +160,8 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="sessionId != null">
-        #{sessionId,jdbcType=INTEGER},
+      <if test="showSessionId != null">
+        #{showSessionId,jdbcType=INTEGER},
       </if>
       <if test="addressId != null">
         #{addressId,jdbcType=INTEGER},
@@ -204,8 +204,8 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.sessionId != null">
-        session_id = #{record.sessionId,jdbcType=INTEGER},
+      <if test="record.showSessionId != null">
+        show_session_id = #{record.showSessionId,jdbcType=INTEGER},
       </if>
       <if test="record.addressId != null">
         address_id = #{record.addressId,jdbcType=INTEGER},
@@ -240,7 +240,7 @@
     update order
     set order_id = #{record.orderId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      session_id = #{record.sessionId,jdbcType=INTEGER},
+      show_session_id = #{record.showSessionId,jdbcType=INTEGER},
       address_id = #{record.addressId,jdbcType=INTEGER},
       frequent_id = #{record.frequentId,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
@@ -259,8 +259,8 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="sessionId != null">
-        session_id = #{sessionId,jdbcType=INTEGER},
+      <if test="showSessionId != null">
+        show_session_id = #{showSessionId,jdbcType=INTEGER},
       </if>
       <if test="addressId != null">
         address_id = #{addressId,jdbcType=INTEGER},
@@ -292,7 +292,7 @@
   <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.Order">
     update order
     set user_id = #{userId,jdbcType=INTEGER},
-      session_id = #{sessionId,jdbcType=INTEGER},
+      show_session_id = #{showSessionId,jdbcType=INTEGER},
       address_id = #{addressId,jdbcType=INTEGER},
       frequent_id = #{frequentId,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},

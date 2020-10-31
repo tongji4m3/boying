@@ -28,8 +28,10 @@ public interface UserFrequentService
 
     /**
      * 返回当前用户的常用联系人
+     * @param pageNum
+     * @param pageSize
      */
-    List<Frequent> list();
+    List<Frequent> list(Integer pageNum, Integer pageSize);
 
     /**
      * 获取常用联系人详情

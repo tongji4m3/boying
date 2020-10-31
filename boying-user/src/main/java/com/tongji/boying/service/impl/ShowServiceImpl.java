@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ShowServiceImpl implements ShowService
@@ -43,24 +43,23 @@ public class ShowServiceImpl implements ShowService
         if (categoryId != null)
         {
             //说明是子目录,可以直接查
-            if(showCategoryService.isSonCategory(categoryId))
+            if (showCategoryService.isSonCategory(categoryId))
             {
                 criteria.andCategoryIdEqualTo(categoryId);
             }
             else
             {
-                //show中的分类都是二级分类,所以如果只是直接搜索一级分类的,就需要先把一级分类的所有二级分类先查询
                 List<Category> categories = showCategoryService.categoryList(categoryId);
-                List<Integer> categoriesId = new LinkedList<>();
-                for (Category category : categories)
-                {
-                    categoriesId.add(category.getCategoryId());
-                }
-                criteria.andCategoryIdIn(categoriesId);
+
+                //show中的分类都是二级分类,所以如果只是直接搜索一级分类的,就需要先把一级分类的所有二级分类先查询
+                List<Integer> collect = categories.stream()
+                        .map(Category::getCategoryId)
+                        .collect(Collectors.toList());
+                criteria.andCategoryIdIn(collect);
             }
         }
         //按时间搜索
-        if(date!=null)
+        if (date != null)
         {
 //            查询的时间在开始时间,结束时间之间
             criteria.andDayStartLessThanOrEqualTo(date).andDayEndGreaterThanOrEqualTo(date);
@@ -68,7 +67,7 @@ public class ShowServiceImpl implements ShowService
         //0->按相关度；1->按推荐；2->按时间；3->最低价格从低到高；4->最低价格从高到低
         if (sort == 1)
         {
-            example.setOrderByClause("id desc");
+            example.setOrderByClause("weight desc");
         }
         else if (sort == 2)
         {

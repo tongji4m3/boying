@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tongji.boying.mapper.TicketMapper">
-  <resultMap id="BaseResultMap" type="com.tongji.boying.model.Ticket">
-    <id column="ticket_id" jdbcType="INTEGER" property="ticketId" />
-    <result column="order_id" jdbcType="INTEGER" property="orderId" />
-    <result column="show_class_id" jdbcType="INTEGER" property="showClassId" />
-    <result column="qr_code_url" jdbcType="VARCHAR" property="qrCodeUrl" />
+<mapper namespace="com.tongji.boying.mapper.ShowClassMapper">
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.ShowClass">
+    <id column="show_class_id" jdbcType="INTEGER" property="showClassId" />
+    <result column="show_session_id" jdbcType="INTEGER" property="showSessionId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="capacity" jdbcType="INTEGER" property="capacity" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ticket_id, order_id, show_class_id, qr_code_url
+    show_class_id, show_session_id, name, capacity, price
   </sql>
-  <select id="selectByExample" parameterType="com.tongji.boying.model.TicketExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.tongji.boying.model.ShowClassExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from ticket
+    from show_class
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,76 +86,85 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from ticket
-    where ticket_id = #{ticketId,jdbcType=INTEGER}
+    from show_class
+    where show_class_id = #{showClassId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from ticket
-    where ticket_id = #{ticketId,jdbcType=INTEGER}
+    delete from show_class
+    where show_class_id = #{showClassId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tongji.boying.model.TicketExample">
-    delete from ticket
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.ShowClassExample">
+    delete from show_class
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tongji.boying.model.Ticket">
-    insert into ticket (ticket_id, order_id, show_class_id, 
-      qr_code_url)
-    values (#{ticketId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{showClassId,jdbcType=INTEGER}, 
-      #{qrCodeUrl,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.tongji.boying.model.ShowClass">
+    insert into show_class (show_class_id, show_session_id, name, 
+      capacity, price)
+    values (#{showClassId,jdbcType=INTEGER}, #{showSessionId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{capacity,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL})
   </insert>
-  <insert id="insertSelective" parameterType="com.tongji.boying.model.Ticket">
-    insert into ticket
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.ShowClass">
+    insert into show_class
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="ticketId != null">
-        ticket_id,
-      </if>
-      <if test="orderId != null">
-        order_id,
-      </if>
       <if test="showClassId != null">
         show_class_id,
       </if>
-      <if test="qrCodeUrl != null">
-        qr_code_url,
+      <if test="showSessionId != null">
+        show_session_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="capacity != null">
+        capacity,
+      </if>
+      <if test="price != null">
+        price,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="ticketId != null">
-        #{ticketId,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=INTEGER},
-      </if>
       <if test="showClassId != null">
         #{showClassId,jdbcType=INTEGER},
       </if>
-      <if test="qrCodeUrl != null">
-        #{qrCodeUrl,jdbcType=VARCHAR},
+      <if test="showSessionId != null">
+        #{showSessionId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="capacity != null">
+        #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tongji.boying.model.TicketExample" resultType="java.lang.Long">
-    select count(*) from ticket
+  <select id="countByExample" parameterType="com.tongji.boying.model.ShowClassExample" resultType="java.lang.Long">
+    select count(*) from show_class
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update ticket
+    update show_class
     <set>
-      <if test="record.ticketId != null">
-        ticket_id = #{record.ticketId,jdbcType=INTEGER},
-      </if>
-      <if test="record.orderId != null">
-        order_id = #{record.orderId,jdbcType=INTEGER},
-      </if>
       <if test="record.showClassId != null">
         show_class_id = #{record.showClassId,jdbcType=INTEGER},
       </if>
-      <if test="record.qrCodeUrl != null">
-        qr_code_url = #{record.qrCodeUrl,jdbcType=VARCHAR},
+      <if test="record.showSessionId != null">
+        show_session_id = #{record.showSessionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capacity != null">
+        capacity = #{record.capacity,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DECIMAL},
       </if>
     </set>
     <if test="_parameter != null">
@@ -162,35 +172,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update ticket
-    set ticket_id = #{record.ticketId,jdbcType=INTEGER},
-      order_id = #{record.orderId,jdbcType=INTEGER},
-      show_class_id = #{record.showClassId,jdbcType=INTEGER},
-      qr_code_url = #{record.qrCodeUrl,jdbcType=VARCHAR}
+    update show_class
+    set show_class_id = #{record.showClassId,jdbcType=INTEGER},
+      show_session_id = #{record.showSessionId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      capacity = #{record.capacity,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.Ticket">
-    update ticket
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.ShowClass">
+    update show_class
     <set>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=INTEGER},
+      <if test="showSessionId != null">
+        show_session_id = #{showSessionId,jdbcType=INTEGER},
       </if>
-      <if test="showClassId != null">
-        show_class_id = #{showClassId,jdbcType=INTEGER},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="qrCodeUrl != null">
-        qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR},
+      <if test="capacity != null">
+        capacity = #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
       </if>
     </set>
-    where ticket_id = #{ticketId,jdbcType=INTEGER}
+    where show_class_id = #{showClassId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.Ticket">
-    update ticket
-    set order_id = #{orderId,jdbcType=INTEGER},
-      show_class_id = #{showClassId,jdbcType=INTEGER},
-      qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR}
-    where ticket_id = #{ticketId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.ShowClass">
+    update show_class
+    set show_session_id = #{showSessionId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      capacity = #{capacity,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL}
+    where show_class_id = #{showClassId,jdbcType=INTEGER}
   </update>
 </mapper>

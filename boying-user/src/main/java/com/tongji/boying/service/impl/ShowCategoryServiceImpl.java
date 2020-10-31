@@ -34,7 +34,7 @@ public class ShowCategoryServiceImpl implements ShowCategoryService
         List<Category> parents = categoryList(0);
         for (Category parent : parents)
         {
-            map.put(parent, categoryList(parent.getParentId()));
+            map.put(parent, categoryList(parent.getCategoryId()));
         }
         return map;
     }
@@ -43,11 +43,17 @@ public class ShowCategoryServiceImpl implements ShowCategoryService
     public boolean isSonCategory(int id)
     {
         CategoryExample categoryExample = new CategoryExample();
-//        不显示的目录也不算子目录
-        categoryExample.createCriteria().andCategoryIdEqualTo(id).andWeightNotEqualTo(0).andParentIdEqualTo(0);
         List<Category> categories = categoryMapper.selectByExample(categoryExample);
-        //parentId=0说明是一级目录,则不为空
-        //所以为空就是子目录
-        return categories.isEmpty();
+        if(categories.isEmpty())
+        {
+            //该目录不存在,自然不是子目录
+            return false;
+        }
+        if(categories.get(0).getParentId()==0 || categories.get(0).getWeight()==0)
+        {
+            //是父级目录或不能显示,也不是子目录
+            return false;
+        }
+        return true;
     }
 }

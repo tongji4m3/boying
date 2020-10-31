@@ -8,5 +8,5 @@ public interface ShowClassService
 {
     ShowClass detail(Integer classId);
 
-    List<ShowClass> getShowClassList(int sessionId);
+    List<ShowClass> getShowClassList(int sessionId, Integer pageNum, Integer pageSize);
 }

@@ -10,7 +10,7 @@ public class Ticket implements Serializable {
     private Integer orderId;
 
     @ApiModelProperty(value = "所属座次Id")
-    private Integer classId;
+    private Integer showClassId;
 
     @ApiModelProperty(value = "二维码图片,供观影人验证入场")
     private String qrCodeUrl;
@@ -33,12 +33,12 @@ public class Ticket implements Serializable {
         this.orderId = orderId;
     }
 
-    public Integer getClassId() {
-        return classId;
+    public Integer getShowClassId() {
+        return showClassId;
     }
 
-    public void setClassId(Integer classId) {
-        this.classId = classId;
+    public void setShowClassId(Integer showClassId) {
+        this.showClassId = showClassId;
     }
 
     public String getQrCodeUrl() {
@@ -57,7 +57,7 @@ public class Ticket implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", ticketId=").append(ticketId);
         sb.append(", orderId=").append(orderId);
-        sb.append(", classId=").append(classId);
+        sb.append(", showClassId=").append(showClassId);
         sb.append(", qrCodeUrl=").append(qrCodeUrl);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

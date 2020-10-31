@@ -1,7 +1,9 @@
 package com.tongji.boying.controller;
 
+import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.AddressParam;
+import com.tongji.boying.model.Address;
 import com.tongji.boying.model.Address;
 import com.tongji.boying.model.Frequent;
 import com.tongji.boying.service.UserAddressService;
@@ -19,7 +21,7 @@ import java.util.List;
  */
 @Controller
 @Api(tags = "UserAddressController", description = "用户收货地址管理")
-@RequestMapping("/user/address")
+@RequestMapping("/address")
 public class UserAddressController
 {
     @Autowired
@@ -67,11 +69,12 @@ public class UserAddressController
     @ApiOperation("显示所有收货地址")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<Address>> list()
+    public CommonResult<CommonPage<Address>> list(@RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                   @RequestParam(required = false, defaultValue = "5") Integer pageSize)
     {
-        List<Address> addressList = userAddressService.list();
+        List<Address> addressList = userAddressService.list(pageNum, pageSize);
         if(addressList.size()==0) return CommonResult.failed("当前用户无收货地址!");
-        return CommonResult.success(addressList);
+        return CommonResult.success(CommonPage.restPage(addressList));
     }
 
     @ApiOperation("获取收货地址详情")
@@ -87,11 +90,11 @@ public class UserAddressController
     @ApiOperation("获取默认收货地址")
     @RequestMapping(value = "/getDefault", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Frequent> getDefault()
+    public CommonResult<Address> getDefault()
     {
-        Frequent frequent = userAddressService.getDefault();
-        if(frequent==null) return CommonResult.failed("当前用户无默认收货地址!");
-        return CommonResult.success(frequent);
+        Address address = userAddressService.getDefault();
+        if(address==null) return CommonResult.failed("当前用户无默认收货地址!");
+        return CommonResult.success(address);
     }
 
     @ApiOperation("设置为默认收货地址")

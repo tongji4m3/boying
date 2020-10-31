@@ -1,8 +1,10 @@
 package com.tongji.boying.controller;
 
+import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.FrequentParam;
 import com.tongji.boying.model.Frequent;
+import com.tongji.boying.model.Show;
 import com.tongji.boying.service.UserFrequentService;
 import com.tongji.boying.service.UserFrequentService;
 import io.swagger.annotations.Api;
@@ -20,7 +22,7 @@ import java.util.List;
  */
 @Controller
 @Api(tags = "UserFrequentController", description = "用户常用联系人管理")
-@RequestMapping("/user/frequent")
+@RequestMapping("/frequent")
 public class UserFrequentController
 {
     @Autowired
@@ -68,11 +70,12 @@ public class UserFrequentController
     @ApiOperation("显示所有常用联系人")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<Frequent>> list()
+    public CommonResult<CommonPage<Frequent>> list(@RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                               @RequestParam(required = false, defaultValue = "5") Integer pageSize)
     {
-        List<Frequent> frequentList = userFrequentService.list();
+        List<Frequent> frequentList = userFrequentService.list(pageNum, pageSize);
         if(frequentList.size()==0) return CommonResult.failed("当前用户无常用联系人!");
-        return CommonResult.success(frequentList);
+        return CommonResult.success(CommonPage.restPage(frequentList));
     }
 
     @ApiOperation("获取常用联系人详情")

@@ -2,7 +2,6 @@ package com.tongji.boying.service;
 
 import com.tongji.boying.dto.AddressParam;
 import com.tongji.boying.model.Address;
-import com.tongji.boying.model.Frequent;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -29,8 +28,10 @@ public interface UserAddressService
 
     /**
      * 返回当前用户的收货地址
+     * @param pageNum
+     * @param pageSize
      */
-    List<Address> list();
+    List<Address> list(Integer pageNum, Integer pageSize);
 
     /**
      * 获取地址详情

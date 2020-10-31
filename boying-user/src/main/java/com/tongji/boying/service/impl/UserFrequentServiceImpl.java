@@ -1,5 +1,6 @@
 package com.tongji.boying.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.FrequentParam;
 import com.tongji.boying.mapper.FrequentMapper;
@@ -65,8 +66,9 @@ public class UserFrequentServiceImpl implements UserFrequentService
     }
 
     @Override
-    public List<Frequent> list()
+    public List<Frequent> list(Integer pageNum, Integer pageSize)
     {
+        PageHelper.startPage(pageNum, pageSize);//分页相关
         User user = userService.getCurrentUser();
         FrequentExample frequentExample = new FrequentExample();
         frequentExample.createCriteria().andUserIdEqualTo(user.getUserId());

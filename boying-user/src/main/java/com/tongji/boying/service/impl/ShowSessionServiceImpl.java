@@ -1,5 +1,6 @@
 package com.tongji.boying.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.tongji.boying.mapper.ShowSessionMapper;
 import com.tongji.boying.model.ShowSession;
 import com.tongji.boying.model.ShowSessionExample;
@@ -22,10 +23,11 @@ public class ShowSessionServiceImpl implements ShowSessionService
     }
 
     @Override
-    public List<ShowSession> getShowSessionList(int showId)
+    public List<ShowSession> getShowSessionList(int id, Integer pageNum, Integer pageSize)
     {
+        PageHelper.startPage(pageNum, pageSize);//分页相关
         ShowSessionExample showSessionExample = new ShowSessionExample();
-        showSessionExample.createCriteria().andShowIdEqualTo(showId);
+        showSessionExample.createCriteria().andShowIdEqualTo(id);
         return showSessionMapper.selectByExample(showSessionExample);
     }
 }

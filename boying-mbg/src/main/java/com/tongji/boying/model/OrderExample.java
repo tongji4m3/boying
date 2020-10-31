@@ -225,63 +225,63 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdIsNull() {
-            addCriterion("session_id is null");
+        public Criteria andShowSessionIdIsNull() {
+            addCriterion("show_session_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdIsNotNull() {
-            addCriterion("session_id is not null");
+        public Criteria andShowSessionIdIsNotNull() {
+            addCriterion("show_session_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdEqualTo(Integer value) {
-            addCriterion("session_id =", value, "sessionId");
+        public Criteria andShowSessionIdEqualTo(Integer value) {
+            addCriterion("show_session_id =", value, "showSessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdNotEqualTo(Integer value) {
-            addCriterion("session_id <>", value, "sessionId");
+        public Criteria andShowSessionIdNotEqualTo(Integer value) {
+            addCriterion("show_session_id <>", value, "showSessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdGreaterThan(Integer value) {
-            addCriterion("session_id >", value, "sessionId");
+        public Criteria andShowSessionIdGreaterThan(Integer value) {
+            addCriterion("show_session_id >", value, "showSessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("session_id >=", value, "sessionId");
+        public Criteria andShowSessionIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("show_session_id >=", value, "showSessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdLessThan(Integer value) {
-            addCriterion("session_id <", value, "sessionId");
+        public Criteria andShowSessionIdLessThan(Integer value) {
+            addCriterion("show_session_id <", value, "showSessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdLessThanOrEqualTo(Integer value) {
-            addCriterion("session_id <=", value, "sessionId");
+        public Criteria andShowSessionIdLessThanOrEqualTo(Integer value) {
+            addCriterion("show_session_id <=", value, "showSessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdIn(List<Integer> values) {
-            addCriterion("session_id in", values, "sessionId");
+        public Criteria andShowSessionIdIn(List<Integer> values) {
+            addCriterion("show_session_id in", values, "showSessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdNotIn(List<Integer> values) {
-            addCriterion("session_id not in", values, "sessionId");
+        public Criteria andShowSessionIdNotIn(List<Integer> values) {
+            addCriterion("show_session_id not in", values, "showSessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdBetween(Integer value1, Integer value2) {
-            addCriterion("session_id between", value1, value2, "sessionId");
+        public Criteria andShowSessionIdBetween(Integer value1, Integer value2) {
+            addCriterion("show_session_id between", value1, value2, "showSessionId");
             return (Criteria) this;
         }
 
-        public Criteria andSessionIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("session_id not between", value1, value2, "sessionId");
+        public Criteria andShowSessionIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("show_session_id not between", value1, value2, "showSessionId");
             return (Criteria) this;
         }
 
