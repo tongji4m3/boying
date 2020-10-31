@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.config.AdminUserDetails;
+import com.tongji.boying.dto.AdminInfoParam;
 import com.tongji.boying.dto.AdminParam;
 import com.tongji.boying.dto.AdminPasswordParam;
 import com.tongji.boying.mapper.AdminMapper;
@@ -159,12 +160,11 @@ public class UmsAdminServiceImpl implements UmsAdminService
     }
 
     @Override
-    public int update(Integer id, Admin admin)
+    public int update(Integer id, AdminInfoParam param)
     {
+        Admin admin = new Admin();
+        BeanUtils.copyProperties(param, admin);
         admin.setAdminId(id);
-        Admin rawAdmin = adminMapper.selectByPrimaryKey(id);
-        //不对密码进行更新
-        admin.setPassword(null);
         int count = adminMapper.updateByPrimaryKeySelective(admin);
         adminCacheService.delAdmin(id);
         return count;

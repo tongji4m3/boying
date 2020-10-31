@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
  */
 public class AdminUserDetails implements UserDetails
 {
-    private Admin admin;
-    private List<Resource> resourceList;
+    private final Admin admin;
+    private final List<Resource> resourceList;
 
     public AdminUserDetails(Admin admin, List<Resource> resourceList)
     {

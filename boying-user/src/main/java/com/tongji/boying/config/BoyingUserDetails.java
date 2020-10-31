@@ -15,7 +15,7 @@ import java.util.Collection;
  */
 public class BoyingUserDetails implements UserDetails
 {
-    private User user;
+    private final User user;
 
     public BoyingUserDetails(User user)
     {

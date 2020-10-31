@@ -35,6 +35,7 @@ public class GlobalExceptionHandler
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public CommonResult handleValidException(MethodArgumentNotValidException e)
     {
+//        springboot的参数校验失败时,会自动抛出该异常,只要全局处理该异常依然可以得到校验失败信息。
         BindingResult bindingResult = e.getBindingResult();
         String message = null;
         if (bindingResult.hasErrors())

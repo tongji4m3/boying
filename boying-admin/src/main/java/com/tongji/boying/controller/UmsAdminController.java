@@ -3,6 +3,7 @@ package com.tongji.boying.controller;
 import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.AdminInfoParam;
 import com.tongji.boying.dto.AdminLoginParam;
 import com.tongji.boying.dto.AdminParam;
 import com.tongji.boying.dto.AdminPasswordParam;
@@ -72,7 +73,7 @@ public class UmsAdminController
     }
 
     @ApiOperation(value = "刷新token")
-    @RequestMapping(value = "/refreshToken", method = RequestMethod.GET)
+    @RequestMapping(value = "/refreshToken", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult refreshToken(HttpServletRequest request)
     {
@@ -89,7 +90,7 @@ public class UmsAdminController
     }
 
     @ApiOperation(value = "获取当前登录管理员信息")
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @RequestMapping(value = "/info", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult getAdminInfo(Principal principal)
     {
@@ -113,7 +114,7 @@ public class UmsAdminController
     }
 
     @ApiOperation("根据管理员名分页获取管理员列表")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<Admin>> list(@RequestParam(value = "keyword", required = false) String keyword,
                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
@@ -124,7 +125,7 @@ public class UmsAdminController
     }
 
     @ApiOperation("获取指定管理员信息")
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<Admin> getItem(@PathVariable Integer id)
     {
@@ -135,9 +136,9 @@ public class UmsAdminController
     @ApiOperation("修改指定管理员信息")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult update(@PathVariable Integer id, @RequestBody Admin admin)
+    public CommonResult update(@PathVariable Integer id, @Validated @RequestBody AdminInfoParam param)
     {
-        int count = adminService.update(id, admin);
+        int count = adminService.update(id, param);
         if (count > 0)
         {
             return CommonResult.success(count);
@@ -191,9 +192,10 @@ public class UmsAdminController
     @ResponseBody
     public CommonResult updateStatus(@PathVariable Integer id, @RequestParam(value = "status") Boolean status)
     {
-        Admin admin = new Admin();
-        admin.setStatus(status);
-        int count = adminService.update(id, admin);
+
+        AdminInfoParam param = new AdminInfoParam();
+        param.setStatus(status);
+        int count = adminService.update(id, param);
         if (count > 0)
         {
             return CommonResult.success(count);
@@ -216,7 +218,7 @@ public class UmsAdminController
     }
 
     @ApiOperation("获取指定管理员的角色")
-    @RequestMapping(value = "/role/{adminId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/role/{adminId}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<Role>> getRoleList(@PathVariable Integer adminId)
     {

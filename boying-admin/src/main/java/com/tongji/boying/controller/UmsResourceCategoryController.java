@@ -24,7 +24,7 @@ public class UmsResourceCategoryController {
     private UmsResourceCategoryService resourceCategoryService;
 
     @ApiOperation("查询所有后台资源分类")
-    @RequestMapping(value = "/listAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/listAll", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<ResourceCategory>> listAll() {
         List<ResourceCategory> resourceList = resourceCategoryService.listAll();

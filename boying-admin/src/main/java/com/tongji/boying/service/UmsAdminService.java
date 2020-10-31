@@ -1,5 +1,6 @@
 package com.tongji.boying.service;
 
+import com.tongji.boying.dto.AdminInfoParam;
 import com.tongji.boying.dto.AdminParam;
 import com.tongji.boying.dto.AdminPasswordParam;
 import com.tongji.boying.model.Admin;
@@ -51,7 +52,7 @@ public interface UmsAdminService {
     /**
      * 修改指定管理员信息
      */
-    int update(Integer id, Admin admin);
+    int update(Integer id, AdminInfoParam param);
 
     /**
      * 删除指定管理员

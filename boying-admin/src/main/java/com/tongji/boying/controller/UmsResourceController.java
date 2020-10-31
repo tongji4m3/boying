@@ -56,7 +56,7 @@ public class UmsResourceController {
     }
 
     @ApiOperation("根据ID获取资源详情")
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<Resource> getItem(@PathVariable Integer id) {
         Resource resource = resourceService.getItem(id);
@@ -77,7 +77,7 @@ public class UmsResourceController {
     }
 
     @ApiOperation("分页模糊查询后台资源")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<Resource>> list(@RequestParam(required = false) Integer categoryId,
                                                    @RequestParam(required = false) String nameKeyword,
@@ -89,7 +89,7 @@ public class UmsResourceController {
     }
 
     @ApiOperation("查询所有后台资源")
-    @RequestMapping(value = "/listAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/listAll", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<Resource>> listAll() {
         List<Resource> resourceList = resourceService.listAll();

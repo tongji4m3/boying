@@ -1,13 +1,14 @@
 package com.tongji.boying.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.tongji.boying.mapper.RoleMapper;
-import com.tongji.boying.mapper.RoleMenuMapper;
-import com.tongji.boying.mapper.RoleResourceMapper;
+import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.dto.RoleParam;
+import com.tongji.boying.mapper.*;
 import com.tongji.boying.model.*;
 import com.tongji.boying.service.UmsAdminCacheService;
 import com.tongji.boying.service.UmsRoleService;
 import com.tongji.boying.dao.UmsRoleDao;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -31,18 +32,29 @@ public class UmsRoleServiceImpl implements UmsRoleService
     private UmsAdminCacheService adminCacheService;
 
     @Autowired
+    private MenuMapper menuMapper;
+
+    @Autowired
+    private ResourceMapper resourceMapper;
+
+    @Autowired
     private UmsRoleDao roleDao;
 
     @Override
-    public int create(Role role) {
+    public int create(RoleParam param) {
+        Role role = new Role();
+        BeanUtils.copyProperties(param, role);
         role.setCreateTime(new Date());
         role.setAdminCount(0);
-        role.setSort(0);
+        role.setStatus(true);
         return roleMapper.insert(role);
     }
 
     @Override
-    public int update(Integer id, Role role) {
+    public int update(Integer id, RoleParam param) {
+        if(!hasRole(id)) Asserts.fail("该角色不存在");
+        Role role = new Role();
+        BeanUtils.copyProperties(param, role);
         role.setRoleId(id);
         return roleMapper.updateByPrimaryKeySelective(role);
     }
@@ -75,25 +87,39 @@ public class UmsRoleServiceImpl implements UmsRoleService
 
     @Override
     public List<Menu> getMenuList(Integer adminId) {
+
         return roleDao.getMenuList(adminId);
     }
 
     @Override
     public List<Menu> listMenu(Integer roleId) {
+        if(!hasRole(roleId)) Asserts.fail("该角色不存在");
         return roleDao.getMenuListByRoleId(roleId);
     }
 
     @Override
     public List<Resource> listResource(Integer roleId) {
+        if(!hasRole(roleId)) Asserts.fail("该角色不存在");
         return roleDao.getResourceListByRoleId(roleId);
     }
 
     @Override
     public int allocMenu(Integer roleId, List<Integer> menuIds) {
+        if(!hasRole(roleId)) Asserts.fail("该角色不存在!");
         //先删除原有关系
         RoleMenuExample example=new RoleMenuExample();
         example.createCriteria().andRoleIdEqualTo(roleId);
         roleMenuMapper.deleteByExample(example);
+
+        MenuExample menuExample = new MenuExample();
+        menuExample.createCriteria().andMenuIdIn(menuIds);
+        List<Menu> menus = menuMapper.selectByExample(menuExample);
+        if(menus.size()!=menuIds.size())
+        {
+//            说明有些menuId不存在
+            Asserts.fail("列表中某些menuId不存在!");
+        }
+
         //批量插入新关系
         for (Integer menuId : menuIds) {
             RoleMenu relation = new RoleMenu();
@@ -106,10 +132,22 @@ public class UmsRoleServiceImpl implements UmsRoleService
 
     @Override
     public int allocResource(Integer roleId, List<Integer> resourceIds) {
+        if(!hasRole(roleId)) Asserts.fail("该角色不存在");
         //先删除原有关系
         RoleResourceExample example=new RoleResourceExample();
         example.createCriteria().andRoleIdEqualTo(roleId);
         roleResourceRelationMapper.deleteByExample(example);
+
+        //不在Resource表中则不加
+        ResourceExample resourceExample = new ResourceExample();
+        resourceExample.createCriteria().andResourceIdIn(resourceIds);
+        List<Resource> resources = resourceMapper.selectByExample(resourceExample);
+        if(resources.size()!=resourceIds.size())
+        {
+            //            说明有些resourceId不存在
+            Asserts.fail("列表中某些resourceId不存在!");
+        }
+
         //批量插入新关系
         for (Integer resourceId : resourceIds) {
             RoleResource relation = new RoleResource();
@@ -119,5 +157,15 @@ public class UmsRoleServiceImpl implements UmsRoleService
         }
         adminCacheService.delResourceListByRole(roleId);
         return resourceIds.size();
+    }
+
+    @Override
+    public boolean hasRole(Integer roleId)
+    {
+        //先判断角色是否存在
+        RoleExample roleExample = new RoleExample();
+        roleExample.createCriteria().andRoleIdEqualTo(roleId);
+        List<Role> roles = roleMapper.selectByExample(roleExample);
+        return !roles.isEmpty();
     }
 }

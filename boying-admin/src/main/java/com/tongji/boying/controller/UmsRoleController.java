@@ -2,6 +2,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.RoleParam;
 import com.tongji.boying.model.Menu;
 import com.tongji.boying.model.Resource;
 import com.tongji.boying.model.Role;
@@ -10,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,9 +30,9 @@ public class UmsRoleController
     @ApiOperation("添加角色")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult create(@RequestBody Role role)
+    public CommonResult create(@Validated @RequestBody RoleParam param)
     {
-        int count = roleService.create(role);
+        int count = roleService.create(param);
         if (count > 0)
         {
             return CommonResult.success(count);
@@ -41,9 +43,9 @@ public class UmsRoleController
     @ApiOperation("修改角色")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult update(@PathVariable Integer id, @RequestBody Role role)
+    public CommonResult update(@PathVariable Integer id, @Validated @RequestBody RoleParam param)
     {
-        int count = roleService.update(id, role);
+        int count = roleService.update(id, param);
         if (count > 0)
         {
             return CommonResult.success(count);
@@ -65,7 +67,7 @@ public class UmsRoleController
     }
 
     @ApiOperation("获取所有角色")
-    @RequestMapping(value = "/listAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/listAll", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<Role>> listAll()
     {
@@ -74,7 +76,7 @@ public class UmsRoleController
     }
 
     @ApiOperation("根据角色名称分页获取角色列表")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<Role>> list(@RequestParam(value = "keyword", required = false) String keyword,
                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
@@ -89,9 +91,9 @@ public class UmsRoleController
     @ResponseBody
     public CommonResult updateStatus(@PathVariable Integer id, @RequestParam(value = "status") Boolean status)
     {
-        Role role = new Role();
-        role.setStatus(status);
-        int count = roleService.update(id, role);
+        RoleParam param = new RoleParam();
+        param.setStatus(status);
+        int count = roleService.update(id, param);
         if (count > 0)
         {
             return CommonResult.success(count);
@@ -100,7 +102,7 @@ public class UmsRoleController
     }
 
     @ApiOperation("获取角色相关菜单")
-    @RequestMapping(value = "/listMenu/{roleId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/listMenu/{roleId}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<Menu>> listMenu(@PathVariable Integer roleId)
     {
@@ -109,7 +111,7 @@ public class UmsRoleController
     }
 
     @ApiOperation("获取角色相关资源")
-    @RequestMapping(value = "/listResource/{roleId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/listResource/{roleId}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<Resource>> listResource(@PathVariable Integer roleId)
     {

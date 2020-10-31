@@ -1,5 +1,6 @@
 package com.tongji.boying.service;
 
+import com.tongji.boying.dto.RoleParam;
 import com.tongji.boying.model.Menu;
 import com.tongji.boying.model.Resource;
 import com.tongji.boying.model.Role;
@@ -13,13 +14,14 @@ import java.util.List;
 public interface UmsRoleService {
     /**
      * 添加角色
+     * @param param
      */
-    int create(Role role);
+    int create(RoleParam param);
 
     /**
      * 修改角色信息
      */
-    int update(Integer id, Role role);
+    int update(Integer id, RoleParam param);
 
     /**
      * 批量删除角色
@@ -62,4 +64,11 @@ public interface UmsRoleService {
      */
     @Transactional
     int allocResource(Integer roleId, List<Integer> resourceIds);
+
+    /**
+     * 判断一个角色Id对应的角色是否存在
+     * @param roleId
+     * @return
+     */
+    boolean hasRole(Integer roleId);
 }
