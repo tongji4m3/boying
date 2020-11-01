@@ -4,11 +4,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Order implements Serializable {
+public class UserOrder implements Serializable {
     private Integer orderId;
 
     @ApiModelProperty(value = "所属用户Id")
     private Integer userId;
+
+    @ApiModelProperty(value = "所属演出Id")
+    private Integer showId;
 
     @ApiModelProperty(value = "所属场次Id")
     private Integer showSessionId;
@@ -19,7 +22,7 @@ public class Order implements Serializable {
     @ApiModelProperty(value = "这些票的实际观演人")
     private Integer frequentId;
 
-    @ApiModelProperty(value = "待评价,已完成")
+    @ApiModelProperty(value = "待评价,已完成(1,2)")
     private Integer status;
 
     @ApiModelProperty(value = "订单支付时间")
@@ -32,7 +35,7 @@ public class Order implements Serializable {
     private Boolean userDelete;
 
     @ApiModelProperty(value = "订单总金额")
-    private Integer money;
+    private Double money;
 
     @ApiModelProperty(value = "票的总数")
     private Integer ticketCount;
@@ -53,6 +56,14 @@ public class Order implements Serializable {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getShowId() {
+        return showId;
+    }
+
+    public void setShowId(Integer showId) {
+        this.showId = showId;
     }
 
     public Integer getShowSessionId() {
@@ -111,11 +122,11 @@ public class Order implements Serializable {
         this.userDelete = userDelete;
     }
 
-    public Integer getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(Integer money) {
+    public void setMoney(Double money) {
         this.money = money;
     }
 
@@ -135,6 +146,7 @@ public class Order implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", orderId=").append(orderId);
         sb.append(", userId=").append(userId);
+        sb.append(", showId=").append(showId);
         sb.append(", showSessionId=").append(showSessionId);
         sb.append(", addressId=").append(addressId);
         sb.append(", frequentId=").append(frequentId);

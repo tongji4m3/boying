@@ -22,14 +22,20 @@ public class Review implements Serializable {
     @ApiModelProperty(value = "点赞数量")
     private Integer likeCount;
 
+    @ApiModelProperty(value = "踩数量")
+    private Integer unlikeCount;
+
     @ApiModelProperty(value = "举报数量")
     private Integer reportCount;
 
     @ApiModelProperty(value = "如果是0则是单独评论,否则是对某个影评的评论")
     private Integer parentId;
 
-    @ApiModelProperty(value = "评论权重,管理员操作,你懂的")
+    @ApiModelProperty(value = "评论权重,管理员操作")
     private Integer weight;
+
+    @ApiModelProperty(value = "用户是否删除了该评论")
+    private Boolean userDelete;
 
     @ApiModelProperty(value = "评论内容")
     private byte[] content;
@@ -84,6 +90,14 @@ public class Review implements Serializable {
         this.likeCount = likeCount;
     }
 
+    public Integer getUnlikeCount() {
+        return unlikeCount;
+    }
+
+    public void setUnlikeCount(Integer unlikeCount) {
+        this.unlikeCount = unlikeCount;
+    }
+
     public Integer getReportCount() {
         return reportCount;
     }
@@ -108,6 +122,14 @@ public class Review implements Serializable {
         this.weight = weight;
     }
 
+    public Boolean getUserDelete() {
+        return userDelete;
+    }
+
+    public void setUserDelete(Boolean userDelete) {
+        this.userDelete = userDelete;
+    }
+
     public byte[] getContent() {
         return content;
     }
@@ -128,9 +150,11 @@ public class Review implements Serializable {
         sb.append(", star=").append(star);
         sb.append(", time=").append(time);
         sb.append(", likeCount=").append(likeCount);
+        sb.append(", unlikeCount=").append(unlikeCount);
         sb.append(", reportCount=").append(reportCount);
         sb.append(", parentId=").append(parentId);
         sb.append(", weight=").append(weight);
+        sb.append(", userDelete=").append(userDelete);
         sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

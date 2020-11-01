@@ -2,10 +2,8 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.dto.FrequentParam;
+import com.tongji.boying.dto.UserFrequentParam;
 import com.tongji.boying.model.Frequent;
-import com.tongji.boying.model.Show;
-import com.tongji.boying.service.UserFrequentService;
 import com.tongji.boying.service.UserFrequentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +29,7 @@ public class UserFrequentController
     @ApiOperation("添加常用联系人")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult add(@Validated @RequestBody FrequentParam param)
+    public CommonResult add(@Validated @RequestBody UserFrequentParam param)
     {
         int count = userFrequentService.add(param);
         if (count > 0)
@@ -57,7 +55,7 @@ public class UserFrequentController
     @ApiOperation("修改常用联系人")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult update(@PathVariable int id, @RequestBody FrequentParam param)
+    public CommonResult update(@PathVariable int id, @RequestBody UserFrequentParam param)
     {
         int count = userFrequentService.update(id, param);
         if (count > 0)

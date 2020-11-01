@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tongji.boying.mapper.OrderMapper">
-  <resultMap id="BaseResultMap" type="com.tongji.boying.model.Order">
+<mapper namespace="com.tongji.boying.mapper.UserOrderMapper">
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.UserOrder">
     <id column="order_id" jdbcType="INTEGER" property="orderId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="show_id" jdbcType="INTEGER" property="showId" />
     <result column="show_session_id" jdbcType="INTEGER" property="showSessionId" />
     <result column="address_id" jdbcType="INTEGER" property="addressId" />
     <result column="frequent_id" jdbcType="INTEGER" property="frequentId" />
@@ -11,7 +12,7 @@
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="payment" jdbcType="VARCHAR" property="payment" />
     <result column="user_delete" jdbcType="BIT" property="userDelete" />
-    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
     <result column="ticket_count" jdbcType="INTEGER" property="ticketCount" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -73,16 +74,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    order_id, user_id, show_session_id, address_id, frequent_id, status, time, payment, 
-    user_delete, money, ticket_count
+    order_id, user_id, show_id, show_session_id, address_id, frequent_id, status, time, 
+    payment, user_delete, money, ticket_count
   </sql>
-  <select id="selectByExample" parameterType="com.tongji.boying.model.OrderExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.tongji.boying.model.UserOrderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from order
+    from user_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -93,37 +94,42 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from order
+    from user_order
     where order_id = #{orderId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
+    delete from user_order
     where order_id = #{orderId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tongji.boying.model.OrderExample">
-    delete from order
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.UserOrderExample">
+    delete from user_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tongji.boying.model.Order">
-    insert into order (order_id, user_id, show_session_id, 
-      address_id, frequent_id, status, 
-      time, payment, user_delete, 
-      money, ticket_count)
-    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{showSessionId,jdbcType=INTEGER}, 
-      #{addressId,jdbcType=INTEGER}, #{frequentId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{time,jdbcType=TIMESTAMP}, #{payment,jdbcType=VARCHAR}, #{userDelete,jdbcType=BIT}, 
-      #{money,jdbcType=INTEGER}, #{ticketCount,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.tongji.boying.model.UserOrder">
+    insert into user_order (order_id, user_id, show_id, 
+      show_session_id, address_id, frequent_id, 
+      status, time, payment, 
+      user_delete, money, ticket_count
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, 
+      #{showSessionId,jdbcType=INTEGER}, #{addressId,jdbcType=INTEGER}, #{frequentId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{payment,jdbcType=VARCHAR}, 
+      #{userDelete,jdbcType=BIT}, #{money,jdbcType=DOUBLE}, #{ticketCount,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.tongji.boying.model.Order">
-    insert into order
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.UserOrder">
+    insert into user_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
         order_id,
       </if>
       <if test="userId != null">
         user_id,
+      </if>
+      <if test="showId != null">
+        show_id,
       </if>
       <if test="showSessionId != null">
         show_session_id,
@@ -160,6 +166,9 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
+      <if test="showId != null">
+        #{showId,jdbcType=INTEGER},
+      </if>
       <if test="showSessionId != null">
         #{showSessionId,jdbcType=INTEGER},
       </if>
@@ -182,27 +191,30 @@
         #{userDelete,jdbcType=BIT},
       </if>
       <if test="money != null">
-        #{money,jdbcType=INTEGER},
+        #{money,jdbcType=DOUBLE},
       </if>
       <if test="ticketCount != null">
         #{ticketCount,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tongji.boying.model.OrderExample" resultType="java.lang.Long">
-    select count(*) from order
+  <select id="countByExample" parameterType="com.tongji.boying.model.UserOrderExample" resultType="java.lang.Long">
+    select count(*) from user_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update order
+    update user_order
     <set>
       <if test="record.orderId != null">
         order_id = #{record.orderId,jdbcType=INTEGER},
       </if>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.showId != null">
+        show_id = #{record.showId,jdbcType=INTEGER},
       </if>
       <if test="record.showSessionId != null">
         show_session_id = #{record.showSessionId,jdbcType=INTEGER},
@@ -226,7 +238,7 @@
         user_delete = #{record.userDelete,jdbcType=BIT},
       </if>
       <if test="record.money != null">
-        money = #{record.money,jdbcType=INTEGER},
+        money = #{record.money,jdbcType=DOUBLE},
       </if>
       <if test="record.ticketCount != null">
         ticket_count = #{record.ticketCount,jdbcType=INTEGER},
@@ -237,9 +249,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update order
+    update user_order
     set order_id = #{record.orderId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
+      show_id = #{record.showId,jdbcType=INTEGER},
       show_session_id = #{record.showSessionId,jdbcType=INTEGER},
       address_id = #{record.addressId,jdbcType=INTEGER},
       frequent_id = #{record.frequentId,jdbcType=INTEGER},
@@ -247,17 +260,20 @@
       time = #{record.time,jdbcType=TIMESTAMP},
       payment = #{record.payment,jdbcType=VARCHAR},
       user_delete = #{record.userDelete,jdbcType=BIT},
-      money = #{record.money,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=DOUBLE},
       ticket_count = #{record.ticketCount,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.Order">
-    update order
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.UserOrder">
+    update user_order
     <set>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="showId != null">
+        show_id = #{showId,jdbcType=INTEGER},
       </if>
       <if test="showSessionId != null">
         show_session_id = #{showSessionId,jdbcType=INTEGER},
@@ -281,7 +297,7 @@
         user_delete = #{userDelete,jdbcType=BIT},
       </if>
       <if test="money != null">
-        money = #{money,jdbcType=INTEGER},
+        money = #{money,jdbcType=DOUBLE},
       </if>
       <if test="ticketCount != null">
         ticket_count = #{ticketCount,jdbcType=INTEGER},
@@ -289,9 +305,10 @@
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.Order">
-    update order
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.UserOrder">
+    update user_order
     set user_id = #{userId,jdbcType=INTEGER},
+      show_id = #{showId,jdbcType=INTEGER},
       show_session_id = #{showSessionId,jdbcType=INTEGER},
       address_id = #{addressId,jdbcType=INTEGER},
       frequent_id = #{frequentId,jdbcType=INTEGER},
@@ -299,7 +316,7 @@
       time = #{time,jdbcType=TIMESTAMP},
       payment = #{payment,jdbcType=VARCHAR},
       user_delete = #{userDelete,jdbcType=BIT},
-      money = #{money,jdbcType=INTEGER},
+      money = #{money,jdbcType=DOUBLE},
       ticket_count = #{ticketCount,jdbcType=INTEGER}
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>

@@ -2,7 +2,7 @@ package com.tongji.boying.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
-import com.tongji.boying.dto.AddressParam;
+import com.tongji.boying.dto.UserAddressParam;
 import com.tongji.boying.mapper.AddressMapper;
 import com.tongji.boying.model.*;
 import com.tongji.boying.service.UserAddressService;
@@ -24,7 +24,7 @@ public class UserAddressServiceImpl implements UserAddressService
 
 
     @Override
-    public int add(AddressParam param)
+    public int add(UserAddressParam param)
     {
         User user = userService.getCurrentUser();
         Address address = new Address();
@@ -44,7 +44,7 @@ public class UserAddressServiceImpl implements UserAddressService
     }
 
     @Override
-    public int update(int id, AddressParam param)
+    public int update(int id, UserAddressParam param)
     {
         //得到了对应的Id
         User user = userService.getCurrentUser();

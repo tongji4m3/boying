@@ -2,7 +2,6 @@ package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 public class ShowClass implements Serializable {
     private Integer showClassId;
@@ -17,7 +16,7 @@ public class ShowClass implements Serializable {
     private Integer capacity;
 
     @ApiModelProperty(value = "该级别座位的定价")
-    private BigDecimal price;
+    private Double price;
 
     private static final long serialVersionUID = 1L;
 
@@ -53,11 +52,11 @@ public class ShowClass implements Serializable {
         this.capacity = capacity;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

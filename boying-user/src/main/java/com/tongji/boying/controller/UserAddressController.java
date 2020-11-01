@@ -2,10 +2,8 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.dto.AddressParam;
+import com.tongji.boying.dto.UserAddressParam;
 import com.tongji.boying.model.Address;
-import com.tongji.boying.model.Address;
-import com.tongji.boying.model.Frequent;
 import com.tongji.boying.service.UserAddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,7 +28,7 @@ public class UserAddressController
     @ApiOperation("添加收货地址")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult add(@Validated @RequestBody AddressParam param)
+    public CommonResult add(@Validated @RequestBody UserAddressParam param)
     {
         int count = userAddressService.add(param);
         if (count > 0)
@@ -56,7 +54,7 @@ public class UserAddressController
     @ApiOperation("修改收货地址")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult update(@PathVariable int id, @Validated @RequestBody AddressParam param)
+    public CommonResult update(@PathVariable int id, @Validated @RequestBody UserAddressParam param)
     {
         int count = userAddressService.update(id, param);
         if (count > 0)

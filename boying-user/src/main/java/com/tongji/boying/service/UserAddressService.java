@@ -1,6 +1,6 @@
 package com.tongji.boying.service;
 
-import com.tongji.boying.dto.AddressParam;
+import com.tongji.boying.dto.UserAddressParam;
 import com.tongji.boying.model.Address;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +11,7 @@ public interface UserAddressService
     /**
      * 添加收货地址
      */
-    int add(AddressParam param);
+    int add(UserAddressParam param);
 
     /**
      * 删除收货地址
@@ -24,7 +24,7 @@ public interface UserAddressService
      * @param id 地址表的id
      */
     @Transactional
-    int update(int id, AddressParam param);
+    int update(int id, UserAddressParam param);
 
     /**
      * 返回当前用户的收货地址

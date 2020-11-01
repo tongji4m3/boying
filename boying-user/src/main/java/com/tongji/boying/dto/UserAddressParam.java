@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 @ToString
-public class AddressParam
+public class UserAddressParam
 {
     @ApiModelProperty(value = "接收人")
     @NotEmpty(message = "接收人不能为空")

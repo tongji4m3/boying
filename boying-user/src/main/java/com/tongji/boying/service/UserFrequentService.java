@@ -1,6 +1,6 @@
 package com.tongji.boying.service;
 
-import com.tongji.boying.dto.FrequentParam;
+import com.tongji.boying.dto.UserFrequentParam;
 import com.tongji.boying.model.Frequent;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +11,7 @@ public interface UserFrequentService
     /**
      * 添加常用联系人
      */
-    int add(FrequentParam param);
+    int add(UserFrequentParam param);
 
     /**
      * 删除常用联系人
@@ -24,7 +24,7 @@ public interface UserFrequentService
      * @param id 常用联系人表的id
      */
     @Transactional
-    int update(int id, FrequentParam param);
+    int update(int id, UserFrequentParam param);
 
     /**
      * 返回当前用户的常用联系人

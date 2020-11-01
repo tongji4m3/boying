@@ -465,6 +465,66 @@ public class ReviewExample {
             return (Criteria) this;
         }
 
+        public Criteria andUnlikeCountIsNull() {
+            addCriterion("unlike_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnlikeCountIsNotNull() {
+            addCriterion("unlike_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnlikeCountEqualTo(Integer value) {
+            addCriterion("unlike_count =", value, "unlikeCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnlikeCountNotEqualTo(Integer value) {
+            addCriterion("unlike_count <>", value, "unlikeCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnlikeCountGreaterThan(Integer value) {
+            addCriterion("unlike_count >", value, "unlikeCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnlikeCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("unlike_count >=", value, "unlikeCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnlikeCountLessThan(Integer value) {
+            addCriterion("unlike_count <", value, "unlikeCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnlikeCountLessThanOrEqualTo(Integer value) {
+            addCriterion("unlike_count <=", value, "unlikeCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnlikeCountIn(List<Integer> values) {
+            addCriterion("unlike_count in", values, "unlikeCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnlikeCountNotIn(List<Integer> values) {
+            addCriterion("unlike_count not in", values, "unlikeCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnlikeCountBetween(Integer value1, Integer value2) {
+            addCriterion("unlike_count between", value1, value2, "unlikeCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUnlikeCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("unlike_count not between", value1, value2, "unlikeCount");
+            return (Criteria) this;
+        }
+
         public Criteria andReportCountIsNull() {
             addCriterion("report_count is null");
             return (Criteria) this;
@@ -642,6 +702,66 @@ public class ReviewExample {
 
         public Criteria andWeightNotBetween(Integer value1, Integer value2) {
             addCriterion("weight not between", value1, value2, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteIsNull() {
+            addCriterion("user_delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteIsNotNull() {
+            addCriterion("user_delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteEqualTo(Boolean value) {
+            addCriterion("user_delete =", value, "userDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteNotEqualTo(Boolean value) {
+            addCriterion("user_delete <>", value, "userDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteGreaterThan(Boolean value) {
+            addCriterion("user_delete >", value, "userDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("user_delete >=", value, "userDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteLessThan(Boolean value) {
+            addCriterion("user_delete <", value, "userDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteLessThanOrEqualTo(Boolean value) {
+            addCriterion("user_delete <=", value, "userDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteIn(List<Boolean> values) {
+            addCriterion("user_delete in", values, "userDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteNotIn(List<Boolean> values) {
+            addCriterion("user_delete not in", values, "userDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteBetween(Boolean value1, Boolean value2) {
+            addCriterion("user_delete between", value1, value2, "userDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserDeleteNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("user_delete not between", value1, value2, "userDelete");
             return (Criteria) this;
         }
     }

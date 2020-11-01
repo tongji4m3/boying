@@ -8,9 +8,11 @@
     <result column="star" jdbcType="INTEGER" property="star" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+    <result column="unlike_count" jdbcType="INTEGER" property="unlikeCount" />
     <result column="report_count" jdbcType="INTEGER" property="reportCount" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="user_delete" jdbcType="BIT" property="userDelete" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tongji.boying.model.Review">
     <result column="content" jdbcType="LONGVARBINARY" property="content" />
@@ -74,7 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    review_id, user_id, show_id, star, time, like_count, report_count, parent_id, weight
+    review_id, user_id, show_id, star, time, like_count, unlike_count, report_count, 
+    parent_id, weight, user_delete
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -130,12 +133,14 @@
   <insert id="insert" parameterType="com.tongji.boying.model.Review">
     insert into review (review_id, user_id, show_id, 
       star, time, like_count, 
-      report_count, parent_id, weight, 
-      content)
+      unlike_count, report_count, parent_id, 
+      weight, user_delete, content
+      )
     values (#{reviewId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, 
       #{star,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{likeCount,jdbcType=INTEGER}, 
-      #{reportCount,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, 
-      #{content,jdbcType=LONGVARBINARY})
+      #{unlikeCount,jdbcType=INTEGER}, #{reportCount,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
+      #{weight,jdbcType=INTEGER}, #{userDelete,jdbcType=BIT}, #{content,jdbcType=LONGVARBINARY}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Review">
     insert into review
@@ -158,6 +163,9 @@
       <if test="likeCount != null">
         like_count,
       </if>
+      <if test="unlikeCount != null">
+        unlike_count,
+      </if>
       <if test="reportCount != null">
         report_count,
       </if>
@@ -166,6 +174,9 @@
       </if>
       <if test="weight != null">
         weight,
+      </if>
+      <if test="userDelete != null">
+        user_delete,
       </if>
       <if test="content != null">
         content,
@@ -190,6 +201,9 @@
       <if test="likeCount != null">
         #{likeCount,jdbcType=INTEGER},
       </if>
+      <if test="unlikeCount != null">
+        #{unlikeCount,jdbcType=INTEGER},
+      </if>
       <if test="reportCount != null">
         #{reportCount,jdbcType=INTEGER},
       </if>
@@ -198,6 +212,9 @@
       </if>
       <if test="weight != null">
         #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="userDelete != null">
+        #{userDelete,jdbcType=BIT},
       </if>
       <if test="content != null">
         #{content,jdbcType=LONGVARBINARY},
@@ -231,6 +248,9 @@
       <if test="record.likeCount != null">
         like_count = #{record.likeCount,jdbcType=INTEGER},
       </if>
+      <if test="record.unlikeCount != null">
+        unlike_count = #{record.unlikeCount,jdbcType=INTEGER},
+      </if>
       <if test="record.reportCount != null">
         report_count = #{record.reportCount,jdbcType=INTEGER},
       </if>
@@ -239,6 +259,9 @@
       </if>
       <if test="record.weight != null">
         weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.userDelete != null">
+        user_delete = #{record.userDelete,jdbcType=BIT},
       </if>
       <if test="record.content != null">
         content = #{record.content,jdbcType=LONGVARBINARY},
@@ -256,9 +279,11 @@
       star = #{record.star,jdbcType=INTEGER},
       time = #{record.time,jdbcType=TIMESTAMP},
       like_count = #{record.likeCount,jdbcType=INTEGER},
+      unlike_count = #{record.unlikeCount,jdbcType=INTEGER},
       report_count = #{record.reportCount,jdbcType=INTEGER},
       parent_id = #{record.parentId,jdbcType=INTEGER},
       weight = #{record.weight,jdbcType=INTEGER},
+      user_delete = #{record.userDelete,jdbcType=BIT},
       content = #{record.content,jdbcType=LONGVARBINARY}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -272,9 +297,11 @@
       star = #{record.star,jdbcType=INTEGER},
       time = #{record.time,jdbcType=TIMESTAMP},
       like_count = #{record.likeCount,jdbcType=INTEGER},
+      unlike_count = #{record.unlikeCount,jdbcType=INTEGER},
       report_count = #{record.reportCount,jdbcType=INTEGER},
       parent_id = #{record.parentId,jdbcType=INTEGER},
-      weight = #{record.weight,jdbcType=INTEGER}
+      weight = #{record.weight,jdbcType=INTEGER},
+      user_delete = #{record.userDelete,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -297,6 +324,9 @@
       <if test="likeCount != null">
         like_count = #{likeCount,jdbcType=INTEGER},
       </if>
+      <if test="unlikeCount != null">
+        unlike_count = #{unlikeCount,jdbcType=INTEGER},
+      </if>
       <if test="reportCount != null">
         report_count = #{reportCount,jdbcType=INTEGER},
       </if>
@@ -305,6 +335,9 @@
       </if>
       <if test="weight != null">
         weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="userDelete != null">
+        user_delete = #{userDelete,jdbcType=BIT},
       </if>
       <if test="content != null">
         content = #{content,jdbcType=LONGVARBINARY},
@@ -319,9 +352,11 @@
       star = #{star,jdbcType=INTEGER},
       time = #{time,jdbcType=TIMESTAMP},
       like_count = #{likeCount,jdbcType=INTEGER},
+      unlike_count = #{unlikeCount,jdbcType=INTEGER},
       report_count = #{reportCount,jdbcType=INTEGER},
       parent_id = #{parentId,jdbcType=INTEGER},
       weight = #{weight,jdbcType=INTEGER},
+      user_delete = #{userDelete,jdbcType=BIT},
       content = #{content,jdbcType=LONGVARBINARY}
     where review_id = #{reviewId,jdbcType=INTEGER}
   </update>
@@ -332,9 +367,11 @@
       star = #{star,jdbcType=INTEGER},
       time = #{time,jdbcType=TIMESTAMP},
       like_count = #{likeCount,jdbcType=INTEGER},
+      unlike_count = #{unlikeCount,jdbcType=INTEGER},
       report_count = #{reportCount,jdbcType=INTEGER},
       parent_id = #{parentId,jdbcType=INTEGER},
-      weight = #{weight,jdbcType=INTEGER}
+      weight = #{weight,jdbcType=INTEGER},
+      user_delete = #{userDelete,jdbcType=BIT}
     where review_id = #{reviewId,jdbcType=INTEGER}
   </update>
 </mapper>

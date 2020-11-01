@@ -3,15 +3,14 @@ package com.tongji.boying.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.mapper.TicketMapper;
 import com.tongji.boying.model.*;
-import com.tongji.boying.service.TicketService;
-import org.omg.CORBA.TCKind;
+import com.tongji.boying.service.UserTicketService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
 @Service
-public class TicketServiceImpl implements TicketService
+public class UserTicketServiceImpl implements UserTicketService
 {
     private TicketMapper ticketMapper;
 

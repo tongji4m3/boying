@@ -3,17 +3,13 @@ package com.tongji.boying.controller;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.model.Ticket;
-import com.tongji.boying.model.Ticket;
-import com.tongji.boying.service.TicketService;
+import com.tongji.boying.service.UserTicketService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,10 +18,10 @@ import java.util.List;
 @Controller
 @Api(tags = "TicketController", description = "票管理")
 @RequestMapping("/ticket")
-public class TicketController
+public class UserTicketController
 {
     @Autowired
-    private TicketService ticketService;
+    private UserTicketService userTicketService;
 
     @ApiOperation("添加票")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -33,7 +29,7 @@ public class TicketController
     public CommonResult add(@RequestParam int orderId,
                             @RequestParam int showClassId)
     {
-        int count = ticketService.add(orderId,showClassId);
+        int count = userTicketService.add(orderId,showClassId);
         if (count > 0)
         {
             return CommonResult.success(count);
@@ -48,7 +44,7 @@ public class TicketController
                                                    @RequestParam(required = false, defaultValue = "0") Integer pageNum,
                                                    @RequestParam(required = false, defaultValue = "5") Integer pageSize)
     {
-        List<Ticket> tickets = ticketService.list(orderId,pageNum, pageSize);
+        List<Ticket> tickets = userTicketService.list(orderId,pageNum, pageSize);
         if(tickets.size()==0) return CommonResult.failed("当前用户无票!");
         return CommonResult.success(CommonPage.restPage(tickets));
     }
@@ -58,7 +54,7 @@ public class TicketController
     @ResponseBody
     public CommonResult<Ticket> getItem(@PathVariable int id)
     {
-        Ticket ticket = ticketService.getItem(id);
+        Ticket ticket = userTicketService.getItem(id);
         if(ticket==null) return CommonResult.failed("当前用户无此票!");
         return CommonResult.success(ticket);
     }

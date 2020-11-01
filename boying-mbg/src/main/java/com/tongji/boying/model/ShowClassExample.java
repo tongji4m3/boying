@@ -1,6 +1,5 @@
 package com.tongji.boying.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -365,52 +364,52 @@ public class ShowClassExample {
             return (Criteria) this;
         }
 
-        public Criteria andPriceEqualTo(BigDecimal value) {
+        public Criteria andPriceEqualTo(Double value) {
             addCriterion("price =", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPriceNotEqualTo(BigDecimal value) {
+        public Criteria andPriceNotEqualTo(Double value) {
             addCriterion("price <>", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPriceGreaterThan(BigDecimal value) {
+        public Criteria andPriceGreaterThan(Double value) {
             addCriterion("price >", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPriceGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andPriceGreaterThanOrEqualTo(Double value) {
             addCriterion("price >=", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPriceLessThan(BigDecimal value) {
+        public Criteria andPriceLessThan(Double value) {
             addCriterion("price <", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPriceLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andPriceLessThanOrEqualTo(Double value) {
             addCriterion("price <=", value, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPriceIn(List<BigDecimal> values) {
+        public Criteria andPriceIn(List<Double> values) {
             addCriterion("price in", values, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPriceNotIn(List<BigDecimal> values) {
+        public Criteria andPriceNotIn(List<Double> values) {
             addCriterion("price not in", values, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPriceBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andPriceBetween(Double value1, Double value2) {
             addCriterion("price between", value1, value2, "price");
             return (Criteria) this;
         }
 
-        public Criteria andPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andPriceNotBetween(Double value1, Double value2) {
             addCriterion("price not between", value1, value2, "price");
             return (Criteria) this;
         }
