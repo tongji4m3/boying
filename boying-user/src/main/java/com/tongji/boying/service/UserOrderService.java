@@ -14,6 +14,7 @@ public interface UserOrderService
 
     /**
      * 删除订单
+     *
      * @param id 订单表的id
      */
     int delete(int id);
@@ -21,6 +22,7 @@ public interface UserOrderService
 
     /**
      * 返回当前用户的订单
+     *
      * @param pageNum
      * @param pageSize
      */
@@ -28,6 +30,7 @@ public interface UserOrderService
 
     /**
      * 获取订单详情
+     *
      * @param id 订单id
      */
     UserOrder getItem(int id);

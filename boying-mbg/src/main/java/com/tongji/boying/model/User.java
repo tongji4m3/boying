@@ -9,6 +9,9 @@ public class User implements Serializable {
     @ApiModelProperty(value = "用户名")
     private String username;
 
+    @ApiModelProperty(value = "联系电话")
+    private String phone;
+
     @ApiModelProperty(value = "密码")
     private String password;
 
@@ -17,9 +20,6 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "用户身份证号")
     private String identityNumber;
-
-    @ApiModelProperty(value = "联系电话")
-    private String phone;
 
     @ApiModelProperty(value = "邮箱")
     private String email;
@@ -60,6 +60,14 @@ public class User implements Serializable {
         this.username = username;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -82,14 +90,6 @@ public class User implements Serializable {
 
     public void setIdentityNumber(String identityNumber) {
         this.identityNumber = identityNumber;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getEmail() {
@@ -156,10 +156,10 @@ public class User implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", userId=").append(userId);
         sb.append(", username=").append(username);
+        sb.append(", phone=").append(phone);
         sb.append(", password=").append(password);
         sb.append(", realName=").append(realName);
         sb.append(", identityNumber=").append(identityNumber);
-        sb.append(", phone=").append(phone);
         sb.append(", email=").append(email);
         sb.append(", age=").append(age);
         sb.append(", gender=").append(gender);

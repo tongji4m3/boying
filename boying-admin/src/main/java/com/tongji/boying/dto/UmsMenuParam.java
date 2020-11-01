@@ -4,22 +4,21 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Getter
 @Setter
 @ToString
-public class MenuParam
+public class UmsMenuParam
 {
     @ApiModelProperty(value = "父级ID")
+    @NotNull(message = "父级ID不能为空")
     private Integer parentId;
 
     @ApiModelProperty(value = "菜单名称")
+    @NotEmpty(message = "菜单名称不能为空")
     private String title;
 
     @ApiModelProperty(value = "菜单排序")

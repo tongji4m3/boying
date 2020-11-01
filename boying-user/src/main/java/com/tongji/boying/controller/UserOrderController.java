@@ -3,20 +3,16 @@ package com.tongji.boying.controller;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.UserOrderParam;
-import com.tongji.boying.dto.UserOrderParam;
 import com.tongji.boying.model.UserOrder;
 import com.tongji.boying.service.UserOrderService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 订单管理Controller
@@ -59,10 +55,10 @@ public class UserOrderController
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<UserOrder>> list(@RequestParam(required = false, defaultValue = "0") Integer pageNum,
-                                                   @RequestParam(required = false, defaultValue = "5") Integer pageSize)
+                                                    @RequestParam(required = false, defaultValue = "5") Integer pageSize)
     {
         List<UserOrder> orderList = orderService.list(pageNum, pageSize);
-        if(orderList.size()==0) return CommonResult.failed("当前用户无订单!");
+        if (orderList.size() == 0) return CommonResult.failed("当前用户无订单!");
         return CommonResult.success(CommonPage.restPage(orderList));
     }
 
@@ -72,7 +68,7 @@ public class UserOrderController
     public CommonResult<UserOrder> getItem(@PathVariable int id)
     {
         UserOrder order = orderService.getItem(id);
-        if(order==null) return CommonResult.failed("当前用户无此订单!");
+        if (order == null) return CommonResult.failed("当前用户无此订单!");
         return CommonResult.success(order);
     }
 }

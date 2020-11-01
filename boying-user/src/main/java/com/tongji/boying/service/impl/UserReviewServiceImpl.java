@@ -66,16 +66,16 @@ public class UserReviewServiceImpl implements UserReviewService
         ReviewExample.Criteria criteria = reviewExample.createCriteria();
         criteria.andParentIdEqualTo(parentId);
 
-        if(type==0)
+        if (type == 0)
         {
             //默认显示所有评价
         }
-        else if(type==1)
+        else if (type == 1)
         {
             //只显示好评,评分>=7的
             criteria.andStarGreaterThanOrEqualTo(7);
         }
-        else if(type==2)
+        else if (type == 2)
         {
             //只显示差评.评分<=5的
             criteria.andStarLessThanOrEqualTo(5);

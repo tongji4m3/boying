@@ -2,7 +2,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.dto.RoleParam;
+import com.tongji.boying.dto.UmsRoleParam;
 import com.tongji.boying.model.Menu;
 import com.tongji.boying.model.Resource;
 import com.tongji.boying.model.Role;
@@ -30,7 +30,7 @@ public class UmsRoleController
     @ApiOperation("添加角色")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult create(@Validated @RequestBody RoleParam param)
+    public CommonResult create(@Validated @RequestBody UmsRoleParam param)
     {
         int count = roleService.create(param);
         if (count > 0)
@@ -43,7 +43,7 @@ public class UmsRoleController
     @ApiOperation("修改角色")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult update(@PathVariable Integer id, @Validated @RequestBody RoleParam param)
+    public CommonResult update(@PathVariable Integer id, @Validated @RequestBody UmsRoleParam param)
     {
         int count = roleService.update(id, param);
         if (count > 0)
@@ -91,7 +91,7 @@ public class UmsRoleController
     @ResponseBody
     public CommonResult updateStatus(@PathVariable Integer id, @RequestParam(value = "status") Boolean status)
     {
-        RoleParam param = new RoleParam();
+        UmsRoleParam param = new UmsRoleParam();
         param.setStatus(status);
         int count = roleService.update(id, param);
         if (count > 0)

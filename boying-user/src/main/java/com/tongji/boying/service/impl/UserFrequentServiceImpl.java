@@ -55,7 +55,7 @@ public class UserFrequentServiceImpl implements UserFrequentService
         FrequentExample frequentExample = new FrequentExample();
         frequentExample.createCriteria().andUserIdEqualTo(user.getUserId()).andFrequentIdEqualTo(id);
         List<Frequent> frequents = frequentMapper.selectByExample(frequentExample);
-        if(frequents.size()==0) Asserts.fail("要更新的常用联系人不存在!");
+        if (frequents.size() == 0) Asserts.fail("要更新的常用联系人不存在!");
 
         //传入字段,并更新
         Frequent frequent = new Frequent();
@@ -91,31 +91,31 @@ public class UserFrequentServiceImpl implements UserFrequentService
     }
 
     @Override
-    public void setDefault(int id)
-    {
-        Frequent item = getItem(id);
-        if(item==null) Asserts.fail("要设为默认的常用联系人不存在!");
-        User user = userService.getCurrentUser();
-        user.setDefaultFrequent(id);
-    }
-
-    @Override
     public Frequent getDefault()
     {
         User user = userService.getCurrentUser();
         Integer defaultFrequent = user.getDefaultFrequent();
-        if(defaultFrequent==null) Asserts.fail("无常用联系人");
+        if (defaultFrequent == null) Asserts.fail("无常用联系人");
         FrequentExample frequentExample = new FrequentExample();
         frequentExample.createCriteria().andFrequentIdEqualTo(defaultFrequent);
         List<Frequent> frequents = frequentMapper.selectByExample(frequentExample);
 //        说明删除了常用联系人,但是没在用户名进行更新
-        if(frequents.isEmpty())
+        if (frequents.isEmpty())
         {
 //            在这里对用户表进行延迟更新
             userService.setDefaultFrequent(null);
             Asserts.fail("无常用联系人");
         }
         return null;
+    }
+
+    @Override
+    public void setDefault(int id)
+    {
+        Frequent item = getItem(id);
+        if (item == null) Asserts.fail("要设为默认的常用联系人不存在!");
+        User user = userService.getCurrentUser();
+        user.setDefaultFrequent(id);
     }
 
 }

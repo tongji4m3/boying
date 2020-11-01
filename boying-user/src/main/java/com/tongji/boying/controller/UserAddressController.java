@@ -68,10 +68,10 @@ public class UserAddressController
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<Address>> list(@RequestParam(required = false, defaultValue = "0") Integer pageNum,
-                                                   @RequestParam(required = false, defaultValue = "5") Integer pageSize)
+                                                  @RequestParam(required = false, defaultValue = "5") Integer pageSize)
     {
         List<Address> addressList = userAddressService.list(pageNum, pageSize);
-        if(addressList.size()==0) return CommonResult.failed("当前用户无收货地址!");
+        if (addressList.size() == 0) return CommonResult.failed("当前用户无收货地址!");
         return CommonResult.success(CommonPage.restPage(addressList));
     }
 
@@ -81,7 +81,7 @@ public class UserAddressController
     public CommonResult<Address> getItem(@PathVariable int id)
     {
         Address address = userAddressService.getItem(id);
-        if(address==null) return CommonResult.failed("当前用户无此收货地址!");
+        if (address == null) return CommonResult.failed("当前用户无此收货地址!");
         return CommonResult.success(address);
     }
 
@@ -91,7 +91,7 @@ public class UserAddressController
     public CommonResult<Address> getDefault()
     {
         Address address = userAddressService.getDefault();
-        if(address==null) return CommonResult.failed("当前用户无默认收货地址!");
+        if (address == null) return CommonResult.failed("当前用户无默认收货地址!");
         return CommonResult.success(address);
     }
 

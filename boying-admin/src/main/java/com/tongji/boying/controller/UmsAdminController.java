@@ -1,12 +1,9 @@
 package com.tongji.boying.controller;
 
-import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.dto.AdminInfoParam;
-import com.tongji.boying.dto.AdminLoginParam;
-import com.tongji.boying.dto.AdminParam;
-import com.tongji.boying.dto.AdminPasswordParam;
+import com.tongji.boying.dto.UmsAdminInfoParam;
+import com.tongji.boying.dto.UmsAdminRegisterParam;
 import com.tongji.boying.model.Admin;
 import com.tongji.boying.model.Role;
 import com.tongji.boying.service.UmsAdminService;
@@ -20,11 +17,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * 后台管理员管理
@@ -38,6 +33,7 @@ public class UmsAdminController
     private String tokenHeader;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+
     @Autowired
     private UmsAdminService adminService;
     @Autowired
@@ -46,12 +42,12 @@ public class UmsAdminController
     @ApiOperation(value = "管理员注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Admin> register(@Validated @RequestBody AdminParam adminParam)
+    public CommonResult<Admin> register(@Validated @RequestBody UmsAdminRegisterParam param)
     {
-        Admin admin = adminService.register(adminParam);
+        Admin admin = adminService.register(param);
         if (admin == null)
         {
-            return CommonResult.failed();
+            return CommonResult.failed("注册失败!");
         }
         return CommonResult.success(admin);
     }
@@ -59,12 +55,13 @@ public class UmsAdminController
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult login(@Validated @RequestBody AdminLoginParam adminLoginParam)
+    public CommonResult login(@RequestParam String username,
+                              @RequestParam String password)
     {
-        String token = adminService.login(adminLoginParam.getUsername(), adminLoginParam.getPassword());
+        String token = adminService.login(username, password);
         if (token == null)
         {
-            return CommonResult.validateFailed("管理员名或密码错误");
+            return CommonResult.failed("管理员名称或密码错误");
         }
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
@@ -92,24 +89,14 @@ public class UmsAdminController
     @ApiOperation(value = "获取当前登录管理员信息")
     @RequestMapping(value = "/info", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult getAdminInfo(Principal principal)
+    public CommonResult getAdminInfo()
     {
-        if (principal == null)
-        {
-            return CommonResult.unauthorized(null);
-        }
-        String username = principal.getName();
-        Admin admin = adminService.getAdminByUsername(username);
+        Admin admin = adminService.getCurrentAdmin();
         Map<String, Object> data = new HashMap<>();
         data.put("username", admin.getUsername());
-        data.put("menus", roleService.getMenuList(admin.getAdminId()));
         data.put("icon", admin.getIcon());
-        List<Role> roleList = adminService.getRoleList(admin.getAdminId());
-        if (CollUtil.isNotEmpty(roleList))
-        {
-            List<String> roles = roleList.stream().map(Role::getName).collect(Collectors.toList());
-            data.put("roles", roles);
-        }
+        data.put("menus", roleService.getMenuList(admin.getAdminId()));
+        data.put("roles", adminService.getRoleList(admin.getAdminId()));
         return CommonResult.success(data);
     }
 
@@ -120,6 +107,7 @@ public class UmsAdminController
                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                 @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum)
     {
+//        pageNum为页数，pageSize为一个页面显示几条数据
         List<Admin> adminList = adminService.list(keyword, pageSize, pageNum);
         return CommonResult.success(CommonPage.restPage(adminList));
     }
@@ -130,13 +118,14 @@ public class UmsAdminController
     public CommonResult<Admin> getItem(@PathVariable Integer id)
     {
         Admin admin = adminService.getItem(id);
+        if (admin == null) return CommonResult.failed("查询的管理员不存在");
         return CommonResult.success(admin);
     }
 
     @ApiOperation("修改指定管理员信息")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult update(@PathVariable Integer id, @Validated @RequestBody AdminInfoParam param)
+    public CommonResult update(@PathVariable Integer id, @Validated @RequestBody UmsAdminInfoParam param)
     {
         int count = adminService.update(id, param);
         if (count > 0)
@@ -149,9 +138,11 @@ public class UmsAdminController
     @ApiOperation("修改指定管理员密码")
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updatePassword(@Validated @RequestBody AdminPasswordParam passwordParam)
+    public CommonResult updatePassword(@RequestParam String username,
+                                       @RequestParam String password,
+                                       @RequestParam String newPassword)
     {
-        int status = adminService.updatePassword(passwordParam);
+        int status = adminService.updatePassword(username,password,newPassword);
         if (status > 0)
         {
             return CommonResult.success(status);
@@ -168,10 +159,7 @@ public class UmsAdminController
         {
             return CommonResult.failed("旧密码错误");
         }
-        else
-        {
-            return CommonResult.failed();
-        }
+        return CommonResult.failed();
     }
 
     @ApiOperation("删除指定管理员信息")
@@ -193,7 +181,7 @@ public class UmsAdminController
     public CommonResult updateStatus(@PathVariable Integer id, @RequestParam(value = "status") Boolean status)
     {
 
-        AdminInfoParam param = new AdminInfoParam();
+        UmsAdminInfoParam param = new UmsAdminInfoParam();
         param.setStatus(status);
         int count = adminService.update(id, param);
         if (count > 0)

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class GlobalExceptionHandler
 {
 
-//    @ExceptionHandler：用来修饰全局异常处理的方法，可以指定异常的类型。
+    //    @ExceptionHandler：用来修饰全局异常处理的方法，可以指定异常的类型。
 //    统一处理某一类异常，从而能够减少代码重复率和复杂度
     @ResponseBody
     @ExceptionHandler(value = ApiException.class)

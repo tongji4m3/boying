@@ -15,12 +15,14 @@ public interface UserAddressService
 
     /**
      * 删除收货地址
+     *
      * @param id 地址表的id
      */
     int delete(int id);
 
     /**
      * 修改收货地址
+     *
      * @param id 地址表的id
      */
     @Transactional
@@ -28,6 +30,7 @@ public interface UserAddressService
 
     /**
      * 返回当前用户的收货地址
+     *
      * @param pageNum
      * @param pageSize
      */
@@ -35,17 +38,18 @@ public interface UserAddressService
 
     /**
      * 获取地址详情
+     *
      * @param id 地址id
      */
     Address getItem(int id);
 
     /**
-     * 设为收货地址
-     */
-    void setDefault(int id);
-
-    /**
      * 获取收货地址
      */
     Address getDefault();
+
+    /**
+     * 设为收货地址
+     */
+    void setDefault(int id);
 }

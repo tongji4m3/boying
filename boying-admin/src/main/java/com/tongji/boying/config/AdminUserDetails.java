@@ -68,4 +68,10 @@ public class AdminUserDetails implements UserDetails
     {
         return admin.getStatus();
     }
+
+    public Admin getAdmin()
+    {
+        return admin;
+    }
+
 }

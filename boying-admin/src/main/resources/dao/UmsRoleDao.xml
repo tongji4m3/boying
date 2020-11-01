@@ -4,25 +4,13 @@
 
     <select id="getMenuList" resultType="com.tongji.boying.model.Menu">
         SELECT
-            m.menu_id menuId,
-            m.parent_id parentId,
-            m.create_time createTime,
-            m.title title,
-            m.level level,
-            m.sort sort,
-            m.title title,
-            m.icon icon,
-            m.hidden hidden
+            distinct menu.*
         FROM
-            admin_role arr
-                LEFT JOIN role r ON arr.role_id = r.role_id
-                LEFT JOIN role_menu rmr ON r.role_id = rmr.role_id
-                LEFT JOIN menu m ON rmr.menu_id = m.menu_id
+            admin_role
+                LEFT JOIN role_menu ON admin_role.role_id = role_menu.role_id
+                LEFT JOIN menu ON role_menu.menu_id = menu.menu_id
         WHERE
-            arr.admin_id = #{adminId}
-          AND m.menu_id IS NOT NULL
-        GROUP BY
-            m.menu_id
+            admin_role.admin_id = #{adminId}
     </select>
     <select id="getMenuListByRoleId" resultType="com.tongji.boying.model.Menu">
         SELECT

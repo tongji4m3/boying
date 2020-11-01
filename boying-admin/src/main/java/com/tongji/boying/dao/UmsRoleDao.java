@@ -15,10 +15,12 @@ public interface UmsRoleDao
      * 根据后台用户ID获取菜单
      */
     List<Menu> getMenuList(@Param("adminId") Integer adminId);
+
     /**
      * 根据角色ID获取菜单
      */
     List<Menu> getMenuListByRoleId(@Param("roleId") Integer roleId);
+
     /**
      * 根据角色ID获取资源
      */

@@ -147,7 +147,7 @@ public class JwtTokenUtil
         {
             return null;
         }
-        String token="";
+        String token = "";
         try
         {
             token = oldToken.substring(tokenHead.length());

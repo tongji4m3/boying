@@ -39,8 +39,6 @@ secure:
       - /actuator/**
       - /admin/login
       - /admin/register
-      - /admin/info
-      - /admin/logout
 
 # 自定义redis key
 redis:

@@ -10,37 +10,25 @@
         </foreach>
     </insert>
     <select id="getRoleList" resultMap="com.tongji.boying.mapper.RoleMapper.BaseResultMap">
-        select r.*
-        from admin_role ar left join role r on ar.role_id = r.role_id
-        where ar.admin_id = #{adminId}
+        select role.*
+        from admin_role left join role on admin_role.role_id = role.role_id
+        where admin_role.admin_id = #{adminId}
     </select>
 
 
     <select id="getResourceList" resultType="com.tongji.boying.model.Resource">
-        SELECT
-            ur.resource_id id,
-            ur.create_time createTime,
-            ur.`name` `name`,
-            ur.url url,
-            ur.description description,
-            ur.resource_category_id categoryId
-        FROM
-            admin_role ar
-        LEFT JOIN role r ON ar.role_id = r.role_id
-        LEFT JOIN role_resource rrr ON r.role_id = rrr.role_id
-        LEFT JOIN resource ur ON ur.resource_id = rrr.resource_id
-        WHERE
-            ar.admin_id = #{adminId}
-        AND ur.resource_id IS NOT NULL
-        GROUP BY
-            ur.resource_id
+        select distinct resource.*
+        from admin_role
+                 left join role_resource on admin_role.role_id=role_resource.role_id
+                 left join resource on role_resource.resource_id=resource.resource_id
+        where admin_role.admin_id=#{adminId}
     </select>
     <select id="getAdminIdList" resultType="java.lang.Integer">
         SELECT
-            DISTINCT ar.admin_id
+            DISTINCT admin_role.admin_id
         FROM
-            role_resource rr
-                LEFT JOIN admin_role ar ON rr.role_id = ar.role_id
-        WHERE rr.resource_id=#{resourceId}
+            role_resource
+                LEFT JOIN admin_role ON role_resource.role_id = admin_role.role_id
+        WHERE role_resource.resource_id=#{resourceId}
     </select>
 </mapper>

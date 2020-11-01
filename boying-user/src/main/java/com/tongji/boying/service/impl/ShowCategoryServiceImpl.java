@@ -44,12 +44,12 @@ public class ShowCategoryServiceImpl implements ShowCategoryService
     {
         CategoryExample categoryExample = new CategoryExample();
         List<Category> categories = categoryMapper.selectByExample(categoryExample);
-        if(categories.isEmpty())
+        if (categories.isEmpty())
         {
             //该目录不存在,自然不是子目录
             return false;
         }
-        if(categories.get(0).getParentId()==0 || categories.get(0).getWeight()==0)
+        if (categories.get(0).getParentId() == 0 || categories.get(0).getWeight() == 0)
         {
             //是父级目录或不能显示,也不是子目录
             return false;

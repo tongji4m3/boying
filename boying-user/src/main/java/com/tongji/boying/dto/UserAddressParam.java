@@ -1,6 +1,5 @@
 package com.tongji.boying.dto;
 
-import com.tongji.boying.model.Address;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

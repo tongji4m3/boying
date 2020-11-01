@@ -1,7 +1,7 @@
 package com.tongji.boying.service;
 
 
-import com.tongji.boying.dto.MenuParam;
+import com.tongji.boying.dto.UmsMenuParam;
 import com.tongji.boying.model.Menu;
 
 import java.util.List;
@@ -10,17 +10,19 @@ import java.util.Map;
 /**
  * 后台菜单管理Service
  */
-public interface UmsMenuService {
+public interface UmsMenuService
+{
     /**
      * 创建后台菜单
+     *
      * @param param
      */
-    int create(MenuParam param);
+    int create(UmsMenuParam param);
 
     /**
      * 修改后台菜单
      */
-    int update(Integer id, MenuParam param);
+    int update(Integer id, UmsMenuParam param);
 
     /**
      * 根据ID获取菜单详情
@@ -40,9 +42,10 @@ public interface UmsMenuService {
 
     /**
      * 树形结构返回所有菜单列表
+     *
      * @return
      */
-    Map<Menu,List<Menu>> categoryMap();
+    Map<Menu, List<Menu>> categoryMap();
 
     /**
      * 修改菜单显示状态

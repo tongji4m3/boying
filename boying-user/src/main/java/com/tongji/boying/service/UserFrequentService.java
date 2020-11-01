@@ -15,12 +15,14 @@ public interface UserFrequentService
 
     /**
      * 删除常用联系人
+     *
      * @param id 常用联系人表的id
      */
     int delete(int id);
 
     /**
      * 修改常用联系人
+     *
      * @param id 常用联系人表的id
      */
     @Transactional
@@ -28,6 +30,7 @@ public interface UserFrequentService
 
     /**
      * 返回当前用户的常用联系人
+     *
      * @param pageNum
      * @param pageSize
      */
@@ -35,17 +38,18 @@ public interface UserFrequentService
 
     /**
      * 获取常用联系人详情
+     *
      * @param id 常用联系人id
      */
     Frequent getItem(int id);
 
     /**
-     * 设为默认常用联系人
-     */
-    void setDefault(int id);
-
-    /**
      * 获取默认常用联系人
      */
     Frequent getDefault();
+
+    /**
+     * 设为默认常用联系人
+     */
+    void setDefault(int id);
 }

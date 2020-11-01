@@ -2,7 +2,6 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.dto.UserFrequentParam;
 import com.tongji.boying.dto.UserReviewParam;
 import com.tongji.boying.model.Review;
 import com.tongji.boying.service.UserReviewService;
@@ -33,7 +32,7 @@ public class UserReviewController
     public CommonResult add(@Validated @RequestBody UserReviewParam param,
                             @RequestParam(required = false, defaultValue = "0") Integer parentId)
     {
-        int count = userReviewService.add(param,parentId);
+        int count = userReviewService.add(param, parentId);
         if (count > 0)
         {
             return CommonResult.success(count);
@@ -58,15 +57,15 @@ public class UserReviewController
     @ApiOperation("显示所有评价")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<Review>> list( @RequestParam(required = false, defaultValue = "0") Integer type,
-                                                  @RequestParam(required = false, defaultValue = "0") Integer sort,
-                                                  @RequestParam(required = false, defaultValue = "0") Integer parentId,
-                                                  @RequestParam(required = false, defaultValue = "0") Integer pageNum,
-                                               @RequestParam(required = false, defaultValue = "5") Integer pageSize
-                                                )
+    public CommonResult<CommonPage<Review>> list(@RequestParam(required = false, defaultValue = "0") Integer type,
+                                                 @RequestParam(required = false, defaultValue = "0") Integer sort,
+                                                 @RequestParam(required = false, defaultValue = "0") Integer parentId,
+                                                 @RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                 @RequestParam(required = false, defaultValue = "5") Integer pageSize
+    )
     {
-        List<Review> reviewList = userReviewService.list(type,sort,parentId,pageNum, pageSize);
-        if(reviewList.size()==0) return CommonResult.failed("无评价!");
+        List<Review> reviewList = userReviewService.list(type, sort, parentId, pageNum, pageSize);
+        if (reviewList.size() == 0) return CommonResult.failed("无评价!");
         return CommonResult.success(CommonPage.restPage(reviewList));
     }
 
@@ -76,7 +75,7 @@ public class UserReviewController
     public CommonResult<Review> getItem(@PathVariable int id)
     {
         Review review = userReviewService.getItem(id);
-        if(review==null) return CommonResult.failed("无此评价!");
+        if (review == null) return CommonResult.failed("无此评价!");
         return CommonResult.success(review);
     }
 

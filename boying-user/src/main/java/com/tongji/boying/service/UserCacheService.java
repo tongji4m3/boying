@@ -23,7 +23,6 @@ public interface UserCacheService
     User getUserByTelephone(String telephone);
 
 
-
     /**
      * 设置用户缓存
      */

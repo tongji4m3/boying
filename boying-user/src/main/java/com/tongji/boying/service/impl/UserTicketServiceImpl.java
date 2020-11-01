@@ -2,7 +2,8 @@ package com.tongji.boying.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.mapper.TicketMapper;
-import com.tongji.boying.model.*;
+import com.tongji.boying.model.Ticket;
+import com.tongji.boying.model.TicketExample;
 import com.tongji.boying.service.UserTicketService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

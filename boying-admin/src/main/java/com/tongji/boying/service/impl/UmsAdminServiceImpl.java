@@ -5,22 +5,23 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.config.AdminUserDetails;
-import com.tongji.boying.dto.AdminInfoParam;
-import com.tongji.boying.dto.AdminParam;
-import com.tongji.boying.dto.AdminPasswordParam;
+import com.tongji.boying.dao.UmsAdminRoleDao;
+import com.tongji.boying.dto.UmsAdminInfoParam;
+import com.tongji.boying.dto.UmsAdminRegisterParam;
 import com.tongji.boying.mapper.AdminMapper;
 import com.tongji.boying.mapper.AdminRoleMapper;
 import com.tongji.boying.model.*;
 import com.tongji.boying.security.util.JwtTokenUtil;
 import com.tongji.boying.service.UmsAdminCacheService;
 import com.tongji.boying.service.UmsAdminService;
-import com.tongji.boying.dao.UmsAdminRoleDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -63,7 +64,8 @@ public class UmsAdminServiceImpl implements UmsAdminService
         AdminExample example = new AdminExample();
         example.createCriteria().andUsernameEqualTo(username);
         List<Admin> adminList = adminMapper.selectByExample(example);
-        if (adminList != null && adminList.size() > 0)
+//        下面语句等价与:if (adminList!=null && adminList.size() > 0)
+        if (CollUtil.isNotEmpty(adminList))
         {
             admin = adminList.get(0);
             adminCacheService.setAdmin(admin);
@@ -73,24 +75,36 @@ public class UmsAdminServiceImpl implements UmsAdminService
     }
 
     @Override
-    public Admin register(AdminParam adminParam)
+    public Admin getCurrentAdmin()
     {
+        //        获取之前登录存储的用户上下文信息
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        Authentication auth = ctx.getAuthentication();
+        AdminUserDetails userDetails = (AdminUserDetails) auth.getPrincipal();
+        return userDetails.getAdmin();
+    }
+
+    @Override
+    public Admin register(UmsAdminRegisterParam param)
+    {
+//        封装参数
         Admin admin = new Admin();
-        BeanUtils.copyProperties(adminParam, admin);
+        BeanUtils.copyProperties(param, admin);
         admin.setCreateTime(new Date());
         admin.setStatus(true);
+
         //查询是否有相同用户名的用户
         AdminExample example = new AdminExample();
         example.createCriteria().andUsernameEqualTo(admin.getUsername());
         List<Admin> umsAdminList = adminMapper.selectByExample(example);
         if (umsAdminList.size() > 0)
         {
-            return null;
+            Asserts.fail("注册失败,管理员名称重复!");
         }
         //将密码进行加密操作
         String encodePassword = passwordEncoder.encode(admin.getPassword());
         admin.setPassword(encodePassword);
-        adminMapper.insert(admin);
+        adminMapper.insertSelective(admin);
         return admin;
     }
 
@@ -160,7 +174,7 @@ public class UmsAdminServiceImpl implements UmsAdminService
     }
 
     @Override
-    public int update(Integer id, AdminInfoParam param)
+    public int update(Integer id, UmsAdminInfoParam param)
     {
         Admin admin = new Admin();
         BeanUtils.copyProperties(param, admin);
@@ -228,33 +242,6 @@ public class UmsAdminServiceImpl implements UmsAdminService
 
 
     @Override
-    public int updatePassword(AdminPasswordParam param)
-    {
-        if (StrUtil.isEmpty(param.getUsername())
-                || StrUtil.isEmpty(param.getOldPassword())
-                || StrUtil.isEmpty(param.getNewPassword()))
-        {
-            return -1;
-        }
-        AdminExample example = new AdminExample();
-        example.createCriteria().andUsernameEqualTo(param.getUsername());
-        List<Admin> adminList = adminMapper.selectByExample(example);
-        if (CollUtil.isEmpty(adminList))
-        {
-            return -2;
-        }
-        Admin admin = adminList.get(0);
-        if (!passwordEncoder.matches(param.getOldPassword(), admin.getPassword()))
-        {
-            return -3;
-        }
-        admin.setPassword(passwordEncoder.encode(param.getNewPassword()));
-        adminMapper.updateByPrimaryKey(admin);
-        adminCacheService.delAdmin(admin.getAdminId());
-        return 1;
-    }
-
-    @Override
     public UserDetails loadUserByUsername(String username)
     {
         //获取用户信息
@@ -265,5 +252,32 @@ public class UmsAdminServiceImpl implements UmsAdminService
             return new AdminUserDetails(admin, resourceList);
         }
         throw new UsernameNotFoundException("用户名或密码错误");
+    }
+
+    @Override
+    public int updatePassword(String username, String password, String newPassword)
+    {
+        if (StrUtil.isEmpty(username)
+                || StrUtil.isEmpty(password)
+                || StrUtil.isEmpty(newPassword))
+        {
+            return -1;
+        }
+        AdminExample example = new AdminExample();
+        example.createCriteria().andUsernameEqualTo(username);
+        List<Admin> adminList = adminMapper.selectByExample(example);
+        if (CollUtil.isEmpty(adminList))
+        {
+            return -2;
+        }
+        Admin admin = adminList.get(0);
+        if (!passwordEncoder.matches(password, admin.getPassword()))
+        {
+            return -3;
+        }
+        admin.setPassword(passwordEncoder.encode(newPassword));
+        adminMapper.updateByPrimaryKey(admin);
+        adminCacheService.delAdmin(admin.getAdminId());
+        return 1;
     }
 }

@@ -3,15 +3,15 @@ package com.tongji.boying.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.UserOrderParam;
-import com.tongji.boying.mapper.UserOrderMapper;
 import com.tongji.boying.mapper.ShowClassMapper;
 import com.tongji.boying.mapper.ShowMapper;
 import com.tongji.boying.mapper.ShowSessionMapper;
+import com.tongji.boying.mapper.UserOrderMapper;
 import com.tongji.boying.model.*;
-import com.tongji.boying.service.UserOrderService;
-import com.tongji.boying.service.UserTicketService;
 import com.tongji.boying.service.UserFrequentService;
+import com.tongji.boying.service.UserOrderService;
 import com.tongji.boying.service.UserService;
+import com.tongji.boying.service.UserTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -50,27 +50,27 @@ public class UserOrderServiceImpl implements UserOrderService
         UserOrderExample orderExample = new UserOrderExample();
         orderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andShowSessionIdEqualTo(showSessionId);
         List<UserOrder> orders = orderMapper.selectByExample(orderExample);
-        if(!orders.isEmpty())
+        if (!orders.isEmpty())
         {
             //该用户已经下过单了,不能继续了
             Asserts.fail("您已经对该场次下单过了,不能重复下单!");
         }
-        if(showClassIds.size()==0)
+        if (showClassIds.size() == 0)
         {
             Asserts.fail("一个订单至少要有1张票!");
         }
-        if(showClassIds.size()>5)
+        if (showClassIds.size() > 5)
         {
             Asserts.fail("一个订单最多只能有5张票!");
         }
 
-        if(frequentService.getItem(frequentId)==null)
+        if (frequentService.getItem(frequentId) == null)
         {
             Asserts.fail("订单中的常用购票人不合法!");
         }
 
         ShowSession showSession = showSessionMapper.selectByPrimaryKey(showSessionId);
-        if(showSession==null)
+        if (showSession == null)
         {
             Asserts.fail("演出场次选择不合法!");
         }
@@ -84,7 +84,7 @@ public class UserOrderServiceImpl implements UserOrderService
         //校验座次是否合法
         for (Integer showClassId : showClassIds)
         {
-            if(!dbShowClassIds.contains(showClassId))
+            if (!dbShowClassIds.contains(showClassId))
             {
                 Asserts.fail("演出座次选择不合法!");
             }
@@ -103,9 +103,7 @@ public class UserOrderServiceImpl implements UserOrderService
         order.setTime(new Date());
         order.setPayment("支付宝");
         order.setUserDelete(false);
-        order.setShowName(show.getName());
-        order.setShowAddress(show.getAddress());
-        order.setShowTime(showSession.getStartTime());
+        order.setShowId(show.getShowId());
 
 
         //订单总数,订单总金额
@@ -116,7 +114,7 @@ public class UserOrderServiceImpl implements UserOrderService
         {
             ShowClass showClass = showClassMapper.selectByPrimaryKey(showClassId);
             //生成票
-            userTicketService.add(1,showClassId);
+            userTicketService.add(1, showClassId);
 
             totalMoney += showClass.getPrice();
             ++count;
@@ -137,7 +135,7 @@ public class UserOrderServiceImpl implements UserOrderService
         UserOrderExample userOrderExample = new UserOrderExample();
         userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id);
         List<UserOrder> userOrders = orderMapper.selectByExample(userOrderExample);
-        if(userOrders.isEmpty())
+        if (userOrders.isEmpty())
         {
             Asserts.fail("无此订单");
         }

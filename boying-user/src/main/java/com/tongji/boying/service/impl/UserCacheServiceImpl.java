@@ -17,12 +17,12 @@ public class UserCacheServiceImpl implements UserCacheService
     private UserMapper userMapper;
     @Value("${redis.database}")
     private String REDIS_DATABASE;
-//    除验证码之外的过期时间
+    //    除验证码之外的过期时间
     @Value("${redis.expire.common}")
     private Long REDIS_EXPIRE;
     @Value("${redis.expire.authCode}")
     private Long REDIS_EXPIRE_AUTH_CODE;
-//    用户以及验证码
+    //    用户以及验证码
     @Value("${redis.key.user}")
     private String REDIS_KEY_USER;
     @Value("${redis.key.authCode}")
@@ -33,7 +33,7 @@ public class UserCacheServiceImpl implements UserCacheService
     {
 //        确保全局不会redis缓存key混乱
         User user = userMapper.selectByPrimaryKey(userId);
-        if(user!=null)
+        if (user != null)
         {
             String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getUsername();
             String key2 = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getPhone();
@@ -47,7 +47,7 @@ public class UserCacheServiceImpl implements UserCacheService
     {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + username;
 
-        return (User)redisService.get(key);
+        return (User) redisService.get(key);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UserCacheServiceImpl implements UserCacheService
     {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + telephone;
 
-        return (User)redisService.get(key);
+        return (User) redisService.get(key);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class UserCacheServiceImpl implements UserCacheService
     public String getAuthCode(String telephone)
     {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_AUTH_CODE + ":" + telephone;
-        return (String)redisService.get(key);
+        return (String) redisService.get(key);
     }
 
     @Override

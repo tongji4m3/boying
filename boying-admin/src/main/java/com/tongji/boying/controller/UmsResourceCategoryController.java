@@ -1,7 +1,9 @@
 package com.tongji.boying.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.dto.ResourceCategoryParam;
+import com.tongji.boying.dto.UmsResourceCategoryParam;
+import com.tongji.boying.model.ResourceCategory;
 import com.tongji.boying.model.ResourceCategory;
 import com.tongji.boying.service.UmsResourceCategoryService;
 import io.swagger.annotations.Api;
@@ -19,26 +21,36 @@ import java.util.List;
 @Controller
 @Api(tags = "UmsResourceCategoryController", description = "后台资源分类管理")
 @RequestMapping("/resourceCategory")
-public class UmsResourceCategoryController {
+public class UmsResourceCategoryController
+{
     @Autowired
     private UmsResourceCategoryService resourceCategoryService;
 
     @ApiOperation("查询所有后台资源分类")
     @RequestMapping(value = "/listAll", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<ResourceCategory>> listAll() {
-        List<ResourceCategory> resourceList = resourceCategoryService.listAll();
-        return CommonResult.success(resourceList);
+    public CommonResult<List<ResourceCategory>> listAll()
+    {
+        List<ResourceCategory> resourceCategories = resourceCategoryService.listAll();
+        if(CollUtil.isEmpty(resourceCategories))
+        {
+            return CommonResult.failed("后台资源分类不存在!");
+        }
+        return CommonResult.success(resourceCategories);
     }
 
     @ApiOperation("添加后台资源分类")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult create(@Validated @RequestBody ResourceCategoryParam param) {
-        int count = resourceCategoryService.create(param.getName(),param.getSort());
-        if (count > 0) {
+    public CommonResult create(@Validated @RequestBody UmsResourceCategoryParam param)
+    {
+        int count = resourceCategoryService.create(param);
+        if (count > 0)
+        {
             return CommonResult.success(count);
-        } else {
+        }
+        else
+        {
             return CommonResult.failed();
         }
     }
@@ -47,24 +59,42 @@ public class UmsResourceCategoryController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult update(@PathVariable Integer id,
-                               @Validated @RequestBody ResourceCategoryParam param) {
-        int count = resourceCategoryService.update(id, param.getName(),param.getSort());
-        if (count > 0) {
+                               @Validated @RequestBody UmsResourceCategoryParam param)
+    {
+        int count = resourceCategoryService.update(id, param);
+        if (count > 0)
+        {
             return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
+        }
+        else
+        {
+            return CommonResult.failed("要删除的后台资源分类不存在!");
         }
     }
 
-    @ApiOperation("根据ID删除后台资源")
+    @ApiOperation("根据ID删除后台资源分类")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult delete(@PathVariable Integer id) {
+    public CommonResult delete(@PathVariable Integer id)
+    {
         int count = resourceCategoryService.delete(id);
-        if (count > 0) {
+        if (count > 0)
+        {
             return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
         }
+        else
+        {
+            return CommonResult.failed("要删除的后台资源分类不存在!");
+        }
+    }
+
+    @ApiOperation("根据ID获取资源详情")
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<ResourceCategory> getItem(@PathVariable Integer id)
+    {
+        ResourceCategory resourceCategory = resourceCategoryService.getItem(id);
+        if(resourceCategory==null) return CommonResult.failed("没有该后台资源分类");
+        return CommonResult.success(resourceCategory);
     }
 }

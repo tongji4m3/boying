@@ -2,7 +2,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.dto.ResourceParam;
+import com.tongji.boying.dto.UmsResourceParam;
 import com.tongji.boying.model.Resource;
 import com.tongji.boying.security.component.DynamicSecurityMetadataSource;
 import com.tongji.boying.service.UmsResourceService;
@@ -21,7 +21,8 @@ import java.util.List;
 @Controller
 @Api(tags = "UmsResourceController", description = "后台资源管理")
 @RequestMapping("/resource")
-public class UmsResourceController {
+public class UmsResourceController
+{
 
     @Autowired
     private UmsResourceService resourceService;
@@ -31,12 +32,16 @@ public class UmsResourceController {
     @ApiOperation("添加后台资源")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult create(@Validated @RequestBody ResourceParam param) {
+    public CommonResult create(@Validated @RequestBody UmsResourceParam param)
+    {
         int count = resourceService.create(param);
         dynamicSecurityMetadataSource.clearDataSource();
-        if (count > 0) {
+        if (count > 0)
+        {
             return CommonResult.success(count);
-        } else {
+        }
+        else
+        {
             return CommonResult.failed();
         }
     }
@@ -45,34 +50,44 @@ public class UmsResourceController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult update(@PathVariable Integer id,
-                               @Validated @RequestBody ResourceParam param) {
+                               @Validated @RequestBody UmsResourceParam param)
+    {
         int count = resourceService.update(id, param);
         dynamicSecurityMetadataSource.clearDataSource();
-        if (count > 0) {
+        if (count > 0)
+        {
             return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
+        }
+        else
+        {
+            return CommonResult.failed("没有该后台资源");
         }
     }
 
     @ApiOperation("根据ID获取资源详情")
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Resource> getItem(@PathVariable Integer id) {
+    public CommonResult<Resource> getItem(@PathVariable Integer id)
+    {
         Resource resource = resourceService.getItem(id);
+        if(resource==null) return CommonResult.failed("没有该后台资源");
         return CommonResult.success(resource);
     }
 
     @ApiOperation("根据ID删除后台资源")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult delete(@PathVariable Integer id) {
+    public CommonResult delete(@PathVariable Integer id)
+    {
         int count = resourceService.delete(id);
         dynamicSecurityMetadataSource.clearDataSource();
-        if (count > 0) {
+        if (count > 0)
+        {
             return CommonResult.success(count);
-        } else {
-            return CommonResult.failed();
+        }
+        else
+        {
+            return CommonResult.failed("没有该后台资源");
         }
     }
 
@@ -83,15 +98,17 @@ public class UmsResourceController {
                                                    @RequestParam(required = false) String nameKeyword,
                                                    @RequestParam(required = false) String urlKeyword,
                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                                   @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-        List<Resource> resourceList = resourceService.list(categoryId,nameKeyword, urlKeyword, pageSize, pageNum);
+                                                   @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum)
+    {
+        List<Resource> resourceList = resourceService.list(categoryId, nameKeyword, urlKeyword, pageSize, pageNum);
         return CommonResult.success(CommonPage.restPage(resourceList));
     }
 
     @ApiOperation("查询所有后台资源")
     @RequestMapping(value = "/listAll", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<Resource>> listAll() {
+    public CommonResult<List<Resource>> listAll()
+    {
         List<Resource> resourceList = resourceService.listAll();
         return CommonResult.success(resourceList);
     }

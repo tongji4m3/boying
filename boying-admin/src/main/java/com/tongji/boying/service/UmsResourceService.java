@@ -1,7 +1,7 @@
 package com.tongji.boying.service;
 
 
-import com.tongji.boying.dto.ResourceParam;
+import com.tongji.boying.dto.UmsResourceParam;
 import com.tongji.boying.model.Resource;
 
 import java.util.List;
@@ -9,17 +9,19 @@ import java.util.List;
 /**
  * 后台资源管理Service
  */
-public interface UmsResourceService {
+public interface UmsResourceService
+{
     /**
      * 添加资源
+     *
      * @param resource
      */
-    int create(ResourceParam resource);
+    int create(UmsResourceParam resource);
 
     /**
      * 修改资源
      */
-    int update(Integer id, ResourceParam resource);
+    int update(Integer id, UmsResourceParam resource);
 
     /**
      * 获取资源详情

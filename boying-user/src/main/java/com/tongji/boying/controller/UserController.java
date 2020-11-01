@@ -19,10 +19,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 用户登录注册管理Controller
+ * 用户登录注册等相关信息管理Controller
  */
 @Controller
-@Api(tags = "UserController", description = "用户登录注册管理")
+@Api(tags = "UserController", description = "用户相关信息管理")
 @RequestMapping("/user")
 public class UserController
 {

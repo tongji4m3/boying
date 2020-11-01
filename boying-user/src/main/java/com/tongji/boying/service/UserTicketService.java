@@ -1,6 +1,5 @@
 package com.tongji.boying.service;
 
-import com.tongji.boying.model.Frequent;
 import com.tongji.boying.model.Ticket;
 
 import java.util.List;

@@ -29,7 +29,7 @@ public class UserTicketController
     public CommonResult add(@RequestParam int orderId,
                             @RequestParam int showClassId)
     {
-        int count = userTicketService.add(orderId,showClassId);
+        int count = userTicketService.add(orderId, showClassId);
         if (count > 0)
         {
             return CommonResult.success(count);
@@ -41,11 +41,11 @@ public class UserTicketController
     @RequestMapping(value = "/list/{orderId}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<Ticket>> list(@PathVariable int orderId,
-                                                   @RequestParam(required = false, defaultValue = "0") Integer pageNum,
-                                                   @RequestParam(required = false, defaultValue = "5") Integer pageSize)
+                                                 @RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                 @RequestParam(required = false, defaultValue = "5") Integer pageSize)
     {
-        List<Ticket> tickets = userTicketService.list(orderId,pageNum, pageSize);
-        if(tickets.size()==0) return CommonResult.failed("当前用户无票!");
+        List<Ticket> tickets = userTicketService.list(orderId, pageNum, pageSize);
+        if (tickets.size() == 0) return CommonResult.failed("当前用户无票!");
         return CommonResult.success(CommonPage.restPage(tickets));
     }
 
@@ -55,7 +55,7 @@ public class UserTicketController
     public CommonResult<Ticket> getItem(@PathVariable int id)
     {
         Ticket ticket = userTicketService.getItem(id);
-        if(ticket==null) return CommonResult.failed("当前用户无此票!");
+        if (ticket == null) return CommonResult.failed("当前用户无此票!");
         return CommonResult.success(ticket);
     }
 }

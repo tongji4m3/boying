@@ -1,45 +1,51 @@
 package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
-public class ReviewImage implements Serializable {
+public class ReviewImage implements Serializable
+{
+    private static final long serialVersionUID = 1L;
     private Integer reviewImageId;
-
     @ApiModelProperty(value = "该图片所属评论Id")
     private Integer reviewId;
-
     @ApiModelProperty(value = "图片链接地址")
     private String imageUrl;
 
-    private static final long serialVersionUID = 1L;
-
-    public Integer getReviewImageId() {
+    public Integer getReviewImageId()
+    {
         return reviewImageId;
     }
 
-    public void setReviewImageId(Integer reviewImageId) {
+    public void setReviewImageId(Integer reviewImageId)
+    {
         this.reviewImageId = reviewImageId;
     }
 
-    public Integer getReviewId() {
+    public Integer getReviewId()
+    {
         return reviewId;
     }
 
-    public void setReviewId(Integer reviewId) {
+    public void setReviewId(Integer reviewId)
+    {
         this.reviewId = reviewId;
     }
 
-    public String getImageUrl() {
+    public String getImageUrl()
+    {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(String imageUrl)
+    {
         this.imageUrl = imageUrl;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");

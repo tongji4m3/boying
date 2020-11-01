@@ -39,7 +39,7 @@ public class ShowController
                                                  @RequestParam(required = false, defaultValue = "5") Integer pageSize,
                                                  @RequestParam(required = false, defaultValue = "0") Integer sort)
     {
-        List<Show> productList = showService.search(keyword, city,categoryId, date, pageNum, pageSize, sort);
+        List<Show> productList = showService.search(keyword, city, categoryId, date, pageNum, pageSize, sort);
         return CommonResult.success(CommonPage.restPage(productList));
     }
 

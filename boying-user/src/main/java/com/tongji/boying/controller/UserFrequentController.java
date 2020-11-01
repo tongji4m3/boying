@@ -69,10 +69,10 @@ public class UserFrequentController
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<Frequent>> list(@RequestParam(required = false, defaultValue = "0") Integer pageNum,
-                                               @RequestParam(required = false, defaultValue = "5") Integer pageSize)
+                                                   @RequestParam(required = false, defaultValue = "5") Integer pageSize)
     {
         List<Frequent> frequentList = userFrequentService.list(pageNum, pageSize);
-        if(frequentList.size()==0) return CommonResult.failed("当前用户无常用联系人!");
+        if (frequentList.size() == 0) return CommonResult.failed("当前用户无常用联系人!");
         return CommonResult.success(CommonPage.restPage(frequentList));
     }
 
@@ -82,7 +82,7 @@ public class UserFrequentController
     public CommonResult<Frequent> getItem(@PathVariable int id)
     {
         Frequent frequent = userFrequentService.getItem(id);
-        if(frequent==null) return CommonResult.failed("当前用户无此常用联系人!");
+        if (frequent == null) return CommonResult.failed("当前用户无此常用联系人!");
         return CommonResult.success(frequent);
     }
 
@@ -93,7 +93,7 @@ public class UserFrequentController
     public CommonResult<Frequent> getDefault()
     {
         Frequent frequent = userFrequentService.getDefault();
-        if(frequent==null) return CommonResult.failed("当前用户无默认常用联系人!");
+        if (frequent == null) return CommonResult.failed("当前用户无默认常用联系人!");
         return CommonResult.success(frequent);
     }
 

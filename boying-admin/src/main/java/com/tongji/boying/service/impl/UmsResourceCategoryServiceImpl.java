@@ -1,9 +1,14 @@
 package com.tongji.boying.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
+import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.dto.UmsResourceCategoryParam;
 import com.tongji.boying.mapper.ResourceCategoryMapper;
+import com.tongji.boying.model.Resource;
 import com.tongji.boying.model.ResourceCategory;
 import com.tongji.boying.model.ResourceCategoryExample;
 import com.tongji.boying.service.UmsResourceCategoryService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,32 +25,49 @@ public class UmsResourceCategoryServiceImpl implements UmsResourceCategoryServic
     private ResourceCategoryMapper resourceCategoryMapper;
 
     @Override
-    public List<ResourceCategory> listAll() {
+    public List<ResourceCategory> listAll()
+    {
         ResourceCategoryExample example = new ResourceCategoryExample();
         example.setOrderByClause("sort desc");
         return resourceCategoryMapper.selectByExample(example);
     }
 
     @Override
-    public int create(String name,Integer sort) {
+    public int create(UmsResourceCategoryParam param)
+    {
+        ResourceCategoryExample resourceCategoryExample = new ResourceCategoryExample();
+        resourceCategoryExample.createCriteria().andNameEqualTo(param.getName());
+        List<ResourceCategory> resourceCategories = resourceCategoryMapper.selectByExample(resourceCategoryExample);
+        if(ObjectUtil.isNotEmpty(resourceCategories))
+        {
+            //说明有重名资源分类名称
+            Asserts.fail("资源分类名称重复!");
+        }
+
         ResourceCategory resourceCategory = new ResourceCategory();
+        BeanUtils.copyProperties(param,resourceCategory);
         resourceCategory.setCreateTime(new Date());
-        resourceCategory.setName(name);
-        resourceCategory.setSort(sort);
-        return resourceCategoryMapper.insert(resourceCategory);
+        return resourceCategoryMapper.insertSelective(resourceCategory);
     }
 
     @Override
-    public int update(Integer id, String name,Integer sort) {
+    public int update(Integer id, UmsResourceCategoryParam param)
+    {
         ResourceCategory resourceCategory = new ResourceCategory();
+        BeanUtils.copyProperties(param,resourceCategory);
         resourceCategory.setResourceCategoryId(id);
-        resourceCategory.setName(name);
-        resourceCategory.setSort(sort);
         return resourceCategoryMapper.updateByPrimaryKeySelective(resourceCategory);
     }
 
     @Override
-    public int delete(Integer id) {
+    public ResourceCategory getItem(Integer id)
+    {
+        return resourceCategoryMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int delete(Integer id)
+    {
         return resourceCategoryMapper.deleteByPrimaryKey(id);
     }
 }
