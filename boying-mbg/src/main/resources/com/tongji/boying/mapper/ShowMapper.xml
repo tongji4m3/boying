@@ -143,7 +143,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Show">
-    insert into show
+    insert into boying.show
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="showId != null">
         show_id,
