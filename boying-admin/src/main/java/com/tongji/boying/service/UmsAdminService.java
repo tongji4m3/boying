@@ -92,8 +92,9 @@ public interface UmsAdminService
      * 更新管理员密码
      * @param username
      * @param password
-     * @param newPassword
      * @return
      */
+    int updatePassword(String username, String password);
+
     int updatePassword(String username, String password, String newPassword);
 }

@@ -33,6 +33,15 @@ public class CommonResult<T>
     /**
      * 成功返回结果
      *
+     */
+    public static <T> CommonResult<T> success()
+    {
+        return new CommonResult<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), null);
+    }
+
+    /**
+     * 成功返回结果
+     *
      * @param data    获取的数据
      * @param message 提示信息
      */

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tongji.boying.mapper.ShowMapper">
-  <resultMap id="BaseResultMap" type="com.tongji.boying.model.Show">
+<mapper namespace="com.tongji.boying.mapper.BoyingShowMapper">
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingShow">
     <id column="show_id" jdbcType="INTEGER" property="showId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="category_id" jdbcType="INTEGER" property="categoryId" />
@@ -14,7 +14,7 @@
     <result column="day_start" jdbcType="DATE" property="dayStart" />
     <result column="day_end" jdbcType="DATE" property="dayEnd" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tongji.boying.model.Show">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tongji.boying.model.BoyingShow">
     <result column="details" jdbcType="LONGVARBINARY" property="details" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -82,7 +82,7 @@
   <sql id="Blob_Column_List">
     details
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.tongji.boying.model.ShowExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.tongji.boying.model.BoyingShowExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -90,7 +90,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from show
+    from boying_show
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -98,13 +98,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.tongji.boying.model.ShowExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingShowExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from show
+    from boying_show
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -117,21 +117,21 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from show
+    from boying_show
     where show_id = #{showId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from show
+    delete from boying_show
     where show_id = #{showId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tongji.boying.model.ShowExample">
-    delete from show
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingShowExample">
+    delete from boying_show
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tongji.boying.model.Show">
-    insert into show (show_id, name, category_id, 
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingShow">
+    insert into boying_show (show_id, name, category_id, 
       poster, min_price, max_price, 
       weight, city, address, 
       day_start, day_end, details
@@ -142,8 +142,8 @@
       #{dayStart,jdbcType=DATE}, #{dayEnd,jdbcType=DATE}, #{details,jdbcType=LONGVARBINARY}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tongji.boying.model.Show">
-    insert into boying.show
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingShow">
+    insert into boying_show
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="showId != null">
         show_id,
@@ -221,14 +221,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tongji.boying.model.ShowExample" resultType="java.lang.Long">
-    select count(*) from show
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingShowExample" resultType="java.lang.Long">
+    select count(*) from boying_show
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update show
+    update boying_show
     <set>
       <if test="record.showId != null">
         show_id = #{record.showId,jdbcType=INTEGER},
@@ -272,7 +272,7 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
-    update show
+    update boying_show
     set show_id = #{record.showId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       category_id = #{record.categoryId,jdbcType=INTEGER},
@@ -290,7 +290,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update show
+    update boying_show
     set show_id = #{record.showId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       category_id = #{record.categoryId,jdbcType=INTEGER},
@@ -306,8 +306,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.Show">
-    update show
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingShow">
+    update boying_show
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -345,8 +345,8 @@
     </set>
     where show_id = #{showId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tongji.boying.model.Show">
-    update show
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tongji.boying.model.BoyingShow">
+    update boying_show
     set name = #{name,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       poster = #{poster,jdbcType=VARCHAR},
@@ -360,8 +360,8 @@
       details = #{details,jdbcType=LONGVARBINARY}
     where show_id = #{showId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.Show">
-    update show
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingShow">
+    update boying_show
     set name = #{name,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       poster = #{poster,jdbcType=VARCHAR},

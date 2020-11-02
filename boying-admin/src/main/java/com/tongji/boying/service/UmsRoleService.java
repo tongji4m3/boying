@@ -31,6 +31,11 @@ public interface UmsRoleService
     int delete(List<Integer> ids);
 
     /**
+     * 删除角色
+     */
+    int delete(Integer id);
+
+    /**
      * 获取所有角色列表
      */
     List<Role> list();

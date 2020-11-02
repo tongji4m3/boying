@@ -23,6 +23,7 @@ import java.util.Map;
 
 /**
  * 后台管理员管理
+ * 只有拥有该资源权限的管理员能管理后台管理员
  */
 @Controller
 @Api(tags = "UmsAdminController", description = "后台管理员管理")
@@ -49,55 +50,7 @@ public class UmsAdminController
         {
             return CommonResult.failed("注册失败!");
         }
-        return CommonResult.success(admin);
-    }
-
-    @ApiOperation(value = "登录以后返回token")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult login(@RequestParam String username,
-                              @RequestParam String password)
-    {
-        String token = adminService.login(username, password);
-        if (token == null)
-        {
-            return CommonResult.failed("管理员名称或密码错误");
-        }
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
-        return CommonResult.success(tokenMap);
-    }
-
-    @ApiOperation(value = "刷新token")
-    @RequestMapping(value = "/refreshToken", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult refreshToken(HttpServletRequest request)
-    {
-        String token = request.getHeader(tokenHeader);
-        String refreshToken = adminService.refreshToken(token);
-        if (refreshToken == null)
-        {
-            return CommonResult.failed("token已经过期！");
-        }
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", refreshToken);
-        tokenMap.put("tokenHead", tokenHead);
-        return CommonResult.success(tokenMap);
-    }
-
-    @ApiOperation(value = "获取当前登录管理员信息")
-    @RequestMapping(value = "/info", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult getAdminInfo()
-    {
-        Admin admin = adminService.getCurrentAdmin();
-        Map<String, Object> data = new HashMap<>();
-        data.put("username", admin.getUsername());
-        data.put("icon", admin.getIcon());
-        data.put("menus", roleService.getMenuList(admin.getAdminId()));
-        data.put("roles", adminService.getRoleList(admin.getAdminId()));
-        return CommonResult.success(data);
+        return CommonResult.success();
     }
 
     @ApiOperation("根据管理员名分页获取管理员列表")
@@ -139,10 +92,9 @@ public class UmsAdminController
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult updatePassword(@RequestParam String username,
-                                       @RequestParam String password,
                                        @RequestParam String newPassword)
     {
-        int status = adminService.updatePassword(username,password,newPassword);
+        int status = adminService.updatePassword(username,newPassword);
         if (status > 0)
         {
             return CommonResult.success(status);
@@ -154,10 +106,6 @@ public class UmsAdminController
         else if (status == -2)
         {
             return CommonResult.failed("找不到该管理员");
-        }
-        else if (status == -3)
-        {
-            return CommonResult.failed("旧密码错误");
         }
         return CommonResult.failed();
     }

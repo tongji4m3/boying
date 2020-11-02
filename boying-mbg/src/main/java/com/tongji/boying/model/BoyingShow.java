@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Show implements Serializable {
+public class BoyingShow implements Serializable {
     private Integer showId;
 
     private String name;

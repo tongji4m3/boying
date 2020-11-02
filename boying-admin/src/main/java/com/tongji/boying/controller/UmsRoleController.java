@@ -1,5 +1,6 @@
 package com.tongji.boying.controller;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.UmsRoleParam;
@@ -53,6 +54,19 @@ public class UmsRoleController
         return CommonResult.failed();
     }
 
+    @ApiOperation("删除角色")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult delete(@PathVariable Integer id)
+    {
+        int count = roleService.delete(id);
+        if (count > 0)
+        {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
+    }
+
     @ApiOperation("批量删除角色")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
@@ -72,6 +86,7 @@ public class UmsRoleController
     public CommonResult<List<Role>> listAll()
     {
         List<Role> roleList = roleService.list();
+        if(ObjectUtil.isEmpty(roleList)) return CommonResult.failed("无角色!");
         return CommonResult.success(roleList);
     }
 
@@ -83,6 +98,7 @@ public class UmsRoleController
                                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum)
     {
         List<Role> roleList = roleService.list(keyword, pageSize, pageNum);
+        if(ObjectUtil.isEmpty(roleList)) return CommonResult.failed("无角色!");
         return CommonResult.success(CommonPage.restPage(roleList));
     }
 

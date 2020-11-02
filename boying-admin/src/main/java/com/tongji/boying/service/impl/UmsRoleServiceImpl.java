@@ -71,6 +71,14 @@ public class UmsRoleServiceImpl implements UmsRoleService
         return count;
     }
 
+    @Override
+    public int delete(Integer id)
+    {
+        int count = roleMapper.deleteByPrimaryKey(id);
+        adminCacheService.delResourceListByRole(id);
+        return count;
+    }
+
 
     @Override
     public List<Role> list()

@@ -37,8 +37,8 @@ secure:
       - /webjars/springfox-swagger-ui/**
       - /druid/**
       - /actuator/**
-      - /admin/login
-      - /admin/register
+      - /login/**
+
 
 # 自定义redis key
 redis:

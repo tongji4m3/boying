@@ -1,6 +1,7 @@
 package com.tongji.boying.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
@@ -127,6 +128,10 @@ public class UmsAdminServiceImpl implements UmsAdminService
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
+            //修改登录时间
+            Admin currentAdmin = getCurrentAdmin();
+            currentAdmin.setLoginTime(new Date());
+            adminMapper.updateByPrimaryKey(currentAdmin);
         }
         catch (AuthenticationException e)
         {
@@ -252,6 +257,28 @@ public class UmsAdminServiceImpl implements UmsAdminService
             return new AdminUserDetails(admin, resourceList);
         }
         throw new UsernameNotFoundException("用户名或密码错误");
+    }
+
+    @Override
+    public int updatePassword(String username, String newPassword)
+    {
+        if (StrUtil.isEmpty(username)
+                || StrUtil.isEmpty(newPassword))
+        {
+            return -1;
+        }
+        AdminExample example = new AdminExample();
+        example.createCriteria().andUsernameEqualTo(username);
+        List<Admin> adminList = adminMapper.selectByExample(example);
+        if (CollUtil.isEmpty(adminList))
+        {
+            return -2;
+        }
+        Admin admin = adminList.get(0);
+        admin.setPassword(passwordEncoder.encode(newPassword));
+        adminMapper.updateByPrimaryKey(admin);
+        adminCacheService.delAdmin(admin.getAdminId());
+        return 1;
     }
 
     @Override
