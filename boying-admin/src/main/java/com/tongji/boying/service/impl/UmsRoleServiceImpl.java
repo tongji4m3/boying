@@ -3,6 +3,7 @@ package com.tongji.boying.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.dao.UmsAdminRoleDao;
 import com.tongji.boying.dao.UmsRoleDao;
 import com.tongji.boying.dto.UmsRoleParam;
 import com.tongji.boying.mapper.*;
@@ -40,6 +41,8 @@ public class UmsRoleServiceImpl implements UmsRoleService
 
     @Autowired
     private UmsRoleDao roleDao;
+    @Autowired
+    private UmsAdminRoleDao adminRoleDao;
 
     @Override
     public int create(UmsRoleParam param)
@@ -177,5 +180,11 @@ public class UmsRoleServiceImpl implements UmsRoleService
         }
         adminCacheService.delResourceListByRole(roleId);
         return resourceIds.size();
+    }
+
+    @Override
+    public List<Resource> getResourceList(Integer adminId)
+    {
+        return adminRoleDao.getResourceList(adminId);
     }
 }

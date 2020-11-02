@@ -71,4 +71,6 @@ public interface UmsRoleService
      */
     @Transactional
     int allocResource(Integer roleId, List<Integer> resourceIds);
+
+    List<Resource> getResourceList(Integer adminId);
 }

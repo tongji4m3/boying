@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tongji.boying.dao.UmsRoleDao">
 
-    <select id="getMenuList" resultType="com.tongji.boying.model.Menu">
+    <select id="getMenuList" resultMap="com.tongji.boying.mapper.MenuMapper.BaseResultMap">
         SELECT
             distinct menu.*
         FROM
@@ -11,8 +11,9 @@
                 LEFT JOIN menu ON role_menu.menu_id = menu.menu_id
         WHERE
             admin_role.admin_id = #{adminId}
+        and menu.menu_id is not null
     </select>
-    <select id="getMenuListByRoleId" resultType="com.tongji.boying.model.Menu">
+    <select id="getMenuListByRoleId" resultMap="com.tongji.boying.mapper.MenuMapper.BaseResultMap">
         SELECT
             distinct menu.*
         FROM
@@ -20,8 +21,9 @@
                 LEFT JOIN menu  ON role_menu.menu_id = menu.menu_id
         WHERE
             role_menu.role_id = #{roleId}
+          and menu.menu_id is not null
     </select>
-    <select id="getResourceListByRoleId" resultType="com.tongji.boying.model.Resource">
+    <select id="getResourceListByRoleId" resultMap="com.tongji.boying.mapper.ResourceMapper.BaseResultMap">
         SELECT
             distinct resource.*
         FROM
@@ -29,5 +31,6 @@
                 LEFT JOIN resource ON role_resource.resource_id = resource.resource_id
         WHERE
             role_resource.role_id = #{roleId}
+          and resource.resource_id is not null
     </select>
 </mapper>

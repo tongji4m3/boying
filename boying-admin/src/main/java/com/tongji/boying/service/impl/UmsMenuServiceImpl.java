@@ -1,5 +1,6 @@
 package com.tongji.boying.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
@@ -29,10 +30,25 @@ public class UmsMenuServiceImpl implements UmsMenuService
     @Override
     public int create(UmsMenuParam param)
     {
+//        检查是否有重名菜单
+        MenuExample menuExample = new MenuExample();
+        menuExample.createCriteria().andTitleEqualTo(param.getTitle());
+        List<Menu> menus = menuMapper.selectByExample(menuExample);
+        if(CollUtil.isNotEmpty(menus))
+        {
+            Asserts.fail("菜单名称重复!");
+        }
+        //检查parentId
+        if(param.getParentId()!=0)
+        {
+            // TODO: 2020/11/2  
+        }
+
         //不能自己更新菜单level
         Menu menu = new Menu();
         BeanUtils.copyProperties(param,menu);
         menu.setCreateTime(new Date());
+        menu.setHidden(false);
         updateLevel(menu);
         return menuMapper.insertSelective(menu);
     }
@@ -65,6 +81,15 @@ public class UmsMenuServiceImpl implements UmsMenuService
     @Override
     public int update(Integer id, UmsMenuParam param)
     {
+        //        检查是否有重名菜单
+        MenuExample menuExample = new MenuExample();
+        menuExample.createCriteria().andTitleEqualTo(param.getTitle()).andMenuIdEqualTo(id);
+        List<Menu> menus = menuMapper.selectByExample(menuExample);
+        if(CollUtil.isNotEmpty(menus))
+        {
+            Asserts.fail("菜单名称重复!");
+        }
+
         //不能自己更新菜单level
         Menu menu = new Menu();
         BeanUtils.copyProperties(param,menu);

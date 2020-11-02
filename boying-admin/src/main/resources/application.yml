@@ -38,6 +38,7 @@ secure:
       - /druid/**
       - /actuator/**
       - /login/**
+      - /admin/register
 
 
 # 自定义redis key

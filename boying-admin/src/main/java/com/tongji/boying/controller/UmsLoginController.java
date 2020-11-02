@@ -4,6 +4,7 @@ import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.UmsAdminInfoParam;
 import com.tongji.boying.model.Admin;
 import com.tongji.boying.service.UmsAdminService;
+import com.tongji.boying.service.UmsResourceService;
 import com.tongji.boying.service.UmsRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +37,8 @@ public class UmsLoginController
     private UmsAdminService adminService;
     @Autowired
     private UmsRoleService roleService;
+    @Autowired
+    private UmsResourceService resourceService;
 
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -88,6 +91,7 @@ public class UmsLoginController
         data.put("email", admin.getEmail());
         data.put("loginTime", admin.getLoginTime());
         data.put("menus", roleService.getMenuList(admin.getAdminId()));
+        data.put("resource", roleService.getResourceList(admin.getAdminId()));
         data.put("roles", adminService.getRoleList(admin.getAdminId()));
         return CommonResult.success(data);
     }

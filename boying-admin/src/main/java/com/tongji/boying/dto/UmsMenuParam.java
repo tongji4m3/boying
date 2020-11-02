@@ -24,6 +24,9 @@ public class UmsMenuParam
     @ApiModelProperty(value = "菜单排序")
     private Integer sort;
 
+    @ApiModelProperty(value = "前端名称")
+    private String name;
+
     @ApiModelProperty(value = "前端图标")
     private String icon;
 

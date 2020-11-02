@@ -8,6 +8,7 @@
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="level" jdbcType="INTEGER" property="level" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="hidden" jdbcType="BIT" property="hidden" />
   </resultMap>
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    menu_id, parent_id, create_time, title, level, sort, icon, hidden
+    menu_id, parent_id, create_time, title, level, sort, name, icon, hidden
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.MenuExample" resultMap="BaseResultMap">
     select
@@ -105,10 +106,10 @@
   <insert id="insert" parameterType="com.tongji.boying.model.Menu">
     insert into menu (menu_id, parent_id, create_time, 
       title, level, sort, 
-      icon, hidden)
+      name, icon, hidden)
     values (#{menuId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{title,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
-      #{icon,jdbcType=VARCHAR}, #{hidden,jdbcType=BIT})
+      #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{hidden,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Menu">
     insert into menu
@@ -130,6 +131,9 @@
       </if>
       <if test="sort != null">
         sort,
+      </if>
+      <if test="name != null">
+        name,
       </if>
       <if test="icon != null">
         icon,
@@ -156,6 +160,9 @@
       </if>
       <if test="sort != null">
         #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
@@ -192,6 +199,9 @@
       <if test="record.sort != null">
         sort = #{record.sort,jdbcType=INTEGER},
       </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
       <if test="record.icon != null">
         icon = #{record.icon,jdbcType=VARCHAR},
       </if>
@@ -211,6 +221,7 @@
       title = #{record.title,jdbcType=VARCHAR},
       level = #{record.level,jdbcType=INTEGER},
       sort = #{record.sort,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
       icon = #{record.icon,jdbcType=VARCHAR},
       hidden = #{record.hidden,jdbcType=BIT}
     <if test="_parameter != null">
@@ -235,6 +246,9 @@
       <if test="sort != null">
         sort = #{sort,jdbcType=INTEGER},
       </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="icon != null">
         icon = #{icon,jdbcType=VARCHAR},
       </if>
@@ -251,6 +265,7 @@
       title = #{title,jdbcType=VARCHAR},
       level = #{level,jdbcType=INTEGER},
       sort = #{sort,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
       hidden = #{hidden,jdbcType=BIT}
     where menu_id = #{menuId,jdbcType=INTEGER}
