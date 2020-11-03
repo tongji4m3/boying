@@ -73,7 +73,7 @@ public interface UmsAdminService
     int updateRole(Integer adminId, List<Integer> roleIds);
 
     /**
-     * 获取管理员对于角色
+     * 获取管理员对应角色
      */
     List<Role> getRoleList(Integer adminId);
 

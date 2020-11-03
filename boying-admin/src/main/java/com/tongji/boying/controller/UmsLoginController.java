@@ -99,7 +99,7 @@ public class UmsLoginController
         data.put("icon", admin.getIcon());
         data.put("email", admin.getEmail());
         data.put("loginTime", admin.getLoginTime());
-//        data.put("menus", roleService.getMenuList(admin.getAdminId()));
+        data.put("menus", menuService.categoryMap(admin.getAdminId()));
         data.put("resource", roleService.getResourceList(admin.getAdminId()));
         data.put("roles", adminService.getRoleList(admin.getAdminId()));
         return CommonResult.success(data);

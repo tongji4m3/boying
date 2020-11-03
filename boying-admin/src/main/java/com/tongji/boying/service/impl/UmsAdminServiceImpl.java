@@ -1,7 +1,6 @@
 package com.tongji.boying.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
@@ -11,6 +10,7 @@ import com.tongji.boying.dto.UmsAdminInfoParam;
 import com.tongji.boying.dto.UmsAdminRegisterParam;
 import com.tongji.boying.mapper.AdminMapper;
 import com.tongji.boying.mapper.AdminRoleMapper;
+import com.tongji.boying.mapper.RoleMapper;
 import com.tongji.boying.model.*;
 import com.tongji.boying.security.util.JwtTokenUtil;
 import com.tongji.boying.service.UmsAdminCacheService;
@@ -55,6 +55,8 @@ public class UmsAdminServiceImpl implements UmsAdminService
 
     @Autowired
     private UmsAdminRoleDao adminRoleDao;
+    @Autowired
+    private RoleMapper roleMapper;
 
 
     @Override
@@ -201,11 +203,23 @@ public class UmsAdminServiceImpl implements UmsAdminService
     @Override
     public int updateRole(Integer adminId, List<Integer> roleIds)
     {
-        int count = roleIds == null ? 0 : roleIds.size();
+        if(adminMapper.selectByPrimaryKey(adminId)==null) Asserts.fail("该管理员不存在!");
+        if(roleIds == null) Asserts.fail("请传入要分配的角色Id列表!");
+
+        int count = roleIds.size();
         //先删除原来的关系
         AdminRoleExample adminRoleExample = new AdminRoleExample();
         adminRoleExample.createCriteria().andAdminIdEqualTo(adminId);
         adminRoleMapper.deleteByExample(adminRoleExample);
+
+        //判断角色是否都是存在与数据库中的
+        RoleExample roleExample = new RoleExample();
+        roleExample.createCriteria().andRoleIdIn(roleIds);
+        if(roleIds.size()!=roleMapper.selectByExample(roleExample).size())
+        {
+            Asserts.fail("某些分配的角色Id不合法!");
+        }
+
         //建立新关系
         if (!CollectionUtils.isEmpty(roleIds))
         {
@@ -226,6 +240,7 @@ public class UmsAdminServiceImpl implements UmsAdminService
     @Override
     public List<Role> getRoleList(Integer adminId)
     {
+        if(adminMapper.selectByPrimaryKey(adminId)==null) Asserts.fail("该管理员不存在!");
         return adminRoleDao.getRoleList(adminId);
     }
 

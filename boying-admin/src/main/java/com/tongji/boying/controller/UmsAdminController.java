@@ -7,6 +7,7 @@ import com.tongji.boying.dto.UmsAdminRegisterParam;
 import com.tongji.boying.model.Admin;
 import com.tongji.boying.model.Role;
 import com.tongji.boying.service.UmsAdminService;
+import com.tongji.boying.service.UmsMenuService;
 import com.tongji.boying.service.UmsRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,6 +40,8 @@ public class UmsAdminController
     private UmsAdminService adminService;
     @Autowired
     private UmsRoleService roleService;
+    @Autowired
+    private UmsMenuService menuService;
 
     @ApiOperation(value = "管理员注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -68,11 +71,16 @@ public class UmsAdminController
     @ApiOperation("获取指定管理员信息")
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Admin> getItem(@PathVariable Integer id)
+    public CommonResult<Map<String, Object>> getItem(@PathVariable Integer id)
     {
         Admin admin = adminService.getItem(id);
         if (admin == null) return CommonResult.failed("查询的管理员不存在");
-        return CommonResult.success(admin);
+        Map<String, Object> data = new HashMap<>();
+        data.put("admin", admin);
+        data.put("menus", menuService.categoryMap(id));
+        data.put("resource", roleService.getResourceList(id));
+        data.put("roles", adminService.getRoleList(id));
+        return CommonResult.success(data);
     }
 
     @ApiOperation("修改指定管理员信息")
