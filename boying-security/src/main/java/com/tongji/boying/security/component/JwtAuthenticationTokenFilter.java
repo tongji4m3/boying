@@ -24,6 +24,9 @@ import java.io.IOException;
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
+    /**
+     * SpringSecurity定义的核心接口，用于根据用户名获取用户信息
+     */
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
@@ -38,6 +41,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException
     {
+        //请求头有字段Authorization，并且以‘Bearer ’开头
         String authHeader = request.getHeader(this.tokenHeader);
         if (authHeader != null && authHeader.startsWith(this.tokenHead))
         {
@@ -46,6 +50,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
             LOGGER.info("checking username:{}", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null)
             {
+                //SpringSecurity定义用于封装用户信息的类（主要是用户信息和权限）
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
                 if (jwtTokenUtil.validateToken(authToken, userDetails))
                 {

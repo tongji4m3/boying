@@ -10,7 +10,7 @@ public interface TicketMapper {
 
     int deleteByExample(TicketExample example);
 
-    int deleteByPrimaryKey(Integer ticketid);
+    int deleteByPrimaryKey(Integer ticketId);
 
     int insert(Ticket record);
 
@@ -18,7 +18,7 @@ public interface TicketMapper {
 
     List<Ticket> selectByExample(TicketExample example);
 
-    Ticket selectByPrimaryKey(Integer ticketid);
+    Ticket selectByPrimaryKey(Integer ticketId);
 
     int updateByExampleSelective(@Param("record") Ticket record, @Param("example") TicketExample example);
 

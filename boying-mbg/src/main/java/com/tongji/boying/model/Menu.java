@@ -22,6 +22,10 @@ public class Menu implements Serializable {
     @ApiModelProperty(value = "菜单排序")
     private Integer sort;
 
+    @ApiModelProperty(value = "前端名称")
+    private String name;
+
+    @ApiModelProperty(value = "前端图标")
     private String icon;
 
     @ApiModelProperty(value = "控制前端是否隐藏")
@@ -77,6 +81,14 @@ public class Menu implements Serializable {
         this.sort = sort;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getIcon() {
         return icon;
     }
@@ -105,6 +117,7 @@ public class Menu implements Serializable {
         sb.append(", title=").append(title);
         sb.append(", level=").append(level);
         sb.append(", sort=").append(sort);
+        sb.append(", name=").append(name);
         sb.append(", icon=").append(icon);
         sb.append(", hidden=").append(hidden);
         sb.append(", serialVersionUID=").append(serialVersionUID);

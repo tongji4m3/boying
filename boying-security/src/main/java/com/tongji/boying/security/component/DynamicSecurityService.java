@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * 动态权限相关业务类
+ * 自定义的一个动态权限业务接口，其主要用于加载所有的后台资源规则。
  */
 public interface DynamicSecurityService
 {

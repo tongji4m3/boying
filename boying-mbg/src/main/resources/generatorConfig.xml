@@ -10,7 +10,7 @@
         <property name="endingDelimiter" value="`"/>
         <property name="javaFileEncoding" value="UTF-8"/>
         <!--生成mapper.xml时覆盖原文件-->
-        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
         <!-- 为模型生成序列化方法-->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
         <!-- 为生成的Java模型创建一个toString方法 -->
@@ -28,7 +28,7 @@
                         userId="${jdbc.userId}"
                         password="${jdbc.password}">
             <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
-            <property name="nullCatalogMeansCurrent" value="true" />
+            <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
         <!--指定生成model的路径-->
         <javaModelGenerator targetPackage="com.tongji.boying.model" targetProject="boying-mbg\src\main\java"/>

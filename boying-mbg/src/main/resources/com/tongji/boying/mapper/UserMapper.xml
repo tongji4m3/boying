@@ -4,14 +4,17 @@
   <resultMap id="BaseResultMap" type="com.tongji.boying.model.User">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="identity_number" jdbcType="VARCHAR" property="identityNumber" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="gender" jdbcType="BIT" property="gender" />
     <result column="status" jdbcType="BIT" property="status" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="default_frequent" jdbcType="INTEGER" property="defaultFrequent" />
+    <result column="default_address" jdbcType="INTEGER" property="defaultAddress" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, username, password, real_name, identity_number, phone, email, age, gender, 
-    status
+    user_id, username, phone, password, real_name, identity_number, email, age, gender, 
+    status, icon, default_frequent, default_address
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.UserExample" resultMap="BaseResultMap">
     select
@@ -106,13 +109,15 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.User">
-    insert into user (user_id, username, password, 
-      real_name, identity_number, phone, 
-      email, age, gender, status
+    insert into user (user_id, username, phone, 
+      password, real_name, identity_number, 
+      email, age, gender, status, 
+      icon, default_frequent, default_address
       )
-    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{realName,jdbcType=VARCHAR}, #{identityNumber,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{gender,jdbcType=BIT}, #{status,jdbcType=BIT}
+    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{identityNumber,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{gender,jdbcType=BIT}, #{status,jdbcType=BIT}, 
+      #{icon,jdbcType=VARCHAR}, #{defaultFrequent,jdbcType=INTEGER}, #{defaultAddress,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.User">
@@ -124,6 +129,9 @@
       <if test="username != null">
         username,
       </if>
+      <if test="phone != null">
+        phone,
+      </if>
       <if test="password != null">
         password,
       </if>
@@ -132,9 +140,6 @@
       </if>
       <if test="identityNumber != null">
         identity_number,
-      </if>
-      <if test="phone != null">
-        phone,
       </if>
       <if test="email != null">
         email,
@@ -148,6 +153,15 @@
       <if test="status != null">
         status,
       </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="defaultFrequent != null">
+        default_frequent,
+      </if>
+      <if test="defaultAddress != null">
+        default_address,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -155,6 +169,9 @@
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
@@ -164,9 +181,6 @@
       </if>
       <if test="identityNumber != null">
         #{identityNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
@@ -179,6 +193,15 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=BIT},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultFrequent != null">
+        #{defaultFrequent,jdbcType=INTEGER},
+      </if>
+      <if test="defaultAddress != null">
+        #{defaultAddress,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -197,6 +220,9 @@
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
@@ -205,9 +231,6 @@
       </if>
       <if test="record.identityNumber != null">
         identity_number = #{record.identityNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="record.phone != null">
-        phone = #{record.phone,jdbcType=VARCHAR},
       </if>
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
@@ -221,6 +244,15 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=BIT},
       </if>
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultFrequent != null">
+        default_frequent = #{record.defaultFrequent,jdbcType=INTEGER},
+      </if>
+      <if test="record.defaultAddress != null">
+        default_address = #{record.defaultAddress,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -230,14 +262,17 @@
     update user
     set user_id = #{record.userId,jdbcType=INTEGER},
       username = #{record.username,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       real_name = #{record.realName,jdbcType=VARCHAR},
       identity_number = #{record.identityNumber,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       age = #{record.age,jdbcType=INTEGER},
       gender = #{record.gender,jdbcType=BIT},
-      status = #{record.status,jdbcType=BIT}
+      status = #{record.status,jdbcType=BIT},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      default_frequent = #{record.defaultFrequent,jdbcType=INTEGER},
+      default_address = #{record.defaultAddress,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -248,6 +283,9 @@
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
@@ -256,9 +294,6 @@
       </if>
       <if test="identityNumber != null">
         identity_number = #{identityNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
@@ -272,20 +307,32 @@
       <if test="status != null">
         status = #{status,jdbcType=BIT},
       </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultFrequent != null">
+        default_frequent = #{defaultFrequent,jdbcType=INTEGER},
+      </if>
+      <if test="defaultAddress != null">
+        default_address = #{defaultAddress,jdbcType=INTEGER},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.User">
     update user
     set username = #{username,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       real_name = #{realName,jdbcType=VARCHAR},
       identity_number = #{identityNumber,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       gender = #{gender,jdbcType=BIT},
-      status = #{status,jdbcType=BIT}
+      status = #{status,jdbcType=BIT},
+      icon = #{icon,jdbcType=VARCHAR},
+      default_frequent = #{defaultFrequent,jdbcType=INTEGER},
+      default_address = #{defaultAddress,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -9,10 +9,8 @@ public class Category implements Serializable {
     @ApiModelProperty(value = "上级分类的编号：0表示一级分类")
     private Integer parentId;
 
+    @ApiModelProperty(value = "目录名称")
     private String name;
-
-    @ApiModelProperty(value = "分类级别")
-    private Integer level;
 
     @ApiModelProperty(value = "用于排序,0则不显示")
     private Integer weight;
@@ -20,6 +18,7 @@ public class Category implements Serializable {
     @ApiModelProperty(value = "该目录的图标")
     private String icon;
 
+    @ApiModelProperty(value = "目录描述")
     private String description;
 
     private static final long serialVersionUID = 1L;
@@ -46,14 +45,6 @@ public class Category implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
     }
 
     public Integer getWeight() {
@@ -89,7 +80,6 @@ public class Category implements Serializable {
         sb.append(", categoryId=").append(categoryId);
         sb.append(", parentId=").append(parentId);
         sb.append(", name=").append(name);
-        sb.append(", level=").append(level);
         sb.append(", weight=").append(weight);
         sb.append(", icon=").append(icon);
         sb.append(", description=").append(description);

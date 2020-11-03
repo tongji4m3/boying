@@ -16,15 +16,18 @@ import java.lang.reflect.Method;
 
 /**
  * Redis缓存切面，防止Redis宕机影响正常业务逻辑
+ * 定义一个切面，在相关缓存业务类上面应用，在它的环绕通知中直接处理掉异常，保障后续操作能执行。
+ * 要保证缓存业务类中的方法执行不影响正常的业务逻辑，就需要在所有方法中添加`try catch`逻辑。
+ * 使用AOP，我们可以在一个地方写上`try catch`逻辑，然后应用到所有方法上去。
  */
 @Aspect
 @Component
 @Order(2)
 public class RedisCacheAspect
 {
-    private static Logger LOGGER = LoggerFactory.getLogger(RedisCacheAspect.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedisCacheAspect.class);
 
-    @Pointcut("execution(public * com.tongji.boying.service.*CacheService.*(..)) || execution(public * com.tongji.boying.service.*CacheService.*(..))")
+    @Pointcut("execution(public * com.tongji.boying.service.*CacheService.*(..))")
     public void cacheAspect()
     {
     }

@@ -13,6 +13,10 @@ import java.util.Iterator;
 
 /**
  * 动态权限决策管理器，用于判断用户是否有访问权限
+ * 实现AccessDecisionManager接口来实现权限校验，
+ * 对于没有配置资源的接口我们直接允许访问，
+ * 对于配置了资源的接口，我们把访问所需资源和用户拥有的资源进行比对，
+ * 如果匹配则允许访问。
  */
 public class DynamicAccessDecisionManager implements AccessDecisionManager
 {

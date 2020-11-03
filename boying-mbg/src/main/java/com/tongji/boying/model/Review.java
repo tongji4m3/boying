@@ -7,14 +7,37 @@ import java.util.Date;
 public class Review implements Serializable {
     private Integer reviewId;
 
-    private Integer orderId;
+    @ApiModelProperty(value = "该评论所属用户Id")
+    private Integer userId;
 
+    @ApiModelProperty(value = "该评论所属演出Id")
     private Integer showId;
 
+    @ApiModelProperty(value = "对演出打出的星级")
     private Integer star;
 
+    @ApiModelProperty(value = "评论时间")
     private Date time;
 
+    @ApiModelProperty(value = "点赞数量")
+    private Integer likeCount;
+
+    @ApiModelProperty(value = "踩数量")
+    private Integer unlikeCount;
+
+    @ApiModelProperty(value = "举报数量")
+    private Integer reportCount;
+
+    @ApiModelProperty(value = "如果是0则是单独评论,否则是对某个影评的评论")
+    private Integer parentId;
+
+    @ApiModelProperty(value = "评论权重,管理员操作")
+    private Integer weight;
+
+    @ApiModelProperty(value = "用户是否删除了该评论")
+    private Boolean userDelete;
+
+    @ApiModelProperty(value = "评论内容")
     private byte[] content;
 
     private static final long serialVersionUID = 1L;
@@ -27,12 +50,12 @@ public class Review implements Serializable {
         this.reviewId = reviewId;
     }
 
-    public Integer getOrderId() {
-        return orderId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getShowId() {
@@ -59,6 +82,54 @@ public class Review implements Serializable {
         this.time = time;
     }
 
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public Integer getUnlikeCount() {
+        return unlikeCount;
+    }
+
+    public void setUnlikeCount(Integer unlikeCount) {
+        this.unlikeCount = unlikeCount;
+    }
+
+    public Integer getReportCount() {
+        return reportCount;
+    }
+
+    public void setReportCount(Integer reportCount) {
+        this.reportCount = reportCount;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Boolean getUserDelete() {
+        return userDelete;
+    }
+
+    public void setUserDelete(Boolean userDelete) {
+        this.userDelete = userDelete;
+    }
+
     public byte[] getContent() {
         return content;
     }
@@ -74,10 +145,16 @@ public class Review implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", reviewId=").append(reviewId);
-        sb.append(", orderId=").append(orderId);
+        sb.append(", userId=").append(userId);
         sb.append(", showId=").append(showId);
         sb.append(", star=").append(star);
         sb.append(", time=").append(time);
+        sb.append(", likeCount=").append(likeCount);
+        sb.append(", unlikeCount=").append(unlikeCount);
+        sb.append(", reportCount=").append(reportCount);
+        sb.append(", parentId=").append(parentId);
+        sb.append(", weight=").append(weight);
+        sb.append(", userDelete=").append(userDelete);
         sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

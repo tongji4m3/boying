@@ -5,27 +5,54 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <!--使用默认的控制台日志输出实现-->
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-    <!--应用名称-->
-    <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultValue="springBoot"/>
+    <!-- 读取application.yml配置文件中spring.application.name中的属性来生成日志文件名全局变量 -->
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultValue="boying"/>
     <!--日志文件保存路径-->
+    <!--保存到用户路径,例如我的为:C:\Users\12549\AppData\Local\Temp\logs-->
     <property name="LOG_FILE_PATH" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/logs}"/>
-    <!--LogStash访问host-->
-    <springProperty name="LOG_STASH_HOST" scope="context" source="logstash.host" defaultValue="localhost"/>
 
-    <!--DEBUG日志输出到文件-->
-    <appender name="FILE_DEBUG"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!--Appender:负责日志的输出格式与输出目的地-->
+    <!--name便于下面用appender-ref引用-->
+    <!--日志输出到控制台规则 -->
+    <appender name="FILE_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--            <pattern>节点，用来设置日志的输入格式。使用“%”加“转换符”方式  -->
+            <!--            %logger 输出日志的logger名,如:com.tongji.boying.common.log.WebLogAspect 如果是 %logger{0} 就只输出WebLogAspect -->
+            <!--            %msg输出输出应用程序提供的信息-->
+            <!--            %颜色(内容)  可以将()中的内容颜色改变-->
+            <!--            示例:[boying-user][http-nio-8000-exec-1][WebLogAspect][2020-10-27 08:29:28][INFO]:method: POST-->
+            <!--            分别输出了应用名,所用线程,输出日志的类名,日志时间,日志级别,日志具体信息-->
+<!--            <pattern>[%boldMagenta(${APP_NAME})][%blue(%thread)][%green(%logger{0})][%yellow(%d{yyyy-MM-dd HH:mm:ss})][%red(%level)]:%msg%n</pattern>-->
+            <pattern>[%green(%logger{0})][%red(%level)]:%msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
         <!--输出DEBUG以上级别日志-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>DEBUG</level>
         </filter>
+    </appender>
+
+    <!--    该appender负责将日志信息输出到本地磁盘中-->
+    <!--    RollingFileAppender:滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件-->
+    <appender name="FILE_DEBUG"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--ThresholdFilter是临界值过滤器，过滤掉低于指定临界值的日志。当日志级别等于或高于临界值时，过滤器返回NEUTRAL；当日志级别低于临界值时，日志会被拒绝。-->
+        <!--输出DEBUG以上级别日志-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <!--        encoder:一是把日志信息转换成字节数组，二是把字节数组写入到输出流 -->
         <encoder>
-            <!--设置为默认的文件日志格式-->
-            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <pattern>[%d][%logger{0}][%level]:%msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
+        <!--        用来设置日志的滚动策略，当达到条件后会自动将条件前的日志生成一个备份日志文件，条件后的日志输出到最新的日志文件中。-->
+        <!--        SizeAndTimeBasedRollingPolicy:按天归档文件，与此同时限制每个日志文件的大小-->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!--设置文件命名格式-->
+            <!--            设置文件命名格式-->
+            <!--            例如我的为:C:\Users\12549\AppData\Local\Temp\logs\debug\boying-user-2020-10-19-0.log-->
+            <!--            ${变量名}中引用存储在property标签中的变量-->
+            <!--            %d: 表示日期,还控制了日期格式-->
             <fileNamePattern>${LOG_FILE_PATH}/debug/${APP_NAME}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <!--设置日志文件大小，超过就重新生成文件，默认10M-->
             <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
@@ -45,7 +72,7 @@
         </filter>
         <encoder>
             <!--设置为默认的文件日志格式-->
-            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <pattern>[%d][%logger{0}][%level]:%msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -58,119 +85,6 @@
         </rollingPolicy>
     </appender>
 
-    <!--DEBUG日志输出到LogStash-->
-    <appender name="LOG_STASH_DEBUG" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>DEBUG</level>
-        </filter>
-        <destination>${LOG_STASH_HOST}:4560</destination>
-        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <providers>
-                <timestamp>
-                    <timeZone>Asia/Shanghai</timeZone>
-                </timestamp>
-                <!--自定义日志输出格式-->
-                <pattern>
-                    <pattern>
-                        {
-                        "project": "boying",
-                        "level": "%level",
-                        "service": "${APP_NAME:-}",
-                        "pid": "${PID:-}",
-                        "thread": "%thread",
-                        "class": "%logger",
-                        "message": "%message",
-                        "stack_trace": "%exception{20}"
-                        }
-                    </pattern>
-                </pattern>
-            </providers>
-        </encoder>
-    </appender>
-
-    <!--ERROR日志输出到LogStash-->
-    <appender name="LOG_STASH_ERROR" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <destination>${LOG_STASH_HOST}:4561</destination>
-        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <providers>
-                <timestamp>
-                    <timeZone>Asia/Shanghai</timeZone>
-                </timestamp>
-                <!--自定义日志输出格式-->
-                <pattern>
-                    <pattern>
-                        {
-                        "project": "boying",
-                        "level": "%level",
-                        "service": "${APP_NAME:-}",
-                        "pid": "${PID:-}",
-                        "thread": "%thread",
-                        "class": "%logger",
-                        "message": "%message",
-                        "stack_trace": "%exception{20}"
-                        }
-                    </pattern>
-                </pattern>
-            </providers>
-        </encoder>
-    </appender>
-
-    <!--业务日志输出到LogStash-->
-    <appender name="LOG_STASH_BUSINESS" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>${LOG_STASH_HOST}:4562</destination>
-        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <providers>
-                <timestamp>
-                    <timeZone>Asia/Shanghai</timeZone>
-                </timestamp>
-                <!--自定义日志输出格式-->
-                <pattern>
-                    <pattern>
-                        {
-                        "project": "boying",
-                        "level": "%level",
-                        "service": "${APP_NAME:-}",
-                        "pid": "${PID:-}",
-                        "thread": "%thread",
-                        "class": "%logger",
-                        "message": "%message",
-                        "stack_trace": "%exception{20}"
-                        }
-                    </pattern>
-                </pattern>
-            </providers>
-        </encoder>
-    </appender>
-
-    <!--接口访问记录日志输出到LogStash-->
-    <appender name="LOG_STASH_RECORD" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>${LOG_STASH_HOST}:4563</destination>
-        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <providers>
-                <timestamp>
-                    <timeZone>Asia/Shanghai</timeZone>
-                </timestamp>
-                <!--自定义日志输出格式-->
-                <pattern>
-                    <pattern>
-                        {
-                        "project": "boying",
-                        "level": "%level",
-                        "service": "${APP_NAME:-}",
-                        "class": "%logger",
-                        "message": "%message"
-                        }
-                    </pattern>
-                </pattern>
-            </providers>
-        </encoder>
-    </appender>
-
     <!--控制框架输出日志-->
     <logger name="org.slf4j" level="INFO"/>
     <logger name="springfox" level="INFO"/>
@@ -178,19 +92,21 @@
     <logger name="org.springframework" level="INFO"/>
     <logger name="org.hibernate.validator" level="INFO"/>
 
+    <!--    <root>也是<loger>元素，但是它是根loger。只有一个level属性-->
+    <!--    使用root可以配置全局logger级别，指定appender用来控制打印格式、目的地、文件信息等-->
+    <!--    root将级别为“DEBUG”及大于“DEBUG”的日志信息交给已经配置好的appender处理，appender将信息打印到控制台和文件中-->
     <root level="DEBUG">
-        <appender-ref ref="CONSOLE"/>
+        <!--    <root>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个loger-->
+        <!--将Debug,Error日志信息写入磁盘中,便于以后排查问题-->
         <appender-ref ref="FILE_DEBUG"/>
         <appender-ref ref="FILE_ERROR"/>
-        <appender-ref ref="LOG_STASH_DEBUG"/>
-        <appender-ref ref="LOG_STASH_ERROR"/>
+        <appender-ref ref="FILE_CONSOLE"/>
     </root>
 
+    <!--    用来设置某一个包或者具体的某一个类的logger日志级别-->
+    <!--    将控制boying包下的WebLogAspect类日志的打印-->
     <logger name="com.tongji.boying.common.log.WebLogAspect" level="DEBUG">
-        <appender-ref ref="LOG_STASH_RECORD"/>
-    </logger>
-
-    <logger name="com.tongji.boying" level="DEBUG">
-        <appender-ref ref="LOG_STASH_BUSINESS"/>
+        <!--        引用名为FILE_DEBUG的appender,将日志信息打印到控制台上   -->
+<!--        <appender-ref ref="FILE_CONSOLE"/>-->
     </logger>
 </configuration>

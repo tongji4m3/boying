@@ -6,8 +6,13 @@ import java.io.Serializable;
 public class User implements Serializable {
     private Integer userId;
 
+    @ApiModelProperty(value = "用户名")
     private String username;
 
+    @ApiModelProperty(value = "联系电话")
+    private String phone;
+
+    @ApiModelProperty(value = "密码")
     private String password;
 
     @ApiModelProperty(value = "用户真实姓名")
@@ -16,10 +21,10 @@ public class User implements Serializable {
     @ApiModelProperty(value = "用户身份证号")
     private String identityNumber;
 
-    private String phone;
-
+    @ApiModelProperty(value = "邮箱")
     private String email;
 
+    @ApiModelProperty(value = "年龄")
     private Integer age;
 
     @ApiModelProperty(value = "用户性别 1->男,0->女")
@@ -27,6 +32,15 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "帐号启用状态：0->禁用；1->启用")
     private Boolean status;
+
+    @ApiModelProperty(value = "个人头像")
+    private String icon;
+
+    @ApiModelProperty(value = "默认观影者")
+    private Integer defaultFrequent;
+
+    @ApiModelProperty(value = "默认地址")
+    private Integer defaultAddress;
 
     private static final long serialVersionUID = 1L;
 
@@ -44,6 +58,14 @@ public class User implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPassword() {
@@ -68,14 +90,6 @@ public class User implements Serializable {
 
     public void setIdentityNumber(String identityNumber) {
         this.identityNumber = identityNumber;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getEmail() {
@@ -110,6 +124,30 @@ public class User implements Serializable {
         this.status = status;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public Integer getDefaultFrequent() {
+        return defaultFrequent;
+    }
+
+    public void setDefaultFrequent(Integer defaultFrequent) {
+        this.defaultFrequent = defaultFrequent;
+    }
+
+    public Integer getDefaultAddress() {
+        return defaultAddress;
+    }
+
+    public void setDefaultAddress(Integer defaultAddress) {
+        this.defaultAddress = defaultAddress;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -118,14 +156,17 @@ public class User implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", userId=").append(userId);
         sb.append(", username=").append(username);
+        sb.append(", phone=").append(phone);
         sb.append(", password=").append(password);
         sb.append(", realName=").append(realName);
         sb.append(", identityNumber=").append(identityNumber);
-        sb.append(", phone=").append(phone);
         sb.append(", email=").append(email);
         sb.append(", age=").append(age);
         sb.append(", gender=").append(gender);
         sb.append(", status=").append(status);
+        sb.append(", icon=").append(icon);
+        sb.append(", defaultFrequent=").append(defaultFrequent);
+        sb.append(", defaultAddress=").append(defaultAddress);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

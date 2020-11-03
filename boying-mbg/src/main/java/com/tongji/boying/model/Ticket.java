@@ -4,36 +4,49 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class Ticket implements Serializable {
-    private Integer ticketid;
+    private Integer ticketId;
 
-    private Integer frequentid;
+    @ApiModelProperty(value = "所属订单Id")
+    private Integer orderId;
 
-    private Integer classid;
+    @ApiModelProperty(value = "所属座次Id")
+    private Integer showClassId;
+
+    @ApiModelProperty(value = "二维码图片,供观影人验证入场")
+    private String qrCodeUrl;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getTicketid() {
-        return ticketid;
+    public Integer getTicketId() {
+        return ticketId;
     }
 
-    public void setTicketid(Integer ticketid) {
-        this.ticketid = ticketid;
+    public void setTicketId(Integer ticketId) {
+        this.ticketId = ticketId;
     }
 
-    public Integer getFrequentid() {
-        return frequentid;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setFrequentid(Integer frequentid) {
-        this.frequentid = frequentid;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
-    public Integer getClassid() {
-        return classid;
+    public Integer getShowClassId() {
+        return showClassId;
     }
 
-    public void setClassid(Integer classid) {
-        this.classid = classid;
+    public void setShowClassId(Integer showClassId) {
+        this.showClassId = showClassId;
+    }
+
+    public String getQrCodeUrl() {
+        return qrCodeUrl;
+    }
+
+    public void setQrCodeUrl(String qrCodeUrl) {
+        this.qrCodeUrl = qrCodeUrl;
     }
 
     @Override
@@ -42,9 +55,10 @@ public class Ticket implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", ticketid=").append(ticketid);
-        sb.append(", frequentid=").append(frequentid);
-        sb.append(", classid=").append(classid);
+        sb.append(", ticketId=").append(ticketId);
+        sb.append(", orderId=").append(orderId);
+        sb.append(", showClassId=").append(showClassId);
+        sb.append(", qrCodeUrl=").append(qrCodeUrl);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

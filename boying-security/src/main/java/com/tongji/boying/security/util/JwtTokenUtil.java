@@ -2,6 +2,7 @@ package com.tongji.boying.security.util;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.tongji.boying.common.exception.Asserts;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,11 +20,10 @@ import java.util.Map;
  * JWT token的格式：header.payload.signature
  * header的格式（算法、token的类型）：
  * {"alg": "HS512","typ": "JWT"}
- * payload的格式（用户名、创建时间、生成时间）：
- * {"sub":"wang","created":1489079981393,"exp":1489684781}
+ * payload的格式（用户名、创建时间、过期时间）：
+ * {"sub":"tongji4m3","created":1489079981393,"exp":1489684781}
  * signature的生成算法：
  * HMACSHA512(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
- * Created by macro on 2018/4/26.
  */
 public class JwtTokenUtil
 {
@@ -147,7 +147,15 @@ public class JwtTokenUtil
         {
             return null;
         }
-        String token = oldToken.substring(tokenHead.length());
+        String token = "";
+        try
+        {
+            token = oldToken.substring(tokenHead.length());
+        }
+        catch (Exception e)
+        {
+            Asserts.fail("未登录!");
+        }
         if (StrUtil.isEmpty(token))
         {
             return null;
@@ -187,10 +195,6 @@ public class JwtTokenUtil
         Date created = claims.get(CLAIM_KEY_CREATED, Date.class);
         Date refreshDate = new Date();
         //刷新时间在创建时间的指定时间内
-        if (refreshDate.after(created) && refreshDate.before(DateUtil.offsetSecond(created, time)))
-        {
-            return true;
-        }
-        return false;
+        return refreshDate.after(created) && refreshDate.before(DateUtil.offsetSecond(created, time));
     }
 }

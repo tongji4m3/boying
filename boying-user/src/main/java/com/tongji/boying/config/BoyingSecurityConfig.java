@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
- * mall-security模块相关配置
+ * boying-security模块相关配置
  */
 @Configuration
 @EnableWebSecurity
@@ -21,10 +21,17 @@ public class BoyingSecurityConfig extends SecurityConfig
     @Autowired
     private UserService userService;
 
+    /**
+     * 注解@Bean放在方法上，产生一个Bean并且交给Spring容器管理
+     * 定义用户信息
+     *
+     * @return
+     */
     @Bean
     public UserDetailsService userDetailsService()
     {
-        //获取登录用户信息
+        //为UserDetailsService定义一个适用与boying-user组件的获取登录用户信息的方法
         return username -> userService.loadUserByUsername(username);
     }
+    //不添加基于路径的动态权限控制
 }

@@ -104,183 +104,253 @@ public class TicketExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andTicketidIsNull() {
-            addCriterion("ticketId is null");
+        public Criteria andTicketIdIsNull() {
+            addCriterion("ticket_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andTicketidIsNotNull() {
-            addCriterion("ticketId is not null");
+        public Criteria andTicketIdIsNotNull() {
+            addCriterion("ticket_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTicketidEqualTo(Integer value) {
-            addCriterion("ticketId =", value, "ticketid");
+        public Criteria andTicketIdEqualTo(Integer value) {
+            addCriterion("ticket_id =", value, "ticketId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketidNotEqualTo(Integer value) {
-            addCriterion("ticketId <>", value, "ticketid");
+        public Criteria andTicketIdNotEqualTo(Integer value) {
+            addCriterion("ticket_id <>", value, "ticketId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketidGreaterThan(Integer value) {
-            addCriterion("ticketId >", value, "ticketid");
+        public Criteria andTicketIdGreaterThan(Integer value) {
+            addCriterion("ticket_id >", value, "ticketId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("ticketId >=", value, "ticketid");
+        public Criteria andTicketIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ticket_id >=", value, "ticketId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketidLessThan(Integer value) {
-            addCriterion("ticketId <", value, "ticketid");
+        public Criteria andTicketIdLessThan(Integer value) {
+            addCriterion("ticket_id <", value, "ticketId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketidLessThanOrEqualTo(Integer value) {
-            addCriterion("ticketId <=", value, "ticketid");
+        public Criteria andTicketIdLessThanOrEqualTo(Integer value) {
+            addCriterion("ticket_id <=", value, "ticketId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketidIn(List<Integer> values) {
-            addCriterion("ticketId in", values, "ticketid");
+        public Criteria andTicketIdIn(List<Integer> values) {
+            addCriterion("ticket_id in", values, "ticketId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketidNotIn(List<Integer> values) {
-            addCriterion("ticketId not in", values, "ticketid");
+        public Criteria andTicketIdNotIn(List<Integer> values) {
+            addCriterion("ticket_id not in", values, "ticketId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketidBetween(Integer value1, Integer value2) {
-            addCriterion("ticketId between", value1, value2, "ticketid");
+        public Criteria andTicketIdBetween(Integer value1, Integer value2) {
+            addCriterion("ticket_id between", value1, value2, "ticketId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketidNotBetween(Integer value1, Integer value2) {
-            addCriterion("ticketId not between", value1, value2, "ticketid");
+        public Criteria andTicketIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("ticket_id not between", value1, value2, "ticketId");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidIsNull() {
-            addCriterion("frequentId is null");
+        public Criteria andOrderIdIsNull() {
+            addCriterion("order_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidIsNotNull() {
-            addCriterion("frequentId is not null");
+        public Criteria andOrderIdIsNotNull() {
+            addCriterion("order_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidEqualTo(Integer value) {
-            addCriterion("frequentId =", value, "frequentid");
+        public Criteria andOrderIdEqualTo(Integer value) {
+            addCriterion("order_id =", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidNotEqualTo(Integer value) {
-            addCriterion("frequentId <>", value, "frequentid");
+        public Criteria andOrderIdNotEqualTo(Integer value) {
+            addCriterion("order_id <>", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidGreaterThan(Integer value) {
-            addCriterion("frequentId >", value, "frequentid");
+        public Criteria andOrderIdGreaterThan(Integer value) {
+            addCriterion("order_id >", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("frequentId >=", value, "frequentid");
+        public Criteria andOrderIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("order_id >=", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidLessThan(Integer value) {
-            addCriterion("frequentId <", value, "frequentid");
+        public Criteria andOrderIdLessThan(Integer value) {
+            addCriterion("order_id <", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidLessThanOrEqualTo(Integer value) {
-            addCriterion("frequentId <=", value, "frequentid");
+        public Criteria andOrderIdLessThanOrEqualTo(Integer value) {
+            addCriterion("order_id <=", value, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidIn(List<Integer> values) {
-            addCriterion("frequentId in", values, "frequentid");
+        public Criteria andOrderIdIn(List<Integer> values) {
+            addCriterion("order_id in", values, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidNotIn(List<Integer> values) {
-            addCriterion("frequentId not in", values, "frequentid");
+        public Criteria andOrderIdNotIn(List<Integer> values) {
+            addCriterion("order_id not in", values, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidBetween(Integer value1, Integer value2) {
-            addCriterion("frequentId between", value1, value2, "frequentid");
+        public Criteria andOrderIdBetween(Integer value1, Integer value2) {
+            addCriterion("order_id between", value1, value2, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andFrequentidNotBetween(Integer value1, Integer value2) {
-            addCriterion("frequentId not between", value1, value2, "frequentid");
+        public Criteria andOrderIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("order_id not between", value1, value2, "orderId");
             return (Criteria) this;
         }
 
-        public Criteria andClassidIsNull() {
-            addCriterion("classId is null");
+        public Criteria andShowClassIdIsNull() {
+            addCriterion("show_class_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andClassidIsNotNull() {
-            addCriterion("classId is not null");
+        public Criteria andShowClassIdIsNotNull() {
+            addCriterion("show_class_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andClassidEqualTo(Integer value) {
-            addCriterion("classId =", value, "classid");
+        public Criteria andShowClassIdEqualTo(Integer value) {
+            addCriterion("show_class_id =", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassidNotEqualTo(Integer value) {
-            addCriterion("classId <>", value, "classid");
+        public Criteria andShowClassIdNotEqualTo(Integer value) {
+            addCriterion("show_class_id <>", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassidGreaterThan(Integer value) {
-            addCriterion("classId >", value, "classid");
+        public Criteria andShowClassIdGreaterThan(Integer value) {
+            addCriterion("show_class_id >", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("classId >=", value, "classid");
+        public Criteria andShowClassIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("show_class_id >=", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassidLessThan(Integer value) {
-            addCriterion("classId <", value, "classid");
+        public Criteria andShowClassIdLessThan(Integer value) {
+            addCriterion("show_class_id <", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassidLessThanOrEqualTo(Integer value) {
-            addCriterion("classId <=", value, "classid");
+        public Criteria andShowClassIdLessThanOrEqualTo(Integer value) {
+            addCriterion("show_class_id <=", value, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassidIn(List<Integer> values) {
-            addCriterion("classId in", values, "classid");
+        public Criteria andShowClassIdIn(List<Integer> values) {
+            addCriterion("show_class_id in", values, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassidNotIn(List<Integer> values) {
-            addCriterion("classId not in", values, "classid");
+        public Criteria andShowClassIdNotIn(List<Integer> values) {
+            addCriterion("show_class_id not in", values, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassidBetween(Integer value1, Integer value2) {
-            addCriterion("classId between", value1, value2, "classid");
+        public Criteria andShowClassIdBetween(Integer value1, Integer value2) {
+            addCriterion("show_class_id between", value1, value2, "showClassId");
             return (Criteria) this;
         }
 
-        public Criteria andClassidNotBetween(Integer value1, Integer value2) {
-            addCriterion("classId not between", value1, value2, "classid");
+        public Criteria andShowClassIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("show_class_id not between", value1, value2, "showClassId");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlIsNull() {
+            addCriterion("qr_code_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlIsNotNull() {
+            addCriterion("qr_code_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlEqualTo(String value) {
+            addCriterion("qr_code_url =", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlNotEqualTo(String value) {
+            addCriterion("qr_code_url <>", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlGreaterThan(String value) {
+            addCriterion("qr_code_url >", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("qr_code_url >=", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlLessThan(String value) {
+            addCriterion("qr_code_url <", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlLessThanOrEqualTo(String value) {
+            addCriterion("qr_code_url <=", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlLike(String value) {
+            addCriterion("qr_code_url like", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlNotLike(String value) {
+            addCriterion("qr_code_url not like", value, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlIn(List<String> values) {
+            addCriterion("qr_code_url in", values, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlNotIn(List<String> values) {
+            addCriterion("qr_code_url not in", values, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlBetween(String value1, String value2) {
+            addCriterion("qr_code_url between", value1, value2, "qrCodeUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andQrCodeUrlNotBetween(String value1, String value2) {
+            addCriterion("qr_code_url not between", value1, value2, "qrCodeUrl");
             return (Criteria) this;
         }
     }

@@ -11,7 +11,6 @@
     <result column="region" jdbcType="VARCHAR" property="region" />
     <result column="street" jdbcType="VARCHAR" property="street" />
     <result column="details" jdbcType="VARCHAR" property="details" />
-    <result column="default_address" jdbcType="BIT" property="defaultAddress" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    address_id, user_id, receiver, phone, province, city, region, street, details, default_address
+    address_id, user_id, receiver, phone, province, city, region, street, details
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.AddressExample" resultMap="BaseResultMap">
     select
@@ -107,12 +106,12 @@
   <insert id="insert" parameterType="com.tongji.boying.model.Address">
     insert into address (address_id, user_id, receiver, 
       phone, province, city, 
-      region, street, details, 
-      default_address)
+      region, street, details
+      )
     values (#{addressId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{receiver,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{region,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, 
-      #{defaultAddress,jdbcType=BIT})
+      #{region,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Address">
     insert into address
@@ -144,9 +143,6 @@
       <if test="details != null">
         details,
       </if>
-      <if test="defaultAddress != null">
-        default_address,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="addressId != null">
@@ -175,9 +171,6 @@
       </if>
       <if test="details != null">
         #{details,jdbcType=VARCHAR},
-      </if>
-      <if test="defaultAddress != null">
-        #{defaultAddress,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -217,9 +210,6 @@
       <if test="record.details != null">
         details = #{record.details,jdbcType=VARCHAR},
       </if>
-      <if test="record.defaultAddress != null">
-        default_address = #{record.defaultAddress,jdbcType=BIT},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -235,8 +225,7 @@
       city = #{record.city,jdbcType=VARCHAR},
       region = #{record.region,jdbcType=VARCHAR},
       street = #{record.street,jdbcType=VARCHAR},
-      details = #{record.details,jdbcType=VARCHAR},
-      default_address = #{record.defaultAddress,jdbcType=BIT}
+      details = #{record.details,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -268,9 +257,6 @@
       <if test="details != null">
         details = #{details,jdbcType=VARCHAR},
       </if>
-      <if test="defaultAddress != null">
-        default_address = #{defaultAddress,jdbcType=BIT},
-      </if>
     </set>
     where address_id = #{addressId,jdbcType=INTEGER}
   </update>
@@ -283,8 +269,7 @@
       city = #{city,jdbcType=VARCHAR},
       region = #{region,jdbcType=VARCHAR},
       street = #{street,jdbcType=VARCHAR},
-      details = #{details,jdbcType=VARCHAR},
-      default_address = #{defaultAddress,jdbcType=BIT}
+      details = #{details,jdbcType=VARCHAR}
     where address_id = #{addressId,jdbcType=INTEGER}
   </update>
 </mapper>

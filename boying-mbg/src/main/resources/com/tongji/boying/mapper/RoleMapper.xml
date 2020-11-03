@@ -7,7 +7,7 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="admin_count" jdbcType="INTEGER" property="adminCount" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="status" jdbcType="BIT" property="status" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -106,7 +106,7 @@
       admin_count, create_time, status, 
       sort)
     values (#{roleId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{adminCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
+      #{adminCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=BIT}, 
       #{sort,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Role">
@@ -151,7 +151,7 @@
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=BIT},
       </if>
       <if test="sort != null">
         #{sort,jdbcType=INTEGER},
@@ -183,7 +183,7 @@
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=TINYINT},
+        status = #{record.status,jdbcType=BIT},
       </if>
       <if test="record.sort != null">
         sort = #{record.sort,jdbcType=INTEGER},
@@ -200,7 +200,7 @@
       description = #{record.description,jdbcType=VARCHAR},
       admin_count = #{record.adminCount,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=TINYINT},
+      status = #{record.status,jdbcType=BIT},
       sort = #{record.sort,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -222,7 +222,7 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+        status = #{status,jdbcType=BIT},
       </if>
       <if test="sort != null">
         sort = #{sort,jdbcType=INTEGER},
@@ -236,7 +236,7 @@
       description = #{description,jdbcType=VARCHAR},
       admin_count = #{adminCount,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=TINYINT},
+      status = #{status,jdbcType=BIT},
       sort = #{sort,jdbcType=INTEGER}
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>

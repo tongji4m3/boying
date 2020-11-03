@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * MyBatis相关配置
+ * 控制dao或者mapper文件扫描位置
  */
 @Configuration
 @EnableTransactionManagement
