@@ -26,7 +26,7 @@ public class UmsStatisticsController
     private UmsStatisticsService  umsStatisticsService;
 
     @ApiOperation("每日订单统计")
-    @RequestMapping(value = "/order", method = RequestMethod.POST)
+    @RequestMapping(value = "/dayOrder", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult countOrderByDay(@RequestParam Date date)
     {
@@ -34,6 +34,45 @@ public class UmsStatisticsController
         if(orderCount>0)
         {
             return CommonResult.success(orderCount);
+        }
+        return CommonResult.failed();
+    }
+
+    @ApiOperation("一段时间内订单统计")
+    @RequestMapping(value = "/periodOrder", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult countOrderForPeriod(@RequestParam Date dateStart,@RequestParam Date dateEnd)
+    {
+        long orderCount=umsStatisticsService.countOrderForPeriod(dateStart,dateEnd);
+        if(orderCount>0)
+        {
+            return CommonResult.success(orderCount);
+        }
+        return CommonResult.failed();
+    }
+
+    @ApiOperation("每日销售总额")
+    @RequestMapping(value = "/dayOrderMoney", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult sumOrderMoneyByDay(@RequestParam Date date)
+    {
+        double orderMoney=umsStatisticsService.sumOrderMoneyByDay(date);
+        if(orderMoney>0)
+        {
+            return CommonResult.success(orderMoney);
+        }
+        return CommonResult.failed();
+    }
+
+    @ApiOperation("一段时间内销售总额")
+    @RequestMapping(value = "/PeriodOrderMoney", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult sumOrderMoneyForPeriod(@RequestParam Date dateStart,@RequestParam Date dateEnd)
+    {
+        double orderMoney=umsStatisticsService.sumOrderMoneyForPeriod(dateStart,dateEnd);
+        if(orderMoney>0)
+        {
+            return CommonResult.success(orderMoney);
         }
         return CommonResult.failed();
     }
