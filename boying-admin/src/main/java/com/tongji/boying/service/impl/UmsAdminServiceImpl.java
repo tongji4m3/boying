@@ -210,7 +210,17 @@ public class UmsAdminServiceImpl implements UmsAdminService
         //先删除原来的关系
         AdminRoleExample adminRoleExample = new AdminRoleExample();
         adminRoleExample.createCriteria().andAdminIdEqualTo(adminId);
+        //该角色对应的管理员人数-1
+        List<AdminRole> adminRoles = adminRoleMapper.selectByExample(adminRoleExample);
+        for (AdminRole adminRole : adminRoles)
+        {
+            Role role = new Role();
+            role.setRoleId(adminRole.getRoleId());
+            role.setAdminCount(roleMapper.selectByPrimaryKey(adminRole.getRoleId()).getAdminCount()-1);
+            roleMapper.updateByPrimaryKeySelective(role);
+        }
         adminRoleMapper.deleteByExample(adminRoleExample);
+
 
         //判断角色是否都是存在与数据库中的
         RoleExample roleExample = new RoleExample();
@@ -230,6 +240,11 @@ public class UmsAdminServiceImpl implements UmsAdminService
                 adminRole.setAdminId(adminId);
                 adminRole.setRoleId(roleId);
                 list.add(adminRole);
+                //对应角色管理员人数+1
+                Role role = new Role();
+                role.setRoleId(roleId);
+                role.setAdminCount(roleMapper.selectByPrimaryKey(roleId).getAdminCount()+1);
+                roleMapper.updateByPrimaryKeySelective(role);
             }
             adminRoleDao.insertList(list);
         }
@@ -321,5 +336,35 @@ public class UmsAdminServiceImpl implements UmsAdminService
         adminMapper.updateByPrimaryKey(admin);
         adminCacheService.delAdmin(admin.getAdminId());
         return 1;
+    }
+
+    @Override
+    public int deleteRole(Integer adminId, List<Integer> roleIds)
+    {
+        if(adminMapper.selectByPrimaryKey(adminId)==null) Asserts.fail("该管理员不存在!");
+        if(roleIds == null) Asserts.fail("请传入要删除的角色Id列表!");
+
+        int count = roleIds.size();
+        //先删除原来的关系
+        AdminRoleExample adminRoleExample = new AdminRoleExample();
+        adminRoleExample.createCriteria().andAdminIdEqualTo(adminId).andRoleIdIn(roleIds);
+        List<AdminRole> adminRoles = adminRoleMapper.selectByExample(adminRoleExample);
+        //不是全部合法
+        if(roleIds.size()>adminRoles.size())
+        {
+            Asserts.fail("要删除的角色不是全部都存在!");
+        }
+        //该角色对应的管理员人数-1
+        for (AdminRole adminRole : adminRoles)
+        {
+            Role role = new Role();
+            role.setRoleId(adminRole.getRoleId());
+            role.setAdminCount(roleMapper.selectByPrimaryKey(adminRole.getRoleId()).getAdminCount()-1);
+            roleMapper.updateByPrimaryKeySelective(role);
+        }
+        adminRoleMapper.deleteByExample(adminRoleExample);
+
+        adminCacheService.delResourceList(adminId);
+        return count;
     }
 }
