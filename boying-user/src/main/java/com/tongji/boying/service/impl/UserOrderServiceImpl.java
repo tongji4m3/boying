@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.UserOrderParam;
 import com.tongji.boying.mapper.ShowClassMapper;
-import com.tongji.boying.mapper.ShowMapper;
+import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.mapper.ShowSessionMapper;
 import com.tongji.boying.mapper.UserOrderMapper;
 import com.tongji.boying.model.*;
@@ -35,7 +35,7 @@ public class UserOrderServiceImpl implements UserOrderService
     @Autowired
     private ShowSessionMapper showSessionMapper;
     @Autowired
-    private ShowMapper showMapper;
+    private BoyingShowMapper showMapper;
     @Autowired
     private ShowClassMapper showClassMapper;
 
@@ -90,7 +90,7 @@ public class UserOrderServiceImpl implements UserOrderService
             }
         }
 
-        Show show = showMapper.selectByPrimaryKey(showSession.getShowId());
+        BoyingShow show = showMapper.selectByPrimaryKey(showSession.getShowId());
 
 
         //生成订单

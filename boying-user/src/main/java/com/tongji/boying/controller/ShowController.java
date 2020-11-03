@@ -2,7 +2,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.model.Show;
+import com.tongji.boying.model.BoyingShow;
 import com.tongji.boying.service.ShowService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -31,7 +31,7 @@ public class ShowController
             defaultValue = "0", allowableValues = "0,1,2,3,4", paramType = "query", dataType = "integer")
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<Show>> search(@RequestParam(required = false) String keyword,
+    public CommonResult<CommonPage<BoyingShow>> search(@RequestParam(required = false) String keyword,
                                                  @RequestParam(required = false) String city,
                                                  @RequestParam(required = false) Integer categoryId,
                                                  @RequestParam(required = false) Date date,
@@ -39,16 +39,16 @@ public class ShowController
                                                  @RequestParam(required = false, defaultValue = "5") Integer pageSize,
                                                  @RequestParam(required = false, defaultValue = "0") Integer sort)
     {
-        List<Show> productList = showService.search(keyword, city, categoryId, date, pageNum, pageSize, sort);
+        List<BoyingShow> productList = showService.search(keyword, city, categoryId, date, pageNum, pageSize, sort);
         return CommonResult.success(CommonPage.restPage(productList));
     }
 
     @ApiOperation("获取演出详情")
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Show> detail(@PathVariable Integer id)
+    public CommonResult<BoyingShow> detail(@PathVariable Integer id)
     {
-        Show show = showService.detail(id);
+        BoyingShow show = showService.detail(id);
         return CommonResult.success(show);
     }
 }

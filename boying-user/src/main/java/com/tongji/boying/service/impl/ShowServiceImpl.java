@@ -2,10 +2,10 @@ package com.tongji.boying.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
-import com.tongji.boying.mapper.ShowMapper;
+import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.model.Category;
-import com.tongji.boying.model.Show;
-import com.tongji.boying.model.ShowExample;
+import com.tongji.boying.model.BoyingShow;
+import com.tongji.boying.model.BoyingShowExample;
 import com.tongji.boying.service.ShowCategoryService;
 import com.tongji.boying.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +19,16 @@ import java.util.stream.Collectors;
 public class ShowServiceImpl implements ShowService
 {
     @Autowired
-    private ShowMapper showMapper;
+    private BoyingShowMapper showMapper;
     @Autowired
     private ShowCategoryService showCategoryService;
 
     @Override
-    public List<Show> search(String keyword, String city, Integer categoryId, Date date, Integer pageNum, Integer pageSize, Integer sort)
+    public List<BoyingShow> search(String keyword, String city, Integer categoryId, Date date, Integer pageNum, Integer pageSize, Integer sort)
     {
         PageHelper.startPage(pageNum, pageSize);//分页相关
-        ShowExample example = new ShowExample();
-        ShowExample.Criteria criteria = example.createCriteria();
+        BoyingShowExample example = new BoyingShowExample();
+        BoyingShowExample.Criteria criteria = example.createCriteria();
         //关键词模糊搜索
         if (StrUtil.isNotEmpty(keyword))
         {
@@ -85,7 +85,7 @@ public class ShowServiceImpl implements ShowService
     }
 
     @Override
-    public Show detail(int id)
+    public BoyingShow detail(int id)
     {
         return showMapper.selectByPrimaryKey(id);
     }
