@@ -65,13 +65,28 @@ boying
 
 ## 模块介绍
 
-+ [项目分模块构建说明](document\3.各模块说明文档\项目分模块构建说明.md)
+### 依赖关系
 
++ boying-common:封装通用的一些组件
++ boying-mbg:依赖boying-common,自动生成SQL代码,包含增删改查
++ boying-security:依赖boying-common,安全管理模块,负责对user,admin
++ boying-admin:依赖boying-mbg,boying-security
++ boying-user:依赖boying-mbg,boying-security
 
+### 具体介绍
+
++ [项目分模块构建说明](document/3.各模块说明文档/项目分模块构建说明.md)
++ [boying-common技术说明](document/3.各模块说明文档/boying-common技术说明.md)
++ [boying-mbg技术说明](document/3.各模块说明文档/boying-mbg技术说明.md)
++ [boying-security技术说明](document/3.各模块说明文档/boying-security技术说明.md)
++ [boying-user技术说明](document/3.各模块说明文档/boying-user技术说明.md)
++ [boying-admin技术说明](document/3.各模块说明文档/boying-admin技术说明.md)
 
 ## 业务逻辑介绍
 
-
++ [用户模块后端设计逻辑](document/4.业务逻辑说明文档/用户模块后端设计逻辑.md)
++ [后台管理模块权限模块设计逻辑](document/4.业务逻辑说明文档/后台管理模块权限模块设计逻辑.md)
++ [后台管理模块后端设计逻辑](document/4.业务逻辑说明文档/后台管理模块后端设计逻辑.md)
 
 ## 技术选型
 
