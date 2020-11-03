@@ -1,7 +1,7 @@
 package com.tongji.boying.service;
 
 
-import com.tongji.boying.model.Show;
+import com.tongji.boying.model.BoyingShow;
 
 import java.util.Date;
 import java.util.List;
@@ -17,11 +17,11 @@ public interface ShowService
      * 每页条数,分页数
      * 搜索方式(相关度搜索,推荐搜索,时间搜索)
      */
-    List<Show> search(String keyword, String city, Integer categoryId, Date date, Integer pageNum, Integer pageSize, Integer sort);
+    List<BoyingShow> search(String keyword, String city, Integer categoryId, Date date, Integer pageNum, Integer pageSize, Integer sort);
 
 
     /**
      * 获取前台演出详情
      */
-    Show detail(int id);
+    BoyingShow detail(int id);
 }

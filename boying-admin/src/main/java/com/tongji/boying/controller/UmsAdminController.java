@@ -161,6 +161,20 @@ public class UmsAdminController
         return CommonResult.failed();
     }
 
+    @ApiOperation("删除管理员角色")
+    @RequestMapping(value = "/role/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult deleteRole(@RequestParam("adminId") Integer adminId,
+                                   @RequestParam("roleIds") List<Integer> roleIds)
+    {
+        int count = adminService.deleteRole(adminId, roleIds);
+        if (count >= 0)
+        {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
+    }
+
     @ApiOperation("获取指定管理员的角色")
     @RequestMapping(value = "/role/{adminId}", method = RequestMethod.POST)
     @ResponseBody

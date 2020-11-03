@@ -97,4 +97,6 @@ public interface UmsAdminService
     int updatePassword(String username, String password);
 
     int updatePassword(String username, String password, String newPassword);
+
+    int deleteRole(Integer adminId, List<Integer> roleIds);
 }
