@@ -233,7 +233,6 @@ public class UmsAdminServiceImpl implements UmsAdminService
     public List<Resource> getResourceList(Integer adminId)
     {
         List<Resource> resourceList = adminCacheService.getResourceList(adminId);
-        // TODO: 2020/11/2
         if (CollUtil.isNotEmpty(resourceList))
         {
             return resourceList;

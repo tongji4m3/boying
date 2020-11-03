@@ -73,4 +73,6 @@ public interface UmsRoleService
     int allocResource(Integer roleId, List<Integer> resourceIds);
 
     List<Resource> getResourceList(Integer adminId);
+
+    int updateStatus(Integer id, Boolean status);
 }

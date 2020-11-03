@@ -4,7 +4,6 @@ import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.UmsResourceCategoryParam;
 import com.tongji.boying.mapper.ResourceCategoryMapper;
-import com.tongji.boying.model.Resource;
 import com.tongji.boying.model.ResourceCategory;
 import com.tongji.boying.model.ResourceCategoryExample;
 import com.tongji.boying.service.UmsResourceCategoryService;
@@ -35,26 +34,41 @@ public class UmsResourceCategoryServiceImpl implements UmsResourceCategoryServic
     @Override
     public int create(UmsResourceCategoryParam param)
     {
+        checkResourceCategoryParam(param, -1);
+
+        ResourceCategory resourceCategory = new ResourceCategory();
+        BeanUtils.copyProperties(param, resourceCategory);
+        resourceCategory.setCreateTime(new Date());
+        return resourceCategoryMapper.insertSelective(resourceCategory);
+    }
+
+    private void checkResourceCategoryParam(UmsResourceCategoryParam param, Integer id)
+    {
         ResourceCategoryExample resourceCategoryExample = new ResourceCategoryExample();
-        resourceCategoryExample.createCriteria().andNameEqualTo(param.getName());
+        ResourceCategoryExample.Criteria criteria = resourceCategoryExample.createCriteria();
+        criteria.andNameEqualTo(param.getName());
+        if(id!=-1)
+        {
+            criteria.andResourceCategoryIdNotEqualTo(id);
+        }
         List<ResourceCategory> resourceCategories = resourceCategoryMapper.selectByExample(resourceCategoryExample);
-        if(ObjectUtil.isNotEmpty(resourceCategories))
+        if (ObjectUtil.isNotEmpty(resourceCategories))
         {
             //说明有重名资源分类名称
             Asserts.fail("资源分类名称重复!");
         }
-
-        ResourceCategory resourceCategory = new ResourceCategory();
-        BeanUtils.copyProperties(param,resourceCategory);
-        resourceCategory.setCreateTime(new Date());
-        return resourceCategoryMapper.insertSelective(resourceCategory);
     }
 
     @Override
     public int update(Integer id, UmsResourceCategoryParam param)
     {
+        if(resourceCategoryMapper.selectByPrimaryKey(id)==null)
+        {
+            Asserts.fail("要修改的资源分类Id不存在!");
+        }
+        checkResourceCategoryParam(param, id);
         ResourceCategory resourceCategory = new ResourceCategory();
-        BeanUtils.copyProperties(param,resourceCategory);
+        BeanUtils.copyProperties(param, resourceCategory);
         resourceCategory.setResourceCategoryId(id);
         return resourceCategoryMapper.updateByPrimaryKeySelective(resourceCategory);
     }

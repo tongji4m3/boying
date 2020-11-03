@@ -51,7 +51,7 @@ public class UmsRoleController
         {
             return CommonResult.success(count);
         }
-        return CommonResult.failed();
+        return CommonResult.failed("要修改的角色不存在!");
     }
 
     @ApiOperation("删除角色")
@@ -64,7 +64,7 @@ public class UmsRoleController
         {
             return CommonResult.success(count);
         }
-        return CommonResult.failed();
+        return CommonResult.failed("要删除的角色不存在!");
     }
 
     @ApiOperation("批量删除角色")
@@ -107,9 +107,7 @@ public class UmsRoleController
     @ResponseBody
     public CommonResult updateStatus(@PathVariable Integer id, @RequestParam(value = "status") Boolean status)
     {
-        UmsRoleParam param = new UmsRoleParam();
-        param.setStatus(status);
-        int count = roleService.update(id, param);
+        int count = roleService.updateStatus(id, status);
         if (count > 0)
         {
             return CommonResult.success(count);

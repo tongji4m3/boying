@@ -1,5 +1,6 @@
 package com.tongji.boying.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
@@ -47,6 +48,7 @@ public class UmsRoleServiceImpl implements UmsRoleService
     @Override
     public int create(UmsRoleParam param)
     {
+        checkRoleParam(param, -1);
         Role role = new Role();
         BeanUtils.copyProperties(param, role);
         role.setCreateTime(new Date());
@@ -55,9 +57,27 @@ public class UmsRoleServiceImpl implements UmsRoleService
         return roleMapper.insertSelective(role);
     }
 
+    private void checkRoleParam(UmsRoleParam param, Integer id)
+    {
+        RoleExample roleExample = new RoleExample();
+        RoleExample.Criteria criteria = roleExample.createCriteria();
+        criteria.andNameEqualTo(param.getName());
+        if (id != -1)
+        {
+            criteria.andRoleIdNotEqualTo(id);
+        }
+        List<Role> roles = roleMapper.selectByExample(roleExample);
+        if (CollUtil.isNotEmpty(roles))
+        {
+            Asserts.fail("角色名称不能重复!");
+        }
+    }
+
+
     @Override
     public int update(Integer id, UmsRoleParam param)
     {
+        checkRoleParam(param, id);
         Role role = new Role();
         BeanUtils.copyProperties(param, role);
         role.setRoleId(id);
@@ -69,6 +89,10 @@ public class UmsRoleServiceImpl implements UmsRoleService
     {
         RoleExample example = new RoleExample();
         example.createCriteria().andRoleIdIn(ids);
+        if (roleMapper.selectByExample(example).size() != ids.size())
+        {
+            Asserts.fail("某些角色Id不存在!");
+        }
         int count = roleMapper.deleteByExample(example);
         adminCacheService.delResourceListByRoleIds(ids);
         return count;
@@ -185,6 +209,27 @@ public class UmsRoleServiceImpl implements UmsRoleService
     @Override
     public List<Resource> getResourceList(Integer adminId)
     {
-        return adminRoleDao.getResourceList(adminId);
+        List<Resource> resourceList = adminCacheService.getResourceList(adminId);
+        if (CollUtil.isNotEmpty(resourceList))
+        {
+            return resourceList;
+        }
+        resourceList = adminRoleDao.getResourceList(adminId);
+        if (CollUtil.isNotEmpty(resourceList))
+        {
+            adminCacheService.setResourceList(adminId, resourceList);
+        }
+        return resourceList;
+    }
+
+    @Override
+    public int updateStatus(Integer id, Boolean status)
+    {
+        Role role = new Role();
+        role.setStatus(status);
+        role.setRoleId(id);
+        //因为角色启用状态改变,所以删除与该角色相关的管理员的资源缓存
+        adminCacheService.delResourceListByRole(id);
+        return roleMapper.updateByPrimaryKeySelective(role);
     }
 }

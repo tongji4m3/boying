@@ -14,6 +14,7 @@
         from admin_role
                  left join role on admin_role.role_id = role.role_id
         where admin_role.admin_id = #{adminId}
+          and role.status=1
           and role.role_id is not null
     </select>
 
@@ -21,9 +22,11 @@
     <select id="getResourceList" resultMap="com.tongji.boying.mapper.ResourceMapper.BaseResultMap">
         select distinct resource.*
         from admin_role
+                 left join role on admin_role.role_id=role.role_id
                  left join role_resource on admin_role.role_id = role_resource.role_id
                  left join resource on role_resource.resource_id = resource.resource_id
         where admin_role.admin_id = #{adminId}
+          and role.status=1
           and resource.resource_id is not null
     </select>
     <select id="getAdminIdList" resultType="java.lang.Integer">

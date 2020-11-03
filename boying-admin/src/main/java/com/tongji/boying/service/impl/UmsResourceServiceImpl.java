@@ -1,7 +1,6 @@
 package com.tongji.boying.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
@@ -38,27 +37,9 @@ public class UmsResourceServiceImpl implements UmsResourceService
     @Override
     public int create(UmsResourceParam param)
     {
-        //先看对应的资源分类是否存在
-        ResourceCategoryExample resourceCategoryExample = new ResourceCategoryExample();
-        resourceCategoryExample.createCriteria().andResourceCategoryIdEqualTo(param.getResourceCategoryId());
-        List<ResourceCategory> resourceCategories = resourceCategoryMapper.selectByExample(resourceCategoryExample);
-        if(CollUtil.isEmpty(resourceCategories))
-        {
-            Asserts.fail("设置的资源分类不存在!");
-        }
-
-        ResourceExample resourceExample = new ResourceExample();
-        resourceExample.createCriteria().andNameEqualTo(param.getName());
-        List<Resource> resources = resourceMapper.selectByExample(resourceExample);
-        if(CollUtil.isNotEmpty(resources))
-        {
-            //说明有重名资源名称
-            Asserts.fail("资源名称重复!");
-        }
-
-
+        checkResourceParam(param, -1);
         Resource resource = new Resource();
-        BeanUtils.copyProperties(param,resource);
+        BeanUtils.copyProperties(param, resource);
         resource.setCreateTime(new Date());
         return resourceMapper.insertSelective(resource);
     }
@@ -66,33 +47,38 @@ public class UmsResourceServiceImpl implements UmsResourceService
     @Override
     public int update(Integer id, UmsResourceParam param)
     {
-        //先看对应的资源分类是否存在
-        ResourceCategoryExample resourceCategoryExample = new ResourceCategoryExample();
-        resourceCategoryExample.createCriteria().andResourceCategoryIdEqualTo(param.getResourceCategoryId());
-        List<ResourceCategory> resourceCategories = resourceCategoryMapper.selectByExample(resourceCategoryExample);
-        if(CollUtil.isEmpty(resourceCategories))
+        if(resourceMapper.selectByPrimaryKey(id)==null)
         {
-            Asserts.fail("设置的资源分类不存在!");
+            Asserts.fail("要修改的资源Id不存在!");
         }
-
-        //除要修改的外是否还存在重名的
-        ResourceExample resourceExample = new ResourceExample();
-        resourceExample.createCriteria().andNameEqualTo(param.getName()).andResourceIdNotEqualTo(id);
-        List<Resource> resources = resourceMapper.selectByExample(resourceExample);
-        if(CollUtil.isNotEmpty(resources))
-        {
-            //说明有重名资源名称
-            Asserts.fail("资源名称重复!");
-        }
+        checkResourceParam(param, id);
 
 
         Resource resource = new Resource();
-        BeanUtils.copyProperties(param,resource);
+        BeanUtils.copyProperties(param, resource);
         resource.setResourceId(id);
 
         int count = resourceMapper.updateByPrimaryKeySelective(resource);
         adminCacheService.delResourceListByResource(id);
         return count;
+    }
+
+    private void checkResourceParam(UmsResourceParam param, Integer id)
+    {
+        //除要修改的外是否还存在重名的
+        ResourceExample resourceExample = new ResourceExample();
+        ResourceExample.Criteria criteria = resourceExample.createCriteria();
+        criteria.andNameEqualTo(param.getName());
+        if (id != -1)
+        {
+            criteria.andResourceIdNotEqualTo(id);
+        }
+        List<Resource> resources = resourceMapper.selectByExample(resourceExample);
+        if (CollUtil.isNotEmpty(resources))
+        {
+            //说明有重名资源名称
+            Asserts.fail("资源名称重复!");
+        }
     }
 
     @Override

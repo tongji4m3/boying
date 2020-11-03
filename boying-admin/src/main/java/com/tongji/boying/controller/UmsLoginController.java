@@ -1,9 +1,14 @@
 package com.tongji.boying.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.UmsAdminInfoParam;
+import com.tongji.boying.mapper.MenuMapper;
 import com.tongji.boying.model.Admin;
+import com.tongji.boying.model.Menu;
 import com.tongji.boying.service.UmsAdminService;
+import com.tongji.boying.service.UmsMenuService;
 import com.tongji.boying.service.UmsResourceService;
 import com.tongji.boying.service.UmsRoleService;
 import io.swagger.annotations.Api;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +45,9 @@ public class UmsLoginController
     private UmsRoleService roleService;
     @Autowired
     private UmsResourceService resourceService;
+
+    @Autowired
+    private UmsMenuService menuService;
 
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -90,9 +99,28 @@ public class UmsLoginController
         data.put("icon", admin.getIcon());
         data.put("email", admin.getEmail());
         data.put("loginTime", admin.getLoginTime());
-        data.put("menus", roleService.getMenuList(admin.getAdminId()));
+//        data.put("menus", roleService.getMenuList(admin.getAdminId()));
         data.put("resource", roleService.getResourceList(admin.getAdminId()));
         data.put("roles", adminService.getRoleList(admin.getAdminId()));
+        return CommonResult.success(data);
+    }
+
+    @ApiOperation(value = "获取当前登录管理员的菜单信息,用于前端动态生成菜单")
+    @RequestMapping(value = "/menu", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult getAdminMenu(Principal principal)
+    {
+        //        防止没有登录直接查询时报错
+        if (principal == null)
+        {
+            return CommonResult.unauthorized(null);
+        }
+        Admin currentAdmin = adminService.getCurrentAdmin();
+        Map<Menu, List<Menu>> data = menuService.categoryMap(currentAdmin.getAdminId());
+        if(CollUtil.isEmpty(data))
+        {
+            Asserts.fail("当前登录管理员的菜单为空!");
+        }
         return CommonResult.success(data);
     }
 
