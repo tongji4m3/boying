@@ -39,13 +39,13 @@
 该项目为**boying**的后端实现,基于`SpringBoot`实现，并采用`Jenkins`自动化部署。 **boying**平台前端采用`Vue`开发,项目地址以及演示地址见下方。
 
 # 项目地址
-- 文档地址:
+- 文档地址:https://tongji4m3.github.io/boying
 - 演出门票购买系统前端项目地址:[boying-web](https://github.com/tongji4m3/boying-web)
 - 后台管理前端项目地址:[boying-admin-web](https://github.com/tongji4m3/boying-admin-web)
 - 项目演示地址(演出门票购买界面):
 - 项目演示地址(后台管理页面):
 - 后端演出门票购买系统接口地址:http://47.103.203.188:8000/swagger-ui.html
-- 后端后台管理系统接口地址:
+- 后端后台管理系统接口地址:http://47.103.203.188:7000/swagger-ui.html
 
 # 项目介绍
 ## 项目结构
