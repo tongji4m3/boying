@@ -2,7 +2,6 @@
 # boying
 <a href="#"><img src="https://img.shields.io/badge/qq号-1254931237-red.svg" alt="qq号"></a>   <a href="https://github.com/tongji4m3/boying-web" alt="boying-web"><img src="https://img.shields.io/badge/前端地址-boying_web-blue.svg"></a>   <a href="https://github.com/tongji4m3/boying-admin-web" alt="boying-admin-web"><img src="https://img.shields.io/badge/前端admin地址-boying admin web-yellow.svg"></a>   <a href="#License" alt="License"><img src="https://img.shields.io/github/license/tongji4m3/boying"></a>
 
-
 # 开发规范
 
 1. 统一在**develop**分支下进行提交
