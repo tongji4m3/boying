@@ -39,12 +39,12 @@ public interface UmsStatisticsService {
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
-    long countAdminDailyGrowth(Date date);
+    long countUserDailyGrowth(Date date);
 
     /**
      * 一段时间新增用户统计
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
-    long countAdminGrowthForPeriod(Date dateStart,Date dateEnd);
+    long countUserGrowthForPeriod(Date dateStart,Date dateEnd);
 }

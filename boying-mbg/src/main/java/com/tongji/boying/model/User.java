@@ -2,6 +2,7 @@ package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
     private Integer userId;
@@ -41,6 +42,9 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "默认地址")
     private Integer defaultAddress;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -148,6 +152,14 @@ public class User implements Serializable {
         this.defaultAddress = defaultAddress;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -167,6 +179,7 @@ public class User implements Serializable {
         sb.append(", icon=").append(icon);
         sb.append(", defaultFrequent=").append(defaultFrequent);
         sb.append(", defaultAddress=").append(defaultAddress);
+        sb.append(", createTime=").append(createTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

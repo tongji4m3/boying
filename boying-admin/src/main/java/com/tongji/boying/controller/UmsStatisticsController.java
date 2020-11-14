@@ -90,33 +90,33 @@ public class UmsStatisticsController
     }
 
     @ApiOperation("每日新增用户统计")
-    @RequestMapping(value = "/adminDailyGrowth", method = RequestMethod.POST)
+    @RequestMapping(value = "/userDailyGrowth", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult countAdminDailyGrowth(@RequestParam Date date)
+    public CommonResult countUserDailyGrowth(@RequestParam Date date)
     {
-        long adminDailyGrowth=-1;
-        adminDailyGrowth=umsStatisticsService.countAdminDailyGrowth(date);
-        if(adminDailyGrowth>-1)
+        long userDailyGrowth=-1;
+        userDailyGrowth=umsStatisticsService.countUserDailyGrowth(date);
+        if(userDailyGrowth>-1)
         {
-            return CommonResult.success(adminDailyGrowth);
+            return CommonResult.success(userDailyGrowth);
         }
         return CommonResult.failed();
     }
 
     @ApiOperation("一段时间新增用户统计")
-    @RequestMapping(value = "/adminPeriodGrowth", method = RequestMethod.POST)
+    @RequestMapping(value = "/userPeriodGrowth", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult countAdminGrowthForPeriod(@RequestParam Date dateStart,@RequestParam Date dateEnd)
+    public CommonResult countUserGrowthForPeriod(@RequestParam Date dateStart,@RequestParam Date dateEnd)
     {
         if(dateStart.getTime()>dateEnd.getTime())
         {
             return CommonResult.failed("时间顺序出错!");
         }
-        long adminDailyGrowth=-1;
-        adminDailyGrowth=umsStatisticsService.countAdminGrowthForPeriod(dateStart,dateEnd);
-        if(adminDailyGrowth>-1)
+        long userDailyGrowth=-1;
+        userDailyGrowth=umsStatisticsService.countUserGrowthForPeriod(dateStart,dateEnd);
+        if(userDailyGrowth>-1)
         {
-            return CommonResult.success(adminDailyGrowth);
+            return CommonResult.success(userDailyGrowth);
         }
         return CommonResult.failed();
     }

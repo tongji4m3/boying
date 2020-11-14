@@ -2,8 +2,10 @@ package com.tongji.boying.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.mapper.AdminMapper;
+import com.tongji.boying.mapper.UserMapper;
 import com.tongji.boying.mapper.UserOrderMapper;
 import com.tongji.boying.model.AdminExample;
+import com.tongji.boying.model.UserExample;
 import com.tongji.boying.model.UserOrder;
 import com.tongji.boying.model.UserOrderExample;
 import com.tongji.boying.service.UmsStatisticsService;
@@ -21,7 +23,7 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
     @Autowired
     private UserOrderMapper userOrderMapper;
     @Autowired
-    private AdminMapper adminMapper;
+    private UserMapper userMapper;
 
     //具体到秒的时间处理为当天
     public Date dateDispose(Date date)
@@ -96,22 +98,22 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
     }
 
     @Override
-    public long countAdminDailyGrowth(Date date) {
+    public long countUserDailyGrowth(Date date) {
         long growth=-1;
         Date dateStart=dateDispose(date);
         Date dateEnd=dateAddOneDay(dateStart);
-        AdminExample example=new AdminExample();
+        UserExample example=new UserExample();
         example.createCriteria().andCreateTimeBetween(dateStart,dateEnd);
-        growth = adminMapper.countByExample(example);
+        growth = userMapper.countByExample(example);
         return growth;
     }
 
     @Override
-    public long countAdminGrowthForPeriod(Date dateStart, Date dateEnd) {
+    public long countUserGrowthForPeriod(Date dateStart, Date dateEnd) {
         long growth=-1;
-        AdminExample example=new AdminExample();
+        UserExample example=new UserExample();
         example.createCriteria().andCreateTimeBetween(dateStart,dateEnd);
-        growth = adminMapper.countByExample(example);
+        growth = userMapper.countByExample(example);
         return growth;
     }
 }
