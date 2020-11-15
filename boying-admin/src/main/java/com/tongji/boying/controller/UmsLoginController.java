@@ -15,9 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.HashMap;
