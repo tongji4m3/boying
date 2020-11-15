@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.UmsAdminInfoParam;
-import com.tongji.boying.mapper.MenuMapper;
 import com.tongji.boying.model.Admin;
 import com.tongji.boying.model.Menu;
 import com.tongji.boying.service.UmsAdminService;
@@ -86,7 +85,7 @@ public class UmsLoginController
     @ApiOperation(value = "获取当前登录管理员信息")
     @RequestMapping(value = "/info", method = RequestMethod.POST)
     @ResponseBody
-        public CommonResult getAdminInfo(Principal principal)
+    public CommonResult getAdminInfo(Principal principal)
     {
         //        防止没有登录直接查询时报错
         if (principal == null)
@@ -117,7 +116,7 @@ public class UmsLoginController
         }
         Admin currentAdmin = adminService.getCurrentAdmin();
         Map<Menu, List<Menu>> data = menuService.categoryMap(currentAdmin.getAdminId());
-        if(CollUtil.isEmpty(data))
+        if (CollUtil.isEmpty(data))
         {
             Asserts.fail("当前登录管理员的菜单为空!");
         }
@@ -131,20 +130,17 @@ public class UmsLoginController
                                        @RequestParam String password,
                                        @RequestParam String newPassword)
     {
-        int status = adminService.updatePassword(username,password,newPassword);
+        int status = adminService.updatePassword(username, password, newPassword);
         if (status > 0)
         {
             return CommonResult.success(status);
-        }
-        else if (status == -1)
+        } else if (status == -1)
         {
             return CommonResult.failed("提交参数不合法");
-        }
-        else if (status == -2)
+        } else if (status == -2)
         {
             return CommonResult.failed("找不到该管理员");
-        }
-        else if (status == -3)
+        } else if (status == -3)
         {
             return CommonResult.failed("旧密码错误");
         }

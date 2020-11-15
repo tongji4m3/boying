@@ -1,8 +1,11 @@
 package com.tongji.boying.controller;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.SmsShowParam;
 import com.tongji.boying.dto.UmsRoleParam;
+import com.tongji.boying.model.BoyingShow;
+import com.tongji.boying.model.Role;
 import com.tongji.boying.service.SmsShowService;
 import com.tongji.boying.service.UmsRoleService;
 import io.swagger.annotations.Api;
@@ -24,6 +27,16 @@ public class SmsShowController
 {
     @Autowired
     private SmsShowService showService;
+
+    @ApiOperation("查看所有演出")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult list()
+    {
+        List<BoyingShow> showList = showService.list();
+        if (ObjectUtil.isEmpty(showList)) return CommonResult.failed("无角色!");
+        return CommonResult.success(showList);
+    }
 
     @ApiOperation("添加演出")
     @RequestMapping(value = "/create", method = RequestMethod.POST)

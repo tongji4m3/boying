@@ -8,6 +8,7 @@ package com.tongji.boying.service;
 
 
 import com.tongji.boying.dto.SmsShowParam;
+import com.tongji.boying.model.BoyingShow;
 
 import java.util.List;
 
@@ -16,6 +17,11 @@ import java.util.List;
  */
 public interface SmsShowService
 {
+    /**
+     * 查看演出
+     *
+     */
+    List<BoyingShow> list();
     /**
      * 添加演出
      *
