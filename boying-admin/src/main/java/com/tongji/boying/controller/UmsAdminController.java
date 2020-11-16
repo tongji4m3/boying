@@ -124,6 +124,9 @@ public class UmsAdminController
     public CommonResult delete(@PathVariable Integer id)
     {
         int count = adminService.delete(id);
+        if(count == -1){
+            return CommonResult.failed("不能删除自身账号!");
+        }
         if (count > 0)
         {
             return CommonResult.success(count);

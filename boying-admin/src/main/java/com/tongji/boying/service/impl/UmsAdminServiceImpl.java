@@ -194,6 +194,10 @@ public class UmsAdminServiceImpl implements UmsAdminService
     @Override
     public int delete(Integer id)
     {
+        if(id.equals(getCurrentAdmin().getAdminId()))//当删除的账号为当前账号时不允许删除
+        {
+            return -1;
+        }
         adminCacheService.delAdmin(id);
         int count = adminMapper.deleteByPrimaryKey(id);
         adminCacheService.delResourceList(id);
