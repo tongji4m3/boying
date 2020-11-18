@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -93,6 +95,7 @@ public class UserServiceImpl implements UserService
 
 
     @Override
+    @DateTimeFormat
     public void register(String username, String password, String telephone, String authCode)
     {
         //验证验证码
@@ -114,6 +117,7 @@ public class UserServiceImpl implements UserService
         User user = new User();
         user.setUsername(username);
         user.setPhone(telephone);
+        user.setCreateTime(new Date());
         user.setPassword(passwordEncoder.encode(password));//存储加密后的
         user.setStatus(true);
         userMapper.insert(user);

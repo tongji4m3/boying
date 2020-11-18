@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 @Api(tags = "SmsSessionControl", description = "后台演出场次")
 @RequestMapping("/session")
-public class SmsSessionControl
+public class SmsSessionController
 {
     @Autowired
     private SmsSessionService smsSessionService;
