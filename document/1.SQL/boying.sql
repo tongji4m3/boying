@@ -160,7 +160,6 @@ CREATE TABLE `ticket`  (
   `order_id` int NOT NULL COMMENT '所属订单Id',
   `show_class_id` int NOT NULL COMMENT '所属座次Id',
   `qr_code_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL COMMENT '二维码图片,供观影人验证入场',
-  `state` int NOT NULL DEFAULT 1 COMMENT '订单状态，1是正常，0是已退票',
   PRIMARY KEY (`ticket_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
@@ -189,7 +188,7 @@ CREATE TABLE `user_order`  (
   `show_session_id` int NOT NULL COMMENT '所属场次Id',
   `address_id` int NULL COMMENT '这些票要邮寄到什么地方',
   `frequent_id` int NULL COMMENT '这些票的实际观演人',
-  `status` int NOT NULL COMMENT '待评价,已完成(1,2)',
+  `status` int NOT NULL COMMENT '待评价,已完成,已退订单(1,2,3)',
   `time` datetime(0) NOT NULL COMMENT '订单支付时间',
   `payment` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT '订单支付方式',
   `user_delete` tinyint(1) NOT NULL DEFAULT 0 COMMENT '该订单对用户是否可见,即用户是否删除了该订单',

@@ -15,9 +15,6 @@ public class Ticket implements Serializable {
     @ApiModelProperty(value = "二维码图片,供观影人验证入场")
     private String qrCodeUrl;
 
-    @ApiModelProperty(value = "订单状态，1是正常，0是已退票")
-    private Integer state;
-
     private static final long serialVersionUID = 1L;
 
     public Integer getTicketId() {
@@ -52,14 +49,6 @@ public class Ticket implements Serializable {
         this.qrCodeUrl = qrCodeUrl;
     }
 
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -70,7 +59,6 @@ public class Ticket implements Serializable {
         sb.append(", orderId=").append(orderId);
         sb.append(", showClassId=").append(showClassId);
         sb.append(", qrCodeUrl=").append(qrCodeUrl);
-        sb.append(", state=").append(state);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

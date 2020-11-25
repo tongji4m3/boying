@@ -6,7 +6,6 @@
     <result column="order_id" jdbcType="INTEGER" property="orderId" />
     <result column="show_class_id" jdbcType="INTEGER" property="showClassId" />
     <result column="qr_code_url" jdbcType="VARCHAR" property="qrCodeUrl" />
-    <result column="state" jdbcType="INTEGER" property="state" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ticket_id, order_id, show_class_id, qr_code_url, state
+    ticket_id, order_id, show_class_id, qr_code_url
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.TicketExample" resultMap="BaseResultMap">
     select
@@ -101,9 +100,9 @@
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.Ticket">
     insert into ticket (ticket_id, order_id, show_class_id, 
-      qr_code_url, state)
+      qr_code_url)
     values (#{ticketId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{showClassId,jdbcType=INTEGER}, 
-      #{qrCodeUrl,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
+      #{qrCodeUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Ticket">
     insert into ticket
@@ -120,9 +119,6 @@
       <if test="qrCodeUrl != null">
         qr_code_url,
       </if>
-      <if test="state != null">
-        state,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="ticketId != null">
@@ -136,9 +132,6 @@
       </if>
       <if test="qrCodeUrl != null">
         #{qrCodeUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -163,9 +156,6 @@
       <if test="record.qrCodeUrl != null">
         qr_code_url = #{record.qrCodeUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.state != null">
-        state = #{record.state,jdbcType=INTEGER},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -176,8 +166,7 @@
     set ticket_id = #{record.ticketId,jdbcType=INTEGER},
       order_id = #{record.orderId,jdbcType=INTEGER},
       show_class_id = #{record.showClassId,jdbcType=INTEGER},
-      qr_code_url = #{record.qrCodeUrl,jdbcType=VARCHAR},
-      state = #{record.state,jdbcType=INTEGER}
+      qr_code_url = #{record.qrCodeUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -194,9 +183,6 @@
       <if test="qrCodeUrl != null">
         qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR},
       </if>
-      <if test="state != null">
-        state = #{state,jdbcType=INTEGER},
-      </if>
     </set>
     where ticket_id = #{ticketId,jdbcType=INTEGER}
   </update>
@@ -204,8 +190,7 @@
     update ticket
     set order_id = #{orderId,jdbcType=INTEGER},
       show_class_id = #{showClassId,jdbcType=INTEGER},
-      qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR},
-      state = #{state,jdbcType=INTEGER}
+      qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR}
     where ticket_id = #{ticketId,jdbcType=INTEGER}
   </update>
 </mapper>
