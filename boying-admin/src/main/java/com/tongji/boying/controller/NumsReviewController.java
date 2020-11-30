@@ -22,11 +22,37 @@ public class NumsReviewController {
     private NumsReviewService numsReviewService;
 
     @ApiOperation("获取指定ID用户所有评论")
-    @RequestMapping(value = "/getReview/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/getUserReview/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult getReviewByUserid(@PathVariable Integer id)
     {
         List<Review> list= numsReviewService.getReviewByUserid(id);
+        if (list != null)
+        {
+            return CommonResult.success(list);
+        }
+        return CommonResult.failed();
+    }
+
+    @ApiOperation("删除指定ID用户所有评论")
+    @RequestMapping(value = "/deleteReview/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult deleteReviewByUserid(@PathVariable Integer id)
+    {
+        int num= numsReviewService.delete(id);
+        if (num >0)
+        {
+            return CommonResult.success(num);
+        }
+        return CommonResult.failed();
+    }
+
+    @ApiOperation("获取指定ID演出所有评论")
+    @RequestMapping(value = "/getShowReview/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult getReviewByShowid(@PathVariable Integer id)
+    {
+        List<Review> list= numsReviewService.getReviewByShowid(id);
         if (list != null)
         {
             return CommonResult.success(list);

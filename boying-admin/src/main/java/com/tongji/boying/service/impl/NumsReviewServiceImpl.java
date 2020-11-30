@@ -21,4 +21,18 @@ public class NumsReviewServiceImpl implements NumsReviewService {
         example.createCriteria().andUserIdEqualTo(userid);
         return reviewMapper.selectByExample(example);
     }
+
+    @Override
+    public int delete(Integer userid) {
+        ReviewExample example=new ReviewExample();
+        example.createCriteria().andUserIdEqualTo(userid);
+        return reviewMapper.deleteByExample(example);
+    }
+
+    @Override
+    public List<Review> getReviewByShowid(Integer showid) {
+        ReviewExample example=new ReviewExample();
+        example.createCriteria().andShowIdEqualTo(showid);
+        return reviewMapper.selectByExample(example);
+    }
 }
