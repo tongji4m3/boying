@@ -2,6 +2,7 @@ package com.tongji.boying.service.impl;
 
 import com.tongji.boying.mapper.UserMapper;
 import com.tongji.boying.model.User;
+import com.tongji.boying.model.UserExample;
 import com.tongji.boying.service.NumsUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,17 @@ public class NumsUserServiceImpl implements NumsUserService {
     @Override
     public User getUserById(Integer id) {
         return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int ChangeUserStatusById(Integer id) {
+        User user=userMapper.selectByPrimaryKey(id);
+        if(!user.getStatus()) {
+            user.setStatus(true);
+        }
+        else{
+            user.setStatus(false);
+        }
+        return userMapper.updateByPrimaryKey(user);
     }
 }

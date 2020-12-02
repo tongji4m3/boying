@@ -15,6 +15,9 @@ public interface NumsUserService {
      */
     User getUserById(Integer id);
 
-
+    /**
+     * 根据id设置用户启用状态为启用
+     */
+    int ChangeUserStatusById(Integer id);
 
 }

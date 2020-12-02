@@ -45,4 +45,19 @@ public class NumsUserController {
         }
         return CommonResult.failed();
     }
+
+    @ApiOperation("切换指定id普通用户账号启用状态")
+    @RequestMapping(value = "/ChangeUserStatus/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult ChangeUserStatusById(@PathVariable Integer id)
+    {
+        int count= numsUserService.ChangeUserStatusById(id);
+        if (count>0)
+        {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
+    }
+
+
 }
