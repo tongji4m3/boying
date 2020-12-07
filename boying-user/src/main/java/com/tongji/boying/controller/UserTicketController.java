@@ -16,7 +16,7 @@ import java.util.List;
  * 前台票管理Controller
  */
 @Controller
-@Api(tags = "TicketController", description = "票管理")
+@Api(tags = "TicketController", description = "用户模块票相关API")
 @RequestMapping("/ticket")
 public class UserTicketController
 {

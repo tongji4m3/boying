@@ -19,7 +19,7 @@ import java.util.Map;
  * 查看菜单目录Controller
  */
 @Controller
-@Api(tags = "ShowCategoryController", description = "查看演出菜单目录")
+@Api(tags = "ShowCategoryController", description = "查看演出菜单目录相关API")
 @RequestMapping("/category")
 public class ShowCategoryController
 {

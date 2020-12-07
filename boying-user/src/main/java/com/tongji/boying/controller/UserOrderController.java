@@ -18,7 +18,7 @@ import java.util.List;
  * 订单管理Controller
  */
 @Controller
-@Api(tags = "UserOrderController", description = "订单管理")
+@Api(tags = "UserOrderController", description = "用户模块订单相关API")
 @RequestMapping("/order")
 public class UserOrderController
 {

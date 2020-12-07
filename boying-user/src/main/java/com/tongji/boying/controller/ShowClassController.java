@@ -15,7 +15,7 @@ import java.util.List;
  * 前台演出座次管理Controller
  */
 @Controller
-@Api(tags = "ShowClassController", description = "前台演出座次管理")
+@Api(tags = "ShowClassController", description = "前台演出座次相关API")
 @RequestMapping("/class")
 public class ShowClassController
 {

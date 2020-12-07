@@ -18,7 +18,7 @@ import java.util.List;
  * 用户收货地址管理Controller
  */
 @Controller
-@Api(tags = "UserAddressController", description = "用户收货地址管理")
+@Api(tags = "UserAddressController", description = "用户收货地址相关API")
 @RequestMapping("/address")
 public class UserAddressController
 {

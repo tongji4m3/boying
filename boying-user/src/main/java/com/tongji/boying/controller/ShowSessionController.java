@@ -15,7 +15,7 @@ import java.util.List;
  * 前台演出场次管理Controller
  */
 @Controller
-@Api(tags = "ShowSessionController", description = "前台演出场次管理")
+@Api(tags = "ShowSessionController", description = "前台演出场次相关API")
 @RequestMapping("/session")
 public class ShowSessionController
 {

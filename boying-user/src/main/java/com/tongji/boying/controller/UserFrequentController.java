@@ -19,7 +19,7 @@ import java.util.List;
  * 用户常用联系人管理Controller
  */
 @Controller
-@Api(tags = "UserFrequentController", description = "用户常用联系人管理")
+@Api(tags = "UserFrequentController", description = "用户模块常用联系人相关API")
 @RequestMapping("/frequent")
 public class UserFrequentController
 {

@@ -22,7 +22,7 @@ import java.util.Map;
  * 用户登录注册等相关信息管理Controller
  */
 @Controller
-@Api(tags = "UserController", description = "用户相关信息管理")
+@Api(tags = "UserController", description = "用户模块用户相关信息API")
 @RequestMapping("/user")
 public class UserController
 {

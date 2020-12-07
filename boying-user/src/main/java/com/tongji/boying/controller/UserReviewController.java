@@ -19,7 +19,7 @@ import java.util.List;
  * 用户评价管理Controller
  */
 @Controller
-@Api(tags = "UserReviewController", description = "用户评价管理")
+@Api(tags = "UserReviewController", description = "用户模块评价相关API")
 @RequestMapping("/review")
 public class UserReviewController
 {
