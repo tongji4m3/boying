@@ -35,6 +35,13 @@ public interface UmsStatisticsService {
     double sumOrderMoneyForPeriod(Date dateStart,Date dateEnd);
 
     /**
+     * 一段时间内订单统计
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    double sumAllOrderMoney();
+
+    /**
      * 每日新增用户统计
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")

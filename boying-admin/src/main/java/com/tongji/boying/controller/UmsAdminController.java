@@ -44,6 +44,7 @@ public class UmsAdminController
     private UmsMenuService menuService;
 
     @ApiOperation(value = "管理员注册")
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<Admin> register(@Validated @RequestBody UmsAdminRegisterParam param)

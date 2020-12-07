@@ -1,6 +1,7 @@
 package com.tongji.boying.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.db.sql.Order;
 import com.tongji.boying.mapper.AdminMapper;
 import com.tongji.boying.mapper.UserMapper;
 import com.tongji.boying.mapper.UserOrderMapper;
@@ -88,6 +89,20 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
         double sum = 0;
         UserOrderExample example=new UserOrderExample();
         example.createCriteria().andTimeBetween(dateStart,dateEnd);
+        List<UserOrder> list=userOrderMapper.selectByExample(example);
+        if (CollUtil.isNotEmpty(list)) {
+            for (UserOrder order : list) {
+                sum += order.getMoney();
+            }
+        }
+        return sum;
+    }
+
+    @Override
+    public double sumAllOrderMoney() {
+        double sum=0;
+        UserOrderExample example=new UserOrderExample();
+        example.createCriteria().andOrderIdIsNotNull();
         List<UserOrder> list=userOrderMapper.selectByExample(example);
         if (CollUtil.isNotEmpty(list)) {
             for (UserOrder order : list) {

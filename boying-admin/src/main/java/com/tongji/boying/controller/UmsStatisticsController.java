@@ -8,6 +8,7 @@ import com.tongji.boying.service.UmsStatisticsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class UmsStatisticsController
     @ApiOperation("每日订单统计")
     @RequestMapping(value = "/dayOrder", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult countOrderByDay(@RequestParam Date date)
+    public CommonResult countOrderByDay(@RequestBody @DateTimeFormat(pattern = "yyyy-MM-dd")Date date)
     {
         long orderCount=-1;
         orderCount=umsStatisticsService.countOrderByDay(date);
@@ -42,7 +43,7 @@ public class UmsStatisticsController
     @ApiOperation("一段时间内订单统计")
     @RequestMapping(value = "/periodOrder", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult countOrderForPeriod(@RequestParam Date dateStart,@RequestParam Date dateEnd)
+    public CommonResult countOrderForPeriod(@RequestBody @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateStart,@RequestBody @DateTimeFormat(pattern = "yyyy-MM-dd")Date dateEnd)
     {
         if(dateStart.getTime()>dateEnd.getTime())
         {
@@ -60,7 +61,7 @@ public class UmsStatisticsController
     @ApiOperation("每日销售总额")
     @RequestMapping(value = "/dayOrderMoney", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult sumOrderMoneyByDay(@RequestParam Date date)
+    public CommonResult sumOrderMoneyByDay(@RequestBody @DateTimeFormat(pattern = "yyyy-MM-dd")Date date)
     {
         double orderMoney=-1;
         orderMoney=umsStatisticsService.sumOrderMoneyByDay(date);
@@ -74,7 +75,7 @@ public class UmsStatisticsController
     @ApiOperation("一段时间内销售总额")
     @RequestMapping(value = "/PeriodOrderMoney", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult sumOrderMoneyForPeriod(@RequestParam Date dateStart,@RequestParam Date dateEnd)
+    public CommonResult sumOrderMoneyForPeriod(@RequestBody @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateStart,@RequestBody @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateEnd)
     {
         if(dateStart.getTime()>dateEnd.getTime())
         {
@@ -89,10 +90,24 @@ public class UmsStatisticsController
         return CommonResult.failed();
     }
 
+    @ApiOperation("平台总销售额统计")
+    @RequestMapping(value = "/AllOrderMoney", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult sumAllOrderMoney()
+    {
+        double orderMoney=-1;
+        orderMoney=umsStatisticsService.sumAllOrderMoney();
+        if(orderMoney>-1)
+        {
+            return CommonResult.success(orderMoney);
+        }
+        return CommonResult.failed();
+    }
+
     @ApiOperation("每日新增用户统计")
     @RequestMapping(value = "/userDailyGrowth", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult countUserDailyGrowth(@RequestParam Date date)
+    public CommonResult countUserDailyGrowth(@RequestBody @DateTimeFormat(pattern = "yyyy-MM-dd") Date date)
     {
         long userDailyGrowth=-1;
         userDailyGrowth=umsStatisticsService.countUserDailyGrowth(date);
@@ -106,7 +121,7 @@ public class UmsStatisticsController
     @ApiOperation("一段时间新增用户统计")
     @RequestMapping(value = "/userPeriodGrowth", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult countUserGrowthForPeriod(@RequestParam Date dateStart,@RequestParam Date dateEnd)
+    public CommonResult countUserGrowthForPeriod(@RequestBody @DateTimeFormat(pattern = "yyyy-MM-dd")Date dateStart,@RequestBody @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateEnd)
     {
         if(dateStart.getTime()>dateEnd.getTime())
         {
