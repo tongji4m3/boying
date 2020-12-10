@@ -48,7 +48,7 @@ CREATE TABLE `boying_show`  (
   `day_end` date NULL DEFAULT NULL COMMENT '演出结束日期',
   PRIMARY KEY (`show_id`) USING BTREE,
   INDEX `category_id`(`category_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '演唱会信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '演唱会信息表' ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE `category`  (
   `category_id` int NOT NULL AUTO_INCREMENT,
