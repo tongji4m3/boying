@@ -15,7 +15,7 @@
     <result column="user_delete" jdbcType="BIT" property="userDelete" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tongji.boying.model.Review">
-    <result column="content" jdbcType="LONGVARBINARY" property="content" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -139,7 +139,7 @@
     values (#{reviewId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, 
       #{star,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{likeCount,jdbcType=INTEGER}, 
       #{unlikeCount,jdbcType=INTEGER}, #{reportCount,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
-      #{weight,jdbcType=INTEGER}, #{userDelete,jdbcType=BIT}, #{content,jdbcType=LONGVARBINARY}
+      #{weight,jdbcType=INTEGER}, #{userDelete,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.Review">
@@ -217,7 +217,7 @@
         #{userDelete,jdbcType=BIT},
       </if>
       <if test="content != null">
-        #{content,jdbcType=LONGVARBINARY},
+        #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -264,7 +264,7 @@
         user_delete = #{record.userDelete,jdbcType=BIT},
       </if>
       <if test="record.content != null">
-        content = #{record.content,jdbcType=LONGVARBINARY},
+        content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -284,7 +284,7 @@
       parent_id = #{record.parentId,jdbcType=INTEGER},
       weight = #{record.weight,jdbcType=INTEGER},
       user_delete = #{record.userDelete,jdbcType=BIT},
-      content = #{record.content,jdbcType=LONGVARBINARY}
+      content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -340,7 +340,7 @@
         user_delete = #{userDelete,jdbcType=BIT},
       </if>
       <if test="content != null">
-        content = #{content,jdbcType=LONGVARBINARY},
+        content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where review_id = #{reviewId,jdbcType=INTEGER}
@@ -357,7 +357,7 @@
       parent_id = #{parentId,jdbcType=INTEGER},
       weight = #{weight,jdbcType=INTEGER},
       user_delete = #{userDelete,jdbcType=BIT},
-      content = #{content,jdbcType=LONGVARBINARY}
+      content = #{content,jdbcType=LONGVARCHAR}
     where review_id = #{reviewId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.Review">

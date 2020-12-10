@@ -37,8 +37,8 @@ CREATE TABLE `boying_show`  (
   `show_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `category_id` int NOT NULL COMMENT '所属的目录',
-  `poster` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '该演唱会的海报信息',
-  `details` blob NULL COMMENT '存储该演唱会等的图文信息',
+  `poster` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '该演唱会的海报图文信息(url)',
+  `details` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '存储该演唱会等具体信息',
   `min_price` decimal(10, 2) NULL DEFAULT NULL COMMENT '该演唱会的最低价',
   `max_price` decimal(10, 2) NULL DEFAULT NULL COMMENT '该演唱会的最高价',
   `weight` int NULL DEFAULT NULL COMMENT '该演出展示的优先基本,0为不展示',
@@ -48,7 +48,7 @@ CREATE TABLE `boying_show`  (
   `day_end` date NULL DEFAULT NULL COMMENT '演出结束日期',
   PRIMARY KEY (`show_id`) USING BTREE,
   INDEX `category_id`(`category_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '演唱会信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '演唱会信息表' ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE `category`  (
   `category_id` int NOT NULL AUTO_INCREMENT,
@@ -58,7 +58,7 @@ CREATE TABLE `category`  (
   `icon` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '该目录的图标',
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '目录描述',
   PRIMARY KEY (`category_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '目录表,可标识是演唱会,还是相声表演等类型,一共有两级目录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '目录表,可标识是演唱会,还是相声表演等类型,一共有两级目录' ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE `frequent`  (
   `frequent_id` int NOT NULL AUTO_INCREMENT,
@@ -107,7 +107,7 @@ CREATE TABLE `review`  (
   `user_id` int NULL DEFAULT NULL COMMENT '该评论所属用户Id',
   `show_id` int NOT NULL COMMENT '该评论所属演出Id',
   `star` int NOT NULL COMMENT '对演出打出的星级',
-  `content` blob NOT NULL COMMENT '评论内容',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '评论内容',
   `time` datetime(0) NULL DEFAULT NULL COMMENT '评论时间',
   `like_count` int NULL DEFAULT NULL COMMENT '点赞数量',
   `unlike_count` int NULL DEFAULT NULL COMMENT '踩数量',
@@ -167,7 +167,7 @@ CREATE TABLE `show_session`  (
   `weight` int NOT NULL COMMENT '上映后,已下架等,以及显示的优先级',
   PRIMARY KEY (`show_session_id`) USING BTREE,
   INDEX `show_id`(`show_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '演唱会的场次,例如一个演唱会可能在多地巡回演出,在一个地方也可能有多个时间场次' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '演唱会的场次,例如一个演唱会可能在多地巡回演出,在一个地方也可能有多个时间场次' ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE `ticket`  (
   `ticket_id` int NOT NULL AUTO_INCREMENT,
@@ -205,14 +205,17 @@ CREATE TABLE `user_order`  (
   `address_id` int NULL DEFAULT NULL COMMENT '这些票要邮寄到什么地方',
   `frequent_id` int NULL DEFAULT NULL COMMENT '这些票的实际观演人',
   `status` int NOT NULL COMMENT '待评价,已完成,已退订单(1,2,3)',
-  `time` datetime(0) NOT NULL COMMENT '订单支付时间',
+  `time` datetime(0) NOT NULL COMMENT '订单提交时间',
   `payment` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT '订单支付方式',
   `user_delete` tinyint(1) NOT NULL DEFAULT 0 COMMENT '该订单对用户是否可见,即用户是否删除了该订单',
   `money` double(10, 2) UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '订单总金额',
   `ticket_count` int NULL DEFAULT NULL COMMENT '票的总数',
   PRIMARY KEY (`order_id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
-  INDEX `show_id`(`show_id`) USING BTREE
+  INDEX `show_id`(`show_id`) USING BTREE,
+  INDEX `show_session_id`(`show_session_id`) USING BTREE,
+  INDEX `address_id`(`address_id`) USING BTREE,
+  INDEX `frequent_id`(`frequent_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户订单表' ROW_FORMAT = DYNAMIC;
 
 ALTER TABLE `address` ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -233,4 +236,7 @@ ALTER TABLE `ticket` ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`order_id`) REF
 ALTER TABLE `ticket` ADD CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`show_class_id`) REFERENCES `show_class` (`show_class_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `user_order` ADD CONSTRAINT `user_order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `user_order` ADD CONSTRAINT `user_order_ibfk_2` FOREIGN KEY (`show_id`) REFERENCES `boying_show` (`show_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `user_order` ADD CONSTRAINT `user_order_ibfk_3` FOREIGN KEY (`show_session_id`) REFERENCES `show_session` (`show_session_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `user_order` ADD CONSTRAINT `user_order_ibfk_4` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `user_order` ADD CONSTRAINT `user_order_ibfk_5` FOREIGN KEY (`frequent_id`) REFERENCES `frequent` (`frequent_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 

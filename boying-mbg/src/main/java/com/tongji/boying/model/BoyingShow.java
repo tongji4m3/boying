@@ -13,8 +13,11 @@ public class BoyingShow implements Serializable {
     @ApiModelProperty(value = "所属的目录")
     private Integer categoryId;
 
-    @ApiModelProperty(value = "该演唱会的海报信息")
+    @ApiModelProperty(value = "该演唱会的海报图文信息(url)")
     private String poster;
+
+    @ApiModelProperty(value = "存储该演唱会等具体信息")
+    private String details;
 
     @ApiModelProperty(value = "该演唱会的最低价")
     private BigDecimal minPrice;
@@ -35,9 +38,6 @@ public class BoyingShow implements Serializable {
 
     @ApiModelProperty(value = "演出结束日期")
     private Date dayEnd;
-
-    @ApiModelProperty(value = "存储该演唱会等的图文信息")
-    private byte[] details;
 
     private static final long serialVersionUID = 1L;
 
@@ -71,6 +71,14 @@ public class BoyingShow implements Serializable {
 
     public void setPoster(String poster) {
         this.poster = poster;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public BigDecimal getMinPrice() {
@@ -129,14 +137,6 @@ public class BoyingShow implements Serializable {
         this.dayEnd = dayEnd;
     }
 
-    public byte[] getDetails() {
-        return details;
-    }
-
-    public void setDetails(byte[] details) {
-        this.details = details;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -147,6 +147,7 @@ public class BoyingShow implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", categoryId=").append(categoryId);
         sb.append(", poster=").append(poster);
+        sb.append(", details=").append(details);
         sb.append(", minPrice=").append(minPrice);
         sb.append(", maxPrice=").append(maxPrice);
         sb.append(", weight=").append(weight);
@@ -154,7 +155,6 @@ public class BoyingShow implements Serializable {
         sb.append(", address=").append(address);
         sb.append(", dayStart=").append(dayStart);
         sb.append(", dayEnd=").append(dayEnd);
-        sb.append(", details=").append(details);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

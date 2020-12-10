@@ -1,6 +1,7 @@
 package com.tongji.boying.service;
 
 import com.tongji.boying.model.User;
+import com.tongji.boying.model.UserOrder;
 
 import java.util.List;
 
@@ -20,4 +21,8 @@ public interface NumsUserService {
      */
     int ChangeUserStatusById(Integer id);
 
+    /**
+     * 列出所有用户订单
+     */
+    List<UserOrder> listOrders();
 }

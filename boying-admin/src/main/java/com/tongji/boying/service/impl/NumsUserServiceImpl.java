@@ -1,8 +1,11 @@
 package com.tongji.boying.service.impl;
 
 import com.tongji.boying.mapper.UserMapper;
+import com.tongji.boying.mapper.UserOrderMapper;
 import com.tongji.boying.model.User;
 import com.tongji.boying.model.UserExample;
+import com.tongji.boying.model.UserOrder;
+import com.tongji.boying.model.UserOrderExample;
 import com.tongji.boying.service.NumsUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,8 @@ public class NumsUserServiceImpl implements NumsUserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserOrderMapper userOrderMapper;
 
     @Override
     public int delete(Integer id) {
@@ -35,5 +40,10 @@ public class NumsUserServiceImpl implements NumsUserService {
             user.setStatus(false);
         }
         return userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public List<UserOrder> listOrders() {
+        return userOrderMapper.selectByExample(new UserOrderExample());
     }
 }

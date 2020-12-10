@@ -38,7 +38,7 @@ public class Review implements Serializable {
     private Boolean userDelete;
 
     @ApiModelProperty(value = "评论内容")
-    private byte[] content;
+    private String content;
 
     private static final long serialVersionUID = 1L;
 
@@ -130,11 +130,11 @@ public class Review implements Serializable {
         this.userDelete = userDelete;
     }
 
-    public byte[] getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(byte[] content) {
+    public void setContent(String content) {
         this.content = content;
     }
 

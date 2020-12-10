@@ -1,8 +1,11 @@
 package com.tongji.boying.controller;
 
 
+import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.model.BoyingShow;
 import com.tongji.boying.model.User;
+import com.tongji.boying.model.UserOrder;
 import com.tongji.boying.service.NumsUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @Api(tags = "NumsUserController", description = "后台普通用户管理")
-@RequestMapping("/nums")
+@RequestMapping("/user")
 public class NumsUserController {
     @Autowired
     private NumsUserService numsUserService;
@@ -58,6 +63,18 @@ public class NumsUserController {
         }
         return CommonResult.failed();
     }
+
+    @ApiOperation("查看所有用户订单")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult list()
+    {
+        List<UserOrder> ordersList = numsUserService.listOrders();
+        if (ObjectUtil.isEmpty(ordersList)) return CommonResult.failed("不存在任何订单");
+        return CommonResult.success(ordersList);
+    }
+
+
 
 
 }

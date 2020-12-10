@@ -49,5 +49,5 @@ public class SmsShowParam
     private Date dayEnd;
 
     @ApiModelProperty(value = "存储该演唱会等的图文信息", required = true)
-    private byte[] details;
+    private String details;
 }
