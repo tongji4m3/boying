@@ -71,4 +71,13 @@ public class SmsCategoryController
         if(ObjectUtil.isEmpty(categoryList)) return CommonResult.failed("无目录!");
         return CommonResult.success(categoryList);
     }
+
+    @ApiOperation("获取某个目录")
+    @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Category> getCategory(@PathVariable Integer id)
+    {
+        Category category = categoryService.getCategory(id);
+        return CommonResult.success(category);
+    }
 }

@@ -14,7 +14,6 @@ public interface SmsCategoryService
 {
     /**
      * 添加演出目录
-     *
      */
     int create(SmsCategoryParam param);
 
@@ -37,4 +36,9 @@ public interface SmsCategoryService
      * 获取所有演出目录列表
      */
     List<Category> list();
+
+    /**
+     * 获取某个演出目录列表
+     */
+    Category getCategory(Integer id);
 }

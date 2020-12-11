@@ -7,6 +7,7 @@ import com.tongji.boying.dto.UmsRoleParam;
 import com.tongji.boying.mapper.CategoryMapper;
 import com.tongji.boying.model.*;
 import com.tongji.boying.service.SmsCategoryService;
+import org.mapstruct.ObjectFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,10 @@ public class SmsCategoryServiceImpl implements SmsCategoryService
         return categoryMapper.selectByExample(new CategoryExample());
     }
 
+    @Override
+    public  Category getCategory(Integer id){
+        return categoryMapper.selectByPrimaryKey(id);
+    }
 
 
     private void checkCategoryParam(SmsCategoryParam param, Integer id)
