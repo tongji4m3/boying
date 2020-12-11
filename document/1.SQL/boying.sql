@@ -34,7 +34,7 @@ CREATE TABLE `admin_role`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '后台用户和角色关系表' ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE `boying_show`  (
-  `show_id` int NOT NULL AUTO_INCREMENT,
+  `show_id` int NOT NULL AUTO_INCREMENT COMMENT ' ',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `category_id` int NOT NULL COMMENT '所属的目录',
   `poster` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '该演唱会的海报图文信息(url)',
@@ -48,7 +48,7 @@ CREATE TABLE `boying_show`  (
   `day_end` date NULL DEFAULT NULL COMMENT '演出结束日期',
   PRIMARY KEY (`show_id`) USING BTREE,
   INDEX `category_id`(`category_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 57 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '演唱会信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 67 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '演唱会信息表' ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE `category`  (
   `category_id` int NOT NULL AUTO_INCREMENT,

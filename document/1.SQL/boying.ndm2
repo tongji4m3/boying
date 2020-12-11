@@ -70,8 +70,8 @@
             "dataLength": 16384,
             "indexLength": 16384,
             "maxDataLength": 0,
-            "rows": 0,
-            "updateTime": "",
+            "rows": 1,
+            "updateTime": "2020-12-10 08:01:51",
             "DDL": "CREATE TABLE `address` (\n  `address_id` int(11) NOT NULL AUTO_INCREMENT,\n  `user_id` int(11) NOT NULL COMMENT '所属用户Id',\n  `receiver` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '接收人',\n  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '接收电话',\n  `province` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '省份',\n  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '城市',\n  `region` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '城区',\n  `street` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '街道',\n  `details` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '街道后的详细地址',\n  PRIMARY KEY (`address_id`) USING BTREE,\n  KEY `user_id` (`user_id`) USING BTREE,\n  CONSTRAINT `address_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户的收货地址表'",
             "partitionBy": "",
             "partitionByExpr": "",
@@ -331,7 +331,7 @@
                 "algorithm": "",
                 "lock": "",
                 "collation": "A",
-                "cardinality": "0",
+                "cardinality": "1",
                 "packed": "",
                 "fields": [
                   {
@@ -421,7 +421,7 @@
             "indexLength": 0,
             "maxDataLength": 0,
             "rows": 3,
-            "updateTime": "2020-12-10 05:35:49",
+            "updateTime": "2020-12-10 06:31:00",
             "DDL": "CREATE TABLE `admin` (\n  `admin_id` int(11) NOT NULL AUTO_INCREMENT,\n  `username` varchar(255) COLLATE utf8_bin NOT NULL,\n  `password` varchar(255) COLLATE utf8_bin NOT NULL,\n  `icon` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '头像',\n  `email` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',\n  `create_time` datetime NOT NULL COMMENT '创建时间',\n  `login_time` datetime DEFAULT NULL COMMENT '最后登录时间',\n  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '帐号启用状态：0->禁用；1->启用',\n  PRIMARY KEY (`admin_id`) USING BTREE\n) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='后台用户表'",
             "partitionBy": "",
             "partitionByExpr": "",
@@ -905,7 +905,7 @@
             "engine": "InnoDB",
             "characterSet": "utf8",
             "collation": "utf8_general_ci",
-            "autoIncrement": 56,
+            "autoIncrement": 67,
             "tablespace": "",
             "storage": "",
             "insertMethod": "",
@@ -930,15 +930,15 @@
             "oldName": "boying_show",
             "encryption": false,
             "createOptions": "row_format=DYNAMIC",
-            "createTime": "2020-12-09 01:09:26",
+            "createTime": "2020-12-11 06:29:35",
             "checkTime": "",
             "dataFree": 0,
             "dataLength": 16384,
             "indexLength": 16384,
             "maxDataLength": 0,
-            "rows": 2,
-            "updateTime": "2020-12-09 12:26:16",
-            "DDL": "CREATE TABLE `boying_show` (\n  `show_id` int(11) NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n  `category_id` int(11) NOT NULL COMMENT '所属的目录',\n  `poster` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '该演唱会的海报信息',\n  `details` blob COMMENT '存储该演唱会等的图文信息',\n  `min_price` decimal(10,2) DEFAULT NULL COMMENT '该演唱会的最低价',\n  `max_price` decimal(10,2) DEFAULT NULL COMMENT '该演唱会的最高价',\n  `weight` int(11) DEFAULT NULL COMMENT '该演出展示的优先基本,0为不展示',\n  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '具体演出地址',\n  `day_start` date DEFAULT NULL COMMENT '演出开始日期',\n  `day_end` date DEFAULT NULL COMMENT '演出结束日期',\n  PRIMARY KEY (`show_id`) USING BTREE,\n  KEY `category_id` (`category_id`) USING BTREE,\n  CONSTRAINT `boying_show_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='演唱会信息表'",
+            "rows": 5,
+            "updateTime": "2020-12-11 03:26:46",
+            "DDL": "CREATE TABLE `boying_show` (\n  `show_id` int(11) NOT NULL AUTO_INCREMENT COMMENT ' ',\n  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n  `category_id` int(11) NOT NULL COMMENT '所属的目录',\n  `poster` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '该演唱会的海报图文信息(url)',\n  `details` varchar(255) DEFAULT NULL COMMENT '存储该演唱会等具体信息',\n  `min_price` decimal(10,2) DEFAULT NULL COMMENT '该演唱会的最低价',\n  `max_price` decimal(10,2) DEFAULT NULL COMMENT '该演唱会的最高价',\n  `weight` int(11) DEFAULT NULL COMMENT '该演出展示的优先基本,0为不展示',\n  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '具体演出地址',\n  `day_start` date DEFAULT NULL COMMENT '演出开始日期',\n  `day_end` date DEFAULT NULL COMMENT '演出结束日期',\n  PRIMARY KEY (`show_id`) USING BTREE,\n  KEY `category_id` (`category_id`) USING BTREE,\n  CONSTRAINT `boying_show_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='演唱会信息表'",
             "partitionBy": "",
             "partitionByExpr": "",
             "partitions": 0,
@@ -965,7 +965,7 @@
                 "defaultValue": "",
                 "isOnUpdateCurrentTimestamp": false,
                 "isAutoInc": true,
-                "comment": "",
+                "comment": " ",
                 "columnFormat": "",
                 "storage": "",
                 "isVirtual": false,
@@ -1043,7 +1043,7 @@
                 "defaultValue": "",
                 "isOnUpdateCurrentTimestamp": false,
                 "isAutoInc": false,
-                "comment": "该演唱会的海报信息",
+                "comment": "该演唱会的海报图文信息(url)",
                 "columnFormat": "",
                 "storage": "",
                 "isVirtual": false,
@@ -1055,21 +1055,21 @@
               {
                 "objectType": "TableField_MYSQL",
                 "name": "details",
-                "type": "blob",
-                "length": 0,
+                "type": "varchar",
+                "length": 255,
                 "decimals": 0,
                 "isUnsigned": false,
                 "isZeroFill": false,
                 "setEnumValues": "",
                 "isBinary": false,
-                "charset": "",
-                "collation": "",
+                "charset": "utf8",
+                "collation": "utf8_general_ci",
                 "isNullable": true,
                 "defaultType": "Null",
                 "defaultValue": "",
                 "isOnUpdateCurrentTimestamp": false,
                 "isAutoInc": false,
-                "comment": "存储该演唱会等的图文信息",
+                "comment": "存储该演唱会等具体信息",
                 "columnFormat": "",
                 "storage": "",
                 "isVirtual": false,
@@ -1333,7 +1333,7 @@
             "engine": "InnoDB",
             "characterSet": "utf8",
             "collation": "utf8_general_ci",
-            "autoIncrement": 64,
+            "autoIncrement": 66,
             "tablespace": "",
             "storage": "",
             "insertMethod": "",
@@ -1364,9 +1364,9 @@
             "dataLength": 16384,
             "indexLength": 0,
             "maxDataLength": 0,
-            "rows": 15,
-            "updateTime": "2020-12-09 01:10:53",
-            "DDL": "CREATE TABLE `category` (\n  `category_id` int(11) NOT NULL AUTO_INCREMENT,\n  `parent_id` int(11) NOT NULL COMMENT '上级分类的编号：0表示一级分类',\n  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '目录名称',\n  `weight` int(11) NOT NULL COMMENT '用于排序,0则不显示',\n  `icon` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '该目录的图标',\n  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '目录描述',\n  PRIMARY KEY (`category_id`) USING BTREE\n) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='目录表,可标识是演唱会,还是相声表演等类型,一共有两级目录'",
+            "rows": 17,
+            "updateTime": "2020-12-10 05:49:04",
+            "DDL": "CREATE TABLE `category` (\n  `category_id` int(11) NOT NULL AUTO_INCREMENT,\n  `parent_id` int(11) NOT NULL COMMENT '上级分类的编号：0表示一级分类',\n  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '目录名称',\n  `weight` int(11) NOT NULL COMMENT '用于排序,0则不显示',\n  `icon` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '该目录的图标',\n  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '目录描述',\n  PRIMARY KEY (`category_id`) USING BTREE\n) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='目录表,可标识是演唱会,还是相声表演等类型,一共有两级目录'",
             "partitionBy": "",
             "partitionByExpr": "",
             "partitions": 0,
@@ -1592,8 +1592,8 @@
             "dataLength": 16384,
             "indexLength": 16384,
             "maxDataLength": 0,
-            "rows": 0,
-            "updateTime": "",
+            "rows": 1,
+            "updateTime": "2020-12-10 08:04:03",
             "DDL": "CREATE TABLE `frequent` (\n  `frequent_id` int(11) NOT NULL AUTO_INCREMENT,\n  `user_id` int(11) NOT NULL COMMENT '所属用户Id',\n  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '真实姓名',\n  `identity_number` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '常用购票人的身份证号码',\n  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '联系电话',\n  PRIMARY KEY (`frequent_id`) USING BTREE,\n  KEY `user_id` (`user_id`) USING BTREE,\n  CONSTRAINT `frequent_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='实际观看演出的人, 观演人, 或者叫观众'",
             "partitionBy": "",
             "partitionByExpr": "",
@@ -1749,7 +1749,7 @@
                 "algorithm": "",
                 "lock": "",
                 "collation": "A",
-                "cardinality": "0",
+                "cardinality": "1",
                 "packed": "",
                 "fields": [
                   {
@@ -2586,7 +2586,7 @@
             "oldName": "review",
             "encryption": false,
             "createOptions": "row_format=DYNAMIC",
-            "createTime": "2020-12-09 01:09:26",
+            "createTime": "2020-12-10 13:10:08",
             "checkTime": "",
             "dataFree": 0,
             "dataLength": 16384,
@@ -2594,7 +2594,7 @@
             "maxDataLength": 0,
             "rows": 0,
             "updateTime": "",
-            "DDL": "CREATE TABLE `review` (\n  `review_id` int(11) NOT NULL AUTO_INCREMENT,\n  `user_id` int(11) DEFAULT NULL COMMENT '该评论所属用户Id',\n  `show_id` int(11) NOT NULL COMMENT '该评论所属演出Id',\n  `star` int(11) NOT NULL COMMENT '对演出打出的星级',\n  `content` blob NOT NULL COMMENT '评论内容',\n  `time` datetime DEFAULT NULL COMMENT '评论时间',\n  `like_count` int(11) DEFAULT NULL COMMENT '点赞数量',\n  `unlike_count` int(11) DEFAULT NULL COMMENT '踩数量',\n  `report_count` int(11) DEFAULT NULL COMMENT '举报数量',\n  `parent_id` int(11) DEFAULT NULL COMMENT '如果是0则是单独评论,否则是对某个影评的评论',\n  `weight` int(11) DEFAULT NULL COMMENT '评论权重,管理员操作',\n  `user_delete` tinyint(1) DEFAULT NULL COMMENT '用户是否删除了该评论',\n  PRIMARY KEY (`review_id`) USING BTREE,\n  KEY `user_id` (`user_id`) USING BTREE,\n  KEY `show_id` (`show_id`) USING BTREE,\n  CONSTRAINT `review_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,\n  CONSTRAINT `review_ibfk_2` FOREIGN KEY (`show_id`) REFERENCES `boying_show` (`show_id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户对订单产生的评价信息表'",
+            "DDL": "CREATE TABLE `review` (\n  `review_id` int(11) NOT NULL AUTO_INCREMENT,\n  `user_id` int(11) DEFAULT NULL COMMENT '该评论所属用户Id',\n  `show_id` int(11) NOT NULL COMMENT '该评论所属演出Id',\n  `star` int(11) NOT NULL COMMENT '对演出打出的星级',\n  `content` text NOT NULL COMMENT '评论内容',\n  `time` datetime DEFAULT NULL COMMENT '评论时间',\n  `like_count` int(11) DEFAULT NULL COMMENT '点赞数量',\n  `unlike_count` int(11) DEFAULT NULL COMMENT '踩数量',\n  `report_count` int(11) DEFAULT NULL COMMENT '举报数量',\n  `parent_id` int(11) DEFAULT NULL COMMENT '如果是0则是单独评论,否则是对某个影评的评论',\n  `weight` int(11) DEFAULT NULL COMMENT '评论权重,管理员操作',\n  `user_delete` tinyint(1) DEFAULT NULL COMMENT '用户是否删除了该评论',\n  PRIMARY KEY (`review_id`) USING BTREE,\n  KEY `user_id` (`user_id`) USING BTREE,\n  KEY `show_id` (`show_id`) USING BTREE,\n  CONSTRAINT `review_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,\n  CONSTRAINT `review_ibfk_2` FOREIGN KEY (`show_id`) REFERENCES `boying_show` (`show_id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户对订单产生的评价信息表'",
             "partitionBy": "",
             "partitionByExpr": "",
             "partitions": 0,
@@ -2711,15 +2711,15 @@
               {
                 "objectType": "TableField_MYSQL",
                 "name": "content",
-                "type": "blob",
+                "type": "text",
                 "length": 0,
                 "decimals": 0,
                 "isUnsigned": false,
                 "isZeroFill": false,
                 "setEnumValues": "",
                 "isBinary": false,
-                "charset": "",
-                "collation": "",
+                "charset": "utf8",
+                "collation": "utf8_general_ci",
                 "isNullable": false,
                 "defaultType": "Others",
                 "defaultValue": "",
@@ -4003,7 +4003,7 @@
             "engine": "InnoDB",
             "characterSet": "utf8",
             "collation": "utf8_general_ci",
-            "autoIncrement": 1,
+            "autoIncrement": 2,
             "tablespace": "",
             "storage": "",
             "insertMethod": "",
@@ -4035,8 +4035,8 @@
             "indexLength": 16384,
             "maxDataLength": 0,
             "rows": 0,
-            "updateTime": "",
-            "DDL": "CREATE TABLE `show_session` (\n  `show_session_id` int(11) NOT NULL AUTO_INCREMENT,\n  `show_id` int(11) NOT NULL COMMENT '所属演唱会Id',\n  `start_time` datetime NOT NULL COMMENT '演出场次开始时间',\n  `end_time` datetime DEFAULT NULL COMMENT '演出场次结束时间',\n  `weight` int(11) NOT NULL COMMENT '上映后,已下架等,以及显示的优先级',\n  PRIMARY KEY (`show_session_id`) USING BTREE,\n  KEY `show_id` (`show_id`) USING BTREE,\n  CONSTRAINT `show_session_ibfk_1` FOREIGN KEY (`show_id`) REFERENCES `boying_show` (`show_id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='演唱会的场次,例如一个演唱会可能在多地巡回演出,在一个地方也可能有多个时间场次'",
+            "updateTime": "2020-12-11 03:13:23",
+            "DDL": "CREATE TABLE `show_session` (\n  `show_session_id` int(11) NOT NULL AUTO_INCREMENT,\n  `show_id` int(11) NOT NULL COMMENT '所属演唱会Id',\n  `start_time` datetime NOT NULL COMMENT '演出场次开始时间',\n  `end_time` datetime DEFAULT NULL COMMENT '演出场次结束时间',\n  `weight` int(11) NOT NULL COMMENT '上映后,已下架等,以及显示的优先级',\n  PRIMARY KEY (`show_session_id`) USING BTREE,\n  KEY `show_id` (`show_id`) USING BTREE,\n  CONSTRAINT `show_session_ibfk_1` FOREIGN KEY (`show_id`) REFERENCES `boying_show` (`show_id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='演唱会的场次,例如一个演唱会可能在多地巡回演出,在一个地方也可能有多个时间场次'",
             "partitionBy": "",
             "partitionByExpr": "",
             "partitions": 0,
@@ -4972,15 +4972,15 @@
             "oldName": "user_order",
             "encryption": false,
             "createOptions": "row_format=DYNAMIC",
-            "createTime": "2020-12-09 01:09:27",
+            "createTime": "2020-12-10 08:03:26",
             "checkTime": "",
             "dataFree": 0,
             "dataLength": 16384,
-            "indexLength": 32768,
+            "indexLength": 81920,
             "maxDataLength": 0,
             "rows": 0,
-            "updateTime": "",
-            "DDL": "CREATE TABLE `user_order` (\n  `order_id` int(11) NOT NULL AUTO_INCREMENT,\n  `user_id` int(11) NOT NULL COMMENT '所属用户Id',\n  `show_id` int(11) DEFAULT NULL COMMENT '所属演出Id',\n  `show_session_id` int(11) NOT NULL COMMENT '所属场次Id',\n  `address_id` int(11) DEFAULT NULL COMMENT '这些票要邮寄到什么地方',\n  `frequent_id` int(11) DEFAULT NULL COMMENT '这些票的实际观演人',\n  `status` int(11) NOT NULL COMMENT '待评价,已完成,已退订单(1,2,3)',\n  `time` datetime NOT NULL COMMENT '订单支付时间',\n  `payment` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '' COMMENT '订单支付方式',\n  `user_delete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '该订单对用户是否可见,即用户是否删除了该订单',\n  `money` double(10,2) unsigned zerofill DEFAULT NULL COMMENT '订单总金额',\n  `ticket_count` int(11) DEFAULT NULL COMMENT '票的总数',\n  PRIMARY KEY (`order_id`) USING BTREE,\n  KEY `user_id` (`user_id`) USING BTREE,\n  KEY `show_id` (`show_id`) USING BTREE,\n  CONSTRAINT `user_order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,\n  CONSTRAINT `user_order_ibfk_2` FOREIGN KEY (`show_id`) REFERENCES `boying_show` (`show_id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户订单表'",
+            "updateTime": "2020-12-11 03:13:23",
+            "DDL": "CREATE TABLE `user_order` (\n  `order_id` int(11) NOT NULL AUTO_INCREMENT,\n  `user_id` int(11) NOT NULL COMMENT '所属用户Id',\n  `show_id` int(11) DEFAULT NULL COMMENT '所属演出Id',\n  `show_session_id` int(11) NOT NULL COMMENT '所属场次Id',\n  `address_id` int(11) DEFAULT NULL COMMENT '这些票要邮寄到什么地方',\n  `frequent_id` int(11) DEFAULT NULL COMMENT '这些票的实际观演人',\n  `status` int(11) NOT NULL COMMENT '待评价,已完成,已退订单(1,2,3)',\n  `time` datetime NOT NULL COMMENT '订单提交时间',\n  `payment` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '' COMMENT '订单支付方式',\n  `user_delete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '该订单对用户是否可见,即用户是否删除了该订单',\n  `money` double(10,2) unsigned zerofill DEFAULT NULL COMMENT '订单总金额',\n  `ticket_count` int(11) DEFAULT NULL COMMENT '票的总数',\n  PRIMARY KEY (`order_id`) USING BTREE,\n  KEY `user_id` (`user_id`) USING BTREE,\n  KEY `show_id` (`show_id`) USING BTREE,\n  KEY `show_session_id` (`show_session_id`),\n  KEY `address_id` (`address_id`),\n  KEY `frequent_id` (`frequent_id`),\n  CONSTRAINT `user_order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,\n  CONSTRAINT `user_order_ibfk_2` FOREIGN KEY (`show_id`) REFERENCES `boying_show` (`show_id`) ON DELETE CASCADE ON UPDATE CASCADE,\n  CONSTRAINT `user_order_ibfk_3` FOREIGN KEY (`show_session_id`) REFERENCES `show_session` (`show_session_id`) ON DELETE CASCADE ON UPDATE CASCADE,\n  CONSTRAINT `user_order_ibfk_4` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`) ON DELETE CASCADE ON UPDATE CASCADE,\n  CONSTRAINT `user_order_ibfk_5` FOREIGN KEY (`frequent_id`) REFERENCES `frequent` (`frequent_id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户订单表'",
             "partitionBy": "",
             "partitionByExpr": "",
             "partitions": 0,
@@ -5189,7 +5189,7 @@
                 "defaultValue": "",
                 "isOnUpdateCurrentTimestamp": false,
                 "isAutoInc": false,
-                "comment": "订单支付时间",
+                "comment": "订单提交时间",
                 "columnFormat": "",
                 "storage": "",
                 "isVirtual": false,
@@ -5353,6 +5353,81 @@
                     "oldName": "show_id"
                   }
                 ]
+              },
+              {
+                "objectType": "Index_MYSQL",
+                "name": "show_session_id",
+                "type": "NORMAL",
+                "method": "BTREE",
+                "comment": "",
+                "oldName": "show_session_id",
+                "online": false,
+                "keyBlockSize": 0,
+                "parser": "",
+                "algorithm": "",
+                "lock": "",
+                "collation": "A",
+                "cardinality": "0",
+                "packed": "",
+                "fields": [
+                  {
+                    "objectType": "IndexField_MYSQL",
+                    "name": "show_session_id",
+                    "keyLength": 0,
+                    "order": "",
+                    "oldName": "show_session_id"
+                  }
+                ]
+              },
+              {
+                "objectType": "Index_MYSQL",
+                "name": "address_id",
+                "type": "NORMAL",
+                "method": "BTREE",
+                "comment": "",
+                "oldName": "address_id",
+                "online": false,
+                "keyBlockSize": 0,
+                "parser": "",
+                "algorithm": "",
+                "lock": "",
+                "collation": "A",
+                "cardinality": "0",
+                "packed": "",
+                "fields": [
+                  {
+                    "objectType": "IndexField_MYSQL",
+                    "name": "address_id",
+                    "keyLength": 0,
+                    "order": "",
+                    "oldName": "address_id"
+                  }
+                ]
+              },
+              {
+                "objectType": "Index_MYSQL",
+                "name": "frequent_id",
+                "type": "NORMAL",
+                "method": "BTREE",
+                "comment": "",
+                "oldName": "frequent_id",
+                "online": false,
+                "keyBlockSize": 0,
+                "parser": "",
+                "algorithm": "",
+                "lock": "",
+                "collation": "A",
+                "cardinality": "0",
+                "packed": "",
+                "fields": [
+                  {
+                    "objectType": "IndexField_MYSQL",
+                    "name": "frequent_id",
+                    "keyLength": 0,
+                    "order": "",
+                    "oldName": "frequent_id"
+                  }
+                ]
               }
             ],
             "primaryKey": {
@@ -5405,6 +5480,57 @@
                 "sourceCardinality": "ZeroOrManyRelationship",
                 "targetCardinality": "ZeroOrOneRelationship",
                 "oldName": "user_order_ibfk_2"
+              },
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "user_order_ibfk_3",
+                "fields": [
+                  "show_session_id"
+                ],
+                "referenceSchema": "boying",
+                "referenceTable": "show_session",
+                "referenceFields": [
+                  "show_session_id"
+                ],
+                "onDelete": "CASCADE",
+                "onUpdate": "CASCADE",
+                "sourceCardinality": "ZeroOrManyRelationship",
+                "targetCardinality": "OneAndOnlyOneRelationship",
+                "oldName": "user_order_ibfk_3"
+              },
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "user_order_ibfk_4",
+                "fields": [
+                  "address_id"
+                ],
+                "referenceSchema": "boying",
+                "referenceTable": "address",
+                "referenceFields": [
+                  "address_id"
+                ],
+                "onDelete": "CASCADE",
+                "onUpdate": "CASCADE",
+                "sourceCardinality": "ZeroOrManyRelationship",
+                "targetCardinality": "ZeroOrOneRelationship",
+                "oldName": "user_order_ibfk_4"
+              },
+              {
+                "objectType": "ForeignKey_MYSQL",
+                "name": "user_order_ibfk_5",
+                "fields": [
+                  "frequent_id"
+                ],
+                "referenceSchema": "boying",
+                "referenceTable": "frequent",
+                "referenceFields": [
+                  "frequent_id"
+                ],
+                "onDelete": "CASCADE",
+                "onUpdate": "CASCADE",
+                "sourceCardinality": "ZeroOrManyRelationship",
+                "targetCardinality": "ZeroOrOneRelationship",
+                "oldName": "user_order_ibfk_5"
               }
             ],
             "triggers": [],
@@ -5433,8 +5559,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "address",
-          "x": 30,
-          "y": 280,
+          "x": 220,
+          "y": 420,
           "width": 169,
           "height": 230,
           "isBold": false,
@@ -5450,7 +5576,7 @@
           "schemaName": "boying",
           "tableName": "admin",
           "x": 1180,
-          "y": 1340,
+          "y": 1430,
           "width": 181,
           "height": 210,
           "isBold": false,
@@ -5466,7 +5592,7 @@
           "schemaName": "boying",
           "tableName": "admin_role",
           "x": 980,
-          "y": 1390,
+          "y": 1480,
           "width": 165,
           "height": 110,
           "isBold": false,
@@ -5481,8 +5607,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "boying_show",
-          "x": 480,
-          "y": 600,
+          "x": 870,
+          "y": 870,
           "width": 187,
           "height": 290,
           "isBold": false,
@@ -5497,8 +5623,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "category",
-          "x": 720,
-          "y": 660,
+          "x": 1100,
+          "y": 930,
           "width": 183,
           "height": 170,
           "isBold": false,
@@ -5513,8 +5639,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "frequent",
-          "x": 250,
-          "y": 40,
+          "x": 700,
+          "y": 460,
           "width": 211,
           "height": 150,
           "isBold": false,
@@ -5530,7 +5656,7 @@
           "schemaName": "boying",
           "tableName": "menu",
           "x": 760,
-          "y": 1720,
+          "y": 1810,
           "width": 181,
           "height": 230,
           "isBold": false,
@@ -5546,7 +5672,7 @@
           "schemaName": "boying",
           "tableName": "resource",
           "x": 280,
-          "y": 1360,
+          "y": 1450,
           "width": 205,
           "height": 170,
           "isBold": false,
@@ -5562,7 +5688,7 @@
           "schemaName": "boying",
           "tableName": "resource_category",
           "x": 30,
-          "y": 1380,
+          "y": 1470,
           "width": 205,
           "height": 130,
           "isBold": false,
@@ -5577,8 +5703,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "review",
-          "x": 510,
-          "y": 250,
+          "x": 450,
+          "y": 30,
           "width": 163,
           "height": 290,
           "isBold": false,
@@ -5594,7 +5720,7 @@
           "schemaName": "boying",
           "tableName": "role",
           "x": 760,
-          "y": 1350,
+          "y": 1440,
           "width": 183,
           "height": 190,
           "isBold": false,
@@ -5610,7 +5736,7 @@
           "schemaName": "boying",
           "tableName": "role_menu",
           "x": 780,
-          "y": 1570,
+          "y": 1660,
           "width": 161,
           "height": 110,
           "isBold": false,
@@ -5626,7 +5752,7 @@
           "schemaName": "boying",
           "tableName": "role_resource",
           "x": 530,
-          "y": 1390,
+          "y": 1480,
           "width": 177,
           "height": 110,
           "isBold": false,
@@ -5641,8 +5767,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "show_class",
-          "x": 250,
-          "y": 1120,
+          "x": 30,
+          "y": 1210,
           "width": 176,
           "height": 150,
           "isBold": false,
@@ -5657,8 +5783,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "show_session",
-          "x": 490,
-          "y": 1120,
+          "x": 270,
+          "y": 1210,
           "width": 176,
           "height": 150,
           "isBold": false,
@@ -5673,8 +5799,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "ticket",
-          "x": 240,
-          "y": 930,
+          "x": 30,
+          "y": 950,
           "width": 185,
           "height": 130,
           "isBold": false,
@@ -5689,8 +5815,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "user",
-          "x": 250,
-          "y": 230,
+          "x": 440,
+          "y": 370,
           "width": 211,
           "height": 330,
           "isBold": false,
@@ -5705,8 +5831,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "user_order",
-          "x": 240,
-          "y": 600,
+          "x": 260,
+          "y": 870,
           "width": 197,
           "height": 290,
           "isBold": false,
@@ -5729,16 +5855,16 @@
           "vertices": [
             {
               "x": 1160,
-              "y": 1450
+              "y": 1540
             },
             {
               "x": 1165,
-              "y": 1450
+              "y": 1540
             }
           ],
           "label": {
             "x": 1156,
-            "y": 1452,
+            "y": 1542,
             "width": 128,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -5762,17 +5888,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 682,
-              "y": 760
+              "x": 1072,
+              "y": 1020
             },
             {
-              "x": 705,
-              "y": 760
+              "x": 1085,
+              "y": 1020
             }
           ],
           "label": {
-            "x": 678,
-            "y": 762,
+            "x": 1068,
+            "y": 1022,
             "width": 141,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -5797,16 +5923,16 @@
           "vertices": [
             {
               "x": 265,
-              "y": 1450
+              "y": 1540
             },
             {
               "x": 250,
-              "y": 1450
+              "y": 1540
             }
           ],
           "label": {
             "x": 281,
-            "y": 1452,
+            "y": 1542,
             "width": 110,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -5830,17 +5956,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 580,
-              "y": 555
+              "x": 628,
+              "y": 180
             },
             {
-              "x": 580,
-              "y": 585
+              "x": 970,
+              "y": 180
+            },
+            {
+              "x": 970,
+              "y": 855
             }
           ],
           "label": {
-            "x": 588,
-            "y": 545,
+            "x": 624,
+            "y": 182,
             "width": 96,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -5865,16 +5995,16 @@
           "vertices": [
             {
               "x": 965,
-              "y": 1450
+              "y": 1540
             },
             {
               "x": 958,
-              "y": 1450
+              "y": 1540
             }
           ],
           "label": {
             "x": 981,
-            "y": 1452,
+            "y": 1542,
             "width": 128,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -5899,16 +6029,16 @@
           "vertices": [
             {
               "x": 860,
-              "y": 1555
+              "y": 1645
             },
             {
               "x": 860,
-              "y": 1555
+              "y": 1645
             }
           ],
           "label": {
             "x": 868,
-            "y": 1565,
+            "y": 1655,
             "width": 124,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -5933,16 +6063,16 @@
           "vertices": [
             {
               "x": 860,
-              "y": 1695
+              "y": 1785
             },
             {
               "x": 860,
-              "y": 1705
+              "y": 1795
             }
           ],
           "label": {
             "x": 868,
-            "y": 1685,
+            "y": 1775,
             "width": 124,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -5967,16 +6097,16 @@
           "vertices": [
             {
               "x": 722,
-              "y": 1450
+              "y": 1540
             },
             {
               "x": 745,
-              "y": 1450
+              "y": 1540
             }
           ],
           "label": {
             "x": 718,
-            "y": 1452,
+            "y": 1542,
             "width": 142,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6001,16 +6131,16 @@
           "vertices": [
             {
               "x": 515,
-              "y": 1450
+              "y": 1540
             },
             {
               "x": 500,
-              "y": 1450
+              "y": 1540
             }
           ],
           "label": {
             "x": 531,
-            "y": 1452,
+            "y": 1542,
             "width": 142,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6034,17 +6164,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 441,
-              "y": 1210
+              "x": 221,
+              "y": 1300
             },
             {
-              "x": 475,
-              "y": 1210
+              "x": 255,
+              "y": 1300
             }
           ],
           "label": {
-            "x": 437,
-            "y": 1212,
+            "x": 217,
+            "y": 1302,
             "width": 125,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6068,17 +6198,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 580,
-              "y": 1105
+              "x": 461,
+              "y": 1300
             },
             {
-              "x": 580,
-              "y": 905
+              "x": 970,
+              "y": 1300
+            },
+            {
+              "x": 970,
+              "y": 1175
             }
           ],
           "label": {
-            "x": 588,
-            "y": 1115,
+            "x": 457,
+            "y": 1302,
             "width": 142,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6102,17 +6236,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 340,
-              "y": 1075
+              "x": 130,
+              "y": 1095
             },
             {
-              "x": 340,
-              "y": 1105
+              "x": 130,
+              "y": 1195
             }
           ],
           "label": {
-            "x": 348,
-            "y": 1065,
+            "x": 138,
+            "y": 1085,
             "width": 89,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6136,17 +6270,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 214,
-              "y": 400
+              "x": 404,
+              "y": 530
             },
             {
-              "x": 235,
-              "y": 400
+              "x": 425,
+              "y": 530
             }
           ],
           "label": {
-            "x": 210,
-            "y": 402,
+            "x": 400,
+            "y": 532,
             "width": 104,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6170,17 +6304,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 340,
-              "y": 205
+              "x": 685,
+              "y": 530
             },
             {
-              "x": 340,
-              "y": 215
+              "x": 666,
+              "y": 530
             }
           ],
           "label": {
-            "x": 348,
-            "y": 195,
+            "x": 701,
+            "y": 532,
             "width": 111,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6204,17 +6338,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 495,
-              "y": 400
+              "x": 530,
+              "y": 335
             },
             {
-              "x": 476,
-              "y": 400
+              "x": 530,
+              "y": 355
             }
           ],
           "label": {
-            "x": 511,
-            "y": 402,
+            "x": 538,
+            "y": 325,
             "width": 96,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6238,17 +6372,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 340,
-              "y": 915
+              "x": 230,
+              "y": 1020
             },
             {
-              "x": 340,
-              "y": 905
+              "x": 245,
+              "y": 1020
             }
           ],
           "label": {
-            "x": 348,
-            "y": 925,
+            "x": 226,
+            "y": 1022,
             "width": 89,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6272,17 +6406,25 @@
           "visible": true,
           "vertices": [
             {
-              "x": 340,
-              "y": 585
+              "x": 360,
+              "y": 855
             },
             {
-              "x": 340,
-              "y": 575
+              "x": 360,
+              "y": 750
+            },
+            {
+              "x": 520,
+              "y": 750
+            },
+            {
+              "x": 520,
+              "y": 715
             }
           ],
           "label": {
-            "x": 348,
-            "y": 595,
+            "x": 368,
+            "y": 865,
             "width": 123,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6306,17 +6448,127 @@
           "visible": true,
           "vertices": [
             {
-              "x": 452,
-              "y": 760
+              "x": 472,
+              "y": 1020
             },
             {
-              "x": 465,
-              "y": 760
+              "x": 855,
+              "y": 1020
             }
           ],
           "label": {
-            "x": 448,
-            "y": 762,
+            "x": 468,
+            "y": 1022,
+            "width": 123,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "user_order_ibfk_3",
+          "sourceTableName": "user_order",
+          "sourceSchemaName": "boying",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 360,
+              "y": 1175
+            },
+            {
+              "x": 360,
+              "y": 1195
+            }
+          ],
+          "label": {
+            "x": 368,
+            "y": 1165,
+            "width": 123,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "user_order_ibfk_4",
+          "sourceTableName": "user_order",
+          "sourceSchemaName": "boying",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 300,
+              "y": 855
+            },
+            {
+              "x": 300,
+              "y": 665
+            }
+          ],
+          "label": {
+            "x": 308,
+            "y": 865,
+            "width": 123,
+            "height": 30,
+            "fontName": "Arial Unicode MS",
+            "fontSize": 14,
+            "fontColor": {
+              "r": 51,
+              "g": 51,
+              "b": 51,
+              "a": 1
+            },
+            "isFontBold": false,
+            "isFontItalic": false,
+            "isVisible": false
+          }
+        },
+        {
+          "name": "user_order_ibfk_5",
+          "sourceTableName": "user_order",
+          "sourceSchemaName": "boying",
+          "lineWidth": 1,
+          "visible": true,
+          "vertices": [
+            {
+              "x": 420,
+              "y": 855
+            },
+            {
+              "x": 420,
+              "y": 810
+            },
+            {
+              "x": 780,
+              "y": 810
+            },
+            {
+              "x": 780,
+              "y": 625
+            }
+          ],
+          "label": {
+            "x": 428,
+            "y": 865,
             "width": 123,
             "height": 30,
             "fontName": "Arial Unicode MS",
