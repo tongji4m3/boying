@@ -51,6 +51,16 @@ public class NumsUserController {
         return CommonResult.failed();
     }
 
+    @ApiOperation("查看所有用户")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult list()
+    {
+        List<User> userList = numsUserService.listAllUsers();
+        if (ObjectUtil.isEmpty(userList)) return CommonResult.failed("不存在任何用户");
+        return CommonResult.success(userList);
+    }
+
     @ApiOperation("切换指定id普通用户账号启用状态")
     @RequestMapping(value = "/ChangeUserStatus/{id}", method = RequestMethod.POST)
     @ResponseBody
@@ -65,9 +75,9 @@ public class NumsUserController {
     }
 
     @ApiOperation("查看所有用户订单")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/listOrders", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult list()
+    public CommonResult listOrders()
     {
         List<UserOrder> ordersList = numsUserService.listOrders();
         if (ObjectUtil.isEmpty(ordersList)) return CommonResult.failed("不存在任何订单");

@@ -38,7 +38,7 @@ CREATE TABLE `boying_show`  (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `category_id` int NOT NULL COMMENT '所属的目录',
   `poster` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '该演唱会的海报图文信息(url)',
-  `details` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '存储该演唱会等具体信息',
+  `details` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '存储该演唱会等的图文信息',
   `min_price` decimal(10, 2) NULL DEFAULT NULL COMMENT '该演唱会的最低价',
   `max_price` decimal(10, 2) NULL DEFAULT NULL COMMENT '该演唱会的最高价',
   `weight` int NULL DEFAULT NULL COMMENT '该演出展示的优先基本,0为不展示',
@@ -48,7 +48,7 @@ CREATE TABLE `boying_show`  (
   `day_end` date NULL DEFAULT NULL COMMENT '演出结束日期',
   PRIMARY KEY (`show_id`) USING BTREE,
   INDEX `category_id`(`category_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 67 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '演唱会信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 69 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '演唱会信息表' ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE `category`  (
   `category_id` int NOT NULL AUTO_INCREMENT,
@@ -177,7 +177,7 @@ CREATE TABLE `ticket`  (
   PRIMARY KEY (`ticket_id`) USING BTREE,
   INDEX `order_id`(`order_id`) USING BTREE,
   INDEX `show_class_id`(`show_class_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE `user`  (
   `user_id` int NOT NULL AUTO_INCREMENT,
@@ -194,7 +194,9 @@ CREATE TABLE `user`  (
   `default_frequent` int NULL DEFAULT NULL COMMENT '默认观影者',
   `default_address` int NULL DEFAULT NULL COMMENT '默认地址',
   `create_time` datetime(0) NOT NULL COMMENT '创建时间',
-  PRIMARY KEY (`user_id`) USING BTREE
+  PRIMARY KEY (`user_id`) USING BTREE,
+  INDEX `default_frequent`(`default_frequent`) USING BTREE,
+  INDEX `default_address`(`default_address`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 CREATE TABLE `user_order`  (
@@ -234,6 +236,8 @@ ALTER TABLE `show_class` ADD CONSTRAINT `show_class_ibfk_1` FOREIGN KEY (`show_s
 ALTER TABLE `show_session` ADD CONSTRAINT `show_session_ibfk_1` FOREIGN KEY (`show_id`) REFERENCES `boying_show` (`show_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `ticket` ADD CONSTRAINT `ticket_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `user_order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `ticket` ADD CONSTRAINT `ticket_ibfk_2` FOREIGN KEY (`show_class_id`) REFERENCES `show_class` (`show_class_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `user` ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`default_frequent`) REFERENCES `frequent` (`frequent_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `user` ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`default_address`) REFERENCES `address` (`address_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `user_order` ADD CONSTRAINT `user_order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `user_order` ADD CONSTRAINT `user_order_ibfk_2` FOREIGN KEY (`show_id`) REFERENCES `boying_show` (`show_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `user_order` ADD CONSTRAINT `user_order_ibfk_3` FOREIGN KEY (`show_session_id`) REFERENCES `show_session` (`show_session_id`) ON DELETE CASCADE ON UPDATE CASCADE;

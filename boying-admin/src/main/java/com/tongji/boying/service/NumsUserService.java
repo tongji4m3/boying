@@ -17,6 +17,11 @@ public interface NumsUserService {
     User getUserById(Integer id);
 
     /**
+     * 获取所有用户信息
+     */
+    List<User> listAllUsers();
+
+    /**
      * 根据id设置用户启用状态为启用
      */
     int ChangeUserStatusById(Integer id);

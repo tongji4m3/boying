@@ -31,12 +31,16 @@ public class NumsUserServiceImpl implements NumsUserService {
     }
 
     @Override
+    public List<User> listAllUsers() {
+        return userMapper.selectByExample(new UserExample());
+    }
+
+    @Override
     public int ChangeUserStatusById(Integer id) {
-        User user=userMapper.selectByPrimaryKey(id);
-        if(!user.getStatus()) {
+        User user = userMapper.selectByPrimaryKey(id);
+        if (!user.getStatus()) {
             user.setStatus(true);
-        }
-        else{
+        } else {
             user.setStatus(false);
         }
         return userMapper.updateByPrimaryKey(user);
