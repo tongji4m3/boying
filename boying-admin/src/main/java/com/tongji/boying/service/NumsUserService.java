@@ -1,5 +1,7 @@
 package com.tongji.boying.service;
 
+import com.tongji.boying.dto.NumsUserParam;
+import com.tongji.boying.dto.SmsCategoryParam;
 import com.tongji.boying.model.User;
 import com.tongji.boying.model.UserOrder;
 
@@ -30,4 +32,9 @@ public interface NumsUserService {
      * 列出所有用户订单
      */
     List<UserOrder> listOrders();
+
+    /**
+     * 更新某id用户信息
+     */
+    int update(Integer id, NumsUserParam param);
 }

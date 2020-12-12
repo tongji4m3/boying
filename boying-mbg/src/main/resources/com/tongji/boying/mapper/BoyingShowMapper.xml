@@ -6,7 +6,6 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="poster" jdbcType="VARCHAR" property="poster" />
-    <result column="details" jdbcType="VARCHAR" property="details" />
     <result column="min_price" jdbcType="DECIMAL" property="minPrice" />
     <result column="max_price" jdbcType="DECIMAL" property="maxPrice" />
     <result column="weight" jdbcType="INTEGER" property="weight" />
@@ -14,6 +13,9 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="day_start" jdbcType="DATE" property="dayStart" />
     <result column="day_end" jdbcType="DATE" property="dayEnd" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tongji.boying.model.BoyingShow">
+    <result column="details" jdbcType="LONGVARCHAR" property="details" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,9 +76,28 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    show_id, name, category_id, poster, details, min_price, max_price, weight, city, 
-    address, day_start, day_end
+    show_id, name, category_id, poster, min_price, max_price, weight, city, address, 
+    day_start, day_end
   </sql>
+  <sql id="Blob_Column_List">
+    details
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.tongji.boying.model.BoyingShowExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from boying_show
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingShowExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -91,9 +112,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from boying_show
     where show_id = #{showId,jdbcType=INTEGER}
   </select>
@@ -109,14 +132,14 @@
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.BoyingShow">
     insert into boying_show (show_id, name, category_id, 
-      poster, details, min_price, 
-      max_price, weight, city, 
-      address, day_start, day_end
+      poster, min_price, max_price, 
+      weight, city, address, 
+      day_start, day_end, details
       )
     values (#{showId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
-      #{poster,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, #{minPrice,jdbcType=DECIMAL}, 
-      #{maxPrice,jdbcType=DECIMAL}, #{weight,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{dayStart,jdbcType=DATE}, #{dayEnd,jdbcType=DATE}
+      #{poster,jdbcType=VARCHAR}, #{minPrice,jdbcType=DECIMAL}, #{maxPrice,jdbcType=DECIMAL}, 
+      #{weight,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{dayStart,jdbcType=DATE}, #{dayEnd,jdbcType=DATE}, #{details,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingShow">
@@ -133,9 +156,6 @@
       </if>
       <if test="poster != null">
         poster,
-      </if>
-      <if test="details != null">
-        details,
       </if>
       <if test="minPrice != null">
         min_price,
@@ -158,6 +178,9 @@
       <if test="dayEnd != null">
         day_end,
       </if>
+      <if test="details != null">
+        details,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="showId != null">
@@ -171,9 +194,6 @@
       </if>
       <if test="poster != null">
         #{poster,jdbcType=VARCHAR},
-      </if>
-      <if test="details != null">
-        #{details,jdbcType=VARCHAR},
       </if>
       <if test="minPrice != null">
         #{minPrice,jdbcType=DECIMAL},
@@ -195,6 +215,9 @@
       </if>
       <if test="dayEnd != null">
         #{dayEnd,jdbcType=DATE},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -219,9 +242,6 @@
       <if test="record.poster != null">
         poster = #{record.poster,jdbcType=VARCHAR},
       </if>
-      <if test="record.details != null">
-        details = #{record.details,jdbcType=VARCHAR},
-      </if>
       <if test="record.minPrice != null">
         min_price = #{record.minPrice,jdbcType=DECIMAL},
       </if>
@@ -243,7 +263,28 @@
       <if test="record.dayEnd != null">
         day_end = #{record.dayEnd,jdbcType=DATE},
       </if>
+      <if test="record.details != null">
+        details = #{record.details,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update boying_show
+    set show_id = #{record.showId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      poster = #{record.poster,jdbcType=VARCHAR},
+      min_price = #{record.minPrice,jdbcType=DECIMAL},
+      max_price = #{record.maxPrice,jdbcType=DECIMAL},
+      weight = #{record.weight,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      day_start = #{record.dayStart,jdbcType=DATE},
+      day_end = #{record.dayEnd,jdbcType=DATE},
+      details = #{record.details,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -254,7 +295,6 @@
       name = #{record.name,jdbcType=VARCHAR},
       category_id = #{record.categoryId,jdbcType=INTEGER},
       poster = #{record.poster,jdbcType=VARCHAR},
-      details = #{record.details,jdbcType=VARCHAR},
       min_price = #{record.minPrice,jdbcType=DECIMAL},
       max_price = #{record.maxPrice,jdbcType=DECIMAL},
       weight = #{record.weight,jdbcType=INTEGER},
@@ -278,9 +318,6 @@
       <if test="poster != null">
         poster = #{poster,jdbcType=VARCHAR},
       </if>
-      <if test="details != null">
-        details = #{details,jdbcType=VARCHAR},
-      </if>
       <if test="minPrice != null">
         min_price = #{minPrice,jdbcType=DECIMAL},
       </if>
@@ -302,7 +339,25 @@
       <if test="dayEnd != null">
         day_end = #{dayEnd,jdbcType=DATE},
       </if>
+      <if test="details != null">
+        details = #{details,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where show_id = #{showId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tongji.boying.model.BoyingShow">
+    update boying_show
+    set name = #{name,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      poster = #{poster,jdbcType=VARCHAR},
+      min_price = #{minPrice,jdbcType=DECIMAL},
+      max_price = #{maxPrice,jdbcType=DECIMAL},
+      weight = #{weight,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      day_start = #{dayStart,jdbcType=DATE},
+      day_end = #{dayEnd,jdbcType=DATE},
+      details = #{details,jdbcType=LONGVARCHAR}
     where show_id = #{showId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingShow">
@@ -310,7 +365,6 @@
     set name = #{name,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       poster = #{poster,jdbcType=VARCHAR},
-      details = #{details,jdbcType=VARCHAR},
       min_price = #{minPrice,jdbcType=DECIMAL},
       max_price = #{maxPrice,jdbcType=DECIMAL},
       weight = #{weight,jdbcType=INTEGER},

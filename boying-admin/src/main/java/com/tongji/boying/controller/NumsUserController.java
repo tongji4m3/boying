@@ -3,7 +3,7 @@ package com.tongji.boying.controller;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.model.BoyingShow;
+import com.tongji.boying.dto.NumsUserParam;
 import com.tongji.boying.model.User;
 import com.tongji.boying.model.UserOrder;
 import com.tongji.boying.service.NumsUserService;
@@ -11,10 +11,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -82,6 +80,19 @@ public class NumsUserController {
         List<UserOrder> ordersList = numsUserService.listOrders();
         if (ObjectUtil.isEmpty(ordersList)) return CommonResult.failed("不存在任何订单");
         return CommonResult.success(ordersList);
+    }
+
+    @ApiOperation("更新指定用户信息")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult update(@PathVariable Integer id, @Validated @RequestBody NumsUserParam param)
+    {
+        int count = numsUserService.update(id, param);
+        if (count > 0)
+        {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
     }
 
 
