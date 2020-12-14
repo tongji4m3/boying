@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService
         user.setPhone(telephone);
         user.setCreateTime(new Date());
         user.setPassword(passwordEncoder.encode(password));//存储加密后的
-        user.setStatus(true);
+        user.setUserstatus(true);
         userMapper.insert(user);
         //注册完删除验证码,每个验证码只能使用一次
         userCacheService.delAuthCode(telephone);
