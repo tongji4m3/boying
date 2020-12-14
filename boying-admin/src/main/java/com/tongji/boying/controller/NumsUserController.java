@@ -95,6 +95,19 @@ public class NumsUserController {
         return CommonResult.failed();
     }
 
+    @ApiOperation("添加新用户")
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult add(@Validated @RequestBody NumsUserParam param)
+    {
+        int count = numsUserService.add(param);
+        if (count > 0)
+        {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
+    }
+
 
 
 

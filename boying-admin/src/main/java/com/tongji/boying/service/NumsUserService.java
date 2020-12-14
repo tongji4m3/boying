@@ -37,4 +37,9 @@ public interface NumsUserService {
      * 更新某id用户信息
      */
     int update(Integer id, NumsUserParam param);
+
+    /**
+     * 添加新用户
+     */
+    int add(NumsUserParam param);
 }

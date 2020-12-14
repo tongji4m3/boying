@@ -58,4 +58,12 @@ public class NumsUserServiceImpl implements NumsUserService {
         int count = userMapper.updateByPrimaryKeySelective(user);
         return count;
     }
+
+    @Override
+    public int add(NumsUserParam param) {
+        User user = new User();
+        BeanUtils.copyProperties(param, user);
+        int count = userMapper.insertSelective(user);
+        return count;
+    }
 }
