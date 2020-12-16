@@ -63,8 +63,9 @@ public class UserController {
     @ApiOperation("用户手机号密码登录")
     @RequestMapping(value = "/telephoneLogin", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult telephoneLogin(@RequestParam String telephone,
-                                       @RequestParam String password) {
+    public CommonResult telephoneLogin(@RequestBody Map<String, String> map) {
+        String telephone=map.get("telephone");
+        String password=map.get("password");
         String token = userService.telephoneLogin(telephone, password);
         if (token == null) {
             return CommonResult.validateFailed("手机号或密码错误");
@@ -78,8 +79,9 @@ public class UserController {
     @ApiOperation("用户手机号验证码登录")
     @RequestMapping(value = "/authCodeLogin", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult authCodeLogin(@RequestParam String telephone,
-                                      @RequestParam String authCode) {
+    public CommonResult authCodeLogin(@RequestBody Map<String, String> map) {
+        String telephone=map.get("telephone");
+        String authCode=map.get("authCode");
         String token = userService.authCodeLogin(telephone, authCode);
         if (token == null) {
             return CommonResult.validateFailed("验证码错误");
