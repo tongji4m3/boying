@@ -22,7 +22,7 @@ public interface UserService
      * @Transactional 注解管理事务
      */
     @Transactional
-    void register(String username, String password, String telephone, String checkCode);
+    void register(String username, String password, String telephone, String checkCode,String icon);
 
     /**
      * 生成验证码

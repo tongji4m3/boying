@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService
 
     @Override
     @DateTimeFormat
-    public void register(String username, String password, String telephone, String authCode)
+    public void register(String username, String password, String telephone, String authCode,String icon)
     {
         //验证验证码
         if (!verifyAuthCode(authCode, telephone))
@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService
         List<User> users = userMapper.selectByExample(example);
         if (!CollectionUtils.isEmpty(users))
         {
-            Asserts.fail("该用户已经存在");
+            Asserts.fail("该用户已经存在或手机号已注册");
         }
         //没有该用户进行添加操作
         User user = new User();
@@ -120,6 +120,7 @@ public class UserServiceImpl implements UserService
         user.setCreateTime(new Date());
         user.setPassword(passwordEncoder.encode(password));//存储加密后的
         user.setUserstatus(true);
+        user.setIcon(icon);
         userMapper.insert(user);
         //注册完删除验证码,每个验证码只能使用一次
         userCacheService.delAuthCode(telephone);

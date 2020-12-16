@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -24,8 +21,7 @@ import java.util.Map;
 @Controller
 @Api(tags = "UserController", description = "用户模块用户相关信息API")
 @RequestMapping("/user")
-public class UserController
-{
+public class UserController {
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
     @Value("${jwt.tokenHead}")
@@ -37,24 +33,25 @@ public class UserController
     @ApiOperation("用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult register(@RequestParam String username,
-                                 @RequestParam String password,
-                                 @RequestParam String telephone,
-                                 @RequestParam String authCode)
-    {
-        userService.register(username, password, telephone, authCode);
+    public CommonResult register(@RequestBody Map<String, String> map
+    ) {
+        String username = map.get("username");
+        String password = map.get("password");
+        String telephone = map.get("telephone");
+        String authCode = map.get("authCode");
+        String icon = map.get("icon");
+        userService.register(username, password, telephone, authCode, icon);
         return CommonResult.success(null, "注册成功");
     }
 
     @ApiOperation("用户账号密码登录")
     @RequestMapping(value = "/usernameLogin", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult usernameLogin(@RequestParam String username,
-                                      @RequestParam String password)
-    {
+    public CommonResult usernameLogin(@RequestBody Map<String, String> map) {
+        String username=map.get("username");
+        String password=map.get("password");
         String token = userService.login(username, password);
-        if (token == null)
-        {
+        if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
         }
         Map<String, String> tokenMap = new HashMap<>();
@@ -67,11 +64,9 @@ public class UserController
     @RequestMapping(value = "/telephoneLogin", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult telephoneLogin(@RequestParam String telephone,
-                                       @RequestParam String password)
-    {
+                                       @RequestParam String password) {
         String token = userService.telephoneLogin(telephone, password);
-        if (token == null)
-        {
+        if (token == null) {
             return CommonResult.validateFailed("手机号或密码错误");
         }
         Map<String, String> tokenMap = new HashMap<>();
@@ -84,11 +79,9 @@ public class UserController
     @RequestMapping(value = "/authCodeLogin", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult authCodeLogin(@RequestParam String telephone,
-                                      @RequestParam String authCode)
-    {
+                                      @RequestParam String authCode) {
         String token = userService.authCodeLogin(telephone, authCode);
-        if (token == null)
-        {
+        if (token == null) {
             return CommonResult.validateFailed("验证码错误");
         }
         Map<String, String> tokenMap = new HashMap<>();
@@ -100,11 +93,9 @@ public class UserController
     @ApiOperation("获取用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult info(Principal principal)
-    {
+    public CommonResult info(Principal principal) {
 //        防止直接查询时报错
-        if (principal == null)
-        {
+        if (principal == null) {
             return CommonResult.unauthorized(null);
         }
         User user = userService.getCurrentUser();
@@ -121,11 +112,9 @@ public class UserController
                                    @RequestParam(required = false, defaultValue = "https://tongji4m3.oss-cn-beijing.aliyuncs.com/f_f_object_156_s512_f_object_156_0.png") String icon,
                                    @RequestParam(required = false) int age,
                                    @RequestParam(required = false, defaultValue = "true") boolean gender
-    )
-    {
+    ) {
         //        防止直接查询时报错
-        if (principal == null)
-        {
+        if (principal == null) {
             return CommonResult.unauthorized(null);
         }
         userService.updateInfo(realName, identityNumber, email, icon, age, gender);
@@ -136,8 +125,7 @@ public class UserController
     @ApiOperation("获取验证码")
     @RequestMapping(value = "/getAuthCode", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult getAuthCode(@RequestParam String telephone)
-    {
+    public CommonResult getAuthCode(@RequestBody String telephone) {
         userService.generateAuthCode(telephone);
         return CommonResult.success("获取验证码成功");
     }
@@ -147,8 +135,7 @@ public class UserController
     @ResponseBody
     public CommonResult updatePassword(@RequestParam String telephone,
                                        @RequestParam String password,
-                                       @RequestParam String authCode)
-    {
+                                       @RequestParam String authCode) {
         userService.updatePassword(telephone, password, authCode);
         return CommonResult.success(null, "密码修改成功");
     }
@@ -156,12 +143,10 @@ public class UserController
     @ApiOperation(value = "刷新token")
     @RequestMapping(value = "/refreshToken", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult refreshToken(HttpServletRequest request)
-    {
+    public CommonResult refreshToken(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
         String refreshToken = userService.refreshToken(token);
-        if (refreshToken == null)
-        {
+        if (refreshToken == null) {
             return CommonResult.failed("token已经过期或暂时不能刷新token!");
         }
         Map<String, String> tokenMap = new HashMap<>();
