@@ -7,10 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +26,7 @@ public class ShowCategoryController
     @ApiOperation("获取所有的父级菜单列表或某个父级菜单的所有二级子菜单")
     @RequestMapping(value = "/categoryList", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<Category>> getCategoryList(@RequestParam int parentId)
+    public CommonResult<List<Category>> getCategoryList(@RequestBody int parentId)
     {
         List<Category> categories = showCategoryService.categoryList(parentId);
         return CommonResult.success(categories);
