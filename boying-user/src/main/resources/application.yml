@@ -35,6 +35,7 @@ secure:
       - /actuator/**
       - /user/**
       - /home/**
+      - /category/**
 
 # 自定义redis key
 redis:
