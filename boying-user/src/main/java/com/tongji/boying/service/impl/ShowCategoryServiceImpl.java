@@ -43,7 +43,9 @@ public class ShowCategoryServiceImpl implements ShowCategoryService
     public boolean isSonCategory(int id)
     {
         CategoryExample categoryExample = new CategoryExample();
+        categoryExample.createCriteria().andCategoryIdEqualTo(id);
         List<Category> categories = categoryMapper.selectByExample(categoryExample);
+        System.out.println(categories);
         if (categories.isEmpty())
         {
             //该目录不存在,自然不是子目录
