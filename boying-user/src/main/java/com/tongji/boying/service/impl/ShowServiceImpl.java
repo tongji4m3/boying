@@ -40,7 +40,7 @@ public class ShowServiceImpl implements ShowService
             criteria.andCityEqualTo(city);
         }
         //目录搜索
-        if (categoryId != null)
+        if (categoryId != null && categoryId!=-1)
         {
             //说明是子目录,可以直接查
             if (showCategoryService.isSonCategory(categoryId))

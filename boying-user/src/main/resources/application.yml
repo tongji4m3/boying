@@ -36,6 +36,7 @@ secure:
       - /user/**
       - /home/**
       - /category/**
+      - /show/**
 
 # 自定义redis key
 redis:

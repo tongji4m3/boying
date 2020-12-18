@@ -1,5 +1,6 @@
 package com.tongji.boying.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.model.BoyingShow;
@@ -11,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 前台演出管理Controller
@@ -20,8 +24,7 @@ import java.util.List;
 @Controller
 @Api(tags = "ShowController", description = "前台演出相关API")
 @RequestMapping("/show")
-public class ShowController
-{
+public class ShowController {
 
     @Autowired
     private ShowService showService;
@@ -31,14 +34,26 @@ public class ShowController
             defaultValue = "0", allowableValues = "0,1,2,3,4", paramType = "query", dataType = "integer")
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<BoyingShow>> search(@RequestParam(required = false) String keyword,
-                                                 @RequestParam(required = false) String city,
-                                                 @RequestParam(required = false) Integer categoryId,
-                                                 @RequestParam(required = false) Date date,
-                                                 @RequestParam(required = false, defaultValue = "0") Integer pageNum,
-                                                 @RequestParam(required = false, defaultValue = "5") Integer pageSize,
-                                                 @RequestParam(required = false, defaultValue = "0") Integer sort)
-    {
+    public CommonResult<CommonPage<BoyingShow>> search(@RequestBody Map<String, String> map) throws ParseException {
+        String keyword = map.getOrDefault("keyword", "");
+        String city = map.getOrDefault("city", "");
+        Integer categoryId = Integer.parseInt(map.getOrDefault("categoryId", "-1"));
+        Integer pageNum = Integer.parseInt(map.getOrDefault("pageNum", "0"));
+        Integer pageSize = Integer.parseInt(map.getOrDefault("pageSize", "5"));
+        Integer sort = Integer.parseInt(map.getOrDefault("sort", "0"));
+        String dateString = map.getOrDefault("date", null);
+        Date date = null;
+
+        System.out.println(categoryId+ "categoryId");
+        System.out.println(pageNum+ "pageNum");
+        System.out.println(pageSize+ "pageSize");
+        System.out.println(sort+ "sort");
+
+        if (StrUtil.isNotEmpty(dateString)) {
+            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateString);
+        }
+        System.out.println(date+"date");
+
         List<BoyingShow> productList = showService.search(keyword, city, categoryId, date, pageNum, pageSize, sort);
         return CommonResult.success(CommonPage.restPage(productList));
     }
@@ -46,8 +61,7 @@ public class ShowController
     @ApiOperation("获取演出详情")
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<BoyingShow> detail(@PathVariable Integer id)
-    {
+    public CommonResult<BoyingShow> detail(@PathVariable Integer id) {
         BoyingShow show = showService.detail(id);
         return CommonResult.success(show);
     }

@@ -33,8 +33,7 @@ public class UserController {
     @ApiOperation("用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult register(@RequestBody Map<String, String> map
-    ) {
+    public CommonResult register(@RequestBody Map<String, String> map) {
         String username = map.get("username");
         String password = map.get("password");
         String telephone = map.get("telephone");
@@ -48,8 +47,8 @@ public class UserController {
     @RequestMapping(value = "/usernameLogin", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult usernameLogin(@RequestBody Map<String, String> map) {
-        String username=map.get("username");
-        String password=map.get("password");
+        String username = map.get("username");
+        String password = map.get("password");
         String token = userService.login(username, password);
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
@@ -64,8 +63,8 @@ public class UserController {
     @RequestMapping(value = "/telephoneLogin", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult telephoneLogin(@RequestBody Map<String, String> map) {
-        String telephone=map.get("telephone");
-        String password=map.get("password");
+        String telephone = map.get("telephone");
+        String password = map.get("password");
         String token = userService.telephoneLogin(telephone, password);
         if (token == null) {
             return CommonResult.validateFailed("手机号或密码错误");
@@ -80,8 +79,8 @@ public class UserController {
     @RequestMapping(value = "/authCodeLogin", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult authCodeLogin(@RequestBody Map<String, String> map) {
-        String telephone=map.get("telephone");
-        String authCode=map.get("authCode");
+        String telephone = map.get("telephone");
+        String authCode = map.get("authCode");
         String token = userService.authCodeLogin(telephone, authCode);
         if (token == null) {
             return CommonResult.validateFailed("验证码错误");
