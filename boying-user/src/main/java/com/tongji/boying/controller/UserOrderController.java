@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 订单管理Controller
@@ -54,9 +55,18 @@ public class UserOrderController
     @ApiOperation("显示所有订单")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<UserOrder>> list(@RequestParam(required = false, defaultValue = "0") Integer pageNum,
-                                                    @RequestParam(required = false, defaultValue = "5") Integer pageSize)
+    public CommonResult<CommonPage<UserOrder>> list(@RequestBody Map<String, String> map)
     {
+        Integer pageNum = null;
+        Integer pageSize = null;
+        try {
+            pageNum = Integer.parseInt(map.getOrDefault("pageNum", "0"));
+            pageSize = Integer.parseInt(map.getOrDefault("pageSize", "5"));
+        }
+        catch (Exception e) {
+            return CommonResult.failed("输入的参数格式有误!");
+        }
+
         List<UserOrder> orderList = orderService.list(pageNum, pageSize);
         if (orderList.size() == 0) return CommonResult.failed("当前用户无订单!");
         return CommonResult.success(CommonPage.restPage(orderList));

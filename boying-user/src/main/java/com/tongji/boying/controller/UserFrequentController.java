@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -21,19 +22,16 @@ import java.util.List;
 @Controller
 @Api(tags = "UserFrequentController", description = "用户模块常用联系人相关API")
 @RequestMapping("/frequent")
-public class UserFrequentController
-{
+public class UserFrequentController {
     @Autowired
     private UserFrequentService userFrequentService;
 
     @ApiOperation("添加常用联系人")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult add(@Validated @RequestBody UserFrequentParam param)
-    {
+    public CommonResult add(@Validated @RequestBody UserFrequentParam param) {
         int count = userFrequentService.add(param);
-        if (count > 0)
-        {
+        if (count > 0) {
             return CommonResult.success(count);
         }
         return CommonResult.failed();
@@ -42,11 +40,9 @@ public class UserFrequentController
     @ApiOperation("删除常用联系人")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult delete(@PathVariable int id)
-    {
+    public CommonResult delete(@PathVariable int id) {
         int count = userFrequentService.delete(id);
-        if (count > 0)
-        {
+        if (count > 0) {
             return CommonResult.success(count);
         }
         return CommonResult.failed();
@@ -55,11 +51,9 @@ public class UserFrequentController
     @ApiOperation("修改常用联系人")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult update(@PathVariable int id, @RequestBody UserFrequentParam param)
-    {
+    public CommonResult update(@PathVariable int id, @RequestBody UserFrequentParam param) {
         int count = userFrequentService.update(id, param);
-        if (count > 0)
-        {
+        if (count > 0) {
             return CommonResult.success(count);
         }
         return CommonResult.failed();
@@ -68,9 +62,16 @@ public class UserFrequentController
     @ApiOperation("显示所有常用联系人")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<Frequent>> list(@RequestParam(required = false, defaultValue = "0") Integer pageNum,
-                                                   @RequestParam(required = false, defaultValue = "5") Integer pageSize)
-    {
+    public CommonResult<CommonPage<Frequent>> list(@RequestBody Map<String, String> map) {
+        Integer pageNum = null;
+        Integer pageSize = null;
+        try {
+            pageNum = Integer.parseInt(map.getOrDefault("pageNum", "0"));
+            pageSize = Integer.parseInt(map.getOrDefault("pageSize", "5"));
+        }
+        catch (Exception e) {
+            return CommonResult.failed("输入的参数格式有误!");
+        }
         List<Frequent> frequentList = userFrequentService.list(pageNum, pageSize);
         if (frequentList.size() == 0) return CommonResult.failed("当前用户无常用联系人!");
         return CommonResult.success(CommonPage.restPage(frequentList));
@@ -79,8 +80,7 @@ public class UserFrequentController
     @ApiOperation("获取常用联系人详情")
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Frequent> getItem(@PathVariable int id)
-    {
+    public CommonResult<Frequent> getItem(@PathVariable int id) {
         Frequent frequent = userFrequentService.getItem(id);
         if (frequent == null) return CommonResult.failed("当前用户无此常用联系人!");
         return CommonResult.success(frequent);
@@ -90,8 +90,7 @@ public class UserFrequentController
     @ApiOperation("获取默认常用联系人")
     @RequestMapping(value = "/getDefault", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Frequent> getDefault()
-    {
+    public CommonResult<Frequent> getDefault() {
         Frequent frequent = userFrequentService.getDefault();
         if (frequent == null) return CommonResult.failed("当前用户无默认常用联系人!");
         return CommonResult.success(frequent);
@@ -100,8 +99,7 @@ public class UserFrequentController
     @ApiOperation("设置为默认常用联系人")
     @RequestMapping(value = "/setDefault/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult setDefault(@PathVariable int id)
-    {
+    public CommonResult setDefault(@PathVariable int id) {
         userFrequentService.setDefault(id);
         return CommonResult.success("设置默认常用联系人成功");
     }

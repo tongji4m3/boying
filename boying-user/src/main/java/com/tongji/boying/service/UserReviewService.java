@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserReviewService
 {
-    int add(UserReviewParam param, Integer parentId);
+    int add(UserReviewParam param);
 
     int delete(int id);
 

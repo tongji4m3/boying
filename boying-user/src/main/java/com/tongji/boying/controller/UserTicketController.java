@@ -1,7 +1,9 @@
 package com.tongji.boying.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.model.Ticket;
 import com.tongji.boying.service.UserTicketService;
 import io.swagger.annotations.Api;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 前台票管理Controller
@@ -26,9 +29,26 @@ public class UserTicketController
     @ApiOperation("添加票")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult add(@RequestParam int orderId,
-                            @RequestParam int showClassId)
+    public CommonResult add(@RequestBody Map<String, String> map)
     {
+        String orderIdStr = map.get("orderId");
+        String showClassIdStr = map.get("showClassId");
+        if (StrUtil.isEmpty(orderIdStr)) {
+            Asserts.fail("orderId不能为空");
+        }
+        if (StrUtil.isEmpty(showClassIdStr)) {
+            Asserts.fail("showClassId不能为空");
+        }
+        Integer orderId = null;
+        Integer showClassId = null;
+        try {
+            orderId = Integer.parseInt(orderIdStr);
+            showClassId = Integer.parseInt(showClassIdStr);
+        }
+        catch (Exception e) {
+            return CommonResult.failed("输入的参数格式有误!");
+        }
+
         int count = userTicketService.add(orderId, showClassId);
         if (count > 0)
         {
@@ -38,12 +58,26 @@ public class UserTicketController
     }
 
     @ApiOperation("显示所有票")
-    @RequestMapping(value = "/list/{orderId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<Ticket>> list(@PathVariable int orderId,
-                                                 @RequestParam(required = false, defaultValue = "0") Integer pageNum,
-                                                 @RequestParam(required = false, defaultValue = "5") Integer pageSize)
+    public CommonResult<CommonPage<Ticket>> list(@RequestBody Map<String, String> map)
     {
+        String orderIdStr = map.get("orderId");
+        if (StrUtil.isEmpty(orderIdStr)) {
+            Asserts.fail("orderId不能为空");
+        }
+        Integer orderId = null;
+        Integer pageNum = null;
+        Integer pageSize = null;
+        try {
+            pageNum = Integer.parseInt(map.getOrDefault("pageNum", "0"));
+            pageSize = Integer.parseInt(map.getOrDefault("pageSize", "5"));
+            orderId = Integer.parseInt(orderIdStr);
+        }
+        catch (Exception e) {
+            return CommonResult.failed("输入的参数格式有误!");
+        }
+
         List<Ticket> tickets = userTicketService.list(orderId, pageNum, pageSize);
         if (tickets.size() == 0) return CommonResult.failed("当前用户无票!");
         return CommonResult.success(CommonPage.restPage(tickets));

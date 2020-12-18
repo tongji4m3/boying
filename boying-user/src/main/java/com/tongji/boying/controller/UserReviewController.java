@@ -1,5 +1,6 @@
 package com.tongji.boying.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.UserReviewParam;
@@ -12,7 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -29,10 +33,9 @@ public class UserReviewController
     @ApiOperation("添加评价,可能是一级评价,也可能是二级评价")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult add(@Validated @RequestBody UserReviewParam param,
-                            @RequestParam(required = false, defaultValue = "0") Integer parentId)
+    public CommonResult add(@Validated @RequestBody UserReviewParam param)
     {
-        int count = userReviewService.add(param, parentId);
+        int count = userReviewService.add(param);
         if (count > 0)
         {
             return CommonResult.success(count);
@@ -57,13 +60,25 @@ public class UserReviewController
     @ApiOperation("显示所有评价")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<Review>> list(@RequestParam(required = false, defaultValue = "0") Integer type,
-                                                 @RequestParam(required = false, defaultValue = "0") Integer sort,
-                                                 @RequestParam(required = false, defaultValue = "0") Integer parentId,
-                                                 @RequestParam(required = false, defaultValue = "0") Integer pageNum,
-                                                 @RequestParam(required = false, defaultValue = "5") Integer pageSize
-    )
+    public CommonResult<CommonPage<Review>> list(@RequestBody Map<String, String> map)
     {
+        Integer type = null;
+        Integer sort = null;
+        Integer pageNum = null;
+        Integer pageSize = null;
+        Integer parentId = null;
+        try {
+            pageNum = Integer.parseInt(map.getOrDefault("pageNum", "0"));
+            pageSize = Integer.parseInt(map.getOrDefault("pageSize", "5"));
+            sort = Integer.parseInt(map.getOrDefault("sort", "0"));
+            type = Integer.parseInt(map.getOrDefault("type", "0"));
+            parentId = Integer.parseInt(map.getOrDefault("parentId", "0"));
+        }
+        catch (Exception e) {
+            return CommonResult.failed("输入的参数格式有误!");
+        }
+
+
         List<Review> reviewList = userReviewService.list(type, sort, parentId, pageNum, pageSize);
         if (reviewList.size() == 0) return CommonResult.failed("无评价!");
         return CommonResult.success(CommonPage.restPage(reviewList));
@@ -82,8 +97,15 @@ public class UserReviewController
     @ApiOperation("对某条评论进行点赞或举报")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult update(@PathVariable int id, @RequestParam(required = false, defaultValue = "0") Integer type)
+    public CommonResult update(@PathVariable int id, @RequestBody Map<String, String> map)
     {
+        Integer type = null;
+        try {
+            type = Integer.parseInt(map.getOrDefault("type", "0"));
+        }
+        catch (Exception e) {
+            return CommonResult.failed("输入的参数格式有误!");
+        }
         int count = userReviewService.update(id, type);
         if (count > 0)
         {

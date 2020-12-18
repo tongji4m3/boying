@@ -26,7 +26,7 @@ public class UserReviewServiceImpl implements UserReviewService
     private ReviewMapper reviewMapper;
 
     @Override
-    public int add(UserReviewParam param, Integer parentId)
+    public int add(UserReviewParam param)
     {
         User user = userService.getCurrentUser();
         Review review = new Review();
@@ -36,7 +36,7 @@ public class UserReviewServiceImpl implements UserReviewService
         review.setLikeCount(0);
         review.setUnlikeCount(0);
         review.setReportCount(0);
-        review.setParentId(parentId);
+        review.setParentId(review.getParentId());
         review.setWeight(1);
         review.setUserDelete(false);
         reviewMapper.insert(review);
