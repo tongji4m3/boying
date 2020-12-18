@@ -26,7 +26,6 @@ public class ShowServiceImpl implements ShowService {
 
     @Override
     public List<BoyingShow> search(String keyword, String city, Integer categoryId, Date date, Integer pageNum, Integer pageSize, Integer sort) {
-        PageHelper.startPage(pageNum, pageSize);//分页相关
         BoyingShowExample example = new BoyingShowExample();
         BoyingShowExample.Criteria criteria = example.createCriteria();
         //关键词模糊搜索
@@ -74,6 +73,7 @@ public class ShowServiceImpl implements ShowService {
         }
         List<BoyingShow> boyingShows = null;
         try {
+            PageHelper.startPage(pageNum, pageSize);//分页相关
            boyingShows  = showMapper.selectByExample(example);
         }
         catch (Exception e){
