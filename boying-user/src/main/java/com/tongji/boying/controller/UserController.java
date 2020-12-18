@@ -1,14 +1,21 @@
 package com.tongji.boying.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.model.User;
 import com.tongji.boying.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -38,6 +45,20 @@ public class UserController {
         String password = map.get("password");
         String telephone = map.get("telephone");
         String authCode = map.get("authCode");
+
+        if (StrUtil.isEmpty(username)) {
+            Asserts.fail("用户名不能为空");
+        }
+        if (StrUtil.isEmpty(password)) {
+            Asserts.fail("密码不能为空");
+        }
+        if (StrUtil.isEmpty(telephone)) {
+            Asserts.fail("手机号不能为空");
+        }
+        if (StrUtil.isEmpty(authCode)) {
+            Asserts.fail("验证码不能为空");
+        }
+
         String icon = map.get("icon");
         userService.register(username, password, telephone, authCode, icon);
         return CommonResult.success(null, "注册成功");
@@ -49,6 +70,14 @@ public class UserController {
     public CommonResult usernameLogin(@RequestBody Map<String, String> map) {
         String username = map.get("username");
         String password = map.get("password");
+
+        if (StrUtil.isEmpty(username)) {
+            Asserts.fail("用户名不能为空");
+        }
+        if (StrUtil.isEmpty(password)) {
+            Asserts.fail("密码不能为空");
+        }
+
         String token = userService.login(username, password);
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
@@ -65,6 +94,14 @@ public class UserController {
     public CommonResult telephoneLogin(@RequestBody Map<String, String> map) {
         String telephone = map.get("telephone");
         String password = map.get("password");
+
+        if (StrUtil.isEmpty(password)) {
+            Asserts.fail("密码不能为空");
+        }
+        if (StrUtil.isEmpty(telephone)) {
+            Asserts.fail("手机号不能为空");
+        }
+
         String token = userService.telephoneLogin(telephone, password);
         if (token == null) {
             return CommonResult.validateFailed("手机号或密码错误");
@@ -77,14 +114,29 @@ public class UserController {
 
     @ApiOperation("用户手机号验证码登录")
     @RequestMapping(value = "/authCodeLogin", method = RequestMethod.POST)
+    @ApiImplicitParams(
+            {
+                    @ApiImplicitParam(name = "telephone", value = "手机号"),
+                    @ApiImplicitParam(name = "authCode", value = "验证码")
+            })
     @ResponseBody
     public CommonResult authCodeLogin(@RequestBody Map<String, String> map) {
         String telephone = map.get("telephone");
         String authCode = map.get("authCode");
+
+        if (StrUtil.isEmpty(telephone)) {
+            Asserts.fail("手机号不能为空");
+        }
+        if (StrUtil.isEmpty(authCode)) {
+            Asserts.fail("验证码不能为空");
+        }
+
         String token = userService.authCodeLogin(telephone, authCode);
+
         if (token == null) {
             return CommonResult.validateFailed("验证码错误");
         }
+
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
@@ -106,14 +158,13 @@ public class UserController {
     @ApiOperation("更新个人信息")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updateInfo(Principal principal,
-                                   @RequestParam(required = false) String realName,
-                                   @RequestParam(required = false) String identityNumber,
-                                   @RequestParam(required = false) String email,
-                                   @RequestParam(required = false, defaultValue = "https://tongji4m3.oss-cn-beijing.aliyuncs.com/f_f_object_156_s512_f_object_156_0.png") String icon,
-                                   @RequestParam(required = false) int age,
-                                   @RequestParam(required = false, defaultValue = "true") boolean gender
-    ) {
+    public CommonResult updateInfo(Principal principal, @RequestBody Map<String, String> map) {
+        String realName = map.get("realName");
+        String identityNumber = map.get("identityNumber");
+        String email = map.get("email");
+        String icon = map.getOrDefault("icon", "https://tongji4m3.oss-cn-beijing.aliyuncs.com/f_f_object_156_s512_f_object_156_0.png");
+        int age = Integer.parseInt(map.getOrDefault("age", "0"));
+        boolean gender = Boolean.parseBoolean(map.getOrDefault("gender", "true"));
         //        防止直接查询时报错
         if (principal == null) {
             return CommonResult.unauthorized(null);
@@ -134,9 +185,28 @@ public class UserController {
     @ApiOperation("修改密码")
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updatePassword(@RequestParam String telephone,
-                                       @RequestParam String password,
-                                       @RequestParam String authCode) {
+    @ApiImplicitParams(
+            {
+                    @ApiImplicitParam(name = "telephone", value = "手机号"),
+                    @ApiImplicitParam(name = "password", value = "密码"),
+                    @ApiImplicitParam(name = "authCode", value = "验证码")
+            })
+    public CommonResult updatePassword(@RequestBody Map<String, String> map) {
+
+        String telephone = map.get("telephone");
+        String password = map.get("password");
+        String authCode = map.get("authCode");
+
+        if (StrUtil.isEmpty(password)) {
+            Asserts.fail("密码不能为空");
+        }
+        if (StrUtil.isEmpty(telephone)) {
+            Asserts.fail("手机号不能为空");
+        }
+        if (StrUtil.isEmpty(authCode)) {
+            Asserts.fail("验证码不能为空");
+        }
+
         userService.updatePassword(telephone, password, authCode);
         return CommonResult.success(null, "密码修改成功");
     }

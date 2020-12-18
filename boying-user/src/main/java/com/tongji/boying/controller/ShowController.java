@@ -79,12 +79,6 @@ public class ShowController {
             return CommonResult.failed("输入的参数格式有误!");
         }
 
-        System.out.println(categoryId + "categoryId");
-        System.out.println(pageNum + "pageNum");
-        System.out.println(pageSize + "pageSize");
-        System.out.println(sort + "sort");
-        System.out.println(date + "date");
-
         List<BoyingShow> productList = showService.search(keyword, city, categoryId, date, pageNum, pageSize, sort);
         if (productList == null || productList.isEmpty()) return CommonResult.failed("查询列表为空!");
         return CommonResult.success(CommonPage.restPage(productList));

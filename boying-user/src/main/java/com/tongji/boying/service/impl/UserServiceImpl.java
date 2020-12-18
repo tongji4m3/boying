@@ -43,8 +43,7 @@ import java.util.Random;
  * 用户管理Service实现类
  */
 @Service
-public class UserServiceImpl implements UserService
-{
+public class UserServiceImpl implements UserService {
     //    便于日志的打印
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -77,15 +76,13 @@ public class UserServiceImpl implements UserService
     private Long AUTH_CODE_EXPIRE_SECONDS;
 
     @Override
-    public User getByUsername(String username)
-    {
+    public User getByUsername(String username) {
         User user = userCacheService.getUser(username);
         if (user != null) return user; //缓存里面有数据
         UserExample example = new UserExample();
         example.createCriteria().andUsernameEqualTo(username);//根据userExample进行where语句的查询
         List<User> userList = userMapper.selectByExample(example);
-        if (!CollectionUtils.isEmpty(userList))
-        {
+        if (!CollectionUtils.isEmpty(userList)) {
             user = userList.get(0);
             userCacheService.setUser(user);//将查询到的数据放入缓存中
             return user;
@@ -96,11 +93,9 @@ public class UserServiceImpl implements UserService
 
     @Override
     @DateTimeFormat
-    public void register(String username, String password, String telephone, String authCode,String icon)
-    {
+    public void register(String username, String password, String telephone, String authCode, String icon) {
         //验证验证码
-        if (!verifyAuthCode(authCode, telephone))
-        {
+        if (!verifyAuthCode(authCode, telephone)) {
             Asserts.fail("验证码错误");
         }
         //查询是否已有该用户
@@ -109,8 +104,7 @@ public class UserServiceImpl implements UserService
         example.createCriteria().andUsernameEqualTo(username);
         example.or(example.createCriteria().andPhoneEqualTo(telephone));
         List<User> users = userMapper.selectByExample(example);
-        if (!CollectionUtils.isEmpty(users))
-        {
+        if (!CollectionUtils.isEmpty(users)) {
             Asserts.fail("该用户已经存在或手机号已注册");
         }
         //没有该用户进行添加操作
@@ -127,13 +121,11 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public void generateAuthCode(String telephone)
-    {
+    public void generateAuthCode(String telephone) {
         //简单生成6位验证码
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
-        for (int i = 0; i < 6; i++)
-        {
+        for (int i = 0; i < 6; i++) {
             sb.append(random.nextInt(10));
         }
         //为该手机号生成验证码
@@ -153,35 +145,29 @@ public class UserServiceImpl implements UserService
         request.putQueryParameter("SignName", "博影娱乐票务平台");
         request.putQueryParameter("TemplateCode", "SMS_205120016");
         request.putQueryParameter("TemplateParam", "{\"code\":" + sb.toString() + "}");
-        try
-        {
+        try {
             CommonResponse response = client.getCommonResponse(request);
             System.out.println(response.getData());
         }
-        catch (ServerException e)
-        {
+        catch (ServerException e) {
             e.printStackTrace();
         }
-        catch (ClientException e)
-        {
+        catch (ClientException e) {
             e.printStackTrace();
         }
     }
 
 
     @Override
-    public void updatePassword(String telephone, String password, String authCode)
-    {
+    public void updatePassword(String telephone, String password, String authCode) {
         UserExample example = new UserExample();
         example.createCriteria().andPhoneEqualTo(telephone);
         List<User> userList = userMapper.selectByExample(example);
-        if (CollectionUtils.isEmpty(userList))
-        {
+        if (CollectionUtils.isEmpty(userList)) {
             Asserts.fail("该账号不存在");
         }
         //验证验证码
-        if (!verifyAuthCode(authCode, telephone))
-        {
+        if (!verifyAuthCode(authCode, telephone)) {
             Asserts.fail("验证码错误");
         }
         User user = userList.get(0);
@@ -195,8 +181,7 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public User getCurrentUser()
-    {
+    public User getCurrentUser() {
 //        获取之前登录存储的用户上下文信息
         SecurityContext ctx = SecurityContextHolder.getContext();
         Authentication auth = ctx.getAuthentication();
@@ -205,26 +190,21 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username)
-    {
+    public UserDetails loadUserByUsername(String username) {
         User user = getByUsername(username);
-        if (user != null)
-        {
+        if (user != null) {
             return new BoyingUserDetails(user);
         }
         throw new UsernameNotFoundException("用户名或密码错误");
     }
 
     @Override
-    public String login(String username, String password)
-    {
+    public String login(String username, String password) {
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
-        try
-        {
+        try {
             UserDetails userDetails = loadUserByUsername(username);
-            if (!passwordEncoder.matches(password, userDetails.getPassword()))
-            {
+            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
                 throw new BadCredentialsException("密码不正确");
             }
 //            获取该用户的上下文信息（如他的角色列表）
@@ -234,8 +214,7 @@ public class UserServiceImpl implements UserService
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
         }
-        catch (AuthenticationException e)
-        {
+        catch (AuthenticationException e) {
             LOGGER.warn("登录异常:{}", e.getMessage());
         }
         return token;
@@ -243,30 +222,24 @@ public class UserServiceImpl implements UserService
 
 
     @Override
-    public String telephoneLogin(String telephone, String password)
-    {
+    public String telephoneLogin(String telephone, String password) {
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
-        try
-        {
+        try {
             User user = userCacheService.getUserByTelephone(telephone);
             //缓存里面没有数据
-            if (user == null)
-            {
+            if (user == null) {
                 UserExample example = new UserExample();
                 example.createCriteria().andPhoneEqualTo(telephone);//根据userExample进行where语句的查询
                 List<User> userList = userMapper.selectByExample(example);
-                if (!CollectionUtils.isEmpty(userList))
-                {
+                if (!CollectionUtils.isEmpty(userList)) {
                     user = userList.get(0);
                     userCacheService.setUser(user);//将查询到的数据放入缓存中
                 }
-                else
-                {
+                else {
                     Asserts.fail("手机号不存在");
                 }
-                if (!passwordEncoder.matches(password, user.getPassword()))
-                {
+                if (!passwordEncoder.matches(password, user.getPassword())) {
                     throw new BadCredentialsException("密码不正确");
                 }
             }
@@ -275,34 +248,28 @@ public class UserServiceImpl implements UserService
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
         }
-        catch (AuthenticationException e)
-        {
+        catch (AuthenticationException e) {
             LOGGER.warn("登录异常:{}", e.getMessage());
         }
         return token;
     }
 
     @Override
-    public String authCodeLogin(String telephone, String authCode)
-    {
+    public String authCodeLogin(String telephone, String authCode) {
         //验证验证码
-        if (!verifyAuthCode(authCode, telephone))
-        {
+        if (!verifyAuthCode(authCode, telephone)) {
             Asserts.fail("验证码错误");
         }
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
-        try
-        {
+        try {
             User user = userCacheService.getUserByTelephone(telephone);
             //缓存里面没有数据
-            if (user == null)
-            {
+            if (user == null) {
                 UserExample example = new UserExample();
                 example.createCriteria().andPhoneEqualTo(telephone);//根据userExample进行where语句的查询
                 List<User> userList = userMapper.selectByExample(example);
-                if (!CollectionUtils.isEmpty(userList))
-                {
+                if (!CollectionUtils.isEmpty(userList)) {
                     user = userList.get(0);
                     userCacheService.setUser(user);//将查询到的数据放入缓存中
                 }
@@ -313,8 +280,7 @@ public class UserServiceImpl implements UserService
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
         }
-        catch (AuthenticationException e)
-        {
+        catch (AuthenticationException e) {
             LOGGER.warn("登录异常:{}", e.getMessage());
         }
         //注册完删除验证码,每个验证码只能使用一次
@@ -323,44 +289,40 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public void setDefaultFrequent(Integer frequentId)
-    {
+    public void setDefaultFrequent(Integer frequentId) {
         User currentUser = getCurrentUser();
         currentUser.setDefaultFrequent(frequentId);
     }
 
     @Override
-    public void setDefaultAddress(Integer addressId)
-    {
+    public void setDefaultAddress(Integer addressId) {
         User currentUser = getCurrentUser();
         currentUser.setDefaultAddress(addressId);
     }
 
     @Override
-    public String refreshToken(String token)
-    {
+    public String refreshToken(String token) {
         return jwtTokenUtil.refreshHeadToken(token);
     }
 
     @Override
-    public void updateInfo(String realName, String identityNumber, String email, String icon, int age, boolean gender)
-    {
+    public void updateInfo(String realName, String identityNumber, String email, String icon, int age, boolean gender) {
         User currentUser = getCurrentUser();
         currentUser.setRealName(realName);
         currentUser.setIdentityNumber(identityNumber);
         currentUser.setEmail(email);
         currentUser.setIcon(icon);
         currentUser.setGender(gender);
-        currentUser.setAge(age);
+        if (age > 0) {
+            currentUser.setAge(age);
+        }
         userMapper.updateByPrimaryKeySelective(currentUser);//只更新不为空的字段
         userCacheService.delUser(currentUser.getUserId());//删除无效缓存
     }
 
     //对输入的验证码进行校验
-    private boolean verifyAuthCode(String authCode, String telephone)
-    {
-        if (StringUtils.isEmpty(authCode))
-        {
+    private boolean verifyAuthCode(String authCode, String telephone) {
+        if (StringUtils.isEmpty(authCode)) {
             return false;
         }
 //        redis中存储了该手机号未过期的验证码
