@@ -52,4 +52,9 @@ public interface UserFrequentService
      * 设为默认常用联系人
      */
     void setDefault(int id);
+
+    /**
+     取消绑定默认常用联系人
+     */
+    void setNullFrequent();
 }

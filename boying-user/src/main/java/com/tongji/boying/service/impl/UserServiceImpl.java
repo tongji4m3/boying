@@ -292,12 +292,16 @@ public class UserServiceImpl implements UserService {
     public void setDefaultFrequent(Integer frequentId) {
         User currentUser = getCurrentUser();
         currentUser.setDefaultFrequent(frequentId);
+        userMapper.updateByPrimaryKey(currentUser);
+        userCacheService.delUser(currentUser.getUserId());//删除无效缓存
     }
 
     @Override
     public void setDefaultAddress(Integer addressId) {
         User currentUser = getCurrentUser();
         currentUser.setDefaultAddress(addressId);
+        userMapper.updateByPrimaryKey(currentUser);
+        userCacheService.delUser(currentUser.getUserId());//删除无效缓存
     }
 
     @Override

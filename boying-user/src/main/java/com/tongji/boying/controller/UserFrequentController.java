@@ -103,4 +103,12 @@ public class UserFrequentController {
         userFrequentService.setDefault(id);
         return CommonResult.success("设置默认常用联系人成功");
     }
+
+    @ApiOperation("取消设置默认常用联系人")
+    @RequestMapping(value = "/cancelDefaultFrequent", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult setNullFrequent() {
+        userFrequentService.setNullFrequent();
+        return CommonResult.success("取消默认常用联系人成功");
+    }
 }
