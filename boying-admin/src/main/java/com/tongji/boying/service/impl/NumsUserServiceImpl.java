@@ -51,6 +51,11 @@ public class NumsUserServiceImpl implements NumsUserService {
     }
 
     @Override
+    public int deleteOrder(Integer id) {
+        return userOrderMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
     public int update(Integer id, NumsUserParam param) {
         User user = new User();
         BeanUtils.copyProperties(param, user);
