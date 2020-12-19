@@ -5,6 +5,7 @@ import com.tongji.boying.mapper.TicketMapper;
 import com.tongji.boying.model.Ticket;
 import com.tongji.boying.model.TicketExample;
 import com.tongji.boying.service.UserTicketService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @Service
 public class UserTicketServiceImpl implements UserTicketService
 {
+    @Autowired
     private TicketMapper ticketMapper;
 
     @Override

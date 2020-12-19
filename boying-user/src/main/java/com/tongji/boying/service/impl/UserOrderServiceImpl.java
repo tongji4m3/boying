@@ -90,20 +90,17 @@ public class UserOrderServiceImpl implements UserOrderService
             }
         }
 
-        BoyingShow show = showMapper.selectByPrimaryKey(showSession.getShowId());
-
-
         //生成订单
         UserOrder order = new UserOrder();
         order.setUserId(user.getUserId());
         order.setShowSessionId(showSessionId);
-        order.setAddressId(0);//0约定为不邮寄
+        order.setAddressId(null);//0约定为不邮寄
         order.setFrequentId(frequentId);
         order.setStatus(1);//待评价状态
         order.setTime(new Date());
         order.setPayment("支付宝");
         order.setUserDelete(false);
-        order.setShowId(show.getShowId());
+        order.setShowId(showSession.getShowId());
 
 
         //订单总数,订单总金额
@@ -113,19 +110,28 @@ public class UserOrderServiceImpl implements UserOrderService
         for (Integer showClassId : showClassIds)
         {
             ShowClass showClass = showClassMapper.selectByPrimaryKey(showClassId);
-            //生成票
-            userTicketService.add(1, showClassId);
+
 
             totalMoney += showClass.getPrice();
             ++count;
         }
         order.setTicketCount(count);
         order.setMoney(totalMoney);
-        orderMapper.insert(order);
-        System.out.println(order);
+        int insert = orderMapper.insert(order);
+        /*
+        如果报错,可能是重新生成了generator
+        在orderMapper.insert(order)的mapper里面改成如下:
+        <insert id="insert" parameterType="com.tongji.boying.model.UserOrder" keyProperty="orderId"
+          keyColumn="order_id" useGeneratedKeys="true">
+         */
+        //生成票
+        for (Integer showClassId : showClassIds)
+        {
+            System.out.println(order.getOrderId()+"   "+showClassId);
+            userTicketService.add(order.getOrderId(), showClassId);
+        }
 
-
-        return 0;
+        return insert;
     }
 
     @Override
@@ -133,7 +139,7 @@ public class UserOrderServiceImpl implements UserOrderService
     {
         User user = userService.getCurrentUser();
         UserOrderExample userOrderExample = new UserOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id);
+        userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id).andUserDeleteEqualTo(false);
         List<UserOrder> userOrders = orderMapper.selectByExample(userOrderExample);
         if (userOrders.isEmpty())
         {
@@ -160,7 +166,7 @@ public class UserOrderServiceImpl implements UserOrderService
     {
         User user = userService.getCurrentUser();
         UserOrderExample userOrderExample = new UserOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id);
+        userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id).andUserDeleteEqualTo(false);
         List<UserOrder> userOrders = orderMapper.selectByExample(userOrderExample);
         if (!CollectionUtils.isEmpty(userOrders))
         {
