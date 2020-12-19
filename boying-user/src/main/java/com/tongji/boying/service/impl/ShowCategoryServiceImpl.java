@@ -1,5 +1,6 @@
 package com.tongji.boying.service.impl;
 
+import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.mapper.CategoryMapper;
 import com.tongji.boying.model.Category;
 import com.tongji.boying.model.CategoryExample;
@@ -24,6 +25,18 @@ public class ShowCategoryServiceImpl implements ShowCategoryService
         categoryExample.createCriteria().andWeightNotEqualTo(0).andParentIdEqualTo(parentId);
         categoryExample.setOrderByClause("weight desc");
         return categoryMapper.selectByExample(categoryExample);
+    }
+
+    @Override
+    public String categoryName(int categoryId) {
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.createCriteria().andWeightNotEqualTo(0).andCategoryIdEqualTo(categoryId);
+        List<Category> categories = categoryMapper.selectByExample(categoryExample);
+        if (categories == null || categories.size() == 0) {
+            Asserts.fail("找不到对应演出目录信息");
+        }
+
+        return categories.get(0).getName();
     }
 
     @Override

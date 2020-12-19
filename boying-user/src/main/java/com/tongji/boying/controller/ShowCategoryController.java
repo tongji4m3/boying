@@ -26,10 +26,18 @@ public class ShowCategoryController
     @ApiOperation("获取所有的父级菜单列表或某个父级菜单的所有二级子菜单")
     @RequestMapping(value = "/categoryList", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<Category>> getCategoryList(@RequestBody int parentId)
+    public CommonResult<List<Category>> getCategoryList(@RequestBody int categoryId)
     {
-        List<Category> categories = showCategoryService.categoryList(parentId);
+        List<Category> categories = showCategoryService.categoryList(categoryId);
         return CommonResult.success(categories);
+    }
+    @ApiOperation("获取菜单对应名称")
+    @RequestMapping(value = "/categoryName", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<String> getCategoryName(@RequestBody int parentId)
+    {
+        String name = showCategoryService.categoryName(parentId);
+        return CommonResult.success(name);
     }
 
     @ApiOperation("获取以Map结构获取所有商品分类 (父级菜单,该父级菜单的所有二级菜单)")
