@@ -152,12 +152,16 @@ public class UserOrderServiceImpl implements UserOrderService
     }
 
     @Override
-    public List<UserOrder> list(Integer pageNum, Integer pageSize)
+    public List<UserOrder> list(Integer status,Integer pageNum, Integer pageSize)
     {
-        PageHelper.startPage(pageNum, pageSize);//分页相关
         User user = userService.getCurrentUser();
         UserOrderExample userOrderExample = new UserOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andUserDeleteEqualTo(false);
+        UserOrderExample.Criteria criteria = userOrderExample.createCriteria();
+        if (status != null && status != -1) {
+            criteria.andStatusEqualTo(status);
+        }
+        criteria.andUserIdEqualTo(user.getUserId()).andUserDeleteEqualTo(false);
+        PageHelper.startPage(pageNum, pageSize);//分页相关
         return orderMapper.selectByExample(userOrderExample);
     }
 
