@@ -35,6 +35,9 @@ public class UserReviewController
     @ResponseBody
     public CommonResult add(@Validated @RequestBody UserReviewParam param)
     {
+        System.out.println(param);
+
+
         int count = userReviewService.add(param);
         if (count > 0)
         {
