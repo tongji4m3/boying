@@ -47,6 +47,17 @@ public class UserOrderController {
         return CommonResult.failed();
     }
 
+    @ApiOperation("取消订单")
+    @RequestMapping(value = "/cancel/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult cancel(@PathVariable int id) {
+        int count = orderService.cancel(id);
+        if (count > 0) {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
+    }
+
     @ApiOperation("显示所有订单")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody

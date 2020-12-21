@@ -19,6 +19,9 @@ public interface UserOrderService {
     int delete(int id);
 
 
+    int cancel(int id);
+
+
     /**
      * 返回当前用户的订单
      *

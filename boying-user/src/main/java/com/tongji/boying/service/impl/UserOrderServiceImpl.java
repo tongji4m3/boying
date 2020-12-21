@@ -96,7 +96,7 @@ public class UserOrderServiceImpl implements UserOrderService
         order.setShowSessionId(showSessionId);
         order.setAddressId(null);//0约定为不邮寄
         order.setFrequentId(frequentId);
-        order.setStatus(1);//待评价状态
+        order.setStatus(1);//待观看状态
         order.setTime(new Date());
         order.setPayment("支付宝");
         order.setUserDelete(false);
@@ -148,6 +148,25 @@ public class UserOrderServiceImpl implements UserOrderService
         UserOrder order = new UserOrder();
         order.setUserDelete(true);
         order.setOrderId(userOrders.get(0).getOrderId());
+        return orderMapper.updateByPrimaryKeySelective(order);
+    }
+
+    @Override
+    public int cancel(int id) {
+        User user = userService.getCurrentUser();
+        UserOrderExample userOrderExample = new UserOrderExample();
+        userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id).andUserDeleteEqualTo(false);
+        List<UserOrder> userOrders = orderMapper.selectByExample(userOrderExample);
+        if (userOrders.isEmpty())
+        {
+            Asserts.fail("无此订单");
+        }
+        if (userOrders.get(0).getStatus() == 2) {
+            Asserts.fail("不能取消已完成订单!");
+        }
+        UserOrder order = new UserOrder();
+        order.setOrderId(userOrders.get(0).getOrderId());
+        order.setStatus(3);
         return orderMapper.updateByPrimaryKeySelective(order);
     }
 
