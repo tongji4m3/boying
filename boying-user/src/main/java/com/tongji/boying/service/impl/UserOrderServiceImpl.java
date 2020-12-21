@@ -3,10 +3,7 @@ package com.tongji.boying.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.UserOrderParam;
-import com.tongji.boying.mapper.ShowClassMapper;
-import com.tongji.boying.mapper.BoyingShowMapper;
-import com.tongji.boying.mapper.ShowSessionMapper;
-import com.tongji.boying.mapper.UserOrderMapper;
+import com.tongji.boying.mapper.*;
 import com.tongji.boying.model.*;
 import com.tongji.boying.service.UserFrequentService;
 import com.tongji.boying.service.UserOrderService;
@@ -38,6 +35,8 @@ public class UserOrderServiceImpl implements UserOrderService
     private BoyingShowMapper showMapper;
     @Autowired
     private ShowClassMapper showClassMapper;
+    @Autowired
+    private TicketMapper ticketMapper;
 
     @Override
     public int add(UserOrderParam param)
@@ -48,7 +47,8 @@ public class UserOrderServiceImpl implements UserOrderService
 
         User user = userService.getCurrentUser();
         UserOrderExample orderExample = new UserOrderExample();
-        orderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andShowSessionIdEqualTo(showSessionId);
+        //已退票的不算
+        orderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andShowSessionIdEqualTo(showSessionId).andStatusNotEqualTo(3);
         List<UserOrder> orders = orderMapper.selectByExample(orderExample);
         if (!orders.isEmpty())
         {
@@ -167,6 +167,10 @@ public class UserOrderServiceImpl implements UserOrderService
         UserOrder order = new UserOrder();
         order.setOrderId(userOrders.get(0).getOrderId());
         order.setStatus(3);
+        TicketExample ticketExample = new TicketExample();
+        ticketExample.createCriteria().andOrderIdEqualTo(order.getOrderId());
+        ticketMapper.deleteByExample(ticketExample);
+//        return orderMapper.deleteByPrimaryKey(order.getOrderId());
         return orderMapper.updateByPrimaryKeySelective(order);
     }
 
