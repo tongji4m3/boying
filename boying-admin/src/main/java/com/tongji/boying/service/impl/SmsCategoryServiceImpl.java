@@ -65,6 +65,13 @@ public class SmsCategoryServiceImpl implements SmsCategoryService
     }
 
     @Override
+    public List<Category> listParent() {
+        CategoryExample example = new CategoryExample();
+        example.createCriteria().andParentIdEqualTo(0);
+        return categoryMapper.selectByExample(example);
+    }
+
+    @Override
     public  Category getCategory(Integer id){
         return categoryMapper.selectByPrimaryKey(id);
     }
@@ -84,5 +91,12 @@ public class SmsCategoryServiceImpl implements SmsCategoryService
         {
             Asserts.fail("目录名称不能重复!");
         }
+    }
+
+    @Override
+    public List<Category> getChildrenCategory(Integer id) {
+        CategoryExample example = new CategoryExample();
+        example.createCriteria().andParentIdEqualTo(id);
+        return categoryMapper.selectByExample(example);
     }
 }

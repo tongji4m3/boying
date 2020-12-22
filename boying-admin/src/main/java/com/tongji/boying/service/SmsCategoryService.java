@@ -38,7 +38,17 @@ public interface SmsCategoryService
     List<Category> list();
 
     /**
+     * 获取所有演出一级目录列表
+     */
+    List<Category> listParent();
+
+    /**
      * 获取某个演出目录列表
      */
     Category getCategory(Integer id);
+
+    /**
+     * 获取某个演出目录的子目录
+     */
+    List<Category> getChildrenCategory(Integer id);
 }
