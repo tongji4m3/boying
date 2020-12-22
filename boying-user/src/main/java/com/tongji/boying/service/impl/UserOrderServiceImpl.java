@@ -42,7 +42,7 @@ public class UserOrderServiceImpl implements UserOrderService
     public int add(UserOrderParam param)
     {
         Integer showSessionId = param.getShowSessionId();
-        Integer frequentId = param.getFrequentId();
+//        Integer frequentId = param.getFrequentId();
         List<Integer> showClassIds = param.getShowClassIds();
 
         User user = userService.getCurrentUser();
@@ -64,10 +64,10 @@ public class UserOrderServiceImpl implements UserOrderService
             Asserts.fail("一个订单最多只能有5张票!");
         }
 
-        if (frequentService.getItem(frequentId) == null)
-        {
-            Asserts.fail("订单中的常用购票人不合法!");
-        }
+//        if (frequentService.getItem(frequentId) == null)
+//        {
+//            Asserts.fail("订单中的常用购票人不合法!");
+//        }
 
         ShowSession showSession = showSessionMapper.selectByPrimaryKey(showSessionId);
         if (showSession == null)
@@ -95,7 +95,8 @@ public class UserOrderServiceImpl implements UserOrderService
         order.setUserId(user.getUserId());
         order.setShowSessionId(showSessionId);
         order.setAddressId(null);//0约定为不邮寄
-        order.setFrequentId(frequentId);
+//        order.setFrequentId(frequentId);
+        order.setFrequentId(user.getUserId());
         order.setStatus(1);//待观看状态
         order.setTime(new Date());
         order.setPayment("支付宝");
