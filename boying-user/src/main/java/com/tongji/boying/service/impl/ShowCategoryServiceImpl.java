@@ -28,15 +28,14 @@ public class ShowCategoryServiceImpl implements ShowCategoryService
     }
 
     @Override
-    public String categoryName(int categoryId) {
+    public Category category(int categoryId) {
         CategoryExample categoryExample = new CategoryExample();
         categoryExample.createCriteria().andWeightNotEqualTo(0).andCategoryIdEqualTo(categoryId);
         List<Category> categories = categoryMapper.selectByExample(categoryExample);
         if (categories == null || categories.size() == 0) {
             Asserts.fail("找不到对应演出目录信息");
         }
-
-        return categories.get(0).getName();
+        return categories.get(0);
     }
 
     @Override

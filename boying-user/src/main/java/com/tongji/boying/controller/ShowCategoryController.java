@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -31,13 +32,13 @@ public class ShowCategoryController
         List<Category> categories = showCategoryService.categoryList(categoryId);
         return CommonResult.success(categories);
     }
-    @ApiOperation("获取菜单对应名称")
-    @RequestMapping(value = "/categoryName", method = RequestMethod.POST)
+    @ApiOperation("获取菜单")
+    @RequestMapping(value = "/category", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<String> getCategoryName(@RequestBody int parentId)
+    public CommonResult<Category> getCategory(@RequestBody int categoryId)
     {
-        String name = showCategoryService.categoryName(parentId);
-        return CommonResult.success(name);
+        Category category = showCategoryService.category(categoryId);
+        return CommonResult.success(category);
     }
     @ApiOperation("获取二级菜单对应的一级菜单")
     @RequestMapping(value = "/getParentCategory", method = RequestMethod.POST)

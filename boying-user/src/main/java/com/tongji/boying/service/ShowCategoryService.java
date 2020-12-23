@@ -13,7 +13,7 @@ public interface ShowCategoryService
      */
     List<Category> categoryList(int parentId);
 
-    String categoryName(int categoryId);
+    Category category(int categoryId);
 
     Category getParentCategory(int categoryId);
 
