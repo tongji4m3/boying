@@ -15,6 +15,8 @@ public interface ShowCategoryService
 
     String categoryName(int categoryId);
 
+    Category getParentCategory(int categoryId);
+
 
     /**
      * 以Map结构获取所有商品分类 (父级菜单,该父级菜单的所有二级菜单)

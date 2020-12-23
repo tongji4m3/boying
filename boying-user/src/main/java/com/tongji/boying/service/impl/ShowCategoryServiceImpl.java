@@ -40,6 +40,27 @@ public class ShowCategoryServiceImpl implements ShowCategoryService
     }
 
     @Override
+    public Category getParentCategory(int categoryId) {
+        //查询该目录对应的parent
+        Category sonCategory = categoryMapper.selectByPrimaryKey(categoryId);
+        if (sonCategory == null) {
+            Asserts.fail("子菜单不存在");
+        }
+        if (sonCategory.getParentId() == 0) {
+            Asserts.fail("已经是父级菜单");
+        }
+
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.createCriteria().andWeightNotEqualTo(0).andCategoryIdEqualTo(sonCategory.getParentId());
+        List<Category> categories = categoryMapper.selectByExample(categoryExample);
+        if (categories == null || categories.size() == 0) {
+            Asserts.fail("找不到对应父级演出目录信息");
+        }
+
+        return categories.get(0);
+    }
+
+    @Override
     public Map<Category, List<Category>> categoryMap()
     {
         //用LinkedHashMap保持插入顺序,保证最后结果的权重
