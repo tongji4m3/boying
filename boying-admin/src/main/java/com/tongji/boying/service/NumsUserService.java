@@ -34,6 +34,11 @@ public interface NumsUserService {
     List<UserOrder> listOrders();
 
     /**
+     * 删除某id订单
+     */
+    int deleteOrder(Integer id);
+
+    /**
      * 更新某id用户信息
      */
     int update(Integer id, NumsUserParam param);

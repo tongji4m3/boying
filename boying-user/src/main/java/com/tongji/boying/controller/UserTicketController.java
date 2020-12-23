@@ -26,36 +26,7 @@ public class UserTicketController
     @Autowired
     private UserTicketService userTicketService;
 
-    @ApiOperation("添加票")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult add(@RequestBody Map<String, String> map)
-    {
-        String orderIdStr = map.get("orderId");
-        String showClassIdStr = map.get("showClassId");
-        if (StrUtil.isEmpty(orderIdStr)) {
-            Asserts.fail("orderId不能为空");
-        }
-        if (StrUtil.isEmpty(showClassIdStr)) {
-            Asserts.fail("showClassId不能为空");
-        }
-        Integer orderId = null;
-        Integer showClassId = null;
-        try {
-            orderId = Integer.parseInt(orderIdStr);
-            showClassId = Integer.parseInt(showClassIdStr);
-        }
-        catch (Exception e) {
-            return CommonResult.failed("输入的参数格式有误!");
-        }
 
-        int count = userTicketService.add(orderId, showClassId);
-        if (count > 0)
-        {
-            return CommonResult.success(count);
-        }
-        return CommonResult.failed();
-    }
 
     @ApiOperation("显示所有票")
     @RequestMapping(value = "/list", method = RequestMethod.POST)

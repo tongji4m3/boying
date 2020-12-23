@@ -99,7 +99,15 @@ public class UserAddressController {
     @RequestMapping(value = "/setDefault/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult setDefault(@PathVariable int id) {
+        System.out.println(id);
         userAddressService.setDefault(id);
         return CommonResult.success("设置默认收货地址成功");
+    }
+    @ApiOperation("取消设置默认收货地址")
+    @RequestMapping(value = "/cancelDefaultAddress", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult setNullAddress() {
+        userAddressService.setNullAddress();
+        return CommonResult.success("取消默认收货地址成功");
     }
 }

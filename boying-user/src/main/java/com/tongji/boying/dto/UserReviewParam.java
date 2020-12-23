@@ -26,7 +26,7 @@ public class UserReviewParam
     private String content;
 
     @ApiModelProperty(value = "一级评价为0,二级评价为父级评价ID")
-    @NotEmpty(message = "parentId不能为空")
+    @NotNull(message = "parentId不能为空")
     private Integer parentId;
 }
 

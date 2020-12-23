@@ -82,6 +82,19 @@ public class NumsUserController {
         return CommonResult.success(ordersList);
     }
 
+    @ApiOperation("删除某id订单")
+    @RequestMapping(value = "/deleteOrder/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult deleteOrders(@PathVariable Integer id)
+    {
+        int count = numsUserService.deleteOrder(id);
+        if (count > 0)
+        {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed("要删除的订单不存在!");
+    }
+
     @ApiOperation("更新指定用户信息")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody

@@ -49,6 +49,8 @@ public class ShowServiceImpl implements ShowService {
                 List<Integer> collect = categories.stream()
                         .map(Category::getCategoryId)
                         .collect(Collectors.toList());
+                //一级菜单自己也加上,他本身也算是一个大的分类
+                collect.add(categoryId);
                 System.out.println(collect);
                 criteria.andCategoryIdIn(collect);
             }

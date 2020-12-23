@@ -5,8 +5,7 @@ import com.tongji.boying.model.UserOrder;
 
 import java.util.List;
 
-public interface UserOrderService
-{
+public interface UserOrderService {
     /**
      * 添加订单
      */
@@ -20,13 +19,16 @@ public interface UserOrderService
     int delete(int id);
 
 
+    int cancel(int id);
+
+
     /**
      * 返回当前用户的订单
      *
      * @param pageNum
      * @param pageSize
      */
-    List<UserOrder> list(Integer pageNum, Integer pageSize);
+    List<UserOrder> list(Integer status, Integer pageNum, Integer pageSize);
 
     /**
      * 获取订单详情

@@ -82,8 +82,4 @@ INSERT INTO `role_resource` VALUES (3, 1, 3);
 INSERT INTO `role_resource` VALUES (4, 1, 4);
 INSERT INTO `role_resource` VALUES (5, 1, 5);
 
-INSERT INTO `user_order`(`order_id`, `user_id`, `show_id`, `show_session_id`, `address_id`, `frequent_id`, `status`, `time`, `payment`, `user_delete`, `money`, `ticket_count`) VALUES (1, 53, 57, 1, 1, 1, 2, '2020-12-12 16:38:31', '支付宝支付', 0, 0002312.00, 12);
-
-
-INSERT INTO `ticket`(`ticket_id`, `order_id`, `show_class_id`, `qr_code_url`) VALUES (13, 1, 1, 'url');
 

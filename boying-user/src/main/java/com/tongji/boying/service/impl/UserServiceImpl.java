@@ -84,6 +84,10 @@ public class UserServiceImpl implements UserService {
         List<User> userList = userMapper.selectByExample(example);
         if (!CollectionUtils.isEmpty(userList)) {
             user = userList.get(0);
+            //账号未启用
+            if (!user.getUserstatus()) {
+                Asserts.fail("账号未启用,请联系管理员!");
+            }
             userCacheService.setUser(user);//将查询到的数据放入缓存中
             return user;
         }
@@ -292,12 +296,16 @@ public class UserServiceImpl implements UserService {
     public void setDefaultFrequent(Integer frequentId) {
         User currentUser = getCurrentUser();
         currentUser.setDefaultFrequent(frequentId);
+        userMapper.updateByPrimaryKey(currentUser);
+        userCacheService.delUser(currentUser.getUserId());//删除无效缓存
     }
 
     @Override
     public void setDefaultAddress(Integer addressId) {
         User currentUser = getCurrentUser();
         currentUser.setDefaultAddress(addressId);
+        userMapper.updateByPrimaryKey(currentUser);
+        userCacheService.delUser(currentUser.getUserId());//删除无效缓存
     }
 
     @Override

@@ -92,7 +92,7 @@ public class UserController {
     @RequestMapping(value = "/telephoneLogin", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult telephoneLogin(@RequestBody Map<String, String> map) {
-        String telephone = map.get("telephone");
+            String telephone = map.get("telephone");
         String password = map.get("password");
 
         if (StrUtil.isEmpty(password)) {

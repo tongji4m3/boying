@@ -72,12 +72,31 @@ public class SmsCategoryController
         return CommonResult.success(categoryList);
     }
 
+    @ApiOperation("获取所有一级目录")
+    @RequestMapping(value = "/listParent", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<Category>> listParent()
+    {
+        List<Category> categoryList = categoryService.listParent();
+        if(ObjectUtil.isEmpty(categoryList)) return CommonResult.failed("无目录!");
+        return CommonResult.success(categoryList);
+    }
+
     @ApiOperation("获取某个目录")
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<Category> getCategory(@PathVariable Integer id)
     {
         Category category = categoryService.getCategory(id);
+        return CommonResult.success(category);
+    }
+
+    @ApiOperation("获取某个一级目录的所有二级目录")
+    @RequestMapping(value = "/getChildren/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<Category>> getChildrenCategory(@PathVariable Integer id)
+    {
+        List<Category> category = categoryService.getChildrenCategory(id);
         return CommonResult.success(category);
     }
 }

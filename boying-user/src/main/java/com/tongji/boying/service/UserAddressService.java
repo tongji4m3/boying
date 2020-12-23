@@ -52,4 +52,9 @@ public interface UserAddressService
      * 设为收货地址
      */
     void setDefault(int id);
+
+    /**
+    取消绑定收货地址
+     */
+    void setNullAddress();
 }
