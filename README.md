@@ -140,13 +140,13 @@ document
 
 
 
-### 用例图
+### 数据库ER图
 
 ![博影-用例图](https://tongji4m3.oss-cn-beijing.aliyuncs.com/博影-ER图.png)
 
 
 
-### 数据库ER图
+### 用例图
 
 ![博影-ER图](https://tongji4m3.oss-cn-beijing.aliyuncs.com/博影-用例图.jpg)
 
