@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserOrderServiceImpl implements UserOrderService
-{
+public class UserOrderServiceImpl implements UserOrderService {
     @Autowired
     private UserOrderMapper orderMapper;
     @Autowired
@@ -39,8 +38,7 @@ public class UserOrderServiceImpl implements UserOrderService
     private TicketMapper ticketMapper;
 
     @Override
-    public int add(UserOrderParam param)
-    {
+    public int add(UserOrderParam param) {
         Integer showSessionId = param.getShowSessionId();
 //        Integer frequentId = param.getFrequentId();
         List<Integer> showClassIds = param.getShowClassIds();
@@ -50,17 +48,14 @@ public class UserOrderServiceImpl implements UserOrderService
         //已退票的不算
         orderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andShowSessionIdEqualTo(showSessionId).andStatusNotEqualTo(3);
         List<UserOrder> orders = orderMapper.selectByExample(orderExample);
-        if (!orders.isEmpty())
-        {
+        if (!orders.isEmpty()) {
             //该用户已经下过单了,不能继续了
             Asserts.fail("您已经对该场次下单过了,不能重复下单!");
         }
-        if (showClassIds.size() == 0)
-        {
+        if (showClassIds.size() == 0) {
             Asserts.fail("一个订单至少要有1张票!");
         }
-        if (showClassIds.size() > 5)
-        {
+        if (showClassIds.size() > 5) {
             Asserts.fail("一个订单最多只能有5张票!");
         }
 
@@ -70,24 +65,35 @@ public class UserOrderServiceImpl implements UserOrderService
 //        }
 
         ShowSession showSession = showSessionMapper.selectByPrimaryKey(showSessionId);
-        if (showSession == null)
-        {
+        if (showSession == null) {
             Asserts.fail("演出场次选择不合法!");
         }
         ShowClassExample showClassExample = new ShowClassExample();
         showClassExample.createCriteria().andShowSessionIdEqualTo(showSession.getShowSessionId());
         //数据库中的座次信息
         List<ShowClass> dbShowClasses = showClassMapper.selectByExample(showClassExample);
+        //查看库存状态
+        for (ShowClass dbShowClass : dbShowClasses) {
+            if (dbShowClass.getStock() <= 0) {
+                //只要有一个库存没有，则告知不合法
+                Asserts.fail("库存不足！");
+            }
+        }
+
         List<Integer> dbShowClassIds = dbShowClasses.stream()
                 .map(ShowClass::getShowClassId)
                 .collect(Collectors.toList());
         //校验座次是否合法
-        for (Integer showClassId : showClassIds)
-        {
-            if (!dbShowClassIds.contains(showClassId))
-            {
+        for (Integer showClassId : showClassIds) {
+            if (!dbShowClassIds.contains(showClassId)) {
                 Asserts.fail("演出座次选择不合法!");
             }
+        }
+
+        //减库存
+        for (ShowClass dbShowClass : dbShowClasses) {
+            dbShowClass.setStock(dbShowClass.getStock() - 1);
+            showClassMapper.updateByPrimaryKeySelective(dbShowClass);
         }
 
         //生成订单
@@ -108,8 +114,7 @@ public class UserOrderServiceImpl implements UserOrderService
         double totalMoney = 0;
         int count = 0;
 
-        for (Integer showClassId : showClassIds)
-        {
+        for (Integer showClassId : showClassIds) {
             ShowClass showClass = showClassMapper.selectByPrimaryKey(showClassId);
 
 
@@ -126,24 +131,23 @@ public class UserOrderServiceImpl implements UserOrderService
           keyColumn="order_id" useGeneratedKeys="true">
          */
         //生成票
-        for (Integer showClassId : showClassIds)
-        {
-            System.out.println(order.getOrderId()+"   "+showClassId);
+        for (Integer showClassId : showClassIds) {
+            System.out.println(order.getOrderId() + "   " + showClassId);
             userTicketService.add(order.getOrderId(), showClassId);
         }
 
         return insert;
     }
 
+
+
     @Override
-    public int delete(int id)
-    {
+    public int delete(int id) {
         User user = userService.getCurrentUser();
         UserOrderExample userOrderExample = new UserOrderExample();
         userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id).andUserDeleteEqualTo(false);
         List<UserOrder> userOrders = orderMapper.selectByExample(userOrderExample);
-        if (userOrders.isEmpty())
-        {
+        if (userOrders.isEmpty()) {
             Asserts.fail("无此订单");
         }
         UserOrder order = new UserOrder();
@@ -158,8 +162,7 @@ public class UserOrderServiceImpl implements UserOrderService
         UserOrderExample userOrderExample = new UserOrderExample();
         userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id).andUserDeleteEqualTo(false);
         List<UserOrder> userOrders = orderMapper.selectByExample(userOrderExample);
-        if (userOrders.isEmpty())
-        {
+        if (userOrders.isEmpty()) {
             Asserts.fail("无此订单");
         }
         if (userOrders.get(0).getStatus() == 2) {
@@ -176,8 +179,7 @@ public class UserOrderServiceImpl implements UserOrderService
     }
 
     @Override
-    public List<UserOrder> list(Integer status,Integer pageNum, Integer pageSize)
-    {
+    public List<UserOrder> list(Integer status, Integer pageNum, Integer pageSize) {
         User user = userService.getCurrentUser();
         UserOrderExample userOrderExample = new UserOrderExample();
         UserOrderExample.Criteria criteria = userOrderExample.createCriteria();
@@ -190,14 +192,12 @@ public class UserOrderServiceImpl implements UserOrderService
     }
 
     @Override
-    public UserOrder getItem(int id)
-    {
+    public UserOrder getItem(int id) {
         User user = userService.getCurrentUser();
         UserOrderExample userOrderExample = new UserOrderExample();
         userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id).andUserDeleteEqualTo(false);
         List<UserOrder> userOrders = orderMapper.selectByExample(userOrderExample);
-        if (!CollectionUtils.isEmpty(userOrders))
-        {
+        if (!CollectionUtils.isEmpty(userOrders)) {
             return userOrders.get(0);
         }
         return null;

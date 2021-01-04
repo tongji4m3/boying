@@ -18,6 +18,9 @@ public class ShowClass implements Serializable {
     @ApiModelProperty(value = "该级别座位的定价")
     private Double price;
 
+    @ApiModelProperty(value = "该级别座位的库存")
+    private Integer stock;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getShowClassId() {
@@ -60,6 +63,14 @@ public class ShowClass implements Serializable {
         this.price = price;
     }
 
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -71,6 +82,7 @@ public class ShowClass implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", capacity=").append(capacity);
         sb.append(", price=").append(price);
+        sb.append(", stock=").append(stock);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

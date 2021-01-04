@@ -38,8 +38,11 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.tongji.boying.mapper"
                              targetProject="boying-mbg\src\main\java"/>
         <!--生成全部表tableName设为%-->
-        <table tableName="%">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+<!--        <table tableName="%">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+        <table tableName="show_class">
+            <generatedKey column="show_class_id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
 </generatorConfiguration>
