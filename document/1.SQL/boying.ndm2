@@ -384,286 +384,6 @@
           },
           {
             "objectType": "Table_MYSQL",
-            "name": "admin",
-            "comment": "后台用户表",
-            "engine": "InnoDB",
-            "characterSet": "utf8",
-            "collation": "utf8_bin",
-            "autoIncrement": 53,
-            "tablespace": "",
-            "storage": "",
-            "insertMethod": "",
-            "connection": "",
-            "checksum": false,
-            "rowFormat": "DYNAMIC",
-            "avgRowLength": 0,
-            "maxRows": 0,
-            "minRows": 0,
-            "keyBlockSize": 0,
-            "packKeys": "",
-            "delayKeyWrite": false,
-            "dataDirectory": "",
-            "indexDirectory": "",
-            "statsAutoRecalc": "",
-            "statsPersistent": "",
-            "statsSamplePages": 0,
-            "union": "",
-            "pageCheckSum": false,
-            "transactional": false,
-            "compression": "",
-            "oldName": "admin",
-            "encryption": false,
-            "createOptions": "row_format=DYNAMIC",
-            "createTime": "2020-12-09 01:09:25",
-            "checkTime": "",
-            "dataFree": 0,
-            "dataLength": 16384,
-            "indexLength": 0,
-            "maxDataLength": 0,
-            "rows": 3,
-            "updateTime": "2020-12-11 08:38:25",
-            "DDL": "CREATE TABLE `admin` (\n  `admin_id` int(11) NOT NULL AUTO_INCREMENT,\n  `username` varchar(255) COLLATE utf8_bin NOT NULL,\n  `password` varchar(255) COLLATE utf8_bin NOT NULL,\n  `icon` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '头像',\n  `email` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',\n  `create_time` datetime NOT NULL COMMENT '创建时间',\n  `login_time` datetime DEFAULT NULL COMMENT '最后登录时间',\n  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '帐号启用状态：0->禁用；1->启用',\n  PRIMARY KEY (`admin_id`) USING BTREE\n) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='后台用户表'",
-            "partitionBy": "",
-            "partitionByExpr": "",
-            "partitions": 0,
-            "partitionKeyAlgorithm": "",
-            "subPartitionBy": "",
-            "subPartitionByExpr": "",
-            "subPartitions": 0,
-            "subPartitionKeyAlgorithm": "",
-            "fields": [
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "admin_id",
-                "type": "int",
-                "length": 11,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": true,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "admin_id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "username",
-                "type": "varchar",
-                "length": 255,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "utf8",
-                "collation": "utf8_bin",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "username"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "password",
-                "type": "varchar",
-                "length": 255,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "utf8",
-                "collation": "utf8_bin",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "password"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "icon",
-                "type": "varchar",
-                "length": 255,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "utf8",
-                "collation": "utf8_bin",
-                "isNullable": false,
-                "defaultType": "Empty",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "头像",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "icon"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "email",
-                "type": "varchar",
-                "length": 255,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "utf8",
-                "collation": "utf8_bin",
-                "isNullable": false,
-                "defaultType": "Empty",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "email"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "create_time",
-                "type": "datetime",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "创建时间",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "create_time"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "login_time",
-                "type": "datetime",
-                "length": 0,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "最后登录时间",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "login_time"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "status",
-                "type": "tinyint",
-                "length": 1,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": false,
-                "defaultType": "Others",
-                "defaultValue": "1",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "帐号启用状态：0->禁用；1->启用",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "status"
-              }
-            ],
-            "indexes": [],
-            "primaryKey": {
-              "objectType": "PrimaryKey_MYSQL",
-              "name": "",
-              "fields": [
-                {
-                  "objectType": "IndexField_MYSQL",
-                  "name": "admin_id",
-                  "keyLength": 0,
-                  "order": "",
-                  "oldName": "admin_id"
-                }
-              ],
-              "oldName": "",
-              "indexMethod": "BTREE",
-              "comment": ""
-            },
-            "foreignKeys": [],
-            "triggers": [],
-            "tablePartitions": []
-          },
-          {
-            "objectType": "Table_MYSQL",
             "name": "admin_role",
             "comment": "后台用户和角色关系表",
             "engine": "InnoDB",
@@ -4842,58 +4562,6 @@
               },
               {
                 "objectType": "TableField_MYSQL",
-                "name": "default_frequent",
-                "type": "int",
-                "length": 11,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "默认观影者",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "default_frequent"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "default_address",
-                "type": "int",
-                "length": 11,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "默认地址",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "default_address"
-              },
-              {
-                "objectType": "TableField_MYSQL",
                 "name": "create_time",
                 "type": "datetime",
                 "length": 0,
@@ -5023,6 +4691,286 @@
                 "oldName": "user_ibfk_2"
               }
             ],
+            "triggers": [],
+            "tablePartitions": []
+          },
+          {
+            "objectType": "Table_MYSQL",
+            "name": "admin",
+            "comment": "后台用户表",
+            "engine": "InnoDB",
+            "characterSet": "utf8",
+            "collation": "utf8_bin",
+            "autoIncrement": 53,
+            "tablespace": "",
+            "storage": "",
+            "insertMethod": "",
+            "connection": "",
+            "checksum": false,
+            "rowFormat": "DYNAMIC",
+            "avgRowLength": 0,
+            "maxRows": 0,
+            "minRows": 0,
+            "keyBlockSize": 0,
+            "packKeys": "",
+            "delayKeyWrite": false,
+            "dataDirectory": "",
+            "indexDirectory": "",
+            "statsAutoRecalc": "",
+            "statsPersistent": "",
+            "statsSamplePages": 0,
+            "union": "",
+            "pageCheckSum": false,
+            "transactional": false,
+            "compression": "",
+            "oldName": "admin",
+            "encryption": false,
+            "createOptions": "row_format=DYNAMIC",
+            "createTime": "2020-12-09 01:09:25",
+            "checkTime": "",
+            "dataFree": 0,
+            "dataLength": 16384,
+            "indexLength": 0,
+            "maxDataLength": 0,
+            "rows": 3,
+            "updateTime": "2020-12-11 08:38:25",
+            "DDL": "CREATE TABLE `admin` (\n  `admin_id` int(11) NOT NULL AUTO_INCREMENT,\n  `username` varchar(255) COLLATE utf8_bin NOT NULL,\n  `password` varchar(255) COLLATE utf8_bin NOT NULL,\n  `icon` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '头像',\n  `email` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',\n  `create_time` datetime NOT NULL COMMENT '创建时间',\n  `login_time` datetime DEFAULT NULL COMMENT '最后登录时间',\n  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '帐号启用状态：0->禁用；1->启用',\n  PRIMARY KEY (`admin_id`) USING BTREE\n) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='后台用户表'",
+            "partitionBy": "",
+            "partitionByExpr": "",
+            "partitions": 0,
+            "partitionKeyAlgorithm": "",
+            "subPartitionBy": "",
+            "subPartitionByExpr": "",
+            "subPartitions": 0,
+            "subPartitionKeyAlgorithm": "",
+            "fields": [
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "admin_id",
+                "type": "int",
+                "length": 11,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": true,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "admin_id"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "username",
+                "type": "varchar",
+                "length": 255,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "utf8",
+                "collation": "utf8_bin",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "username"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "password",
+                "type": "varchar",
+                "length": 255,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "utf8",
+                "collation": "utf8_bin",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "password"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "icon",
+                "type": "varchar",
+                "length": 255,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "utf8",
+                "collation": "utf8_bin",
+                "isNullable": false,
+                "defaultType": "Empty",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "头像",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "icon"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "email",
+                "type": "varchar",
+                "length": 255,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "utf8",
+                "collation": "utf8_bin",
+                "isNullable": false,
+                "defaultType": "Empty",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "email"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "create_time",
+                "type": "datetime",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "创建时间",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "create_time"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "login_time",
+                "type": "datetime",
+                "length": 0,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": true,
+                "defaultType": "Null",
+                "defaultValue": "",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "最后登录时间",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "login_time"
+              },
+              {
+                "objectType": "TableField_MYSQL",
+                "name": "status",
+                "type": "tinyint",
+                "length": 1,
+                "decimals": 0,
+                "isUnsigned": false,
+                "isZeroFill": false,
+                "setEnumValues": "",
+                "isBinary": false,
+                "charset": "",
+                "collation": "",
+                "isNullable": false,
+                "defaultType": "Others",
+                "defaultValue": "1",
+                "isOnUpdateCurrentTimestamp": false,
+                "isAutoInc": false,
+                "comment": "帐号启用状态：0->禁用；1->启用",
+                "columnFormat": "",
+                "storage": "",
+                "isVirtual": false,
+                "isGeneratedAlways": false,
+                "virtualExpr": "",
+                "virtualType": "",
+                "oldName": "status"
+              }
+            ],
+            "indexes": [],
+            "primaryKey": {
+              "objectType": "PrimaryKey_MYSQL",
+              "name": "",
+              "fields": [
+                {
+                  "objectType": "IndexField_MYSQL",
+                  "name": "admin_id",
+                  "keyLength": 0,
+                  "order": "",
+                  "oldName": "admin_id"
+                }
+              ],
+              "oldName": "",
+              "indexMethod": "BTREE",
+              "comment": ""
+            },
+            "foreignKeys": [],
             "triggers": [],
             "tablePartitions": []
           },
@@ -5182,58 +5130,6 @@
               },
               {
                 "objectType": "TableField_MYSQL",
-                "name": "address_id",
-                "type": "int",
-                "length": 11,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "这些票要邮寄到什么地方",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "address_id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
-                "name": "frequent_id",
-                "type": "int",
-                "length": 11,
-                "decimals": 0,
-                "isUnsigned": false,
-                "isZeroFill": false,
-                "setEnumValues": "",
-                "isBinary": false,
-                "charset": "",
-                "collation": "",
-                "isNullable": true,
-                "defaultType": "Null",
-                "defaultValue": "",
-                "isOnUpdateCurrentTimestamp": false,
-                "isAutoInc": false,
-                "comment": "这些票的实际观演人",
-                "columnFormat": "",
-                "storage": "",
-                "isVirtual": false,
-                "isGeneratedAlways": false,
-                "virtualExpr": "",
-                "virtualType": "",
-                "oldName": "frequent_id"
-              },
-              {
-                "objectType": "TableField_MYSQL",
                 "name": "status",
                 "type": "int",
                 "length": 11,
@@ -5249,7 +5145,7 @@
                 "defaultValue": "",
                 "isOnUpdateCurrentTimestamp": false,
                 "isAutoInc": false,
-                "comment": "待评价,已完成,已退订单(1,2,3)",
+                "comment": "待观看，已完成,已退订单(1,2,3)",
                 "columnFormat": "",
                 "storage": "",
                 "isVirtual": false,
@@ -5630,8 +5526,8 @@
   "diagrams": [
     {
       "name": "Diagram 1",
-      "paperWidth": 2,
-      "paperHeight": 2,
+      "paperWidth": 1,
+      "paperHeight": 1,
       "tableFont": "Arial Unicode MS",
       "tableFontSize": 14,
       "isBalckWhite": false,
@@ -5644,25 +5540,9 @@
         {
           "type": "table",
           "schemaName": "boying",
-          "tableName": "address",
-          "x": 220,
-          "y": 420,
-          "width": 169,
-          "height": 230,
-          "isBold": false,
-          "titleColor": {
-            "r": 55,
-            "g": 131,
-            "b": 192,
-            "a": 1
-          }
-        },
-        {
-          "type": "table",
-          "schemaName": "boying",
           "tableName": "admin",
-          "x": 1180,
-          "y": 1430,
+          "x": 800,
+          "y": 30,
           "width": 181,
           "height": 210,
           "isBold": false,
@@ -5676,25 +5556,9 @@
         {
           "type": "table",
           "schemaName": "boying",
-          "tableName": "admin_role",
-          "x": 980,
-          "y": 1480,
-          "width": 165,
-          "height": 110,
-          "isBold": false,
-          "titleColor": {
-            "r": 55,
-            "g": 131,
-            "b": 192,
-            "a": 1
-          }
-        },
-        {
-          "type": "table",
-          "schemaName": "boying",
           "tableName": "boying_show",
-          "x": 870,
-          "y": 870,
+          "x": 270,
+          "y": 10,
           "width": 187,
           "height": 290,
           "isBold": false,
@@ -5709,138 +5573,10 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "category",
-          "x": 1100,
-          "y": 930,
+          "x": 510,
+          "y": 70,
           "width": 183,
           "height": 170,
-          "isBold": false,
-          "titleColor": {
-            "r": 55,
-            "g": 131,
-            "b": 192,
-            "a": 1
-          }
-        },
-        {
-          "type": "table",
-          "schemaName": "boying",
-          "tableName": "frequent",
-          "x": 700,
-          "y": 460,
-          "width": 211,
-          "height": 150,
-          "isBold": false,
-          "titleColor": {
-            "r": 55,
-            "g": 131,
-            "b": 192,
-            "a": 1
-          }
-        },
-        {
-          "type": "table",
-          "schemaName": "boying",
-          "tableName": "menu",
-          "x": 760,
-          "y": 1810,
-          "width": 181,
-          "height": 230,
-          "isBold": false,
-          "titleColor": {
-            "r": 55,
-            "g": 131,
-            "b": 192,
-            "a": 1
-          }
-        },
-        {
-          "type": "table",
-          "schemaName": "boying",
-          "tableName": "resource",
-          "x": 280,
-          "y": 1450,
-          "width": 205,
-          "height": 170,
-          "isBold": false,
-          "titleColor": {
-            "r": 55,
-            "g": 131,
-            "b": 192,
-            "a": 1
-          }
-        },
-        {
-          "type": "table",
-          "schemaName": "boying",
-          "tableName": "resource_category",
-          "x": 30,
-          "y": 1470,
-          "width": 205,
-          "height": 130,
-          "isBold": false,
-          "titleColor": {
-            "r": 55,
-            "g": 131,
-            "b": 192,
-            "a": 1
-          }
-        },
-        {
-          "type": "table",
-          "schemaName": "boying",
-          "tableName": "review",
-          "x": 450,
-          "y": 30,
-          "width": 163,
-          "height": 290,
-          "isBold": false,
-          "titleColor": {
-            "r": 55,
-            "g": 131,
-            "b": 192,
-            "a": 1
-          }
-        },
-        {
-          "type": "table",
-          "schemaName": "boying",
-          "tableName": "role",
-          "x": 760,
-          "y": 1440,
-          "width": 183,
-          "height": 190,
-          "isBold": false,
-          "titleColor": {
-            "r": 55,
-            "g": 131,
-            "b": 192,
-            "a": 1
-          }
-        },
-        {
-          "type": "table",
-          "schemaName": "boying",
-          "tableName": "role_menu",
-          "x": 780,
-          "y": 1660,
-          "width": 161,
-          "height": 110,
-          "isBold": false,
-          "titleColor": {
-            "r": 55,
-            "g": 131,
-            "b": 192,
-            "a": 1
-          }
-        },
-        {
-          "type": "table",
-          "schemaName": "boying",
-          "tableName": "role_resource",
-          "x": 530,
-          "y": 1480,
-          "width": 177,
-          "height": 110,
           "isBold": false,
           "titleColor": {
             "r": 55,
@@ -5853,8 +5589,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "show_class",
-          "x": 30,
-          "y": 1210,
+          "x": 40,
+          "y": 670,
           "width": 176,
           "height": 150,
           "isBold": false,
@@ -5869,8 +5605,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "show_session",
-          "x": 270,
-          "y": 1210,
+          "x": 40,
+          "y": 400,
           "width": 176,
           "height": 150,
           "isBold": false,
@@ -5885,8 +5621,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "ticket",
-          "x": 30,
-          "y": 950,
+          "x": 270,
+          "y": 660,
           "width": 185,
           "height": 130,
           "isBold": false,
@@ -5901,8 +5637,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "user",
-          "x": 440,
-          "y": 370,
+          "x": 520,
+          "y": 310,
           "width": 211,
           "height": 330,
           "isBold": false,
@@ -5917,8 +5653,8 @@
           "type": "table",
           "schemaName": "boying",
           "tableName": "user_order",
-          "x": 260,
-          "y": 870,
+          "x": 270,
+          "y": 330,
           "width": 197,
           "height": 290,
           "isBold": false,
@@ -5933,40 +5669,6 @@
       "layers": [],
       "relations": [
         {
-          "name": "admin_role_ibfk_1",
-          "sourceTableName": "admin_role",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 1160,
-              "y": 1540
-            },
-            {
-              "x": 1165,
-              "y": 1540
-            }
-          ],
-          "label": {
-            "x": 1156,
-            "y": 1542,
-            "width": 128,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
           "name": "boying_show_ibfk_1",
           "sourceTableName": "boying_show",
           "sourceSchemaName": "boying",
@@ -5974,260 +5676,18 @@
           "visible": true,
           "vertices": [
             {
-              "x": 1072,
-              "y": 1020
+              "x": 472,
+              "y": 160
             },
             {
-              "x": 1085,
-              "y": 1020
+              "x": 495,
+              "y": 160
             }
           ],
           "label": {
-            "x": 1068,
-            "y": 1022,
+            "x": 468,
+            "y": 162,
             "width": 141,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "resource_ibfk_1",
-          "sourceTableName": "resource",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 265,
-              "y": 1540
-            },
-            {
-              "x": 250,
-              "y": 1540
-            }
-          ],
-          "label": {
-            "x": 281,
-            "y": 1542,
-            "width": 110,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "review_ibfk_2",
-          "sourceTableName": "review",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 628,
-              "y": 180
-            },
-            {
-              "x": 970,
-              "y": 180
-            },
-            {
-              "x": 970,
-              "y": 855
-            }
-          ],
-          "label": {
-            "x": 624,
-            "y": 182,
-            "width": 96,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "admin_role_ibfk_2",
-          "sourceTableName": "admin_role",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 965,
-              "y": 1540
-            },
-            {
-              "x": 958,
-              "y": 1540
-            }
-          ],
-          "label": {
-            "x": 981,
-            "y": 1542,
-            "width": 128,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "role_menu_ibfk_1",
-          "sourceTableName": "role_menu",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 860,
-              "y": 1645
-            },
-            {
-              "x": 860,
-              "y": 1645
-            }
-          ],
-          "label": {
-            "x": 868,
-            "y": 1655,
-            "width": 124,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "role_menu_ibfk_2",
-          "sourceTableName": "role_menu",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 860,
-              "y": 1785
-            },
-            {
-              "x": 860,
-              "y": 1795
-            }
-          ],
-          "label": {
-            "x": 868,
-            "y": 1775,
-            "width": 124,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "role_resource_ibfk_1",
-          "sourceTableName": "role_resource",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 722,
-              "y": 1540
-            },
-            {
-              "x": 745,
-              "y": 1540
-            }
-          ],
-          "label": {
-            "x": 718,
-            "y": 1542,
-            "width": 142,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "role_resource_ibfk_2",
-          "sourceTableName": "role_resource",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 515,
-              "y": 1540
-            },
-            {
-              "x": 500,
-              "y": 1540
-            }
-          ],
-          "label": {
-            "x": 531,
-            "y": 1542,
-            "width": 142,
             "height": 30,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
@@ -6250,17 +5710,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 221,
-              "y": 1300
+              "x": 130,
+              "y": 655
             },
             {
-              "x": 255,
-              "y": 1300
+              "x": 130,
+              "y": 565
             }
           ],
           "label": {
-            "x": 217,
-            "y": 1302,
+            "x": 138,
+            "y": 665,
             "width": 125,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6284,21 +5744,21 @@
           "visible": true,
           "vertices": [
             {
-              "x": 461,
-              "y": 1300
+              "x": 130,
+              "y": 385
             },
             {
-              "x": 970,
-              "y": 1300
+              "x": 130,
+              "y": 160
             },
             {
-              "x": 970,
-              "y": 1175
+              "x": 255,
+              "y": 160
             }
           ],
           "label": {
-            "x": 457,
-            "y": 1302,
+            "x": 138,
+            "y": 395,
             "width": 142,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6322,188 +5782,18 @@
           "visible": true,
           "vertices": [
             {
-              "x": 130,
-              "y": 1095
+              "x": 255,
+              "y": 730
             },
             {
-              "x": 130,
-              "y": 1195
+              "x": 231,
+              "y": 730
             }
           ],
           "label": {
-            "x": 138,
-            "y": 1085,
+            "x": 271,
+            "y": 732,
             "width": 89,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "address_ibfk_1",
-          "sourceTableName": "address",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 404,
-              "y": 545
-            },
-            {
-              "x": 425,
-              "y": 545
-            }
-          ],
-          "label": {
-            "x": 400,
-            "y": 547,
-            "width": 104,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "frequent_ibfk_1",
-          "sourceTableName": "frequent",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 685,
-              "y": 545
-            },
-            {
-              "x": 666,
-              "y": 545
-            }
-          ],
-          "label": {
-            "x": 701,
-            "y": 547,
-            "width": 111,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "review_ibfk_1",
-          "sourceTableName": "review",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 530,
-              "y": 335
-            },
-            {
-              "x": 530,
-              "y": 355
-            }
-          ],
-          "label": {
-            "x": 538,
-            "y": 325,
-            "width": 96,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "user_ibfk_1",
-          "sourceTableName": "user",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 666,
-              "y": 515
-            },
-            {
-              "x": 685,
-              "y": 515
-            }
-          ],
-          "label": {
-            "x": 662,
-            "y": 517,
-            "width": 81,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "user_ibfk_2",
-          "sourceTableName": "user",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 425,
-              "y": 515
-            },
-            {
-              "x": 404,
-              "y": 515
-            }
-          ],
-          "label": {
-            "x": 441,
-            "y": 517,
-            "width": 81,
             "height": 30,
             "fontName": "Arial Unicode MS",
             "fontSize": 14,
@@ -6526,17 +5816,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 230,
-              "y": 1020
+              "x": 370,
+              "y": 645
             },
             {
-              "x": 245,
-              "y": 1020
+              "x": 370,
+              "y": 635
             }
           ],
           "label": {
-            "x": 226,
-            "y": 1022,
+            "x": 378,
+            "y": 655,
             "width": 89,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6560,25 +5850,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 360,
-              "y": 855
+              "x": 482,
+              "y": 490
             },
             {
-              "x": 360,
-              "y": 750
-            },
-            {
-              "x": 520,
-              "y": 750
-            },
-            {
-              "x": 520,
-              "y": 715
+              "x": 505,
+              "y": 490
             }
           ],
           "label": {
-            "x": 368,
-            "y": 865,
+            "x": 478,
+            "y": 492,
             "width": 123,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6602,17 +5884,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 472,
-              "y": 1020
+              "x": 370,
+              "y": 315
             },
             {
-              "x": 855,
-              "y": 1020
+              "x": 370,
+              "y": 315
             }
           ],
           "label": {
-            "x": 468,
-            "y": 1022,
+            "x": 378,
+            "y": 325,
             "width": 123,
             "height": 30,
             "fontName": "Arial Unicode MS",
@@ -6636,93 +5918,17 @@
           "visible": true,
           "vertices": [
             {
-              "x": 360,
-              "y": 1175
+              "x": 255,
+              "y": 490
             },
             {
-              "x": 360,
-              "y": 1195
+              "x": 231,
+              "y": 490
             }
           ],
           "label": {
-            "x": 368,
-            "y": 1165,
-            "width": 123,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "user_order_ibfk_4",
-          "sourceTableName": "user_order",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 300,
-              "y": 855
-            },
-            {
-              "x": 300,
-              "y": 665
-            }
-          ],
-          "label": {
-            "x": 308,
-            "y": 865,
-            "width": 123,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "user_order_ibfk_5",
-          "sourceTableName": "user_order",
-          "sourceSchemaName": "boying",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 420,
-              "y": 855
-            },
-            {
-              "x": 420,
-              "y": 810
-            },
-            {
-              "x": 780,
-              "y": 810
-            },
-            {
-              "x": 780,
-              "y": 625
-            }
-          ],
-          "label": {
-            "x": 428,
-            "y": 865,
+            "x": 271,
+            "y": 492,
             "width": 123,
             "height": 30,
             "fontName": "Arial Unicode MS",
