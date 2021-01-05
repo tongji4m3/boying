@@ -18,6 +18,7 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UmsStatisticsServiceImpl implements UmsStatisticsService {
@@ -84,19 +85,7 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
         return sum;
     }
 
-    @Override
-    public double sumOrderMoneyForPeriod(Date dateStart ,Date dateEnd) {
-        double sum = 0;
-        UserOrderExample example=new UserOrderExample();
-        example.createCriteria().andTimeBetween(dateStart,dateEnd);
-        List<UserOrder> list=userOrderMapper.selectByExample(example);
-        if (CollUtil.isNotEmpty(list)) {
-            for (UserOrder order : list) {
-                sum += order.getMoney();
-            }
-        }
-        return sum;
-    }
+
 
     @Override
     public double sumAllOrderMoney() {
