@@ -325,11 +325,7 @@ flushall
 + boying-admin:依赖boying-mbg,boying-security
 + boying-user:依赖boying-mbg,boying-security
 
-# 业务
 
-+ 使用Navicat 15 for MySQL  设计表结构,完成前台相关的表设计
-+ 完成前台用户模块功能设计
-+ 完成后台管理权限模块功能设计
 
 # 实现
 
