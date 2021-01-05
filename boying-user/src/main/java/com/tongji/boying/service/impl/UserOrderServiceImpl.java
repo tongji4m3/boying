@@ -5,7 +5,6 @@ import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.UserOrderParam;
 import com.tongji.boying.mapper.*;
 import com.tongji.boying.model.*;
-import com.tongji.boying.service.UserFrequentService;
 import com.tongji.boying.service.UserOrderService;
 import com.tongji.boying.service.UserService;
 import com.tongji.boying.service.UserTicketService;
@@ -25,8 +24,6 @@ public class UserOrderServiceImpl implements UserOrderService {
     private UserService userService;
     @Autowired
     private UserTicketService userTicketService;
-    @Autowired
-    private UserFrequentService frequentService;
 
     @Autowired
     private ShowSessionMapper showSessionMapper;
