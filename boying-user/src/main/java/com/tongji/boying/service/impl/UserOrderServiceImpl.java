@@ -102,7 +102,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         order.setFrequentId(user.getUserId());
         order.setStatus(1);//待观看状态
         order.setTime(new Date());
-        order.setPayment("支付宝");
+        order.setPayment(param.getPayment());
         order.setUserDelete(false);
         order.setShowId(showSession.getShowId());
 
