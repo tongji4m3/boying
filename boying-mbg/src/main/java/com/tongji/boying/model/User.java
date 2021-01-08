@@ -2,6 +2,7 @@ package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
     private Integer userId;
@@ -31,7 +32,7 @@ public class User implements Serializable {
     private Boolean gender;
 
     @ApiModelProperty(value = "帐号启用状态：0->禁用；1->启用")
-    private Boolean status;
+    private Boolean userstatus;
 
     @ApiModelProperty(value = "个人头像")
     private String icon;
@@ -41,6 +42,9 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "默认地址")
     private Integer defaultAddress;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -116,12 +120,12 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public Boolean getUserstatus() {
+        return userstatus;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setUserstatus(Boolean userstatus) {
+        this.userstatus = userstatus;
     }
 
     public String getIcon() {
@@ -148,6 +152,14 @@ public class User implements Serializable {
         this.defaultAddress = defaultAddress;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -163,10 +175,11 @@ public class User implements Serializable {
         sb.append(", email=").append(email);
         sb.append(", age=").append(age);
         sb.append(", gender=").append(gender);
-        sb.append(", status=").append(status);
+        sb.append(", userstatus=").append(userstatus);
         sb.append(", icon=").append(icon);
         sb.append(", defaultFrequent=").append(defaultFrequent);
         sb.append(", defaultAddress=").append(defaultAddress);
+        sb.append(", createTime=").append(createTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

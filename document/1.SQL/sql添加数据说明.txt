@@ -1,0 +1,39 @@
+## sql插入数据说明
+
+插入数据要考虑外键，所以插入的顺序要注意
+
+根据现在设置的外键，插入顺序如下：
+
+第一批要插入的表:
+
+user表,boying_show表,role表,admin表,resource_category表,menu表
+
+第二批要插入的表:
+
+resource表
+
+第三批要插入的表：
+
+role_resource
+
+其余的表目前为止插在第一批之后都可以
+
+
+
+## 账号说明
+
+#### 管理员账户
+
+1.id: tongji4m3 
+
+   密码：tongji4m3
+
+2.id: temp
+
+   密码: temp
+
+#### 普通用户账户:
+
+1.id :user1
+
+   密码:123456

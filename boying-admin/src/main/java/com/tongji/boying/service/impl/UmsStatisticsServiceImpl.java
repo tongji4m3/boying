@@ -1,9 +1,12 @@
 package com.tongji.boying.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.db.sql.Order;
 import com.tongji.boying.mapper.AdminMapper;
+import com.tongji.boying.mapper.UserMapper;
 import com.tongji.boying.mapper.UserOrderMapper;
 import com.tongji.boying.model.AdminExample;
+import com.tongji.boying.model.UserExample;
 import com.tongji.boying.model.UserOrder;
 import com.tongji.boying.model.UserOrderExample;
 import com.tongji.boying.service.UmsStatisticsService;
@@ -15,13 +18,14 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UmsStatisticsServiceImpl implements UmsStatisticsService {
     @Autowired
     private UserOrderMapper userOrderMapper;
     @Autowired
-    private AdminMapper adminMapper;
+    private UserMapper userMapper;
 
     //具体到秒的时间处理为当天
     public Date dateDispose(Date date)
@@ -81,11 +85,13 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
         return sum;
     }
 
+
+
     @Override
-    public double sumOrderMoneyForPeriod(Date dateStart ,Date dateEnd) {
-        double sum = 0;
+    public double sumAllOrderMoney() {
+        double sum=0;
         UserOrderExample example=new UserOrderExample();
-        example.createCriteria().andTimeBetween(dateStart,dateEnd);
+        example.createCriteria().andOrderIdIsNotNull();
         List<UserOrder> list=userOrderMapper.selectByExample(example);
         if (CollUtil.isNotEmpty(list)) {
             for (UserOrder order : list) {
@@ -96,22 +102,22 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
     }
 
     @Override
-    public long countAdminDailyGrowth(Date date) {
+    public long countUserDailyGrowth(Date date) {
         long growth=-1;
         Date dateStart=dateDispose(date);
         Date dateEnd=dateAddOneDay(dateStart);
-        AdminExample example=new AdminExample();
+        UserExample example=new UserExample();
         example.createCriteria().andCreateTimeBetween(dateStart,dateEnd);
-        growth = adminMapper.countByExample(example);
+        growth = userMapper.countByExample(example);
         return growth;
     }
 
     @Override
-    public long countAdminGrowthForPeriod(Date dateStart, Date dateEnd) {
+    public long countUserGrowthForPeriod(Date dateStart, Date dateEnd) {
         long growth=-1;
-        AdminExample example=new AdminExample();
+        UserExample example=new UserExample();
         example.createCriteria().andCreateTimeBetween(dateStart,dateEnd);
-        growth = adminMapper.countByExample(example);
+        growth = userMapper.countByExample(example);
         return growth;
     }
 }

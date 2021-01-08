@@ -11,10 +11,11 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="gender" jdbcType="BIT" property="gender" />
-    <result column="status" jdbcType="BIT" property="status" />
+    <result column="userStatus" jdbcType="BIT" property="userstatus" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="default_frequent" jdbcType="INTEGER" property="defaultFrequent" />
     <result column="default_address" jdbcType="INTEGER" property="defaultAddress" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,7 +77,7 @@
   </sql>
   <sql id="Base_Column_List">
     user_id, username, phone, password, real_name, identity_number, email, age, gender, 
-    status, icon, default_frequent, default_address
+    userStatus, icon, default_frequent, default_address, create_time
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.UserExample" resultMap="BaseResultMap">
     select
@@ -111,14 +112,14 @@
   <insert id="insert" parameterType="com.tongji.boying.model.User">
     insert into user (user_id, username, phone, 
       password, real_name, identity_number, 
-      email, age, gender, status, 
-      icon, default_frequent, default_address
-      )
+      email, age, gender, userStatus, 
+      icon, default_frequent, default_address, 
+      create_time)
     values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{identityNumber,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{gender,jdbcType=BIT}, #{status,jdbcType=BIT}, 
-      #{icon,jdbcType=VARCHAR}, #{defaultFrequent,jdbcType=INTEGER}, #{defaultAddress,jdbcType=INTEGER}
-      )
+      #{email,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{gender,jdbcType=BIT}, #{userstatus,jdbcType=BIT}, 
+      #{icon,jdbcType=VARCHAR}, #{defaultFrequent,jdbcType=INTEGER}, #{defaultAddress,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.User">
     insert into user
@@ -150,8 +151,8 @@
       <if test="gender != null">
         gender,
       </if>
-      <if test="status != null">
-        status,
+      <if test="userstatus != null">
+        userStatus,
       </if>
       <if test="icon != null">
         icon,
@@ -161,6 +162,9 @@
       </if>
       <if test="defaultAddress != null">
         default_address,
+      </if>
+      <if test="createTime != null">
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -191,8 +195,8 @@
       <if test="gender != null">
         #{gender,jdbcType=BIT},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=BIT},
+      <if test="userstatus != null">
+        #{userstatus,jdbcType=BIT},
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
@@ -202,6 +206,9 @@
       </if>
       <if test="defaultAddress != null">
         #{defaultAddress,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -241,8 +248,8 @@
       <if test="record.gender != null">
         gender = #{record.gender,jdbcType=BIT},
       </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=BIT},
+      <if test="record.userstatus != null">
+        userStatus = #{record.userstatus,jdbcType=BIT},
       </if>
       <if test="record.icon != null">
         icon = #{record.icon,jdbcType=VARCHAR},
@@ -252,6 +259,9 @@
       </if>
       <if test="record.defaultAddress != null">
         default_address = #{record.defaultAddress,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -269,10 +279,11 @@
       email = #{record.email,jdbcType=VARCHAR},
       age = #{record.age,jdbcType=INTEGER},
       gender = #{record.gender,jdbcType=BIT},
-      status = #{record.status,jdbcType=BIT},
+      userStatus = #{record.userstatus,jdbcType=BIT},
       icon = #{record.icon,jdbcType=VARCHAR},
       default_frequent = #{record.defaultFrequent,jdbcType=INTEGER},
-      default_address = #{record.defaultAddress,jdbcType=INTEGER}
+      default_address = #{record.defaultAddress,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -304,8 +315,8 @@
       <if test="gender != null">
         gender = #{gender,jdbcType=BIT},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=BIT},
+      <if test="userstatus != null">
+        userStatus = #{userstatus,jdbcType=BIT},
       </if>
       <if test="icon != null">
         icon = #{icon,jdbcType=VARCHAR},
@@ -315,6 +326,9 @@
       </if>
       <if test="defaultAddress != null">
         default_address = #{defaultAddress,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
@@ -329,10 +343,11 @@
       email = #{email,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       gender = #{gender,jdbcType=BIT},
-      status = #{status,jdbcType=BIT},
+      userStatus = #{userstatus,jdbcType=BIT},
       icon = #{icon,jdbcType=VARCHAR},
       default_frequent = #{defaultFrequent,jdbcType=INTEGER},
-      default_address = #{defaultAddress,jdbcType=INTEGER}
+      default_address = #{defaultAddress,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

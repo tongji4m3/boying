@@ -25,6 +25,12 @@ public class SmsShowServiceImpl implements SmsShowService
     private BoyingShowMapper boyingShowMapper;
 
     @Override
+    public List<BoyingShow> list()
+    {
+        return boyingShowMapper.selectByExample(new BoyingShowExample());
+    }
+
+    @Override
     public int create(SmsShowParam param)
     {
         checkBoyingShowParam(param, -1);

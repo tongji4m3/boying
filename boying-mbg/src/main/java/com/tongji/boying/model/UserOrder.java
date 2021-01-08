@@ -22,10 +22,10 @@ public class UserOrder implements Serializable {
     @ApiModelProperty(value = "这些票的实际观演人")
     private Integer frequentId;
 
-    @ApiModelProperty(value = "待评价,已完成(1,2)")
+    @ApiModelProperty(value = "待评价,已完成,已退订单(1,2,3)")
     private Integer status;
 
-    @ApiModelProperty(value = "订单支付时间")
+    @ApiModelProperty(value = "订单提交时间")
     private Date time;
 
     @ApiModelProperty(value = "订单支付方式")

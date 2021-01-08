@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    order_id, user_id, show_id, show_session_id, address_id, frequent_id, status, time, 
+    order_id, user_id, show_id, show_session_id, address_id, frequent_id, status, time,
     payment, user_delete, money, ticket_count
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.UserOrderExample" resultMap="BaseResultMap">
@@ -92,7 +92,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from user_order
     where order_id = #{orderId,jdbcType=INTEGER}
@@ -107,15 +107,16 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tongji.boying.model.UserOrder">
-    insert into user_order (order_id, user_id, show_id, 
-      show_session_id, address_id, frequent_id, 
-      status, time, payment, 
+  <insert id="insert" parameterType="com.tongji.boying.model.UserOrder" keyProperty="orderId"
+          keyColumn="order_id" useGeneratedKeys="true">
+    insert into user_order (order_id, user_id, show_id,
+      show_session_id, address_id, frequent_id,
+      status, time, payment,
       user_delete, money, ticket_count
       )
-    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, 
-      #{showSessionId,jdbcType=INTEGER}, #{addressId,jdbcType=INTEGER}, #{frequentId,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{payment,jdbcType=VARCHAR}, 
+    values (#{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER},
+      #{showSessionId,jdbcType=INTEGER}, #{addressId,jdbcType=INTEGER}, #{frequentId,jdbcType=INTEGER},
+      #{status,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{payment,jdbcType=VARCHAR},
       #{userDelete,jdbcType=BIT}, #{money,jdbcType=DOUBLE}, #{ticketCount,jdbcType=INTEGER}
       )
   </insert>

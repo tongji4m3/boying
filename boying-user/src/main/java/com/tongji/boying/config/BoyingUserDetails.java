@@ -62,7 +62,7 @@ public class BoyingUserDetails implements UserDetails
     @Override
     public boolean isEnabled()
     {
-        return user.getStatus();
+        return user.getUserstatus();
     }
 
     public User getUser()

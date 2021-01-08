@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class BoyingShow implements Serializable {
+    @ApiModelProperty(value = " ")
     private Integer showId;
 
     private String name;
@@ -13,7 +14,7 @@ public class BoyingShow implements Serializable {
     @ApiModelProperty(value = "所属的目录")
     private Integer categoryId;
 
-    @ApiModelProperty(value = "该演唱会的海报信息")
+    @ApiModelProperty(value = "该演唱会的海报图文信息(url)")
     private String poster;
 
     @ApiModelProperty(value = "该演唱会的最低价")
@@ -37,7 +38,7 @@ public class BoyingShow implements Serializable {
     private Date dayEnd;
 
     @ApiModelProperty(value = "存储该演唱会等的图文信息")
-    private byte[] details;
+    private String details;
 
     private static final long serialVersionUID = 1L;
 
@@ -129,11 +130,11 @@ public class BoyingShow implements Serializable {
         this.dayEnd = dayEnd;
     }
 
-    public byte[] getDetails() {
+    public String getDetails() {
         return details;
     }
 
-    public void setDetails(byte[] details) {
+    public void setDetails(String details) {
         this.details = details;
     }
 

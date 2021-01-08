@@ -1,9 +1,11 @@
 package com.tongji.boying.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
@@ -38,12 +40,14 @@ public class SmsShowParam
     @ApiModelProperty(value = "具体演出地址", required = true)
     private String address;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "演出开始日期", required = true)
     private Date dayStart;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "演出结束日期", required = true)
     private Date dayEnd;
 
     @ApiModelProperty(value = "存储该演唱会等的图文信息", required = true)
-    private byte[] details;
+    private String details;
 }

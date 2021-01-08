@@ -15,7 +15,7 @@
     <result column="day_end" jdbcType="DATE" property="dayEnd" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tongji.boying.model.BoyingShow">
-    <result column="details" jdbcType="LONGVARBINARY" property="details" />
+    <result column="details" jdbcType="LONGVARCHAR" property="details" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -139,7 +139,7 @@
     values (#{showId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
       #{poster,jdbcType=VARCHAR}, #{minPrice,jdbcType=DECIMAL}, #{maxPrice,jdbcType=DECIMAL}, 
       #{weight,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{dayStart,jdbcType=DATE}, #{dayEnd,jdbcType=DATE}, #{details,jdbcType=LONGVARBINARY}
+      #{dayStart,jdbcType=DATE}, #{dayEnd,jdbcType=DATE}, #{details,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingShow">
@@ -217,7 +217,7 @@
         #{dayEnd,jdbcType=DATE},
       </if>
       <if test="details != null">
-        #{details,jdbcType=LONGVARBINARY},
+        #{details,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -264,7 +264,7 @@
         day_end = #{record.dayEnd,jdbcType=DATE},
       </if>
       <if test="record.details != null">
-        details = #{record.details,jdbcType=LONGVARBINARY},
+        details = #{record.details,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -284,7 +284,7 @@
       address = #{record.address,jdbcType=VARCHAR},
       day_start = #{record.dayStart,jdbcType=DATE},
       day_end = #{record.dayEnd,jdbcType=DATE},
-      details = #{record.details,jdbcType=LONGVARBINARY}
+      details = #{record.details,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -340,7 +340,7 @@
         day_end = #{dayEnd,jdbcType=DATE},
       </if>
       <if test="details != null">
-        details = #{details,jdbcType=LONGVARBINARY},
+        details = #{details,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where show_id = #{showId,jdbcType=INTEGER}
@@ -357,7 +357,7 @@
       address = #{address,jdbcType=VARCHAR},
       day_start = #{dayStart,jdbcType=DATE},
       day_end = #{dayEnd,jdbcType=DATE},
-      details = #{details,jdbcType=LONGVARBINARY}
+      details = #{details,jdbcType=LONGVARCHAR}
     where show_id = #{showId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingShow">

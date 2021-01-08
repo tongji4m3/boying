@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public interface UmsStatisticsService {
     /**
@@ -27,24 +29,26 @@ public interface UmsStatisticsService {
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     double sumOrderMoneyByDay(Date date);
 
+
+
     /**
-     * 一段时间内销售总额
+     * 一段时间内订单统计
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
-    double sumOrderMoneyForPeriod(Date dateStart,Date dateEnd);
+    double sumAllOrderMoney();
 
     /**
      * 每日新增用户统计
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
-    long countAdminDailyGrowth(Date date);
+    long countUserDailyGrowth(Date date);
 
     /**
      * 一段时间新增用户统计
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
-    long countAdminGrowthForPeriod(Date dateStart,Date dateEnd);
+    long countUserGrowthForPeriod(Date dateStart,Date dateEnd);
 }

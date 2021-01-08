@@ -29,20 +29,6 @@
             placeholder: 'Search'
         },
         formatUpdated: '{MM}/{DD} {HH}:{mm}',
-        plugins: [
-            function (hook, vm)
-            {
-                hook.beforeEach(function (html)
-                {
-                    var url = 'https://github.com/PYfive/docsify/blob/master/' + vm.route.file
-                    var editHtml = '[:memo: Edit Document](' + url + ')\n'
-                    return html
-                        + '\n----\n'
-                        + 'Last modified {docsify-updated} '
-                        + editHtml
-                })
-            }
-        ]
     }
 </script>
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
