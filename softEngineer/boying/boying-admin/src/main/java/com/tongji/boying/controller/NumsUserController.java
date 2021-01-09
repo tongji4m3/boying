@@ -4,8 +4,8 @@ package com.tongji.boying.controller;
 import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.NumsUserParam;
-import com.tongji.boying.model.User;
-import com.tongji.boying.model.UserOrder;
+import com.tongji.boying.model.BoyingUser;
+import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.service.NumsUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,7 +38,7 @@ public class NumsUserController {
     @RequestMapping(value = "/getInformation/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult getUserById(@PathVariable Integer id) {
-        User user = numsUserService.getUserById(id);
+        BoyingUser user = numsUserService.getUserById(id);
         if (user != null) {
             return CommonResult.success(user);
         }
@@ -49,7 +49,7 @@ public class NumsUserController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult list() {
-        List<User> userList = numsUserService.listAllUsers();
+        List<BoyingUser> userList = numsUserService.listAllUsers();
         if (ObjectUtil.isEmpty(userList)) return CommonResult.failed("不存在任何用户");
         return CommonResult.success(userList);
     }
@@ -69,7 +69,7 @@ public class NumsUserController {
     @RequestMapping(value = "/listOrders", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult listOrders() {
-        List<UserOrder> ordersList = numsUserService.listOrders();
+        List<BoyingOrder> ordersList = numsUserService.listOrders();
         if (ObjectUtil.isEmpty(ordersList)) return CommonResult.failed("不存在任何订单");
         return CommonResult.success(ordersList);
     }

@@ -1,11 +1,11 @@
 package com.tongji.boying.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.tongji.boying.mapper.UserMapper;
-import com.tongji.boying.mapper.UserOrderMapper;
-import com.tongji.boying.model.UserExample;
-import com.tongji.boying.model.UserOrder;
-import com.tongji.boying.model.UserOrderExample;
+import com.tongji.boying.mapper.BoyingUserMapper;
+import com.tongji.boying.mapper.BoyingOrderMapper;
+import com.tongji.boying.model.BoyingUserExample;
+import com.tongji.boying.model.BoyingOrder;
+import com.tongji.boying.model.BoyingOrderExample;
 import com.tongji.boying.service.UmsStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,9 @@ import java.util.List;
 @Service
 public class UmsStatisticsServiceImpl implements UmsStatisticsService {
     @Autowired
-    private UserOrderMapper userOrderMapper;
+    private BoyingOrderMapper userOrderMapper;
     @Autowired
-    private UserMapper userMapper;
+    private BoyingUserMapper userMapper;
 
     //具体到秒的时间处理为当天
     public Date dateDispose(Date date) {
@@ -45,7 +45,7 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
         long orderCount = -1;
         Date dateStart = dateDispose(date);
         Date dateEnd = dateAddOneDay(dateStart);
-        UserOrderExample example = new UserOrderExample();
+        BoyingOrderExample example = new BoyingOrderExample();
         example.createCriteria().andTimeBetween(dateStart, dateEnd);
         orderCount = userOrderMapper.countByExample(example);
         return orderCount;
@@ -54,7 +54,7 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
     @Override
     public long countOrderForPeriod(Date dateStart, Date dateEnd) {
         long orderCount = -1;
-        UserOrderExample example = new UserOrderExample();
+        BoyingOrderExample example = new BoyingOrderExample();
         example.createCriteria().andTimeBetween(dateStart, dateEnd);
         orderCount = userOrderMapper.countByExample(example);
         return orderCount;
@@ -65,11 +65,11 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
         double sum = 0;
         Date dateStart = dateDispose(date);
         Date dateEnd = dateAddOneDay(dateStart);
-        UserOrderExample example = new UserOrderExample();
+        BoyingOrderExample example = new BoyingOrderExample();
         example.createCriteria().andTimeBetween(dateStart, dateEnd);
-        List<UserOrder> list = userOrderMapper.selectByExample(example);
+        List<BoyingOrder> list = userOrderMapper.selectByExample(example);
         if (CollUtil.isNotEmpty(list)) {
-            for (UserOrder order : list) {
+            for (BoyingOrder order : list) {
                 sum += order.getMoney();
             }
         }
@@ -80,11 +80,11 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
     @Override
     public double sumAllOrderMoney() {
         double sum = 0;
-        UserOrderExample example = new UserOrderExample();
-        example.createCriteria().andOrderIdIsNotNull();
-        List<UserOrder> list = userOrderMapper.selectByExample(example);
+        BoyingOrderExample example = new BoyingOrderExample();
+        example.createCriteria().andIdIsNotNull();
+        List<BoyingOrder> list = userOrderMapper.selectByExample(example);
         if (CollUtil.isNotEmpty(list)) {
-            for (UserOrder order : list) {
+            for (BoyingOrder order : list) {
                 sum += order.getMoney();
             }
         }
@@ -96,8 +96,8 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
         long growth = -1;
         Date dateStart = dateDispose(date);
         Date dateEnd = dateAddOneDay(dateStart);
-        UserExample example = new UserExample();
-        example.createCriteria().andCreateTimeBetween(dateStart, dateEnd);
+        BoyingUserExample example = new BoyingUserExample();
+        example.createCriteria().andAddTimeBetween(dateStart, dateEnd);
         growth = userMapper.countByExample(example);
         return growth;
     }
@@ -105,8 +105,8 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
     @Override
     public long countUserGrowthForPeriod(Date dateStart, Date dateEnd) {
         long growth = -1;
-        UserExample example = new UserExample();
-        example.createCriteria().andCreateTimeBetween(dateStart, dateEnd);
+        BoyingUserExample example = new BoyingUserExample();
+        example.createCriteria().andAddTimeBetween(dateStart, dateEnd);
         growth = userMapper.countByExample(example);
         return growth;
     }

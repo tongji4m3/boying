@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.util.Date;
 
 @Getter
@@ -22,11 +23,11 @@ public class SmsShowParam {
     @ApiModelProperty(value = "该演唱会的海报信息", required = true)
     private String poster;
 
-    @ApiModelProperty(value = "该演唱会的最低价", required = true)
-    private BigDecimal minPrice;
-
-    @ApiModelProperty(value = "该演唱会的最高价", required = true)
-    private BigDecimal maxPrice;
+//    @ApiModelProperty(value = "该演唱会的最低价", required = true)
+//    private BigDecimal minPrice;
+//
+//    @ApiModelProperty(value = "该演唱会的最高价", required = true)
+//    private BigDecimal maxPrice;
 
     @ApiModelProperty(value = "该演出展示的优先基本,0为不展示", required = true)
     private Integer weight;
@@ -38,13 +39,13 @@ public class SmsShowParam {
     private String address;
 
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "演出开始日期", required = true)
-    private Date dayStart;
+    @ApiModelProperty(value = "演出开始时间", required = true)
+    private Date startTime;
 
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "演出结束日期", required = true)
-    private Date dayEnd;
+    @ApiModelProperty(value = "演出结束时间", required = true)
+    private Time endTime;
 
     @ApiModelProperty(value = "存储该演唱会等的图文信息", required = true)
-    private String details;
+    private Time details;
 }

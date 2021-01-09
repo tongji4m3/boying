@@ -1,6 +1,6 @@
 package com.tongji.boying.config;
 
-import com.tongji.boying.model.Admin;
+import com.tongji.boying.model.BoyingAdmin;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,50 +11,61 @@ import java.util.Collection;
 /**
  * SpringSecurity需要的用户详情
  */
-public class AdminUserDetails implements UserDetails {
-    private final Admin admin;
+public class AdminUserDetails implements UserDetails
+{
+    private final BoyingAdmin admin;
 
-    public AdminUserDetails(Admin admin) {
+    public AdminUserDetails(BoyingAdmin admin)
+    {
         this.admin = admin;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities()
+    {
         //返回当前用户的角色
         return Arrays.asList(new SimpleGrantedAuthority("TEST"));
     }
 
     @Override
-    public String getPassword() {
+    public String getPassword()
+    {
         return admin.getPassword();
     }
 
     @Override
-    public String getUsername() {
+    public String getUsername()
+    {
         return admin.getUsername();
     }
 
     @Override
-    public boolean isAccountNonExpired() {
+    public boolean isAccountNonExpired()
+    {
         return true;
     }
 
     @Override
-    public boolean isAccountNonLocked() {
+    public boolean isAccountNonLocked()
+    {
         return true;
     }
 
     @Override
-    public boolean isCredentialsNonExpired() {
+    public boolean isCredentialsNonExpired()
+    {
         return true;
     }
 
     @Override
-    public boolean isEnabled() {
-        return admin.getStatus();
+    public boolean isEnabled()
+    {
+//        return admin.getStatus();
+        return true;
     }
 
-    public Admin getAdmin() {
+    public BoyingAdmin getAdmin()
+    {
         return admin;
     }
 
