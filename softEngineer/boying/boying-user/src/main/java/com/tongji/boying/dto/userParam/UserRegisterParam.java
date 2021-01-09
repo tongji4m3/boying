@@ -11,22 +11,22 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @ToString
 public class UserRegisterParam {
-    @ApiModelProperty(value = "username")
+    @ApiModelProperty("username")
     @NotEmpty(message = "用户名不能为空")
     private String username;
 
-    @ApiModelProperty(value = "password")
+    @ApiModelProperty("password")
     @NotEmpty(message = "密码不能为空")
     private String password;
 
-    @ApiModelProperty(value = "telephone")
+    @ApiModelProperty("telephone")
     @NotEmpty(message = "手机号不能为空")
     private String telephone;
 
-    @ApiModelProperty(value = "authCode")
+    @ApiModelProperty("authCode")
     @NotEmpty(message = "验证码不能为空")
     private String authCode;
 
-    @ApiModelProperty(value = "icon")
+    @ApiModelProperty("icon")
     private String icon;
 }

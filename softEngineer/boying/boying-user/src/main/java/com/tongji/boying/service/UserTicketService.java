@@ -1,13 +1,11 @@
 package com.tongji.boying.service;
 
-import com.tongji.boying.model.Ticket;
+import com.tongji.boying.model.BoyingTicket;
 
 import java.util.List;
 
 public interface UserTicketService {
-    int add(int orderId, int showClassId);
+    int add(int orderId, int seatId);
 
-    List<Ticket> list(int orderId, Integer pageSize, Integer pageNum);
-
-    Ticket getItem(int id);
+    List<BoyingTicket> list(int orderId);
 }

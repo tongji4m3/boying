@@ -11,8 +11,7 @@
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="identity_number" jdbcType="VARCHAR" property="identityNumber" />
     <result column="age" jdbcType="INTEGER" property="age" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="gender" jdbcType="BIT" property="gender" />
     <result column="admin_delete" jdbcType="BIT" property="adminDelete" />
   </resultMap>
@@ -75,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, password, phone, email, icon, real_name, identity_number, age, add_time, 
-    last_time, gender, admin_delete
+    id, username, password, phone, email, icon, real_name, identity_number, age, create_time, 
+    gender, admin_delete
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingUserExample" resultMap="BaseResultMap">
     select
@@ -114,14 +113,12 @@
     </selectKey>
     insert into boying_user (username, password, phone, 
       email, icon, real_name, 
-      identity_number, age, add_time, 
-      last_time, gender, admin_delete
-      )
+      identity_number, age, create_time, 
+      gender, admin_delete)
     values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
-      #{identityNumber,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
-      #{lastTime,jdbcType=TIMESTAMP}, #{gender,jdbcType=BIT}, #{adminDelete,jdbcType=BIT}
-      )
+      #{identityNumber,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{gender,jdbcType=BIT}, #{adminDelete,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -153,11 +150,8 @@
       <if test="age != null">
         age,
       </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="lastTime != null">
-        last_time,
+      <if test="createTime != null">
+        create_time,
       </if>
       <if test="gender != null">
         gender,
@@ -191,11 +185,8 @@
       <if test="age != null">
         #{age,jdbcType=INTEGER},
       </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastTime != null">
-        #{lastTime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="gender != null">
         #{gender,jdbcType=BIT},
@@ -241,11 +232,8 @@
       <if test="record.age != null">
         age = #{record.age,jdbcType=INTEGER},
       </if>
-      <if test="record.addTime != null">
-        add_time = #{record.addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.lastTime != null">
-        last_time = #{record.lastTime,jdbcType=TIMESTAMP},
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.gender != null">
         gender = #{record.gender,jdbcType=BIT},
@@ -269,8 +257,7 @@
       real_name = #{record.realName,jdbcType=VARCHAR},
       identity_number = #{record.identityNumber,jdbcType=VARCHAR},
       age = #{record.age,jdbcType=INTEGER},
-      add_time = #{record.addTime,jdbcType=TIMESTAMP},
-      last_time = #{record.lastTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       gender = #{record.gender,jdbcType=BIT},
       admin_delete = #{record.adminDelete,jdbcType=BIT}
     <if test="_parameter != null">
@@ -304,11 +291,8 @@
       <if test="age != null">
         age = #{age,jdbcType=INTEGER},
       </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastTime != null">
-        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="gender != null">
         gender = #{gender,jdbcType=BIT},
@@ -329,8 +313,7 @@
       real_name = #{realName,jdbcType=VARCHAR},
       identity_number = #{identityNumber,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
-      add_time = #{addTime,jdbcType=TIMESTAMP},
-      last_time = #{lastTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       gender = #{gender,jdbcType=BIT},
       admin_delete = #{adminDelete,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}

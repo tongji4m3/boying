@@ -32,10 +32,7 @@ public class BoyingUser implements Serializable {
     private Integer age;
 
     @ApiModelProperty(value = "创建时间")
-    private Date addTime;
-
-    @ApiModelProperty(value = "上次登录时间")
-    private Date lastTime;
+    private Date createTime;
 
     @ApiModelProperty(value = "用户性别 1->男,0->女")
     private Boolean gender;
@@ -117,20 +114,12 @@ public class BoyingUser implements Serializable {
         this.age = age;
     }
 
-    public Date getAddTime() {
-        return addTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-
-    public Date getLastTime() {
-        return lastTime;
-    }
-
-    public void setLastTime(Date lastTime) {
-        this.lastTime = lastTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Boolean getGender() {
@@ -164,8 +153,7 @@ public class BoyingUser implements Serializable {
         sb.append(", realName=").append(realName);
         sb.append(", identityNumber=").append(identityNumber);
         sb.append(", age=").append(age);
-        sb.append(", addTime=").append(addTime);
-        sb.append(", lastTime=").append(lastTime);
+        sb.append(", createTime=").append(createTime);
         sb.append(", gender=").append(gender);
         sb.append(", adminDelete=").append(adminDelete);
         sb.append(", serialVersionUID=").append(serialVersionUID);

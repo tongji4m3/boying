@@ -10,17 +10,17 @@ public interface UserOrderService {
     /**
      * 添加订单
      */
-    int add(UserOrderParam param);
+    void add(UserOrderParam param);
 
     /**
      * 删除订单
      *
      * @param id 订单表的id
      */
-    int delete(int id);
+    void delete(int id);
 
 
-    int cancel(int id);
+    void cancel(int id);
 
     List<BoyingOrder> list(GetOrdersParam param);
 

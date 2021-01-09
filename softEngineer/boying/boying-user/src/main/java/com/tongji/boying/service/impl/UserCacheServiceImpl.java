@@ -1,8 +1,8 @@
 package com.tongji.boying.service.impl;
 
 import com.tongji.boying.common.service.RedisService;
-import com.tongji.boying.mapper.UserMapper;
-import com.tongji.boying.model.User;
+import com.tongji.boying.mapper.BoyingUserMapper;
+import com.tongji.boying.model.BoyingUser;
 import com.tongji.boying.service.UserCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +13,7 @@ public class UserCacheServiceImpl implements UserCacheService {
     @Autowired
     private RedisService redisService;
     @Autowired
-    private UserMapper userMapper;
+    private BoyingUserMapper userMapper;
     @Value("${redis.database}")
     private String REDIS_DATABASE;
     //    除验证码之外的过期时间
@@ -30,7 +30,7 @@ public class UserCacheServiceImpl implements UserCacheService {
     @Override
     public void delUser(int userId) {
 //        确保全局不会redis缓存key混乱
-        User user = userMapper.selectByPrimaryKey(userId);
+        BoyingUser user = userMapper.selectByPrimaryKey(userId);
         if (user != null) {
             String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getUsername();
             String key2 = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getPhone();
@@ -40,21 +40,21 @@ public class UserCacheServiceImpl implements UserCacheService {
     }
 
     @Override
-    public User getUser(String username) {
+    public BoyingUser getUser(String username) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + username;
 
-        return (User) redisService.get(key);
+        return (BoyingUser) redisService.get(key);
     }
 
     @Override
-    public User getUserByTelephone(String telephone) {
+    public BoyingUser getUserByTelephone(String telephone) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + telephone;
 
-        return (User) redisService.get(key);
+        return (BoyingUser) redisService.get(key);
     }
 
     @Override
-    public void setUser(User user) {
+    public void setUser(BoyingUser user) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getUsername();
         String key2 = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getPhone();
 //        设置两条,能通过手机号,用户名查到该用户

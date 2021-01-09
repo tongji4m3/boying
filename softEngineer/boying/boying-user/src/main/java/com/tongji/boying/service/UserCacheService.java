@@ -1,6 +1,6 @@
 package com.tongji.boying.service;
 
-import com.tongji.boying.model.User;
+import com.tongji.boying.model.BoyingUser;
 
 /**
  * 用户信息缓存业务类
@@ -14,18 +14,18 @@ public interface UserCacheService {
     /**
      * 获取用户缓存
      */
-    User getUser(String username);
+    BoyingUser getUser(String username);
 
     /**
      * 根据手机号获取用户缓存
      */
-    User getUserByTelephone(String telephone);
+    BoyingUser getUserByTelephone(String telephone);
 
 
     /**
      * 设置用户缓存
      */
-    void setUser(User User);
+    void setUser(BoyingUser BoyingUser);
 
     /**
      * 设置验证码

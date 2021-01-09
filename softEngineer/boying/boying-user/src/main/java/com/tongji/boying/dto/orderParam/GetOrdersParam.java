@@ -18,4 +18,7 @@ public class GetOrdersParam {
 
     @ApiModelProperty("每页大小(0或null为不添加该约束,则默认大小为5)")
     private Integer pageSize;
+
+    @ApiModelProperty("名称模糊查询")
+    private String name;
 }

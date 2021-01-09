@@ -2,7 +2,7 @@ package com.tongji.boying.config;
 
 //实现整个项目安全管理的内容，boying-security，security涉及到
 
-import com.tongji.boying.model.User;
+import com.tongji.boying.model.BoyingUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,9 +14,9 @@ import java.util.Collection;
  * SpringSecurity需要的用户详情
  */
 public class BoyingUserDetails implements UserDetails {
-    private final User user;
+    private final BoyingUser user;
 
-    public BoyingUserDetails(User user) {
+    public BoyingUserDetails(BoyingUser user) {
         this.user = user;
     }
 
@@ -53,10 +53,10 @@ public class BoyingUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getUserstatus();
+        return user.getAdminDelete();
     }
 
-    public User getUser() {
+    public BoyingUser getUser() {
         return user;
     }
 }

@@ -10,9 +10,10 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.config.BoyingUserDetails;
-import com.tongji.boying.mapper.UserMapper;
-import com.tongji.boying.model.User;
-import com.tongji.boying.model.UserExample;
+import com.tongji.boying.dto.userParam.*;
+import com.tongji.boying.mapper.BoyingUserMapper;
+import com.tongji.boying.model.BoyingUser;
+import com.tongji.boying.model.BoyingUserExample;
 import com.tongji.boying.security.util.JwtTokenUtil;
 import com.tongji.boying.service.UserCacheService;
 import com.tongji.boying.service.UserService;
@@ -28,13 +29,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -48,7 +47,7 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
-    private UserMapper userMapper;
+    private BoyingUserMapper userMapper;
 
     /**
      * 用于密码加密
@@ -76,48 +75,58 @@ public class UserServiceImpl implements UserService {
     private Long AUTH_CODE_EXPIRE_SECONDS;
 
     @Override
-    public User getByUsername(String username) {
-        User user = userCacheService.getUser(username);
+    public BoyingUser getByUsername(String username) {
+        BoyingUser user = userCacheService.getUser(username);
         if (user != null) return user; //缓存里面有数据
-        UserExample example = new UserExample();
+        BoyingUserExample example = new BoyingUserExample();
         example.createCriteria().andUsernameEqualTo(username);//根据userExample进行where语句的查询
-        List<User> userList = userMapper.selectByExample(example);
-        if (!CollectionUtils.isEmpty(userList)) {
-            user = userList.get(0);
-            //账号未启用
-            if (!user.getUserstatus()) {
-                Asserts.fail("账号未启用,请联系管理员!");
-            }
-            userCacheService.setUser(user);//将查询到的数据放入缓存中
-            return user;
+        List<BoyingUser> userList = userMapper.selectByExample(example);
+
+        if (CollectionUtils.isEmpty(userList)) {
+            Asserts.fail("用户名或密码错误");
+
         }
-        return null;
+        user = userList.get(0);
+        //账号未启用
+        if (user.getAdminDelete()) {
+            Asserts.fail("账号未启用,请联系管理员!");
+        }
+        userCacheService.setUser(user);//将查询到的数据放入缓存中
+        return user;
     }
 
 
     @Override
     @DateTimeFormat
-    public void register(String username, String password, String telephone, String authCode, String icon) {
+    public void register(UserRegisterParam param) {
+        String authCode = param.getAuthCode();
+        String telephone = param.getTelephone();
+        String username = param.getUsername();
+        String password = param.getPassword();
+        String icon = param.getIcon();
+
         //验证验证码
         if (!verifyAuthCode(authCode, telephone)) {
             Asserts.fail("验证码错误");
         }
         //查询是否已有该用户
-        UserExample example = new UserExample();
+        BoyingUserExample example = new BoyingUserExample();
         //用户名,手机号唯一
         example.createCriteria().andUsernameEqualTo(username);
         example.or(example.createCriteria().andPhoneEqualTo(telephone));
-        List<User> users = userMapper.selectByExample(example);
+        List<BoyingUser> users = userMapper.selectByExample(example);
         if (!CollectionUtils.isEmpty(users)) {
             Asserts.fail("该用户已经存在或手机号已注册");
         }
         //没有该用户进行添加操作
-        User user = new User();
+        BoyingUser user = new BoyingUser();
         user.setUsername(username);
         user.setPhone(telephone);
-        user.setCreateTime(new Date());
         user.setPassword(passwordEncoder.encode(password));//存储加密后的
-        user.setUserstatus(true);
+        //设置默认头像
+        if (StringUtils.isEmpty(icon)) {
+            icon = "https://tongji4m3.oss-cn-beijing.aliyuncs.com/f_f_object_156_s512_f_object_156_0.png";
+        }
         user.setIcon(icon);
         userMapper.insert(user);
         //注册完删除验证码,每个验证码只能使用一次
@@ -163,10 +172,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void updatePassword(String telephone, String password, String authCode) {
-        UserExample example = new UserExample();
+    public void updatePassword(UpdatePasswordParam param) {
+        String telephone = param.getTelephone();
+        String password = param.getPassword();
+        String authCode = param.getAuthCode();
+
+        BoyingUserExample example = new BoyingUserExample();
         example.createCriteria().andPhoneEqualTo(telephone);
-        List<User> userList = userMapper.selectByExample(example);
+        List<BoyingUser> userList = userMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(userList)) {
             Asserts.fail("该账号不存在");
         }
@@ -174,18 +187,18 @@ public class UserServiceImpl implements UserService {
         if (!verifyAuthCode(authCode, telephone)) {
             Asserts.fail("验证码错误");
         }
-        User user = userList.get(0);
+        BoyingUser user = userList.get(0);
         user.setPassword(passwordEncoder.encode(password));//密码加密
         userMapper.updateByPrimaryKeySelective(user);//只更新不为空的字段
 
-        userCacheService.delUser(user.getUserId());//删除无效缓存
+        userCacheService.delUser(user.getId());//删除无效缓存
 
         //注册完删除验证码,每个验证码只能使用一次
         userCacheService.delAuthCode(telephone);
     }
 
     @Override
-    public User getCurrentUser() {
+    public BoyingUser getCurrentUser() {
 //        获取之前登录存储的用户上下文信息
         SecurityContext ctx = SecurityContextHolder.getContext();
         Authentication auth = ctx.getAuthentication();
@@ -195,15 +208,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User user = getByUsername(username);
-        if (user != null) {
-            return new BoyingUserDetails(user);
-        }
-        throw new UsernameNotFoundException("用户名或密码错误");
+        BoyingUser user = getByUsername(username);
+        return new BoyingUserDetails(user);
     }
 
     @Override
-    public String login(String username, String password) {
+    public String login(UsernameLoginParam param) {
+        String username = param.getUsername();
+        String password = param.getPassword();
+
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
         try {
@@ -211,7 +224,7 @@ public class UserServiceImpl implements UserService {
             if (!passwordEncoder.matches(password, userDetails.getPassword())) {
                 throw new BadCredentialsException("密码不正确");
             }
-//            获取该用户的上下文信息（如他的角色列表）
+//            获取该用户的上下文信息
 //            username和password被获得后封装到一个UsernamePasswordAuthenticationToken
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 //            围绕该用户建立安全上下文（security context）
@@ -226,23 +239,27 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public String telephoneLogin(String telephone, String password) {
+    public String telephoneLogin(TelephoneLoginParam param) {
+        String telephone = param.getTelephone();
+        String password = param.getPassword();
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
         try {
-            User user = userCacheService.getUserByTelephone(telephone);
+            BoyingUser user = userCacheService.getUserByTelephone(telephone);
             //缓存里面没有数据
             if (user == null) {
-                UserExample example = new UserExample();
+                BoyingUserExample example = new BoyingUserExample();
                 example.createCriteria().andPhoneEqualTo(telephone);//根据userExample进行where语句的查询
-                List<User> userList = userMapper.selectByExample(example);
-                if (!CollectionUtils.isEmpty(userList)) {
-                    user = userList.get(0);
-                    userCacheService.setUser(user);//将查询到的数据放入缓存中
-                }
-                else {
+                List<BoyingUser> userList = userMapper.selectByExample(example);
+                if (CollectionUtils.isEmpty(userList)) {
                     Asserts.fail("手机号不存在");
                 }
+                user = userList.get(0);
+                //账号未启用
+                if (user.getAdminDelete()) {
+                    Asserts.fail("账号未启用,请联系管理员!");
+                }
+                userCacheService.setUser(user);//将查询到的数据放入缓存中
                 if (!passwordEncoder.matches(password, user.getPassword())) {
                     throw new BadCredentialsException("密码不正确");
                 }
@@ -259,7 +276,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String authCodeLogin(String telephone, String authCode) {
+    public String authCodeLogin(AuthCodeLoginParam param) {
+        String telephone = param.getTelephone();
+        String authCode = param.getAuthCode();
         //验证验证码
         if (!verifyAuthCode(authCode, telephone)) {
             Asserts.fail("验证码错误");
@@ -267,12 +286,12 @@ public class UserServiceImpl implements UserService {
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
         try {
-            User user = userCacheService.getUserByTelephone(telephone);
+            BoyingUser user = userCacheService.getUserByTelephone(telephone);
             //缓存里面没有数据
             if (user == null) {
-                UserExample example = new UserExample();
+                BoyingUserExample example = new BoyingUserExample();
                 example.createCriteria().andPhoneEqualTo(telephone);//根据userExample进行where语句的查询
-                List<User> userList = userMapper.selectByExample(example);
+                List<BoyingUser> userList = userMapper.selectByExample(example);
                 if (!CollectionUtils.isEmpty(userList)) {
                     user = userList.get(0);
                     userCacheService.setUser(user);//将查询到的数据放入缓存中
@@ -293,29 +312,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void setDefaultFrequent(Integer frequentId) {
-        User currentUser = getCurrentUser();
-        currentUser.setDefaultFrequent(frequentId);
-        userMapper.updateByPrimaryKey(currentUser);
-        userCacheService.delUser(currentUser.getUserId());//删除无效缓存
-    }
-
-    @Override
-    public void setDefaultAddress(Integer addressId) {
-        User currentUser = getCurrentUser();
-        currentUser.setDefaultAddress(addressId);
-        userMapper.updateByPrimaryKey(currentUser);
-        userCacheService.delUser(currentUser.getUserId());//删除无效缓存
-    }
-
-    @Override
     public String refreshToken(String token) {
         return jwtTokenUtil.refreshHeadToken(token);
     }
 
     @Override
-    public void updateInfo(String realName, String identityNumber, String email, String icon, int age, boolean gender) {
-        User currentUser = getCurrentUser();
+    public void updateInfo(UpdateInfoParam param) {
+        String realName = param.getRealName();
+        String identityNumber = param.getIdentityNumber();
+        String email = param.getEmail();
+        String icon = param.getIcon();
+        Integer age = param.getAge();
+        Boolean gender = param.getGender();
+
+        BoyingUser currentUser = getCurrentUser();
         currentUser.setRealName(realName);
         currentUser.setIdentityNumber(identityNumber);
         currentUser.setEmail(email);
@@ -325,7 +335,7 @@ public class UserServiceImpl implements UserService {
             currentUser.setAge(age);
         }
         userMapper.updateByPrimaryKeySelective(currentUser);//只更新不为空的字段
-        userCacheService.delUser(currentUser.getUserId());//删除无效缓存
+        userCacheService.delUser(currentUser.getId());//删除无效缓存
     }
 
     //对输入的验证码进行校验

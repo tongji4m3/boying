@@ -1,9 +1,15 @@
 package com.tongji.boying.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.dto.orderParam.GetOrdersParam;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
-import com.tongji.boying.mapper.*;
+import com.tongji.boying.mapper.BoyingOrderMapper;
+import com.tongji.boying.mapper.BoyingSeatMapper;
+import com.tongji.boying.mapper.BoyingShowMapper;
+import com.tongji.boying.mapper.BoyingTicketMapper;
+import com.tongji.boying.model.*;
 import com.tongji.boying.service.UserOrderService;
 import com.tongji.boying.service.UserService;
 import com.tongji.boying.service.UserTicketService;
@@ -11,198 +17,212 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class UserOrderServiceImpl implements UserOrderService {
     @Autowired
-    private UserOrderMapper orderMapper;
+    private BoyingOrderMapper orderMapper;
     @Autowired
     private UserService userService;
     @Autowired
     private UserTicketService userTicketService;
 
     @Autowired
-    private ShowSessionMapper showSessionMapper;
+    private BoyingSeatMapper boyingSeatMapper;
+    @Autowired
+    private BoyingTicketMapper ticketMapper;
     @Autowired
     private BoyingShowMapper showMapper;
-    @Autowired
-    private ShowClassMapper showClassMapper;
-    @Autowired
-    private TicketMapper ticketMapper;
 
     @Override
-    public int add(UserOrderParam param) {
+    public void add(UserOrderParam param) {
         //获取参数
-        Integer showSessionId = param.getShowSessionId();
-        List<Integer> showClassIds = param.getShowClassIds();
+        Integer showId = param.getShowId();
+        List<Integer> showSeatIds = param.getShowSeatIds();
+        //存储的是(座次Id，count)
+        Map<Integer, Integer> seatMap = new HashMap<>();
+        for (Integer showSeatId : showSeatIds) {
+            seatMap.put(showSeatId, seatMap.getOrDefault(showSeatId, 0) + 1);
+        }
 
         //当前用户
-        User user = userService.getCurrentUser();
+        BoyingUser user = userService.getCurrentUser();
 
-        UserOrderExample orderExample = new UserOrderExample();
+        BoyingOrderExample orderExample = new BoyingOrderExample();
         //已退票的不算
-        orderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andShowSessionIdEqualTo(showSessionId).andStatusNotEqualTo(3);
-        List<UserOrder> orders = orderMapper.selectByExample(orderExample);
+        orderExample.createCriteria().andUserIdEqualTo(user.getId()).andShowIdEqualTo(showId).andStatusNotEqualTo(3);
+        List<BoyingOrder> orders = orderMapper.selectByExample(orderExample);
         if (!orders.isEmpty()) {
             //该用户已经下过单了,不能继续了
-            Asserts.fail("您已经对该场次下单过了,不能重复下单!");
+            Asserts.fail("您已经对该演出下单过了,不能重复下单!");
         }
-        if (showClassIds.size() == 0) {
+        if (showSeatIds.size() == 0) {
             Asserts.fail("一个订单至少要有1张票!");
         }
-        if (showClassIds.size() > 5) {
+        if (showSeatIds.size() > 5) {
             Asserts.fail("一个订单最多只能有5张票!");
         }
 
-        ShowSession showSession = showSessionMapper.selectByPrimaryKey(showSessionId);
-        if (showSession == null) {
-            Asserts.fail("演出场次选择不合法!");
+        BoyingShow boyingShow = showMapper.selectByPrimaryKey(showId);
+        if (boyingShow == null) {
+            Asserts.fail("演出选择不合法!");
         }
 
 
-        ShowClassExample showClassExample = new ShowClassExample();
-        showClassExample.createCriteria().andShowSessionIdEqualTo(showSession.getShowSessionId());
+        BoyingSeatExample boyingSeatExample = new BoyingSeatExample();
+        boyingSeatExample.createCriteria().andShowIdEqualTo(boyingShow.getId());
         //数据库中的座次信息
-        List<ShowClass> dbShowClasses = showClassMapper.selectByExample(showClassExample);
+        List<BoyingSeat> dbShowSeats = boyingSeatMapper.selectByExample(boyingSeatExample);
 
-        List<Integer> dbShowClassIds = dbShowClasses.stream()
-                .map(ShowClass::getShowClassId)
+        List<Integer> dbShowClassIds = dbShowSeats.stream()
+                .map(BoyingSeat::getId)
                 .collect(Collectors.toList());
         //校验座次是否合法
-        for (Integer showClassId : showClassIds) {
-            if (!dbShowClassIds.contains(showClassId)) {
+        for (Integer showSeatId : showSeatIds) {
+            if (!dbShowClassIds.contains(showSeatId)) {
                 Asserts.fail("演出座次选择不合法!");
             }
         }
 
-
         //查看库存状态
-        for (Integer showClassId : showClassIds) {
-            ShowClass dbShowClass = showClassMapper.selectByPrimaryKey(showClassId);
-            if (dbShowClass.getStock() <= 0) {
+        for (Map.Entry<Integer, Integer> entry : seatMap.entrySet()) {
+            BoyingSeat boyingSeat = boyingSeatMapper.selectByPrimaryKey(entry.getKey());
+            if (boyingSeat.getStock() < entry.getValue()) {
                 //只要有一个库存没有，则告知不合法
                 Asserts.fail("库存不足！");
             }
         }
 
-        //减库存
-        for (Integer showClassId : showClassIds) {
-            ShowClass dbShowClass = showClassMapper.selectByPrimaryKey(showClassId);
-            dbShowClass.setStock(dbShowClass.getStock() - 1);
-            showClassMapper.updateByPrimaryKeySelective(dbShowClass);
-        }
-
-        //生成订单
-        UserOrder order = new UserOrder();
-        order.setUserId(user.getUserId());
-        order.setShowSessionId(showSessionId);
-        order.setStatus(1);//待观看状态
-        order.setTime(new Date());
-        order.setPayment(param.getPayment());
-        order.setUserDelete(false);
-        order.setShowId(showSession.getShowId());
-
-
         //订单总数,订单总金额
         double totalMoney = 0;
         int count = 0;
 
-        for (Integer showClassId : showClassIds) {
-            ShowClass showClass = showClassMapper.selectByPrimaryKey(showClassId);
+        //减库存
+        for (Map.Entry<Integer, Integer> entry : seatMap.entrySet()) {
+            BoyingSeat boyingSeat = boyingSeatMapper.selectByPrimaryKey(entry.getKey());
 
+            totalMoney += boyingSeat.getPrice() * entry.getValue();
+            count+=entry.getValue();
 
-            totalMoney += showClass.getPrice();
-            ++count;
+            boyingSeat.setStock(boyingSeat.getStock() - entry.getValue());
+            boyingSeatMapper.updateByPrimaryKeySelective(boyingSeat);
         }
+
+        //生成订单
+        BoyingOrder order = new BoyingOrder();
+        order.setUserId(user.getId());
+        order.setShowId(showId);
+        order.setStatus(1);//待观看状态
+        order.setTime(new Date());
+        order.setUserDelete(false);
         order.setTicketCount(count);
         order.setMoney(totalMoney);
         int insert = orderMapper.insert(order);
-        /*
-        如果报错,可能是重新生成了generator
-        在orderMapper.insert(order)的mapper里面改成如下:
-        <insert id="insert" parameterType="com.tongji.boying.model.UserOrder" keyProperty="orderId"
-          keyColumn="order_id" useGeneratedKeys="true">
-         */
         //生成票
-        for (Integer showClassId : showClassIds) {
-            System.out.println(order.getOrderId() + "   " + showClassId);
-            userTicketService.add(order.getOrderId(), showClassId);
+        for (Integer showSeatId : showSeatIds) {
+            System.out.println(order.getId() + "   " + showSeatId);
+            userTicketService.add(order.getId(), showSeatId);
         }
-
-        return insert;
     }
 
 
     @Override
-    public int delete(int id) {
-        User user = userService.getCurrentUser();
-        UserOrderExample userOrderExample = new UserOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id).andUserDeleteEqualTo(false);
-        List<UserOrder> userOrders = orderMapper.selectByExample(userOrderExample);
-        if (userOrders.isEmpty()) {
+    public void delete(int id) {
+        BoyingUser user = userService.getCurrentUser();
+        BoyingOrderExample userOrderExample = new BoyingOrderExample();
+        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(false);
+        List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
+        if (userOrders == null || userOrders.isEmpty()) {
             Asserts.fail("无此订单");
         }
-        UserOrder order = new UserOrder();
-        order.setUserDelete(true);
-        order.setOrderId(userOrders.get(0).getOrderId());
-        return orderMapper.updateByPrimaryKeySelective(order);
+        BoyingOrder boyingOrder = userOrders.get(0);
+        if (boyingOrder.getStatus() == 1) {
+            Asserts.fail("待观看订单不能删除！");
+        }
+        if (boyingOrder.getAdminDelete()) {
+            Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
+        }
+        boyingOrder.setUserDelete(true);
+        orderMapper.updateByPrimaryKeySelective(boyingOrder);
     }
 
     @Override
-    public int cancel(int id) {
-        User user = userService.getCurrentUser();
-        UserOrderExample userOrderExample = new UserOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id).andUserDeleteEqualTo(false);
-        List<UserOrder> userOrders = orderMapper.selectByExample(userOrderExample);
+    public void cancel(int id) {
+        BoyingUser user = userService.getCurrentUser();
+        BoyingOrderExample userOrderExample = new BoyingOrderExample();
+        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(false);
+        List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
         if (userOrders.isEmpty()) {
             Asserts.fail("无此订单");
         }
-        if (userOrders.get(0).getStatus() == 2) {
-            Asserts.fail("不能取消已完成订单!");
+        if (userOrders.get(0).getStatus() != 1) {
+            Asserts.fail("只能取消待观看订单!");
         }
 
-        UserOrder order = new UserOrder();
-        //增加库存
-        ShowClassExample showClassExample = new ShowClassExample();
-        showClassExample.createCriteria().andShowSessionIdEqualTo(order.getShowSessionId());
-        List<ShowClass> showClasses = showClassMapper.selectByExample(showClassExample);
-        if (showClasses != null && showClasses.size() != 0) {
-            for (ShowClass showClass : showClasses) {
-                showClass.setStock(showClass.getStock() + 1);
-                showClassMapper.updateByPrimaryKeySelective(showClass);
-            }
-        }
-
-        order.setOrderId(userOrders.get(0).getOrderId());
+        //更新订单的信息
+        BoyingOrder order = userOrders.get(0);
         order.setStatus(3);
-        TicketExample ticketExample = new TicketExample();
-        ticketExample.createCriteria().andOrderIdEqualTo(order.getOrderId());
-        ticketMapper.deleteByExample(ticketExample);
-        return orderMapper.updateByPrimaryKeySelective(order);
+        orderMapper.updateByPrimaryKeySelective(order);
+
+        //获取对应的票
+        BoyingTicketExample boyingTicketExample = new BoyingTicketExample();
+        boyingTicketExample.createCriteria().andOrderIdEqualTo(order.getId());
+        List<BoyingTicket> boyingTickets = ticketMapper.selectByExample(boyingTicketExample);
+        for (BoyingTicket boyingTicket : boyingTickets) {
+            //获取对应的演出座次,增加库存
+            BoyingSeat boyingSeat = boyingSeatMapper.selectByPrimaryKey(boyingTicket.getSeatId());
+            boyingSeat.setStock(boyingSeat.getStock() + 1);
+            boyingSeatMapper.updateByPrimaryKeySelective(boyingSeat);
+            //删除对应的票
+            ticketMapper.deleteByPrimaryKey(boyingTicket.getId());
+        }
     }
 
     @Override
-    public List<UserOrder> list(Integer status, Integer pageNum, Integer pageSize) {
-        User user = userService.getCurrentUser();
-        UserOrderExample userOrderExample = new UserOrderExample();
-        UserOrderExample.Criteria criteria = userOrderExample.createCriteria();
-        if (status != null && status != -1) {
+    public List<BoyingOrder> list(GetOrdersParam param) {
+        Integer status = param.getStatus();
+        Integer pageNum = param.getPageNum();
+        Integer pageSize = param.getPageSize();
+        String name = param.getName();
+
+        if (pageNum == null || pageNum == 0) pageNum = 0;
+        if (pageSize == null || pageSize == 0) pageSize = 5;
+
+        BoyingUser user = userService.getCurrentUser();
+        BoyingOrderExample userOrderExample = new BoyingOrderExample();
+        BoyingOrderExample.Criteria criteria = userOrderExample.createCriteria();
+
+        //根据演出的名称模糊查询
+        if (!StrUtil.isEmpty(name)) {
+            BoyingShowExample boyingShowExample = new BoyingShowExample();
+            boyingShowExample.createCriteria().andNameLike("%" + name + "%");
+            List<BoyingShow> boyingShows = showMapper.selectByExample(boyingShowExample);
+            List<Integer> showIds = new LinkedList<>();
+            for (BoyingShow boyingShow : boyingShows) {
+                showIds.add(boyingShow.getId());
+            }
+            criteria.andShowIdIn(showIds);
+        }
+
+        if (status != null && status != 0) {
             criteria.andStatusEqualTo(status);
         }
-        criteria.andUserIdEqualTo(user.getUserId()).andUserDeleteEqualTo(false);
+        criteria.andUserIdEqualTo(user.getId()).andUserDeleteEqualTo(false);
         PageHelper.startPage(pageNum, pageSize);//分页相关
         return orderMapper.selectByExample(userOrderExample);
     }
 
     @Override
-    public UserOrder getItem(int id) {
-        User user = userService.getCurrentUser();
-        UserOrderExample userOrderExample = new UserOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getUserId()).andOrderIdEqualTo(id).andUserDeleteEqualTo(false);
-        List<UserOrder> userOrders = orderMapper.selectByExample(userOrderExample);
+    public BoyingOrder getItem(int id) {
+        BoyingUser user = userService.getCurrentUser();
+        BoyingOrderExample userOrderExample = new BoyingOrderExample();
+        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(false);
+        List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
+        if (userOrders.get(0).getAdminDelete()) {
+            Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
+        }
         if (!CollectionUtils.isEmpty(userOrders)) {
             return userOrders.get(0);
         }
