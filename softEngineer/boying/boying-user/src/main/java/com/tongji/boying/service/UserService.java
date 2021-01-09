@@ -1,6 +1,7 @@
 package com.tongji.boying.service;
 
-import com.tongji.boying.model.User;
+import com.tongji.boying.dto.userParam.*;
+import com.tongji.boying.model.BoyingUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,18 +11,22 @@ import org.springframework.transaction.annotation.Transactional;
  * @author tongji4m3
  */
 public interface UserService {
+    void register(UserRegisterParam param);
+
+    String login(UsernameLoginParam param);
+
+    String telephoneLogin(TelephoneLoginParam param);
+
+    String authCodeLogin(AuthCodeLoginParam param);
+
+    void updateInfo(UpdateInfoParam param);
+
+    void updatePassword(UpdatePasswordParam param);
+
     /**
      * 根据用户名获取用户
      */
-    User getByUsername(String username);
-
-    /**
-     * 用户注册
-     *
-     * @Transactional 注解管理事务
-     */
-    @Transactional
-    void register(String username, String password, String telephone, String checkCode, String icon);
+    BoyingUser getByUsername(String username);
 
     /**
      * 生成验证码
@@ -29,15 +34,9 @@ public interface UserService {
     void generateAuthCode(String telephone);
 
     /**
-     * 修改密码
-     */
-    @Transactional
-    void updatePassword(String telephone, String password, String checkCode);
-
-    /**
      * 获取当前登录用户
      */
-    User getCurrentUser();
+    BoyingUser getCurrentUser();
 
     /**
      * 获取用户信息
@@ -45,25 +44,7 @@ public interface UserService {
     UserDetails loadUserByUsername(String username);
 
     /**
-     * 登录后获取token
-     */
-    String login(String username, String password);
-
-    /**
      * 刷新token
      */
     String refreshToken(String token);
-
-    /**
-     * 更新用户信息
-     */
-    void updateInfo(String realName, String identityNumber, String email, String icon, int age, boolean gender);
-
-    String telephoneLogin(String telephone, String password);
-
-    String authCodeLogin(String telephone, String authCode);
-
-    void setDefaultFrequent(Integer frequentId);
-
-    void setDefaultAddress(Integer addressId);
 }

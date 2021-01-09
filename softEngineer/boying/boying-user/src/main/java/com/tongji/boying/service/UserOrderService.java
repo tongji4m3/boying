@@ -1,7 +1,8 @@
 package com.tongji.boying.service;
 
+import com.tongji.boying.dto.orderParam.GetOrdersParam;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
-import com.tongji.boying.model.UserOrder;
+import com.tongji.boying.model.BoyingOrder;
 
 import java.util.List;
 
@@ -21,19 +22,7 @@ public interface UserOrderService {
 
     int cancel(int id);
 
+    List<BoyingOrder> list(GetOrdersParam param);
 
-    /**
-     * 返回当前用户的订单
-     *
-     * @param pageNum
-     * @param pageSize
-     */
-    List<UserOrder> list(Integer status, Integer pageNum, Integer pageSize);
-
-    /**
-     * 获取订单详情
-     *
-     * @param id 订单id
-     */
-    UserOrder getItem(int id);
+    BoyingOrder getItem(int id);
 }

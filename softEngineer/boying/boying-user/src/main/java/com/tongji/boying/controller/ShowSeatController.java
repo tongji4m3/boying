@@ -30,6 +30,6 @@ public class ShowSeatController {
     @RequestMapping(value = "/seats", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<BoyingSeat>> getShowSeatList(@RequestBody Integer showId) {
-        return CommonResult.success(CommonPage.restPage(seatService.getShowSeatList(showId)));
+        return CommonResult.success(seatService.getShowSeatList(showId));
     }
 }

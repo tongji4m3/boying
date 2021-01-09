@@ -1,11 +1,9 @@
 package com.tongji.boying.service;
 
-import com.tongji.boying.model.ShowClass;
+import com.tongji.boying.model.BoyingSeat;
 
 import java.util.List;
 
 public interface ShowSeatService {
-    ShowClass detail(Integer classId);
-
-    List<ShowClass> getShowClassList(int sessionId, Integer pageNum, Integer pageSize);
+    List<BoyingSeat> getShowSeatList(Integer showId);
 }
