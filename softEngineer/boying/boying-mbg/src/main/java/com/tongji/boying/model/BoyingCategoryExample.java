@@ -3,31 +3,31 @@ package com.tongji.boying.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryExample {
+public class BoyingCategoryExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public CategoryExample() {
+    public BoyingCategoryExample() {
         oredCriteria = new ArrayList<Criteria>();
-    }
-
-    public String getOrderByClause() {
-        return orderByClause;
     }
 
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    public boolean isDistinct() {
-        return distinct;
+    public String getOrderByClause() {
+        return orderByClause;
     }
 
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
+    }
+
+    public boolean isDistinct() {
+        return distinct;
     }
 
     public List<Criteria> getOredCriteria() {
@@ -104,123 +104,63 @@ public class CategoryExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andCategoryIdIsNull() {
-            addCriterion("category_id is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdIsNotNull() {
-            addCriterion("category_id is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdEqualTo(Integer value) {
-            addCriterion("category_id =", value, "categoryId");
+        public Criteria andIdEqualTo(Integer value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdNotEqualTo(Integer value) {
-            addCriterion("category_id <>", value, "categoryId");
+        public Criteria andIdNotEqualTo(Integer value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdGreaterThan(Integer value) {
-            addCriterion("category_id >", value, "categoryId");
+        public Criteria andIdGreaterThan(Integer value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("category_id >=", value, "categoryId");
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdLessThan(Integer value) {
-            addCriterion("category_id <", value, "categoryId");
+        public Criteria andIdLessThan(Integer value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdLessThanOrEqualTo(Integer value) {
-            addCriterion("category_id <=", value, "categoryId");
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdIn(List<Integer> values) {
-            addCriterion("category_id in", values, "categoryId");
+        public Criteria andIdIn(List<Integer> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdNotIn(List<Integer> values) {
-            addCriterion("category_id not in", values, "categoryId");
+        public Criteria andIdNotIn(List<Integer> values) {
+            addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdBetween(Integer value1, Integer value2) {
-            addCriterion("category_id between", value1, value2, "categoryId");
+        public Criteria andIdBetween(Integer value1, Integer value2) {
+            addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("category_id not between", value1, value2, "categoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdIsNull() {
-            addCriterion("parent_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdIsNotNull() {
-            addCriterion("parent_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdEqualTo(Integer value) {
-            addCriterion("parent_id =", value, "parentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdNotEqualTo(Integer value) {
-            addCriterion("parent_id <>", value, "parentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdGreaterThan(Integer value) {
-            addCriterion("parent_id >", value, "parentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("parent_id >=", value, "parentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdLessThan(Integer value) {
-            addCriterion("parent_id <", value, "parentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdLessThanOrEqualTo(Integer value) {
-            addCriterion("parent_id <=", value, "parentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdIn(List<Integer> values) {
-            addCriterion("parent_id in", values, "parentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdNotIn(List<Integer> values) {
-            addCriterion("parent_id not in", values, "parentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdBetween(Integer value1, Integer value2) {
-            addCriterion("parent_id between", value1, value2, "parentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andParentIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("parent_id not between", value1, value2, "parentId");
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 
@@ -291,66 +231,6 @@ public class CategoryExample {
 
         public Criteria andNameNotBetween(String value1, String value2) {
             addCriterion("name not between", value1, value2, "name");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightIsNull() {
-            addCriterion("weight is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightIsNotNull() {
-            addCriterion("weight is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightEqualTo(Integer value) {
-            addCriterion("weight =", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightNotEqualTo(Integer value) {
-            addCriterion("weight <>", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightGreaterThan(Integer value) {
-            addCriterion("weight >", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightGreaterThanOrEqualTo(Integer value) {
-            addCriterion("weight >=", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightLessThan(Integer value) {
-            addCriterion("weight <", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightLessThanOrEqualTo(Integer value) {
-            addCriterion("weight <=", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightIn(List<Integer> values) {
-            addCriterion("weight in", values, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightNotIn(List<Integer> values) {
-            addCriterion("weight not in", values, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightBetween(Integer value1, Integer value2) {
-            addCriterion("weight between", value1, value2, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightNotBetween(Integer value1, Integer value2) {
-            addCriterion("weight not between", value1, value2, "weight");
             return (Criteria) this;
         }
 
@@ -493,6 +373,126 @@ public class CategoryExample {
             addCriterion("description not between", value1, value2, "description");
             return (Criteria) this;
         }
+
+        public Criteria andWeightIsNull() {
+            addCriterion("weight is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightIsNotNull() {
+            addCriterion("weight is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightEqualTo(Integer value) {
+            addCriterion("weight =", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotEqualTo(Integer value) {
+            addCriterion("weight <>", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGreaterThan(Integer value) {
+            addCriterion("weight >", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGreaterThanOrEqualTo(Integer value) {
+            addCriterion("weight >=", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightLessThan(Integer value) {
+            addCriterion("weight <", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightLessThanOrEqualTo(Integer value) {
+            addCriterion("weight <=", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightIn(List<Integer> values) {
+            addCriterion("weight in", values, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotIn(List<Integer> values) {
+            addCriterion("weight not in", values, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightBetween(Integer value1, Integer value2) {
+            addCriterion("weight between", value1, value2, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotBetween(Integer value1, Integer value2) {
+            addCriterion("weight not between", value1, value2, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteIsNull() {
+            addCriterion("admin_delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteIsNotNull() {
+            addCriterion("admin_delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteEqualTo(Boolean value) {
+            addCriterion("admin_delete =", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteNotEqualTo(Boolean value) {
+            addCriterion("admin_delete <>", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteGreaterThan(Boolean value) {
+            addCriterion("admin_delete >", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("admin_delete >=", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteLessThan(Boolean value) {
+            addCriterion("admin_delete <", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteLessThanOrEqualTo(Boolean value) {
+            addCriterion("admin_delete <=", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteIn(List<Boolean> values) {
+            addCriterion("admin_delete in", values, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteNotIn(List<Boolean> values) {
+            addCriterion("admin_delete not in", values, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteBetween(Boolean value1, Boolean value2) {
+            addCriterion("admin_delete between", value1, value2, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("admin_delete not between", value1, value2, "adminDelete");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -518,43 +518,6 @@ public class CategoryExample {
         private boolean listValue;
 
         private String typeHandler;
-
-        protected Criterion(String condition) {
-            super();
-            this.condition = condition;
-            this.typeHandler = null;
-            this.noValue = true;
-        }
-
-        protected Criterion(String condition, Object value, String typeHandler) {
-            super();
-            this.condition = condition;
-            this.value = value;
-            this.typeHandler = typeHandler;
-            if (value instanceof List<?>) {
-                this.listValue = true;
-            }
-            else {
-                this.singleValue = true;
-            }
-        }
-
-        protected Criterion(String condition, Object value) {
-            this(condition, value, null);
-        }
-
-        protected Criterion(String condition, Object value, Object secondValue, String typeHandler) {
-            super();
-            this.condition = condition;
-            this.value = value;
-            this.secondValue = secondValue;
-            this.typeHandler = typeHandler;
-            this.betweenValue = true;
-        }
-
-        protected Criterion(String condition, Object value, Object secondValue) {
-            this(condition, value, secondValue, null);
-        }
 
         public String getCondition() {
             return condition;
@@ -586,6 +549,42 @@ public class CategoryExample {
 
         public String getTypeHandler() {
             return typeHandler;
+        }
+
+        protected Criterion(String condition) {
+            super();
+            this.condition = condition;
+            this.typeHandler = null;
+            this.noValue = true;
+        }
+
+        protected Criterion(String condition, Object value, String typeHandler) {
+            super();
+            this.condition = condition;
+            this.value = value;
+            this.typeHandler = typeHandler;
+            if (value instanceof List<?>) {
+                this.listValue = true;
+            } else {
+                this.singleValue = true;
+            }
+        }
+
+        protected Criterion(String condition, Object value) {
+            this(condition, value, null);
+        }
+
+        protected Criterion(String condition, Object value, Object secondValue, String typeHandler) {
+            super();
+            this.condition = condition;
+            this.value = value;
+            this.secondValue = secondValue;
+            this.typeHandler = typeHandler;
+            this.betweenValue = true;
+        }
+
+        protected Criterion(String condition, Object value, Object secondValue) {
+            this(condition, value, secondValue, null);
         }
     }
 }

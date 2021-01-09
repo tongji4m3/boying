@@ -1,50 +1,46 @@
 package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class BoyingShow implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @ApiModelProperty(value = " ")
-    private Integer showId;
-    private String name;
+    private Integer id;
+
     @ApiModelProperty(value = "所属的目录")
     private Integer categoryId;
-    @ApiModelProperty(value = "该演唱会的海报图文信息(url)")
+
+    private String name;
+
+    @ApiModelProperty(value = "该演唱会的海报信息")
     private String poster;
-    @ApiModelProperty(value = "该演唱会的最低价")
-    private BigDecimal minPrice;
-    @ApiModelProperty(value = "该演唱会的最高价")
-    private BigDecimal maxPrice;
-    @ApiModelProperty(value = "该演出展示的优先基本,0为不展示")
-    private Integer weight;
-    private String city;
-    @ApiModelProperty(value = "具体演出地址")
-    private String address;
-    @ApiModelProperty(value = "演出开始日期")
-    private Date dayStart;
-    @ApiModelProperty(value = "演出结束日期")
-    private Date dayEnd;
+
     @ApiModelProperty(value = "存储该演唱会等的图文信息")
     private String details;
 
-    public Integer getShowId() {
-        return showId;
+    @ApiModelProperty(value = "演出所在城市")
+    private String city;
+
+    @ApiModelProperty(value = "具体演出地址")
+    private String address;
+
+    @ApiModelProperty(value = "演出开始时间")
+    private Date startTime;
+
+    @ApiModelProperty(value = "演出结束时间")
+    private Date endTime;
+
+    @ApiModelProperty(value = "该演出展示的优先基本,0为不展示")
+    private Integer weight;
+
+    private static final long serialVersionUID = 1L;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setShowId(Integer showId) {
-        this.showId = showId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getCategoryId() {
@@ -55,6 +51,14 @@ public class BoyingShow implements Serializable {
         this.categoryId = categoryId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPoster() {
         return poster;
     }
@@ -63,28 +67,12 @@ public class BoyingShow implements Serializable {
         this.poster = poster;
     }
 
-    public BigDecimal getMinPrice() {
-        return minPrice;
+    public String getDetails() {
+        return details;
     }
 
-    public void setMinPrice(BigDecimal minPrice) {
-        this.minPrice = minPrice;
-    }
-
-    public BigDecimal getMaxPrice() {
-        return maxPrice;
-    }
-
-    public void setMaxPrice(BigDecimal maxPrice) {
-        this.maxPrice = maxPrice;
-    }
-
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public String getCity() {
@@ -103,28 +91,28 @@ public class BoyingShow implements Serializable {
         this.address = address;
     }
 
-    public Date getDayStart() {
-        return dayStart;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setDayStart(Date dayStart) {
-        this.dayStart = dayStart;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getDayEnd() {
-        return dayEnd;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setDayEnd(Date dayEnd) {
-        this.dayEnd = dayEnd;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
-    public String getDetails() {
-        return details;
+    public Integer getWeight() {
+        return weight;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     @Override
@@ -133,18 +121,16 @@ public class BoyingShow implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", showId=").append(showId);
-        sb.append(", name=").append(name);
+        sb.append(", id=").append(id);
         sb.append(", categoryId=").append(categoryId);
+        sb.append(", name=").append(name);
         sb.append(", poster=").append(poster);
-        sb.append(", minPrice=").append(minPrice);
-        sb.append(", maxPrice=").append(maxPrice);
-        sb.append(", weight=").append(weight);
+        sb.append(", details=").append(details);
         sb.append(", city=").append(city);
         sb.append(", address=").append(address);
-        sb.append(", dayStart=").append(dayStart);
-        sb.append(", dayEnd=").append(dayEnd);
-        sb.append(", details=").append(details);
+        sb.append(", startTime=").append(startTime);
+        sb.append(", endTime=").append(endTime);
+        sb.append(", weight=").append(weight);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

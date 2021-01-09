@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tongji.boying.mapper.BoyingShowMapper">
-  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingShow">
+<mapper namespace="com.tongji.boying.mapper.BoyingCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingCategory">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="poster" jdbcType="VARCHAR" property="poster" />
-    <result column="details" jdbcType="VARCHAR" property="details" />
-    <result column="city" jdbcType="VARCHAR" property="city" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
-    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="admin_delete" jdbcType="BIT" property="adminDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, category_id, name, poster, details, city, address, start_time, end_time, weight
+    id, name, icon, description, weight, admin_delete
   </sql>
-  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingShowExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingCategoryExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from boying_show
+    from boying_category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -91,134 +87,94 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from boying_show
+    from boying_category
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from boying_show
+    delete from boying_category
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingShowExample">
-    delete from boying_show
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingCategoryExample">
+    delete from boying_category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.tongji.boying.model.BoyingShow">
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingCategory">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into boying_show (category_id, name, poster, 
-      details, city, address, 
-      start_time, end_time, weight
-      )
-    values (#{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{poster,jdbcType=VARCHAR}, 
-      #{details,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{weight,jdbcType=INTEGER}
-      )
+    insert into boying_category (name, icon, description, 
+      weight, admin_delete)
+    values (#{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=INTEGER}, #{adminDelete,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingShow">
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingCategory">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into boying_show
+    insert into boying_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="categoryId != null">
-        category_id,
-      </if>
       <if test="name != null">
         name,
       </if>
-      <if test="poster != null">
-        poster,
+      <if test="icon != null">
+        icon,
       </if>
-      <if test="details != null">
-        details,
-      </if>
-      <if test="city != null">
-        city,
-      </if>
-      <if test="address != null">
-        address,
-      </if>
-      <if test="startTime != null">
-        start_time,
-      </if>
-      <if test="endTime != null">
-        end_time,
+      <if test="description != null">
+        description,
       </if>
       <if test="weight != null">
         weight,
       </if>
+      <if test="adminDelete != null">
+        admin_delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="categoryId != null">
-        #{categoryId,jdbcType=INTEGER},
-      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="poster != null">
-        #{poster,jdbcType=VARCHAR},
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
       </if>
-      <if test="details != null">
-        #{details,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null">
-        #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="startTime != null">
-        #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
-        #{endTime,jdbcType=TIMESTAMP},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="weight != null">
         #{weight,jdbcType=INTEGER},
       </if>
+      <if test="adminDelete != null">
+        #{adminDelete,jdbcType=BIT},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingShowExample" resultType="java.lang.Long">
-    select count(*) from boying_show
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingCategoryExample" resultType="java.lang.Long">
+    select count(*) from boying_category
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update boying_show
+    update boying_category
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.categoryId != null">
-        category_id = #{record.categoryId,jdbcType=INTEGER},
-      </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.poster != null">
-        poster = #{record.poster,jdbcType=VARCHAR},
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
       </if>
-      <if test="record.details != null">
-        details = #{record.details,jdbcType=VARCHAR},
-      </if>
-      <if test="record.city != null">
-        city = #{record.city,jdbcType=VARCHAR},
-      </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
-      </if>
-      <if test="record.startTime != null">
-        start_time = #{record.startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.endTime != null">
-        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.weight != null">
         weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminDelete != null">
+        admin_delete = #{record.adminDelete,jdbcType=BIT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -226,65 +182,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update boying_show
+    update boying_category
     set id = #{record.id,jdbcType=INTEGER},
-      category_id = #{record.categoryId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      poster = #{record.poster,jdbcType=VARCHAR},
-      details = #{record.details,jdbcType=VARCHAR},
-      city = #{record.city,jdbcType=VARCHAR},
-      address = #{record.address,jdbcType=VARCHAR},
-      start_time = #{record.startTime,jdbcType=TIMESTAMP},
-      end_time = #{record.endTime,jdbcType=TIMESTAMP},
-      weight = #{record.weight,jdbcType=INTEGER}
+      icon = #{record.icon,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=INTEGER},
+      admin_delete = #{record.adminDelete,jdbcType=BIT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingShow">
-    update boying_show
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingCategory">
+    update boying_category
     <set>
-      <if test="categoryId != null">
-        category_id = #{categoryId,jdbcType=INTEGER},
-      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="poster != null">
-        poster = #{poster,jdbcType=VARCHAR},
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
       </if>
-      <if test="details != null">
-        details = #{details,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null">
-        city = #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="startTime != null">
-        start_time = #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
-        end_time = #{endTime,jdbcType=TIMESTAMP},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="weight != null">
         weight = #{weight,jdbcType=INTEGER},
       </if>
+      <if test="adminDelete != null">
+        admin_delete = #{adminDelete,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingShow">
-    update boying_show
-    set category_id = #{categoryId,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      poster = #{poster,jdbcType=VARCHAR},
-      details = #{details,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      start_time = #{startTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      weight = #{weight,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingCategory">
+    update boying_category
+    set name = #{name,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=INTEGER},
+      admin_delete = #{adminDelete,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
