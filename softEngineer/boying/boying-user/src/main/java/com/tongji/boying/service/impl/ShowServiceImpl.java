@@ -44,7 +44,7 @@ public class ShowServiceImpl implements ShowService {
         if (pageNum == null || pageNum == 0) pageNum = 0;
         Integer pageSize = param.getPageSize();
         if (pageSize == null || pageSize == 0) pageSize = 5;
-        
+
         PageHelper.startPage(pageNum, pageSize);
         List<BoyingShow> boyingShows = showMapper.selectByExample(example);
         if (boyingShows == null || boyingShows.size() == 0) {
