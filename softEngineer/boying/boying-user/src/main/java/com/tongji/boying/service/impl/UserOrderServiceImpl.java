@@ -104,7 +104,7 @@ public class UserOrderServiceImpl implements UserOrderService {
             BoyingSeat boyingSeat = boyingSeatMapper.selectByPrimaryKey(entry.getKey());
 
             totalMoney += boyingSeat.getPrice() * entry.getValue();
-            count+=entry.getValue();
+            count += entry.getValue();
 
             boyingSeat.setStock(boyingSeat.getStock() - entry.getValue());
             boyingSeatMapper.updateByPrimaryKeySelective(boyingSeat);
@@ -119,7 +119,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         order.setUserDelete(false);
         order.setTicketCount(count);
         order.setMoney(totalMoney);
-        int insert = orderMapper.insert(order);
+        int insert = orderMapper.insertSelective(order);
         //生成票
         for (Integer showSeatId : showSeatIds) {
             System.out.println(order.getId() + "   " + showSeatId);
@@ -194,24 +194,33 @@ public class UserOrderServiceImpl implements UserOrderService {
         BoyingOrderExample userOrderExample = new BoyingOrderExample();
         BoyingOrderExample.Criteria criteria = userOrderExample.createCriteria();
 
+        if (status != null && status != 0) {
+            criteria.andStatusEqualTo(status);
+        }
+        criteria.andUserIdEqualTo(user.getId()).andUserDeleteEqualTo(false);
         //根据演出的名称模糊查询
         if (!StrUtil.isEmpty(name)) {
             BoyingShowExample boyingShowExample = new BoyingShowExample();
             boyingShowExample.createCriteria().andNameLike("%" + name + "%");
             List<BoyingShow> boyingShows = showMapper.selectByExample(boyingShowExample);
+
+            if (boyingShows == null || boyingShows.size() == 0) {
+                Asserts.fail("查询不到相关的订单！");
+            }
             List<Integer> showIds = new LinkedList<>();
             for (BoyingShow boyingShow : boyingShows) {
                 showIds.add(boyingShow.getId());
             }
             criteria.andShowIdIn(showIds);
+
         }
 
-        if (status != null && status != 0) {
-            criteria.andStatusEqualTo(status);
-        }
-        criteria.andUserIdEqualTo(user.getId()).andUserDeleteEqualTo(false);
         PageHelper.startPage(pageNum, pageSize);//分页相关
-        return orderMapper.selectByExample(userOrderExample);
+        List<BoyingOrder> boyingOrders = orderMapper.selectByExample(userOrderExample);
+        if (boyingOrders == null || boyingOrders.isEmpty()) {
+            Asserts.fail("查询的订单不存在！");
+        }
+        return boyingOrders;
     }
 
     @Override
@@ -220,12 +229,12 @@ public class UserOrderServiceImpl implements UserOrderService {
         BoyingOrderExample userOrderExample = new BoyingOrderExample();
         userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(false);
         List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
+        if (CollectionUtils.isEmpty(userOrders)) {
+            Asserts.fail("该订单不存在！");
+        }
         if (userOrders.get(0).getAdminDelete()) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
         }
-        if (!CollectionUtils.isEmpty(userOrders)) {
-            return userOrders.get(0);
-        }
-        return null;
+        return userOrders.get(0);
     }
 }

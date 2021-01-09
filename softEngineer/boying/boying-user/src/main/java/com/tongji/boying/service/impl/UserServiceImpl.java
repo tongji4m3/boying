@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService {
             icon = "https://tongji4m3.oss-cn-beijing.aliyuncs.com/f_f_object_156_s512_f_object_156_0.png";
         }
         user.setIcon(icon);
-        userMapper.insert(user);
+        userMapper.insertSelective(user);
         //注册完删除验证码,每个验证码只能使用一次
         userCacheService.delAuthCode(telephone);
     }

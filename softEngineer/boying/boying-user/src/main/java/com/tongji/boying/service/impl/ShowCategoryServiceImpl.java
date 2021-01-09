@@ -20,7 +20,7 @@ public class ShowCategoryServiceImpl implements ShowCategoryService {
     @Override
     public List<BoyingCategory> categories() {
         BoyingCategoryExample example = new BoyingCategoryExample();
-        example.createCriteria().andAdminDeleteNotEqualTo(false);
+        example.createCriteria().andAdminDeleteEqualTo(false);
         List<BoyingCategory> categories = categoryMapper.selectByExample(example);
         if (categories==null || categories.size() == 0) {
             Asserts.fail("演出目录为空！");

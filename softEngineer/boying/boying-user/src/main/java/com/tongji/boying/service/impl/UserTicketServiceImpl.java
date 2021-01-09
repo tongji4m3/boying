@@ -29,7 +29,7 @@ public class UserTicketServiceImpl implements UserTicketService {
         ticket.setSeatId(seatId);
         ticket.setQrCodeUrl("https://tongji4m3.oss-cn-beijing.aliyuncs.com/1608898790.jpg");
 
-        return ticketMapper.insert(ticket);
+        return ticketMapper.insertSelective(ticket);
     }
 
     @Override
