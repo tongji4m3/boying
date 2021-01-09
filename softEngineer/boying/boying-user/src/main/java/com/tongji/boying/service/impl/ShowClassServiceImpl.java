@@ -4,14 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.tongji.boying.mapper.ShowClassMapper;
 import com.tongji.boying.model.ShowClass;
 import com.tongji.boying.model.ShowClassExample;
-import com.tongji.boying.service.ShowClassService;
+import com.tongji.boying.service.ShowSeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ShowClassServiceImpl implements ShowClassService {
+public class ShowClassServiceImpl implements ShowSeatService {
     @Autowired
     private ShowClassMapper showClassMapper;
 

@@ -1,6 +1,6 @@
 package com.tongji.boying.service;
 
-import com.tongji.boying.dto.UserOrderParam;
+import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.model.UserOrder;
 
 import java.util.List;

@@ -2,9 +2,8 @@ package com.tongji.boying.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
-import com.tongji.boying.dto.UserOrderParam;
+import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.mapper.*;
-import com.tongji.boying.model.*;
 import com.tongji.boying.service.UserOrderService;
 import com.tongji.boying.service.UserService;
 import com.tongji.boying.service.UserTicketService;
