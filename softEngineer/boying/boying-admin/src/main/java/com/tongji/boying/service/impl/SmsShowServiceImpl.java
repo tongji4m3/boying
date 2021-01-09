@@ -40,7 +40,7 @@ public class SmsShowServiceImpl implements SmsShowService {
         BoyingShow show = new BoyingShow();
 
         BeanUtils.copyProperties(param, show);
-        show.setShowId(id);
+        show.setId(id);
         return boyingShowMapper.updateByPrimaryKeySelective(show);
 
     }
@@ -48,7 +48,7 @@ public class SmsShowServiceImpl implements SmsShowService {
     @Override
     public int delete(List<Integer> ids) {
         BoyingShowExample example = new BoyingShowExample();
-        example.createCriteria().andShowIdIn(ids);
+        example.createCriteria().andIdIn(ids);
         if (boyingShowMapper.selectByExample(example).size() != ids.size()) {
             Asserts.fail("某些演出Id不存在!");
         }
@@ -65,7 +65,7 @@ public class SmsShowServiceImpl implements SmsShowService {
         BoyingShowExample.Criteria criteria = boyingShowExample.createCriteria();
         criteria.andNameEqualTo(param.getName());
         if (id != -1) {
-            criteria.andShowIdNotEqualTo(id);
+            criteria.andIdNotEqualTo(id);
         }
         List<BoyingShow> shows = boyingShowMapper.selectByExample(boyingShowExample);
         if (CollUtil.isNotEmpty(shows)) {

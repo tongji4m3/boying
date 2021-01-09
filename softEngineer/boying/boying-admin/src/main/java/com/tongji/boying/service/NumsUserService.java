@@ -1,8 +1,8 @@
 package com.tongji.boying.service;
 
 import com.tongji.boying.dto.NumsUserParam;
-import com.tongji.boying.model.User;
-import com.tongji.boying.model.UserOrder;
+import com.tongji.boying.model.BoyingUser;
+import com.tongji.boying.model.BoyingOrder;
 
 import java.util.List;
 
@@ -15,12 +15,12 @@ public interface NumsUserService {
     /**
      * 根据id获取用户信息   //TODO:有时间可以改成关键字搜索
      */
-    User getUserById(Integer id);
+    BoyingUser getUserById(Integer id);
 
     /**
      * 获取所有用户信息
      */
-    List<User> listAllUsers();
+    List<BoyingUser> listAllUsers();
 
     /**
      * 根据id设置用户启用状态为启用
@@ -30,7 +30,7 @@ public interface NumsUserService {
     /**
      * 列出所有用户订单
      */
-    List<UserOrder> listOrders();
+    List<BoyingOrder> listOrders();
 
     /**
      * 删除某id订单

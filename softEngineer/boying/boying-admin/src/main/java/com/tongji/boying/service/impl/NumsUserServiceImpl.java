@@ -1,12 +1,14 @@
 package com.tongji.boying.service.impl;
 
 import com.tongji.boying.dto.NumsUserParam;
-import com.tongji.boying.mapper.UserMapper;
-import com.tongji.boying.mapper.UserOrderMapper;
-import com.tongji.boying.model.User;
-import com.tongji.boying.model.UserExample;
-import com.tongji.boying.model.UserOrder;
-import com.tongji.boying.model.UserOrderExample;
+import com.tongji.boying.mapper.BoyingOrderMapper;
+import com.tongji.boying.mapper.BoyingUserMapper;
+import com.tongji.boying.mapper.BoyingUserMapper;
+import com.tongji.boying.mapper.BoyingOrderMapper;
+import com.tongji.boying.model.BoyingUser;
+import com.tongji.boying.model.BoyingUserExample;
+import com.tongji.boying.model.BoyingOrder;
+import com.tongji.boying.model.BoyingOrderExample;
 import com.tongji.boying.service.NumsUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,9 @@ import java.util.List;
 public class NumsUserServiceImpl implements NumsUserService {
 
     @Autowired
-    private UserMapper userMapper;
+    private BoyingUserMapper userMapper;
     @Autowired
-    private UserOrderMapper userOrderMapper;
+    private BoyingOrderMapper userOrderMapper;
 
     @Override
     public int delete(Integer id) {
@@ -28,30 +30,30 @@ public class NumsUserServiceImpl implements NumsUserService {
     }
 
     @Override
-    public User getUserById(Integer id) {
+    public BoyingUser getUserById(Integer id) {
         return userMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public List<User> listAllUsers() {
-        return userMapper.selectByExample(new UserExample());
+    public List<BoyingUser> listAllUsers() {
+        return userMapper.selectByExample(new BoyingUserExample());
     }
 
     @Override
     public int ChangeUserStatusById(Integer id) {
-        User user = userMapper.selectByPrimaryKey(id);
-        if (!user.getUserstatus()) {
-            user.setUserstatus(true);
+        BoyingUser user = userMapper.selectByPrimaryKey(id);
+        if (!user.getAdminDelete()) {
+            user.setAdminDelete(true);
         }
         else {
-            user.setUserstatus(false);
+            user.setAdminDelete(false);
         }
         return userMapper.updateByPrimaryKey(user);
     }
 
     @Override
-    public List<UserOrder> listOrders() {
-        return userOrderMapper.selectByExample(new UserOrderExample());
+    public List<BoyingOrder> listOrders() {
+        return userOrderMapper.selectByExample(new BoyingOrderExample());
     }
 
     @Override
@@ -61,16 +63,16 @@ public class NumsUserServiceImpl implements NumsUserService {
 
     @Override
     public int update(Integer id, NumsUserParam param) {
-        User user = new User();
+        BoyingUser user = new BoyingUser();
         BeanUtils.copyProperties(param, user);
-        user.setUserId(id);
+        user.setId(id);
         int count = userMapper.updateByPrimaryKeySelective(user);
         return count;
     }
 
     @Override
     public int add(NumsUserParam param) {
-        User user = new User();
+        BoyingUser user = new BoyingUser();
         BeanUtils.copyProperties(param, user);
         int count = userMapper.insertSelective(user);
         return count;

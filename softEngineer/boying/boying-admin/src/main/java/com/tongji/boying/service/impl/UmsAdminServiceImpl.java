@@ -3,9 +3,10 @@ package com.tongji.boying.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.config.AdminUserDetails;
-import com.tongji.boying.mapper.AdminMapper;
-import com.tongji.boying.model.Admin;
-import com.tongji.boying.model.AdminExample;
+import com.tongji.boying.mapper.BoyingAdminMapper;
+import com.tongji.boying.model.BoyingAdmin;
+import com.tongji.boying.model.BoyingAdminExample;
+import com.tongji.boying.model.BoyingAdmin;
 import com.tongji.boying.security.util.JwtTokenUtil;
 import com.tongji.boying.service.UmsAdminService;
 import org.slf4j.Logger;
@@ -35,14 +36,14 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private AdminMapper adminMapper;
+    private BoyingAdminMapper adminMapper;
 
 
-    public Admin getAdminByUsername(String username) {
-        Admin admin;
-        AdminExample example = new AdminExample();
+    public BoyingAdmin getAdminByUsername(String username) {
+        BoyingAdmin admin;
+        BoyingAdminExample example = new BoyingAdminExample();
         example.createCriteria().andUsernameEqualTo(username);
-        List<Admin> adminList = adminMapper.selectByExample(example);
+        List<BoyingAdmin> adminList = adminMapper.selectByExample(example);
 //        下面语句等价与:if (adminList!=null && adminList.size() > 0)
         if (CollUtil.isNotEmpty(adminList)) {
             admin = adminList.get(0);
@@ -52,7 +53,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     }
 
     @Override
-    public Admin getCurrentAdmin() {
+    public BoyingAdmin getCurrentAdmin() {
         //        获取之前登录存储的用户上下文信息
         SecurityContext ctx = SecurityContextHolder.getContext();
         Authentication auth = ctx.getAuthentication();
@@ -77,8 +78,8 @@ public class UmsAdminServiceImpl implements UmsAdminService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
             //修改登录时间
-            Admin currentAdmin = getCurrentAdmin();
-            currentAdmin.setLoginTime(new Date());
+            BoyingAdmin currentAdmin = getCurrentAdmin();
+            currentAdmin.setLastTime(new Date());
             adminMapper.updateByPrimaryKey(currentAdmin);
         }
         catch (AuthenticationException e) {
@@ -90,7 +91,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         //获取用户信息
-        Admin admin = getAdminByUsername(username);
+        BoyingAdmin admin = getAdminByUsername(username);
         if (admin != null) {
             return new AdminUserDetails(admin);
         }

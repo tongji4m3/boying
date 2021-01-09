@@ -1,18 +1,17 @@
 package com.tongji.boying.service;
 
+
 import com.tongji.boying.dto.SmsSessionParam;
-import com.tongji.boying.model.ShowSession;
+import com.tongji.boying.model.BoyingSeat;
 
 import java.util.List;
 
-/**
- * 后台演出场次Service
- */
-public interface SmsSessionService {
+public interface SmsSeatService
+{
     /**
      * 查看某个演出的所有场次
      */
-    List<ShowSession> list(Integer showId);
+    List<BoyingSeat> list(Integer showId);
 
     /**
      * 为某个演出的添加场次

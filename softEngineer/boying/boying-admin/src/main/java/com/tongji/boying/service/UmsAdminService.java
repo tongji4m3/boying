@@ -1,6 +1,6 @@
 package com.tongji.boying.service;
 
-import com.tongji.boying.model.Admin;
+import com.tongji.boying.model.BoyingAdmin;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -10,7 +10,7 @@ public interface UmsAdminService {
     /**
      * 获取当前登录管理员
      */
-    Admin getCurrentAdmin();
+    BoyingAdmin getCurrentAdmin();
 
 
     /**

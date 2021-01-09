@@ -1,7 +1,7 @@
 package com.tongji.boying.service;
 
 import com.tongji.boying.dto.SmsCategoryParam;
-import com.tongji.boying.model.Category;
+import com.tongji.boying.model.BoyingCategory;
 
 import java.util.List;
 
@@ -32,20 +32,20 @@ public interface SmsCategoryService {
     /**
      * 获取所有演出目录列表
      */
-    List<Category> list();
+    List<BoyingCategory> list();
 
-    /**
-     * 获取所有演出一级目录列表
-     */
-    List<Category> listParent();
+//    /**
+//     * 获取所有演出一级目录列表
+//     */
+//    List<BoyingCategory> listParent();
 
     /**
      * 获取某个演出目录列表
      */
-    Category getCategory(Integer id);
+    BoyingCategory getCategory(Integer id);
 
-    /**
-     * 获取某个演出目录的子目录
-     */
-    List<Category> getChildrenCategory(Integer id);
+//    /**
+//     * 获取某个演出目录的子目录
+//     */
+//    List<BoyingCategory> getChildrenCategory(Integer id);
 }
