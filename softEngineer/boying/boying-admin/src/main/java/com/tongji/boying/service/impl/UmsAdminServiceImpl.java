@@ -3,10 +3,10 @@ package com.tongji.boying.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.config.AdminUserDetails;
+import com.tongji.boying.dto.adminParam.UsernameLoginParam;
 import com.tongji.boying.mapper.BoyingAdminMapper;
 import com.tongji.boying.model.BoyingAdmin;
 import com.tongji.boying.model.BoyingAdminExample;
-import com.tongji.boying.model.BoyingAdmin;
 import com.tongji.boying.security.util.JwtTokenUtil;
 import com.tongji.boying.service.UmsAdminService;
 import org.slf4j.Logger;
@@ -18,7 +18,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -40,16 +39,13 @@ public class UmsAdminServiceImpl implements UmsAdminService {
 
 
     public BoyingAdmin getAdminByUsername(String username) {
-        BoyingAdmin admin;
         BoyingAdminExample example = new BoyingAdminExample();
         example.createCriteria().andUsernameEqualTo(username);
         List<BoyingAdmin> adminList = adminMapper.selectByExample(example);
-//        下面语句等价与:if (adminList!=null && adminList.size() > 0)
         if (CollUtil.isNotEmpty(adminList)) {
-            admin = adminList.get(0);
-            return admin;
+            Asserts.fail("管理员账号不存在！");
         }
-        return null;
+        return adminList.get(0);
     }
 
     @Override
@@ -63,20 +59,21 @@ public class UmsAdminServiceImpl implements UmsAdminService {
 
 
     @Override
-    public String login(String username, String password) {
+    public String login(UsernameLoginParam param) {
+        String username = param.getUsername();
+        String password = param.getPassword();
         String token = null;
         //密码需要客户端加密后传递
         try {
             UserDetails userDetails = loadUserByUsername(username);
+
             if (!passwordEncoder.matches(password, userDetails.getPassword())) {
                 Asserts.fail("密码不正确");
-            }
-            if (!userDetails.isEnabled()) {
-                Asserts.fail("帐号已被禁用");
             }
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
+
             //修改登录时间
             BoyingAdmin currentAdmin = getCurrentAdmin();
             currentAdmin.setLastTime(new Date());
@@ -92,9 +89,6 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     public UserDetails loadUserByUsername(String username) {
         //获取用户信息
         BoyingAdmin admin = getAdminByUsername(username);
-        if (admin != null) {
-            return new AdminUserDetails(admin);
-        }
-        throw new UsernameNotFoundException("用户名或密码错误");
+        return new AdminUserDetails(admin);
     }
 }

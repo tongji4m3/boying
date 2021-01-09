@@ -26,23 +26,16 @@ public class SmsCategoryController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult create(@Validated @RequestBody SmsCategoryParam param) {
-        int count = categoryService.create(param);
-        if (count > 0) {
-            return CommonResult.success(count);
-        }
-        return CommonResult.failed();
+        categoryService.create(param);
+        return CommonResult.success("创建目录成功！");
     }
 
     @ApiOperation("删除目录")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult delete(@PathVariable Integer id) {
-        System.out.println(id);
-        int count = categoryService.delete(id);
-        if (count > 0) {
-            return CommonResult.success(count);
-        }
-        return CommonResult.failed("要删除的目录不存在!");
+        categoryService.delete(id);
+        return CommonResult.success("删除目录成功！");
     }
 
     @ApiOperation("修改目录")
@@ -65,15 +58,6 @@ public class SmsCategoryController {
         return CommonResult.success(categoryList);
     }
 
-//    @ApiOperation("获取所有一级目录")
-//    @RequestMapping(value = "/listParent", method = RequestMethod.GET)
-//    @ResponseBody
-//    public CommonResult<List<BoyingCategory>> listParent() {
-//        List<BoyingCategory> categoryList = categoryService.listParent();
-//        if (ObjectUtil.isEmpty(categoryList)) return CommonResult.failed("无目录!");
-//        return CommonResult.success(categoryList);
-//    }
-
     @ApiOperation("获取某个目录")
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -81,12 +65,4 @@ public class SmsCategoryController {
         BoyingCategory category = categoryService.getCategory(id);
         return CommonResult.success(category);
     }
-
-//    @ApiOperation("获取某个一级目录的所有二级目录")
-//    @RequestMapping(value = "/getChildren/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public CommonResult<List<BoyingCategory>> getChildrenCategory(@PathVariable Integer id) {
-//        List<BoyingCategory> category = categoryService.getChildrenCategory(id);
-//        return CommonResult.success(category);
-//    }
 }

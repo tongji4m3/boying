@@ -27,7 +27,7 @@ public class ShowCategoryController {
 
 
     @ApiOperation("获取菜单")
-    @RequestMapping(value = "/categories", method = RequestMethod.POST)
+        @RequestMapping(value = "/categories", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<BoyingCategory>> getCategories() {
         return CommonResult.success(showCategoryService.categories());

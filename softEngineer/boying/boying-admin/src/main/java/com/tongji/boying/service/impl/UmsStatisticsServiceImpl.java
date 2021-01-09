@@ -97,7 +97,7 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
         Date dateStart = dateDispose(date);
         Date dateEnd = dateAddOneDay(dateStart);
         BoyingUserExample example = new BoyingUserExample();
-        example.createCriteria().andAddTimeBetween(dateStart, dateEnd);
+        example.createCriteria().andCreateTimeBetween(dateStart, dateEnd);
         growth = userMapper.countByExample(example);
         return growth;
     }
@@ -106,7 +106,7 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
     public long countUserGrowthForPeriod(Date dateStart, Date dateEnd) {
         long growth = -1;
         BoyingUserExample example = new BoyingUserExample();
-        example.createCriteria().andAddTimeBetween(dateStart, dateEnd);
+        example.createCriteria().andCreateTimeBetween(dateStart, dateEnd);
         growth = userMapper.countByExample(example);
         return growth;
     }

@@ -1,5 +1,6 @@
 package com.tongji.boying.service;
 
+import com.tongji.boying.dto.adminParam.UsernameLoginParam;
 import com.tongji.boying.model.BoyingAdmin;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,13 +16,9 @@ public interface UmsAdminService {
 
     /**
      * 登录功能
-     *
-     * @param username 管理员名
-     * @param password 密码
      * @return 生成的JWT的token
      */
-    String login(String username, String password);
-
+    String login(UsernameLoginParam param);
 
     /**
      * 获取管理员信息

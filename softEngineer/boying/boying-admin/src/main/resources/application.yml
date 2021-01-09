@@ -47,6 +47,7 @@ redis:
   key:
     resourceList: 'admin:resourceList'
     admin: 'admin'
+    user: 'user'
   expire:
     common: 86400 # 24小时
 
