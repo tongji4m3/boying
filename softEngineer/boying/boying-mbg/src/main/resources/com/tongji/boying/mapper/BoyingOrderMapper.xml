@@ -11,6 +11,7 @@
     <result column="admin_delete" jdbcType="BIT" property="adminDelete" />
     <result column="ticket_count" jdbcType="INTEGER" property="ticketCount" />
     <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="payment" jdbcType="VARCHAR" property="payment" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, show_id, status, time, user_delete, admin_delete, ticket_count, money
+    id, user_id, show_id, status, time, user_delete, admin_delete, ticket_count, money, 
+    payment
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingOrderExample" resultMap="BaseResultMap">
     select
@@ -109,10 +111,12 @@
     </selectKey>
     insert into boying_order (user_id, show_id, status, 
       time, user_delete, admin_delete, 
-      ticket_count, money)
+      ticket_count, money, payment
+      )
     values (#{userId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{time,jdbcType=TIMESTAMP}, #{userDelete,jdbcType=BIT}, #{adminDelete,jdbcType=BIT}, 
-      #{ticketCount,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE})
+      #{ticketCount,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, #{payment,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingOrder">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -144,6 +148,9 @@
       <if test="money != null">
         money,
       </if>
+      <if test="payment != null">
+        payment,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -169,6 +176,9 @@
       </if>
       <if test="money != null">
         #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="payment != null">
+        #{payment,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -208,6 +218,9 @@
       <if test="record.money != null">
         money = #{record.money,jdbcType=DOUBLE},
       </if>
+      <if test="record.payment != null">
+        payment = #{record.payment,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -223,7 +236,8 @@
       user_delete = #{record.userDelete,jdbcType=BIT},
       admin_delete = #{record.adminDelete,jdbcType=BIT},
       ticket_count = #{record.ticketCount,jdbcType=INTEGER},
-      money = #{record.money,jdbcType=DOUBLE}
+      money = #{record.money,jdbcType=DOUBLE},
+      payment = #{record.payment,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -255,6 +269,9 @@
       <if test="money != null">
         money = #{money,jdbcType=DOUBLE},
       </if>
+      <if test="payment != null">
+        payment = #{payment,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -267,7 +284,8 @@
       user_delete = #{userDelete,jdbcType=BIT},
       admin_delete = #{adminDelete,jdbcType=BIT},
       ticket_count = #{ticketCount,jdbcType=INTEGER},
-      money = #{money,jdbcType=DOUBLE}
+      money = #{money,jdbcType=DOUBLE},
+      payment = #{payment,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

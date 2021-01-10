@@ -25,4 +25,15 @@ public class ShowSeatServiceImpl implements ShowSeatService {
         }
         return boyingSeats;
     }
+
+    @Override
+    public List<BoyingSeat> getShowSeatByOrderId(Integer orderId) {
+        BoyingSeatExample example = new BoyingSeatExample();
+        example.createCriteria().andShowIdEqualTo(orderId);
+        List<BoyingSeat> boyingSeats = showSeatMapper.selectByExample(example);
+        if (boyingSeats == null || boyingSeats.size() == 0) {
+            Asserts.fail("演出座次不存在！");
+        }
+        return boyingSeats;
+    }
 }
