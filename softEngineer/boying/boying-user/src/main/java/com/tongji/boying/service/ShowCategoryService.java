@@ -7,4 +7,6 @@ import java.util.Map;
 
 public interface ShowCategoryService {
     List<BoyingCategory> categories();
+
+    BoyingCategory getCategory(Integer id);
 }

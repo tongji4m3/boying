@@ -27,4 +27,12 @@ public class ShowCategoryServiceImpl implements ShowCategoryService {
         }
         return categories;
     }
+
+    @Override
+    public BoyingCategory getCategory(Integer id) {
+        BoyingCategory boyingCategory = categoryMapper.selectByPrimaryKey(id);
+        if (boyingCategory == null) Asserts.fail("演出目录不存在！");
+        if(boyingCategory.getAdminDelete()) Asserts.fail("该演出目录不存在！");
+        return boyingCategory;
+    }
 }

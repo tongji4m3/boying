@@ -7,10 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +28,12 @@ public class ShowCategoryController {
     @ResponseBody
     public CommonResult<List<BoyingCategory>> getCategories() {
         return CommonResult.success(showCategoryService.categories());
+    }
+
+    @ApiOperation("获取某个目录")
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<BoyingCategory> getCategory(@PathVariable Integer id) {
+        return CommonResult.success(showCategoryService.getCategory(id));
     }
 }
