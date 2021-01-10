@@ -118,6 +118,8 @@ public class UserOrderServiceImpl implements UserOrderService {
         order.setTime(new Date());
         order.setUserDelete(false);
         order.setTicketCount(count);
+        order.setPayment(param.getPayment());
+
         order.setMoney(totalMoney);
         int insert = orderMapper.insertSelective(order);
         //生成票
@@ -186,6 +188,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         Integer pageNum = param.getPageNum();
         Integer pageSize = param.getPageSize();
         String name = param.getName();
+
 
         if (pageNum == null || pageNum == 0) pageNum = 0;
         if (pageSize == null || pageSize == 0) pageSize = 5;

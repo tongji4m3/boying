@@ -3,15 +3,21 @@ package com.tongji.boying.controller;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.orderParam.GetOrdersParam;
+import com.tongji.boying.dto.orderParam.TicketReturn;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.model.BoyingOrder;
+import com.tongji.boying.model.BoyingSeat;
+import com.tongji.boying.model.BoyingTicket;
 import com.tongji.boying.service.UserOrderService;
+import com.tongji.boying.service.UserTicketService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -23,6 +29,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserOrderController {
     @Autowired
     private UserOrderService orderService;
+    @Autowired
+    private UserTicketService ticketService;
 
     @ApiOperation("用户下单")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -60,5 +68,12 @@ public class UserOrderController {
     @ResponseBody
     public CommonResult<BoyingOrder> getItem(@PathVariable int id) {
         return CommonResult.success(orderService.getItem(id));
+    }
+
+    @ApiOperation("获取某订单的所有票")
+    @RequestMapping(value = "/tickets/{orderId}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<List<TicketReturn>> getShowTickets(@PathVariable Integer orderId) {
+        return CommonResult.success(ticketService.getShowTickets(orderId));
     }
 }

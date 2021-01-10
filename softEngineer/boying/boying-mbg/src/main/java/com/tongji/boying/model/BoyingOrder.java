@@ -31,6 +31,9 @@ public class BoyingOrder implements Serializable {
     @ApiModelProperty(value = "订单总价格")
     private Double money;
 
+    @ApiModelProperty(value = "订单支付方式（支付宝，微信)")
+    private String payment;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -105,6 +108,14 @@ public class BoyingOrder implements Serializable {
         this.money = money;
     }
 
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -120,6 +131,7 @@ public class BoyingOrder implements Serializable {
         sb.append(", adminDelete=").append(adminDelete);
         sb.append(", ticketCount=").append(ticketCount);
         sb.append(", money=").append(money);
+        sb.append(", payment=").append(payment);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
