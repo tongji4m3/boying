@@ -6,6 +6,4 @@ import java.util.List;
 
 public interface ShowSeatService {
     List<BoyingSeat> getShowSeatList(Integer showId);
-
-    List<BoyingSeat> getShowSeatByOrderId(Integer orderId);
 }

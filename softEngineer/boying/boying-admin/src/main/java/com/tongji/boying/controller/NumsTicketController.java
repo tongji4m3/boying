@@ -3,6 +3,7 @@ package com.tongji.boying.controller;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.orderParam.TicketParam;
+import com.tongji.boying.dto.orderParam.TicketReturn;
 import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.model.BoyingTicket;
 import com.tongji.boying.service.NumsTicketService;
@@ -27,7 +28,7 @@ public class NumsTicketController {
     @ApiOperation("查看票信息")
     @RequestMapping(value = "/listTickets", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<BoyingTicket>> listTickets(@Validated @RequestBody TicketParam param) {
+    public CommonResult<CommonPage<TicketReturn>> listTickets(@Validated @RequestBody TicketParam param) {
         return CommonResult.success(CommonPage.restPage(numsTicketService.listTickets(param)));
     }
 }
