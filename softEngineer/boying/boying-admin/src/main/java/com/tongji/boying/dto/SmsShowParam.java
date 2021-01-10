@@ -44,8 +44,8 @@ public class SmsShowParam {
 
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "演出结束时间", required = true)
-    private Time endTime;
+    private Date endTime;
 
     @ApiModelProperty(value = "存储该演唱会等的图文信息", required = true)
-    private Time details;
+    private String details;
 }
