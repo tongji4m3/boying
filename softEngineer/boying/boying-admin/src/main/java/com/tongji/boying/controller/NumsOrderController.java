@@ -24,7 +24,7 @@ public class NumsOrderController {
     private NumsOrderService numsOrderService;
 
     @ApiOperation("查看所有用户订单")
-    @RequestMapping(value = "/listOrders", method = RequestMethod.GET)
+    @RequestMapping(value = "/listOrders", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<BoyingOrder>> listOrders(@Validated @RequestBody OrderParam param) {
         return CommonResult.success(CommonPage.restPage(numsOrderService.listOrders(param)));
@@ -35,7 +35,7 @@ public class NumsOrderController {
     @ResponseBody
     public CommonResult deleteOrder(@PathVariable Integer id) {
         numsOrderService.deleteOrder(id);
-        return CommonResult.failed("删除订单成功!");
+        return CommonResult.success("删除订单成功!");
     }
 
     @ApiOperation("恢复某id订单")
@@ -43,6 +43,6 @@ public class NumsOrderController {
     @ResponseBody
     public CommonResult recoverOrder(@PathVariable Integer id) {
         numsOrderService.recoverOrder(id);
-        return CommonResult.failed("恢复订单成功!");
+        return CommonResult.success("恢复订单成功!");
     }
 }

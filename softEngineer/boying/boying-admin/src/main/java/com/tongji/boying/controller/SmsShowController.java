@@ -34,7 +34,7 @@ public class SmsShowController {
     }
 
     @ApiOperation("查看演出")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<BoyingShow>> list(@Validated @RequestBody SmsShowListParam param) {
         return CommonResult.success(CommonPage.restPage(showService.list(param)));
