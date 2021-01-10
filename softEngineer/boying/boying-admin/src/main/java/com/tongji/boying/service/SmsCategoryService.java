@@ -1,6 +1,6 @@
 package com.tongji.boying.service;
 
-import com.tongji.boying.dto.SmsCategoryParam;
+import com.tongji.boying.dto.showParam.SmsCategoryParam;
 import com.tongji.boying.model.BoyingCategory;
 
 import java.util.List;

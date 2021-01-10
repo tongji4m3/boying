@@ -1,4 +1,4 @@
-package com.tongji.boying.dto;
+package com.tongji.boying.dto.showParam;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,12 +22,6 @@ public class SmsShowParam {
 
     @ApiModelProperty(value = "该演唱会的海报信息", required = true)
     private String poster;
-
-//    @ApiModelProperty(value = "该演唱会的最低价", required = true)
-//    private BigDecimal minPrice;
-//
-//    @ApiModelProperty(value = "该演唱会的最高价", required = true)
-//    private BigDecimal maxPrice;
 
     @ApiModelProperty(value = "该演出展示的优先基本,0为不展示", required = true)
     private Integer weight;

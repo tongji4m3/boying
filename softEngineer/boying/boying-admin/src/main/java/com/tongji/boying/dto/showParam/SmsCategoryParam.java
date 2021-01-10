@@ -1,4 +1,4 @@
-package com.tongji.boying.dto;
+package com.tongji.boying.dto.showParam;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

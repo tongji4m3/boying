@@ -4,9 +4,8 @@ package com.tongji.boying.controller;
 import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.dto.NumsUserParam;
+import com.tongji.boying.dto.userParam.NumsUserParam;
 import com.tongji.boying.dto.userParam.GetUserByNameParam;
-import com.tongji.boying.model.BoyingShow;
 import com.tongji.boying.model.BoyingUser;
 import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.service.NumsUserService;
@@ -62,26 +61,5 @@ public class NumsUserController {
     public CommonResult ChangeUserStatusById(@PathVariable Integer id) {
         numsUserService.ChangeUserStatusById(id);
         return CommonResult.success("切换用户状态成功！");
-    }
-
-
-    @ApiOperation("查看所有用户订单")
-    @RequestMapping(value = "/listOrders", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult listOrders() {
-        List<BoyingOrder> ordersList = numsUserService.listOrders();
-        if (ObjectUtil.isEmpty(ordersList)) return CommonResult.failed("不存在任何订单");
-        return CommonResult.success(ordersList);
-    }
-
-    @ApiOperation("删除某id订单")
-    @RequestMapping(value = "/deleteOrder/{id}", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult deleteOrders(@PathVariable Integer id) {
-        int count = numsUserService.deleteOrder(id);
-        if (count > 0) {
-            return CommonResult.success(count);
-        }
-        return CommonResult.failed("要删除的订单不存在!");
     }
 }

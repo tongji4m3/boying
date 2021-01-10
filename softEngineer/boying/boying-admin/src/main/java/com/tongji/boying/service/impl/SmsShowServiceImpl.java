@@ -1,8 +1,11 @@
 package com.tongji.boying.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
-import com.tongji.boying.dto.SmsShowParam;
+import com.tongji.boying.dto.showParam.SmsShowListParam;
+import com.tongji.boying.dto.showParam.SmsShowParam;
 import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.model.BoyingShow;
 import com.tongji.boying.model.BoyingShowExample;
@@ -22,51 +25,69 @@ public class SmsShowServiceImpl implements SmsShowService {
     private BoyingShowMapper boyingShowMapper;
 
     @Override
-    public List<BoyingShow> list() {
-        return boyingShowMapper.selectByExample(new BoyingShowExample());
+    public List<BoyingShow> list(SmsShowListParam param) {
+        BoyingShowExample example = new BoyingShowExample();
+        BoyingShowExample.Criteria criteria = example.createCriteria();
+
+        //关键词模糊搜索
+        if (StrUtil.isNotEmpty(param.getName())) {
+            criteria.andNameLike("%" + param.getName() + "%");
+        }
+
+        //根据菜单搜索
+        if (param.getCategoryId() != null && param.getCategoryId() != 0) {
+            criteria.andCategoryIdEqualTo(param.getCategoryId());
+        }
+
+        example.setOrderByClause("weight desc");
+
+        Integer pageNum = param.getPageNum();
+        if (pageNum == null || pageNum == 0) pageNum = 0;
+        Integer pageSize = param.getPageSize();
+        if (pageSize == null || pageSize == 0) pageSize = 5;
+
+        PageHelper.startPage(pageNum, pageSize);
+        List<BoyingShow> boyingShows = boyingShowMapper.selectByExample(example);
+        if (boyingShows == null || boyingShows.size() == 0) {
+            Asserts.fail("查询不到演出信息!");
+        }
+        return boyingShows;
     }
 
     @Override
-    public int create(SmsShowParam param) {
-        checkBoyingShowParam(param, -1);
+    public void create(SmsShowParam param) {
+        //演出名称不能重复
+        checkBoyingShowParam(param);
         BoyingShow show = new BoyingShow();
         BeanUtils.copyProperties(param, show);
-        return boyingShowMapper.insertSelective(show);
+        int count = boyingShowMapper.insertSelective(show);
+        if(count==0) Asserts.fail("创建演出成功！");
     }
 
     @Override
-    public int update(Integer id, SmsShowParam param) {
-        checkBoyingShowParam(param, id);
+    public void update(Integer id, SmsShowParam param) {
+        //演出名称不能重复
+        checkBoyingShowParam(param);
         BoyingShow show = new BoyingShow();
 
         BeanUtils.copyProperties(param, show);
         show.setId(id);
-        return boyingShowMapper.updateByPrimaryKeySelective(show);
-
+        int count = boyingShowMapper.updateByPrimaryKeySelective(show);
+        if(count==0) Asserts.fail("更新演出成功！");
     }
 
     @Override
-    public int delete(List<Integer> ids) {
-        BoyingShowExample example = new BoyingShowExample();
-        example.createCriteria().andIdIn(ids);
-        if (boyingShowMapper.selectByExample(example).size() != ids.size()) {
-            Asserts.fail("某些演出Id不存在!");
-        }
-        return boyingShowMapper.deleteByExample(example);
+    public BoyingShow detail(Integer id) {
+        BoyingShow boyingShow = boyingShowMapper.selectByPrimaryKey(id);
+        if (boyingShow == null) Asserts.fail("演出信息不存在！");
+        return boyingShow;
     }
 
-    @Override
-    public int delete(Integer id) {
-        return boyingShowMapper.deleteByPrimaryKey(id);
-    }
 
-    private void checkBoyingShowParam(SmsShowParam param, Integer id) {
+    private void checkBoyingShowParam(SmsShowParam param) {
         BoyingShowExample boyingShowExample = new BoyingShowExample();
         BoyingShowExample.Criteria criteria = boyingShowExample.createCriteria();
         criteria.andNameEqualTo(param.getName());
-        if (id != -1) {
-            criteria.andIdNotEqualTo(id);
-        }
         List<BoyingShow> shows = boyingShowMapper.selectByExample(boyingShowExample);
         if (CollUtil.isNotEmpty(shows)) {
             Asserts.fail("演出名称不能重复!");

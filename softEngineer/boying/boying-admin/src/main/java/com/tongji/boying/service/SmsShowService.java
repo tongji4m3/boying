@@ -1,13 +1,7 @@
 package com.tongji.boying.service;
 
-/**
- * @author cheng fu
- * @Description TODO
- * @date 2020/11/3-23:27
- */
-
-
-import com.tongji.boying.dto.SmsShowParam;
+import com.tongji.boying.dto.showParam.SmsShowListParam;
+import com.tongji.boying.dto.showParam.SmsShowParam;
 import com.tongji.boying.model.BoyingShow;
 
 import java.util.List;
@@ -18,31 +12,22 @@ import java.util.List;
 public interface SmsShowService {
     /**
      * 查看演出
+     * @param param
      */
-    List<BoyingShow> list();
+    List<BoyingShow> list(SmsShowListParam param);
 
     /**
      * 添加演出
      *
      * @param param
      */
-    int create(SmsShowParam param);
+    void create(SmsShowParam param);
 
     /**
      * 修改演出
      */
-    int update(Integer id, SmsShowParam param);
+    void update(Integer id, SmsShowParam param);
 
-    /**
-     * 批量删除演出
-     */
-    int delete(List<Integer> ids);
-
-    /**
-     * 删除演出
-     */
-    int delete(Integer id);
-
-
+    BoyingShow detail(Integer id);
 }
 

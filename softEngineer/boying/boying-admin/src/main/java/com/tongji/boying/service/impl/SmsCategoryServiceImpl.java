@@ -2,9 +2,8 @@ package com.tongji.boying.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.common.exception.Asserts;
-import com.tongji.boying.dto.SmsCategoryParam;
+import com.tongji.boying.dto.showParam.SmsCategoryParam;
 import com.tongji.boying.mapper.BoyingCategoryMapper;
 import com.tongji.boying.model.BoyingCategory;
 import com.tongji.boying.model.BoyingCategoryExample;
