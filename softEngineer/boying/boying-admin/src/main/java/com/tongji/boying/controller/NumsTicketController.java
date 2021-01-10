@@ -26,7 +26,7 @@ public class NumsTicketController {
     private NumsTicketService numsTicketService;
 
     @ApiOperation("查看票信息")
-    @RequestMapping(value = "/listTickets", method = RequestMethod.GET)
+    @RequestMapping(value = "/listTickets", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<TicketReturn>> listTickets(@Validated @RequestBody TicketParam param) {
         return CommonResult.success(CommonPage.restPage(numsTicketService.listTickets(param)));
