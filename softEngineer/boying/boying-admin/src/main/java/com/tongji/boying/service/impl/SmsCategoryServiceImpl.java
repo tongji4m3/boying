@@ -31,7 +31,7 @@ public class SmsCategoryServiceImpl implements SmsCategoryService {
         BoyingCategory category = new BoyingCategory();
         BeanUtils.copyProperties(param, category);
         int count = categoryMapper.insertSelective(category);
-        if(count==0) Asserts.fail("创建失败！");
+        if (count == 0) Asserts.fail("创建失败！");
     }
 
     @Override
@@ -45,11 +45,10 @@ public class SmsCategoryServiceImpl implements SmsCategoryService {
         }
 
         BoyingCategory category = new BoyingCategory();
-
         BeanUtils.copyProperties(param, category);
         category.setId(id);
         int count = categoryMapper.updateByPrimaryKeySelective(category);
-        if(count==0) Asserts.fail("更新失败！");
+        if (count == 0) Asserts.fail("更新失败！");
     }
 
     @Override
@@ -57,7 +56,7 @@ public class SmsCategoryServiceImpl implements SmsCategoryService {
         BoyingCategory boyingCategory = categoryMapper.selectByPrimaryKey(id);
         boyingCategory.setAdminDelete(true);
         int count = categoryMapper.updateByPrimaryKeySelective(boyingCategory);
-        if(count==0) Asserts.fail("删除失败！");
+        if (count == 0) Asserts.fail("删除失败！");
     }
 
     @Override
@@ -70,7 +69,7 @@ public class SmsCategoryServiceImpl implements SmsCategoryService {
     @Override
     public BoyingCategory getCategory(Integer id) {
         BoyingCategory boyingCategory = categoryMapper.selectByPrimaryKey(id);
-        if(boyingCategory==null) Asserts.fail("演出目录不存在！");
+        if (boyingCategory == null) Asserts.fail("演出目录不存在！");
         return boyingCategory;
     }
 
@@ -79,6 +78,6 @@ public class SmsCategoryServiceImpl implements SmsCategoryService {
         BoyingCategory boyingCategory = categoryMapper.selectByPrimaryKey(id);
         boyingCategory.setAdminDelete(false);
         int count = categoryMapper.updateByPrimaryKeySelective(boyingCategory);
-        if(count==0) Asserts.fail("恢复失败！");
+        if (count == 0) Asserts.fail("恢复失败！");
     }
 }

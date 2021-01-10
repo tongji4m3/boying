@@ -1,7 +1,6 @@
 package com.tongji.boying.controller;
 
 
-import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.orderParam.OrderParam;
@@ -13,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @Api(tags = "NumsOrderController", description = "后台订单管理")

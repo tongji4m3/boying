@@ -2,8 +2,8 @@ package com.tongji.boying.service;
 
 import com.tongji.boying.dto.userParam.NumsUserParam;
 import com.tongji.boying.dto.userParam.GetUserByNameParam;
+import com.tongji.boying.dto.userParam.UserListParam;
 import com.tongji.boying.model.BoyingUser;
-import com.tongji.boying.model.BoyingOrder;
 
 import java.util.List;
 
@@ -18,8 +18,9 @@ public interface NumsUserService {
 
     /**
      * 获取所有用户信息
+     * @param param
      */
-    List<BoyingUser> listAllUsers();
+    List<BoyingUser> listAllUsers(UserListParam param);
 
     /**
      * 根据id设置用户启用状态为启用

@@ -42,11 +42,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         BoyingAdminExample example = new BoyingAdminExample();
         example.createCriteria().andUsernameEqualTo(username);
         List<BoyingAdmin> adminList = adminMapper.selectByExample(example);
-        System.out.println(adminList);
-        if (CollUtil.isEmpty(adminList)) {
-            System.out.println("here");
-            Asserts.fail("管理员账号不存在！");
-        }
+        if (CollUtil.isEmpty(adminList)) Asserts.fail("管理员账号不存在！");
         return adminList.get(0);
     }
 
@@ -69,9 +65,8 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         try {
             UserDetails userDetails = loadUserByUsername(username);
 
-            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-                Asserts.fail("密码不正确");
-            }
+            if (!passwordEncoder.matches(password, userDetails.getPassword())) Asserts.fail("密码不正确");
+
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
@@ -89,7 +84,6 @@ public class UmsAdminServiceImpl implements UmsAdminService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        //获取用户信息
         BoyingAdmin admin = getAdminByUsername(username);
         return new AdminUserDetails(admin);
     }

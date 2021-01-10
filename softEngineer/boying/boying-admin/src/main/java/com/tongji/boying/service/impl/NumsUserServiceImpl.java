@@ -1,13 +1,13 @@
 package com.tongji.boying.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
+import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
-import com.tongji.boying.dto.userParam.NumsUserParam;
 import com.tongji.boying.dto.userParam.GetUserByNameParam;
-import com.tongji.boying.mapper.BoyingOrderMapper;
+import com.tongji.boying.dto.userParam.NumsUserParam;
+import com.tongji.boying.dto.userParam.UserListParam;
 import com.tongji.boying.mapper.BoyingUserMapper;
-import com.tongji.boying.model.BoyingOrder;
-import com.tongji.boying.model.BoyingOrderExample;
 import com.tongji.boying.model.BoyingUser;
 import com.tongji.boying.model.BoyingUserExample;
 import com.tongji.boying.service.NumsUserService;
@@ -15,7 +15,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -24,6 +26,12 @@ public class NumsUserServiceImpl implements NumsUserService {
 
     @Autowired
     private BoyingUserMapper userMapper;
+
+    /**
+     * 用于密码加密
+     */
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Autowired
@@ -50,19 +58,34 @@ public class NumsUserServiceImpl implements NumsUserService {
         Integer pageSize = param.getPageSize();
         if (pageSize == null || pageSize == 0) pageSize = 5;
 
-        String username = param.getUsername();
-        if (username == null) username = "";
-
         BoyingUserExample boyingUserExample = new BoyingUserExample();
-        boyingUserExample.createCriteria().andUsernameLike("%" + username + "%");
+        BoyingUserExample.Criteria criteria = boyingUserExample.createCriteria();
+
+        String username = param.getUsername();
+        if (!StrUtil.isEmpty(username)) {
+            criteria.andUsernameLike("%" + username + "%");
+        }
+        boyingUserExample.setOrderByClause("create_time desc");
+
+        //开启分页
+        PageHelper.startPage(pageNum, pageSize);
         List<BoyingUser> boyingUsers = userMapper.selectByExample(boyingUserExample);
         if (boyingUsers == null || boyingUsers.isEmpty()) Asserts.fail("该用户不存在！");
         return boyingUsers;
     }
 
     @Override
-    public List<BoyingUser> listAllUsers() {
-        List<BoyingUser> boyingUsers = userMapper.selectByExample(new BoyingUserExample());
+    public List<BoyingUser> listAllUsers(UserListParam param) {
+        Integer pageNum = param.getPageNum();
+        if (pageNum == null || pageNum == 0) pageNum = 0;
+        Integer pageSize = param.getPageSize();
+        if (pageSize == null || pageSize == 0) pageSize = 5;
+        BoyingUserExample boyingUserExample = new BoyingUserExample();
+
+        boyingUserExample.setOrderByClause("create_time desc");
+        //开启分页
+        PageHelper.startPage(pageNum, pageSize);
+        List<BoyingUser> boyingUsers = userMapper.selectByExample(boyingUserExample);
         if (ObjectUtil.isEmpty(boyingUsers)) Asserts.fail("不存在任何用户");
         return boyingUsers;
     }
@@ -80,15 +103,26 @@ public class NumsUserServiceImpl implements NumsUserService {
         redisTemplate.delete(key);
         redisTemplate.delete(key2);
 
-        userMapper.updateByPrimaryKey(user);
+        int count = userMapper.updateByPrimaryKey(user);
+        if (count == 0) Asserts.fail("修改用户状态失败！");
     }
+
     @Override
     public void add(NumsUserParam param) {
+        //查询是否已有该用户
+        BoyingUserExample example = new BoyingUserExample();
+        //用户名,手机号唯一
+        example.createCriteria().andUsernameEqualTo(param.getUsername());
+        example.or(example.createCriteria().andPhoneEqualTo(param.getPhone()));
+        List<BoyingUser> users = userMapper.selectByExample(example);
+        if (!CollectionUtils.isEmpty(users)) {
+            Asserts.fail("该用户已经存在或手机号已注册");
+        }
+
         BoyingUser user = new BoyingUser();
         BeanUtils.copyProperties(param, user);
+        user.setPassword(passwordEncoder.encode(param.getPassword()));//存储加密后的
         int count = userMapper.insertSelective(user);
-        if (count == 0) {
-            Asserts.fail("添加用户失败！");
-        }
+        if (count == 0) Asserts.fail("添加用户失败！");
     }
 }

@@ -49,7 +49,8 @@ public class NumsOrderServiceImpl implements NumsOrderService {
         BoyingOrder boyingOrder = userOrderMapper.selectByPrimaryKey(id);
         if(boyingOrder==null) Asserts.fail("要删除的订单不存在！");
         boyingOrder.setAdminDelete(true);
-        userOrderMapper.updateByPrimaryKeySelective(boyingOrder);
+        int count = userOrderMapper.updateByPrimaryKeySelective(boyingOrder);
+        if(count==0) Asserts.fail("删除订单失败！");
     }
 
     @Override
@@ -57,6 +58,7 @@ public class NumsOrderServiceImpl implements NumsOrderService {
         BoyingOrder boyingOrder = userOrderMapper.selectByPrimaryKey(id);
         if(boyingOrder==null) Asserts.fail("要恢复的订单不存在！");
         boyingOrder.setAdminDelete(false);
-        userOrderMapper.updateByPrimaryKeySelective(boyingOrder);
+        int count = userOrderMapper.updateByPrimaryKeySelective(boyingOrder);
+        if(count==0) Asserts.fail("恢复订单失败！");
     }
 }

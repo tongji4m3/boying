@@ -49,7 +49,7 @@ public class SmsSeatServiceImpl implements SmsSeatService
         boyingSeat.setStock(stock);
 
         int count = boyingSeatMapper.insertSelective(boyingSeat);
-        if(count==0) Asserts.fail("创建演出座次成功！");
+        if(count==0) Asserts.fail("创建演出座次失败！");
     }
 
     @Override

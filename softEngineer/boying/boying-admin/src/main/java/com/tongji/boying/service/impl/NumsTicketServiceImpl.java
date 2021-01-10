@@ -40,7 +40,7 @@ public class NumsTicketServiceImpl implements NumsTicketService {
 
         PageHelper.startPage(pageNum, pageSize);
         List<BoyingTicket> boyingTickets = boyingTicketMapper.selectByExample(boyingTicketExample);
-        if (ObjectUtil.isEmpty(boyingTickets)) Asserts.fail("不存在任何订单");
+        if (ObjectUtil.isEmpty(boyingTickets)) Asserts.fail("不存在任何票！");
         return boyingTickets;
     }
 }

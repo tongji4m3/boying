@@ -1,13 +1,12 @@
 package com.tongji.boying.controller;
 
 
-import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
-import com.tongji.boying.dto.userParam.NumsUserParam;
 import com.tongji.boying.dto.userParam.GetUserByNameParam;
+import com.tongji.boying.dto.userParam.NumsUserParam;
+import com.tongji.boying.dto.userParam.UserListParam;
 import com.tongji.boying.model.BoyingUser;
-import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.service.NumsUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,9 +35,8 @@ public class NumsUserController {
     @ApiOperation("获取指定id普通用户")
     @RequestMapping(value = "/getInformation/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult getUserById(@PathVariable Integer id) {
-        BoyingUser user = numsUserService.getUserById(id);
-        return CommonResult.success(user);
+    public CommonResult<BoyingUser> getUserById(@PathVariable Integer id) {
+        return CommonResult.success(numsUserService.getUserById(id));
     }
 
     @ApiOperation("根据用户名模糊匹配获取普通用户")
@@ -48,11 +46,20 @@ public class NumsUserController {
         return CommonResult.success(CommonPage.restPage(numsUserService.getUserByName(param)));
     }
 
+//    @ApiOperation("查看所有用户")
+//    @RequestMapping(value = "/list", method = RequestMethod.POST)
+//    @ResponseBody
+//    public CommonResult<CommonPage<BoyingUser>> list(@Validated @RequestBody UserListParam param) {
+//        return CommonResult.success(CommonPage.restPage(numsUserService.listAllUsers(param)));
+//    }
+
     @ApiOperation("查看所有用户")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult list() {
-        return CommonResult.success(numsUserService.listAllUsers());
+    public CommonResult<List<BoyingUser>> list() {
+        UserListParam param = new UserListParam();
+        param.setPageSize(50);
+        return CommonResult.success(numsUserService.listAllUsers(param));
     }
 
     @ApiOperation("切换指定id普通用户账号启用状态")

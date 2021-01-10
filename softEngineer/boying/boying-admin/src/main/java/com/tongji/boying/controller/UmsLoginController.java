@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 
@@ -23,9 +26,6 @@ import java.security.Principal;
 @Api(tags = "UmsLoginController", description = "后台管理员登录相关")
 @RequestMapping("/login")
 public class UmsLoginController {
-
-    @Value("${jwt.tokenHeader}")
-    private String tokenHeader;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
@@ -37,7 +37,7 @@ public class UmsLoginController {
     @ResponseBody
     public CommonResult login(@Validated @RequestBody UsernameLoginParam param) {
         String token = adminService.login(param);
-        return CommonResult.success(new LoginReturn(token,tokenHead));
+        return CommonResult.success(new LoginReturn(token, tokenHead));
     }
 
     @ApiOperation(value = "获取管理员信息")
