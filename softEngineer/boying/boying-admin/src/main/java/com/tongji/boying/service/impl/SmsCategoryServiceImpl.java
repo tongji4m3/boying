@@ -1,6 +1,8 @@
 package com.tongji.boying.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjectUtil;
+import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.SmsCategoryParam;
 import com.tongji.boying.mapper.BoyingCategoryMapper;
@@ -19,73 +21,65 @@ public class SmsCategoryServiceImpl implements SmsCategoryService {
     private BoyingCategoryMapper categoryMapper;
 
     @Override
-    public int create(SmsCategoryParam param) {
-        checkCategoryParam(param, -1);
-        BoyingCategory category = new BoyingCategory();
-        BeanUtils.copyProperties(param, category);
-        return categoryMapper.insertSelective(category);
-    }
-
-    @Override
-    public int update(Integer id, SmsCategoryParam param) {
-        checkCategoryParam(param, id);
-        BoyingCategory category = new BoyingCategory();
-
-        BeanUtils.copyProperties(param, category);
-        category.setId(id);
-        return categoryMapper.updateByPrimaryKeySelective(category);
-    }
-
-    @Override
-    public int delete(List<Integer> ids) {
-        BoyingCategoryExample example = new BoyingCategoryExample();
-        example.createCriteria().andIdIn(ids);
-        if (categoryMapper.selectByExample(example).size() != ids.size()) {
-            Asserts.fail("某些演出目录Id不存在!");
-        }
-        return categoryMapper.deleteByExample(example);
-    }
-
-    @Override
-    public int delete(Integer id) {
-        return categoryMapper.deleteByPrimaryKey(id);
-    }
-
-    @Override
-    public List<BoyingCategory> list() {
-        return categoryMapper.selectByExample(new BoyingCategoryExample());
-    }
-
-//    @Override
-//    public List<BoyingCategory> listParent() {
-//        BoyingCategoryExample example = new BoyingCategoryExample();
-//        example.createCriteria().andParentIdEqualTo(0);
-//        return categoryMapper.selectByExample(example);
-//    }
-
-    @Override
-    public BoyingCategory getCategory(Integer id) {
-        return categoryMapper.selectByPrimaryKey(id);
-    }
-
-
-    private void checkCategoryParam(SmsCategoryParam param, Integer id) {
+    public void create(SmsCategoryParam param) {
         BoyingCategoryExample categoryExample = new BoyingCategoryExample();
         BoyingCategoryExample.Criteria criteria = categoryExample.createCriteria();
         criteria.andNameEqualTo(param.getName());
-        if (id != -1) {
-            criteria.andIdNotEqualTo(id);
-        }
         List<BoyingCategory> categories = categoryMapper.selectByExample(categoryExample);
         if (CollUtil.isNotEmpty(categories)) {
             Asserts.fail("目录名称不能重复!");
         }
+        BoyingCategory category = new BoyingCategory();
+        BeanUtils.copyProperties(param, category);
+        int count = categoryMapper.insertSelective(category);
+        if(count==0) Asserts.fail("创建失败！");
     }
 
-//    @Override
-//    public List<BoyingCategory> getChildrenCategory(Integer id) {
-//        BoyingCategoryExample example = new BoyingCategoryExample();
-//        example.createCriteria().andParentIdEqualTo(id);
-//        return categoryMapper.selectByExample(example);
-//    }
+    @Override
+    public void update(Integer id, SmsCategoryParam param) {
+        BoyingCategoryExample categoryExample = new BoyingCategoryExample();
+        BoyingCategoryExample.Criteria criteria = categoryExample.createCriteria();
+        criteria.andNameEqualTo(param.getName());
+        List<BoyingCategory> categories = categoryMapper.selectByExample(categoryExample);
+        if (CollUtil.isNotEmpty(categories)) {
+            Asserts.fail("目录名称不能重复!");
+        }
+
+        BoyingCategory category = new BoyingCategory();
+
+        BeanUtils.copyProperties(param, category);
+        category.setId(id);
+        int count = categoryMapper.updateByPrimaryKeySelective(category);
+        if(count==0) Asserts.fail("更新失败！");
+    }
+
+    @Override
+    public void delete(Integer id) {
+        BoyingCategory boyingCategory = categoryMapper.selectByPrimaryKey(id);
+        boyingCategory.setAdminDelete(true);
+        int count = categoryMapper.updateByPrimaryKeySelective(boyingCategory);
+        if(count==0) Asserts.fail("删除失败！");
+    }
+
+    @Override
+    public List<BoyingCategory> list() {
+        List<BoyingCategory> categoryList = categoryMapper.selectByExample(new BoyingCategoryExample());
+        if (ObjectUtil.isEmpty(categoryList)) Asserts.fail("无目录!");
+        return categoryList;
+    }
+
+    @Override
+    public BoyingCategory getCategory(Integer id) {
+        BoyingCategory boyingCategory = categoryMapper.selectByPrimaryKey(id);
+        if(boyingCategory==null) Asserts.fail("演出目录不存在！");
+        return boyingCategory;
+    }
+
+    @Override
+    public void recover(Integer id) {
+        BoyingCategory boyingCategory = categoryMapper.selectByPrimaryKey(id);
+        boyingCategory.setAdminDelete(false);
+        int count = categoryMapper.updateByPrimaryKeySelective(boyingCategory);
+        if(count==0) Asserts.fail("恢复失败！");
+    }
 }
