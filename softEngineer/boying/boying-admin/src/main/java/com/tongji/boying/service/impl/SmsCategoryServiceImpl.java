@@ -41,7 +41,9 @@ public class SmsCategoryServiceImpl implements SmsCategoryService {
         criteria.andNameEqualTo(param.getName());
         List<BoyingCategory> categories = categoryMapper.selectByExample(categoryExample);
         if (CollUtil.isNotEmpty(categories)) {
-            Asserts.fail("目录名称不能重复!");
+            if (!categories.get(0).getId().equals(id)) {
+                Asserts.fail("目录名称重复！");
+            }
         }
 
         BoyingCategory category = new BoyingCategory();
