@@ -325,7 +325,8 @@ public class UserServiceImpl implements UserService {
         Integer age = param.getAge();
         Boolean gender = param.getGender();
 
-        BoyingUser currentUser = getCurrentUser();
+        BoyingUser currentUser = new BoyingUser();
+        currentUser.setId(getCurrentUser().getId());
         currentUser.setRealName(realName);
         currentUser.setIdentityNumber(identityNumber);
         currentUser.setEmail(email);
