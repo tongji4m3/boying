@@ -21,6 +21,8 @@ public class ShowCategoryServiceImpl implements ShowCategoryService {
     public List<BoyingCategory> categories() {
         BoyingCategoryExample example = new BoyingCategoryExample();
         example.createCriteria().andAdminDeleteEqualTo(false);
+        //按照weight降序
+        example.setOrderByClause("weight desc");
         List<BoyingCategory> categories = categoryMapper.selectByExample(example);
         if (categories==null || categories.size() == 0) {
             Asserts.fail("演出目录为空！");

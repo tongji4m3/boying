@@ -2,6 +2,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.showParam.BoyingShowReturn;
 import com.tongji.boying.dto.showParam.SmsShowListParam;
 import com.tongji.boying.dto.showParam.SmsShowParam;
 import com.tongji.boying.model.BoyingShow;
@@ -36,7 +37,7 @@ public class SmsShowController {
     @ApiOperation("查看演出")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<BoyingShow>> list(@Validated @RequestBody SmsShowListParam param) {
+    public CommonResult<CommonPage<BoyingShowReturn>> list(@Validated @RequestBody SmsShowListParam param) {
         return CommonResult.success(CommonPage.restPage(showService.list(param)));
     }
 

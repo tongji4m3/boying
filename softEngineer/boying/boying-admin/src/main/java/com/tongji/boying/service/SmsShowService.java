@@ -1,5 +1,6 @@
 package com.tongji.boying.service;
 
+import com.tongji.boying.dto.showParam.BoyingShowReturn;
 import com.tongji.boying.dto.showParam.SmsShowListParam;
 import com.tongji.boying.dto.showParam.SmsShowParam;
 import com.tongji.boying.model.BoyingShow;
@@ -14,7 +15,7 @@ public interface SmsShowService {
      * 查看演出
      * @param param
      */
-    List<BoyingShow> list(SmsShowListParam param);
+    List<BoyingShowReturn> list(SmsShowListParam param);
 
     /**
      * 添加演出

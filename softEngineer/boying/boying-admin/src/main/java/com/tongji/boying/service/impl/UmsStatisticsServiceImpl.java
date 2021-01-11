@@ -42,6 +42,7 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
 
     @Override
     public long countOrderByDay(Date date) {
+        //已退订单也计算
         long orderCount = -1;
         Date dateStart = dateDispose(date);
         Date dateEnd = dateAddOneDay(dateStart);
@@ -70,7 +71,10 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
         List<BoyingOrder> list = userOrderMapper.selectByExample(example);
         if (CollUtil.isNotEmpty(list)) {
             for (BoyingOrder order : list) {
-                sum += order.getMoney();
+                //已取消订单不计算在内
+                if (order.getStatus() != 3) {
+                    sum += order.getMoney();
+                }
             }
         }
         return sum;
@@ -85,7 +89,10 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
         List<BoyingOrder> list = userOrderMapper.selectByExample(example);
         if (CollUtil.isNotEmpty(list)) {
             for (BoyingOrder order : list) {
-                sum += order.getMoney();
+                //已取消订单不计算在内
+                if (order.getStatus() != 3) {
+                    sum += order.getMoney();
+                }
             }
         }
         return sum;

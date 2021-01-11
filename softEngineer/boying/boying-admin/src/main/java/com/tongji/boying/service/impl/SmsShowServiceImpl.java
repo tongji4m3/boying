@@ -4,9 +4,12 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.dto.showParam.BoyingShowReturn;
 import com.tongji.boying.dto.showParam.SmsShowListParam;
 import com.tongji.boying.dto.showParam.SmsShowParam;
+import com.tongji.boying.mapper.BoyingCategoryMapper;
 import com.tongji.boying.mapper.BoyingShowMapper;
+import com.tongji.boying.model.BoyingCategory;
 import com.tongji.boying.model.BoyingShow;
 import com.tongji.boying.model.BoyingShowExample;
 import com.tongji.boying.service.SmsShowService;
@@ -14,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -23,9 +27,11 @@ import java.util.List;
 public class SmsShowServiceImpl implements SmsShowService {
     @Autowired
     private BoyingShowMapper boyingShowMapper;
+    @Autowired
+    private BoyingCategoryMapper boyingCategoryMapper;
 
     @Override
-    public List<BoyingShow> list(SmsShowListParam param) {
+    public List<BoyingShowReturn> list(SmsShowListParam param) {
         BoyingShowExample example = new BoyingShowExample();
         BoyingShowExample.Criteria criteria = example.createCriteria();
 
@@ -51,7 +57,18 @@ public class SmsShowServiceImpl implements SmsShowService {
         if (boyingShows == null || boyingShows.size() == 0) {
             Asserts.fail("查询不到演出信息!");
         }
-        return boyingShows;
+
+        List<BoyingShowReturn> list = new LinkedList<>();
+
+        for (BoyingShow boyingShow : boyingShows) {
+            BoyingShowReturn boyingShowReturn = new BoyingShowReturn();
+            BeanUtils.copyProperties(boyingShow, boyingShowReturn);
+            BoyingCategory boyingCategory = boyingCategoryMapper.selectByPrimaryKey(boyingShow.getCategoryId());
+            if(boyingCategory==null) Asserts.fail("该演出不属于任何一个目录了！");
+            boyingShowReturn.setCategory(boyingCategory.getName());
+            list.add(boyingShowReturn);
+        }
+        return list;
     }
 
     @Override

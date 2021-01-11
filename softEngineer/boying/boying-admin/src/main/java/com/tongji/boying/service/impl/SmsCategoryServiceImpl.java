@@ -63,7 +63,9 @@ public class SmsCategoryServiceImpl implements SmsCategoryService {
 
     @Override
     public List<BoyingCategory> list() {
-        List<BoyingCategory> categoryList = categoryMapper.selectByExample(new BoyingCategoryExample());
+        BoyingCategoryExample example = new BoyingCategoryExample();
+        example.setOrderByClause("weight desc");
+        List<BoyingCategory> categoryList = categoryMapper.selectByExample(example);
         if (ObjectUtil.isEmpty(categoryList)) Asserts.fail("无目录!");
         return categoryList;
     }

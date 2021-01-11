@@ -36,9 +36,9 @@ public class SmsSeatServiceImpl implements SmsSeatService
             Asserts.fail("库存设置错误！");
         }
 
-        //查看座次名称是否重复
+        //查看座次名称是否重复 只需要该演出的座次不重复即可
         BoyingSeatExample boyingSeatExample = new BoyingSeatExample();
-        boyingSeatExample.createCriteria().andNameEqualTo(param.getName());
+        boyingSeatExample.createCriteria().andNameEqualTo(param.getName()).andShowIdEqualTo(param.getShowId());
         List<BoyingSeat> boyingSeats = boyingSeatMapper.selectByExample(boyingSeatExample);
         if (CollUtil.isNotEmpty(boyingSeats)) {
             Asserts.fail("演出座次名称不能重复!");
