@@ -38,6 +38,8 @@ public class NumsOrderServiceImpl implements NumsOrderService {
         Integer pageSize = param.getPageSize();
         if (pageSize == null || pageSize == 0) pageSize = 5;
 
+        boyingOrderExample.setOrderByClause("time desc");
+
         PageHelper.startPage(pageNum, pageSize);
         List<BoyingOrder> boyingOrders = userOrderMapper.selectByExample(boyingOrderExample);
         if (ObjectUtil.isEmpty(boyingOrders)) Asserts.fail("不存在任何订单");
