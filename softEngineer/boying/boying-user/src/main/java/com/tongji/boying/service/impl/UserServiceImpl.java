@@ -335,7 +335,8 @@ public class UserServiceImpl implements UserService {
         if (age > 0) {
             currentUser.setAge(age);
         }
-        userMapper.updateByPrimaryKeySelective(currentUser);//只更新不为空的字段
+        int count = userMapper.updateByPrimaryKeySelective(currentUser);//只更新不为空的字段
+        if (count == 0) Asserts.fail("更新失败！");
         userCacheService.delUser(currentUser.getId());//删除无效缓存
     }
 

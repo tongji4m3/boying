@@ -64,7 +64,7 @@ public class ShowServiceImpl implements ShowService {
 
             BoyingShowReturn boyingShowReturn = new BoyingShowReturn();
             BeanUtils.copyProperties(boyingShow, boyingShowReturn);
-            //设置最低级，最高价
+            //设置最低价，最高价
             BoyingSeatExample boyingSeatExample = new BoyingSeatExample();
             boyingSeatExample.createCriteria().andShowIdEqualTo(boyingShow.getId());
             List<BoyingSeat> boyingSeats = seatMapper.selectByExample(boyingSeatExample);
