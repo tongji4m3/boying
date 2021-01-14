@@ -22,6 +22,8 @@ public interface UserOrderService {
 
     void cancel(int id);
 
+    void finish(int id);
+
     List<BoyingOrder> list(GetOrdersParam param);
 
     BoyingOrder getItem(int id);

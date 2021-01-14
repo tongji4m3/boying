@@ -183,6 +183,26 @@ public class UserOrderServiceImpl implements UserOrderService {
     }
 
     @Override
+    public void finish(int id) {
+        BoyingUser user = userService.getCurrentUser();
+        BoyingOrderExample userOrderExample = new BoyingOrderExample();
+        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(false);
+        List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
+        if (userOrders.isEmpty()) {
+            Asserts.fail("无此订单");
+        }
+        if (userOrders.get(0).getStatus() != 1) {
+            Asserts.fail("只能取消待观看订单!");
+        }
+
+        //更新订单的信息
+        //变成已完成状态
+        BoyingOrder order = userOrders.get(0);
+        order.setStatus(2);
+        orderMapper.updateByPrimaryKeySelective(order);
+    }
+
+    @Override
     public List<BoyingOrder> list(GetOrdersParam param) {
         Integer status = param.getStatus();
         Integer pageNum = param.getPageNum();
