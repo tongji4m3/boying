@@ -23,7 +23,7 @@
         select
         <include refid="Base_Column_List"/>
         from BOYING_SEAT
-        where ID = #{showId,jdbcType=NUMERIC}
+        where show_id = #{showId,jdbcType=NUMERIC}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -113,6 +113,6 @@
     <update id="updateSeatsStock">
         update BOYING_SEAT
         set STOCK = STOCK + 1
-        where show_id = #{showId}
+        where id = #{id}
     </update>
 </mapper>

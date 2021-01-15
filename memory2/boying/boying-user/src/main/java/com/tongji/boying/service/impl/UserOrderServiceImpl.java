@@ -10,6 +10,7 @@ import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.mapper.BoyingTicketMapper;
 import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.model.BoyingSeat;
+import com.tongji.boying.model.BoyingTicket;
 import com.tongji.boying.model.BoyingUser;
 import com.tongji.boying.service.UserOrderService;
 import com.tongji.boying.service.UserService;
@@ -107,7 +108,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         order.setPayment(param.getPayment());
 
         order.setMoney(totalMoney);
-        int insert = orderMapper.insertSelective(order);
+        orderMapper.insertSelective(order);
         //生成票
         for (Integer showSeatId : showSeatIds) {
             System.out.println(order.getId() + "   " + showSeatId);
@@ -159,7 +160,10 @@ public class UserOrderServiceImpl implements UserOrderService {
         orderMapper.updateByPrimaryKeySelective(order);
 
         //获取对应的演出座次,增加库存
-        boyingSeatMapper.updateSeatsStock(order.getShowId());
+        List<BoyingTicket> listByOrderId = ticketMapper.getListByOrderId(order.getId());
+        for (BoyingTicket boyingTicket : listByOrderId) {
+            boyingSeatMapper.updateSeatsStock(boyingTicket.getSeatId());
+        }
 
         //删除对应的票
         ticketMapper.deleteTicketsList(order.getId());
@@ -218,7 +222,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         BoyingUser user = userService.getCurrentUser();
 
         BoyingOrder order = orderMapper.selectByPrimaryKey(id);
-        if (order == null) {
+        if (order == null || order.getUserDelete()==1) {
             Asserts.fail("该订单不存在！");
         }
 

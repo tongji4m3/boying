@@ -27,7 +27,7 @@
         select
         <include refid="Base_Column_List"/>
         from BOYING_ORDER
-        where user_id = #{userId} and admin_delete != 1
+        where user_id = #{userId} and admin_delete != 1 and user_delete != 1
         <if test="status != null and status != 0">
             and status = #{status}
         </if>
@@ -58,9 +58,12 @@
                 #{adminDelete,jdbcType=NUMERIC}, #{ticketCount,jdbcType=NUMERIC}, #{money,jdbcType=FLOAT},
                 #{payment,jdbcType=VARCHAR})
     </insert>
-<!--    <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingOrder">-->
-    <insert id="insertSelective" parameterType="com.tongji.boying.model.UserOrder" keyProperty="id"
-            keyColumn="id" useGeneratedKeys="true">
+
+
+    <insert id="insertSelective"  parameterType="com.tongji.boying.model.BoyingOrder">
+        <selectKey keyProperty="id" resultType="integer" order="BEFORE">
+            select ID_AUTOINCREMENT.nextval from dual
+        </selectKey>
         insert into BOYING_ORDER
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
