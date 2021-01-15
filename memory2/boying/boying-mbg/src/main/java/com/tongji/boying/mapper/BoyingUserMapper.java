@@ -1,15 +1,28 @@
 package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.BoyingUser;
+import com.tongji.boying.model.BoyingUserExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface BoyingUserMapper {
-    int deleteByPrimaryKey(Long id);
+    long countByExample(BoyingUserExample example);
+
+    int deleteByExample(BoyingUserExample example);
+
+    int deleteByPrimaryKey(Integer id);
 
     int insert(BoyingUser record);
 
     int insertSelective(BoyingUser record);
 
-    BoyingUser selectByPrimaryKey(Long id);
+    List<BoyingUser> selectByExample(BoyingUserExample example);
+
+    BoyingUser selectByPrimaryKey(Integer id);
+
+    int updateByExampleSelective(@Param("record") BoyingUser record, @Param("example") BoyingUserExample example);
+
+    int updateByExample(@Param("record") BoyingUser record, @Param("example") BoyingUserExample example);
 
     int updateByPrimaryKeySelective(BoyingUser record);
 

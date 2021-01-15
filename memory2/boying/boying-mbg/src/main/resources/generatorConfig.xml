@@ -52,15 +52,14 @@
         tableName：指定表名
         domainObjectName：指定生成的类名，与tableName保持一致即可
         -->
-<!--        <table-->
-<!--                tableName="boying_admin"-->
-<!--                domainObjectName="BoyingAdmin"-->
-<!--                enableCountByExample="false"-->
-<!--                enableDeleteByExample="false"-->
-<!--                enableSelectByExample="false"-->
-<!--                enableUpdateByExample="false">-->
-<!--        </table>-->
-        <table
+        <table tableName="boying_admin"/>
+        <table tableName="boying_user"/>
+        <table tableName="boying_category"/>
+        <table tableName="boying_show"/>
+        <table tableName="boying_seat"/>
+        <table tableName="boying_order"/>
+        <table tableName="boying_ticket"/>
+<!--        <table
                 tableName="boying_admin"
                 domainObjectName="BoyingAdmin"
                 enableCountByExample="false"
@@ -109,7 +108,7 @@
                 enableDeleteByExample="false"
                 enableSelectByExample="false"
                 enableUpdateByExample="false">
-        </table>
+        </table>-->
     </context>
 
 </generatorConfiguration>

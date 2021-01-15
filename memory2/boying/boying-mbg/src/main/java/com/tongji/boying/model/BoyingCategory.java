@@ -1,7 +1,7 @@
 package com.tongji.boying.model;
 
 public class BoyingCategory {
-    private Long id;
+    private Integer id;
 
     private String name;
 
@@ -9,15 +9,15 @@ public class BoyingCategory {
 
     private String description;
 
-    private Long weight;
+    private Integer weight;
 
-    private String adminDelete;
+    private Short adminDelete;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -45,19 +45,19 @@ public class BoyingCategory {
         this.description = description == null ? null : description.trim();
     }
 
-    public Long getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Long weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public String getAdminDelete() {
+    public Short getAdminDelete() {
         return adminDelete;
     }
 
-    public void setAdminDelete(String adminDelete) {
-        this.adminDelete = adminDelete == null ? null : adminDelete.trim();
+    public void setAdminDelete(Short adminDelete) {
+        this.adminDelete = adminDelete;
     }
 }

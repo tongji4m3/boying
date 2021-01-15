@@ -13,5 +13,12 @@
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://47.103.203.188:3306/temp</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="@8.135.22.230" uuid="d891c5e6-2f7e-4c6f-955e-7b51fb544f92">
+      <driver-ref>oracle</driver-ref>
+      <synchronize>true</synchronize>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//8.135.22.230:1521/ORCLPDB1.localdomain</jdbc-url>
+    </data-source>
   </component>
 </project>

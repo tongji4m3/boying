@@ -4,55 +4,55 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class BoyingOrder {
-    private Long id;
+    private Integer id;
 
-    private Long userId;
+    private Integer userId;
 
-    private Long showId;
+    private Integer showId;
 
-    private Long status;
+    private Integer status;
 
     private Date time;
 
-    private String userDelete;
+    private Short userDelete;
 
-    private String adminDelete;
+    private Short adminDelete;
 
-    private Long ticketCount;
+    private Integer ticketCount;
 
     private BigDecimal money;
 
     private String payment;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public Long getShowId() {
+    public Integer getShowId() {
         return showId;
     }
 
-    public void setShowId(Long showId) {
+    public void setShowId(Integer showId) {
         this.showId = showId;
     }
 
-    public Long getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Long status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -64,27 +64,27 @@ public class BoyingOrder {
         this.time = time;
     }
 
-    public String getUserDelete() {
+    public Short getUserDelete() {
         return userDelete;
     }
 
-    public void setUserDelete(String userDelete) {
-        this.userDelete = userDelete == null ? null : userDelete.trim();
+    public void setUserDelete(Short userDelete) {
+        this.userDelete = userDelete;
     }
 
-    public String getAdminDelete() {
+    public Short getAdminDelete() {
         return adminDelete;
     }
 
-    public void setAdminDelete(String adminDelete) {
-        this.adminDelete = adminDelete == null ? null : adminDelete.trim();
+    public void setAdminDelete(Short adminDelete) {
+        this.adminDelete = adminDelete;
     }
 
-    public Long getTicketCount() {
+    public Integer getTicketCount() {
         return ticketCount;
     }
 
-    public void setTicketCount(Long ticketCount) {
+    public void setTicketCount(Integer ticketCount) {
         this.ticketCount = ticketCount;
     }
 

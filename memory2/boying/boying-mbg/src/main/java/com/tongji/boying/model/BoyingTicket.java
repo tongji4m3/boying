@@ -1,35 +1,35 @@
 package com.tongji.boying.model;
 
 public class BoyingTicket {
-    private Long id;
+    private Integer id;
 
-    private Long orderId;
+    private Integer orderId;
 
-    private Long seatId;
+    private Integer seatId;
 
     private String qrCodeUrl;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
-    public Long getSeatId() {
+    public Integer getSeatId() {
         return seatId;
     }
 
-    public void setSeatId(Long seatId) {
+    public void setSeatId(Integer seatId) {
         this.seatId = seatId;
     }
 

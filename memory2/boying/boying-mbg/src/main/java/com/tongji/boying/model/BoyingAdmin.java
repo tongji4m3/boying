@@ -3,7 +3,7 @@ package com.tongji.boying.model;
 import java.util.Date;
 
 public class BoyingAdmin {
-    private Long id;
+    private Integer id;
 
     private String username;
 
@@ -13,11 +13,11 @@ public class BoyingAdmin {
 
     private Date lastTime;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

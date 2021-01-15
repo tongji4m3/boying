@@ -3,31 +3,31 @@ package com.tongji.boying.model;
 import java.math.BigDecimal;
 
 public class BoyingSeat {
-    private Long id;
+    private Integer id;
 
-    private Long showId;
+    private Integer showId;
 
     private String name;
 
     private BigDecimal price;
 
-    private Long capacity;
+    private Integer capacity;
 
-    private Long stock;
+    private Integer stock;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getShowId() {
+    public Integer getShowId() {
         return showId;
     }
 
-    public void setShowId(Long showId) {
+    public void setShowId(Integer showId) {
         this.showId = showId;
     }
 
@@ -47,19 +47,19 @@ public class BoyingSeat {
         this.price = price;
     }
 
-    public Long getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(Long capacity) {
+    public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 
-    public Long getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(Long stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 }

@@ -3,7 +3,7 @@ package com.tongji.boying.model;
 import java.util.Date;
 
 public class BoyingUser {
-    private Long id;
+    private Integer id;
 
     private String username;
 
@@ -19,19 +19,19 @@ public class BoyingUser {
 
     private String identityNumber;
 
-    private Long age;
+    private Integer age;
 
     private Date createTime;
 
-    private String gender;
+    private Short gender;
 
-    private String adminDelete;
+    private Short adminDelete;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -91,11 +91,11 @@ public class BoyingUser {
         this.identityNumber = identityNumber == null ? null : identityNumber.trim();
     }
 
-    public Long getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(Long age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -107,19 +107,19 @@ public class BoyingUser {
         this.createTime = createTime;
     }
 
-    public String getGender() {
+    public Short getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender == null ? null : gender.trim();
+    public void setGender(Short gender) {
+        this.gender = gender;
     }
 
-    public String getAdminDelete() {
+    public Short getAdminDelete() {
         return adminDelete;
     }
 
-    public void setAdminDelete(String adminDelete) {
-        this.adminDelete = adminDelete == null ? null : adminDelete.trim();
+    public void setAdminDelete(Short adminDelete) {
+        this.adminDelete = adminDelete;
     }
 }

@@ -8,6 +8,1455 @@
     <result column="ICON" jdbcType="NVARCHAR" property="icon" />
     <result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
   </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, USERNAME, PASSWORD, ICON, LAST_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingAdminExample">
+    delete from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN (ID, USERNAME, PASSWORD, 
+      ICON, LAST_TIME)
+    values (#{id,jdbcType=NUMERIC}, #{username,jdbcType=NVARCHAR}, #{password,jdbcType=NVARCHAR}, 
+      #{icon,jdbcType=NVARCHAR}, #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultType="java.lang.Long">
+    select count(*) from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_ADMIN
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.username != null">
+        USERNAME = #{record.username,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.icon != null">
+        ICON = #{record.icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.lastTime != null">
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_ADMIN
+    set ID = #{record.id,jdbcType=NUMERIC},
+      USERNAME = #{record.username,jdbcType=NVARCHAR},
+      PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      ICON = #{record.icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    <set>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    set USERNAME = #{username,jdbcType=NVARCHAR},
+      PASSWORD = #{password,jdbcType=NVARCHAR},
+      ICON = #{icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingAdmin">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="USERNAME" jdbcType="NVARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="NVARCHAR" property="password" />
+    <result column="ICON" jdbcType="NVARCHAR" property="icon" />
+    <result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, USERNAME, PASSWORD, ICON, LAST_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingAdminExample">
+    delete from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN (ID, USERNAME, PASSWORD, 
+      ICON, LAST_TIME)
+    values (#{id,jdbcType=NUMERIC}, #{username,jdbcType=NVARCHAR}, #{password,jdbcType=NVARCHAR}, 
+      #{icon,jdbcType=NVARCHAR}, #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultType="java.lang.Long">
+    select count(*) from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_ADMIN
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.username != null">
+        USERNAME = #{record.username,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.icon != null">
+        ICON = #{record.icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.lastTime != null">
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_ADMIN
+    set ID = #{record.id,jdbcType=NUMERIC},
+      USERNAME = #{record.username,jdbcType=NVARCHAR},
+      PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      ICON = #{record.icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    <set>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    set USERNAME = #{username,jdbcType=NVARCHAR},
+      PASSWORD = #{password,jdbcType=NVARCHAR},
+      ICON = #{icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingAdmin">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="USERNAME" jdbcType="NVARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="NVARCHAR" property="password" />
+    <result column="ICON" jdbcType="NVARCHAR" property="icon" />
+    <result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, USERNAME, PASSWORD, ICON, LAST_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingAdminExample">
+    delete from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN (ID, USERNAME, PASSWORD, 
+      ICON, LAST_TIME)
+    values (#{id,jdbcType=NUMERIC}, #{username,jdbcType=NVARCHAR}, #{password,jdbcType=NVARCHAR}, 
+      #{icon,jdbcType=NVARCHAR}, #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultType="java.lang.Long">
+    select count(*) from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_ADMIN
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.username != null">
+        USERNAME = #{record.username,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.icon != null">
+        ICON = #{record.icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.lastTime != null">
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_ADMIN
+    set ID = #{record.id,jdbcType=NUMERIC},
+      USERNAME = #{record.username,jdbcType=NVARCHAR},
+      PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      ICON = #{record.icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    <set>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    set USERNAME = #{username,jdbcType=NVARCHAR},
+      PASSWORD = #{password,jdbcType=NVARCHAR},
+      ICON = #{icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingAdmin">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="USERNAME" jdbcType="NVARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="NVARCHAR" property="password" />
+    <result column="ICON" jdbcType="NVARCHAR" property="icon" />
+    <result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, USERNAME, PASSWORD, ICON, LAST_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingAdminExample">
+    delete from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN (ID, USERNAME, PASSWORD, 
+      ICON, LAST_TIME)
+    values (#{id,jdbcType=NUMERIC}, #{username,jdbcType=NVARCHAR}, #{password,jdbcType=NVARCHAR}, 
+      #{icon,jdbcType=NVARCHAR}, #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultType="java.lang.Long">
+    select count(*) from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_ADMIN
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.username != null">
+        USERNAME = #{record.username,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.icon != null">
+        ICON = #{record.icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.lastTime != null">
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_ADMIN
+    set ID = #{record.id,jdbcType=NUMERIC},
+      USERNAME = #{record.username,jdbcType=NVARCHAR},
+      PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      ICON = #{record.icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    <set>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    set USERNAME = #{username,jdbcType=NVARCHAR},
+      PASSWORD = #{password,jdbcType=NVARCHAR},
+      ICON = #{icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingAdmin">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="USERNAME" jdbcType="NVARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="NVARCHAR" property="password" />
+    <result column="ICON" jdbcType="NVARCHAR" property="icon" />
+    <result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, USERNAME, PASSWORD, ICON, LAST_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingAdminExample">
+    delete from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN (ID, USERNAME, PASSWORD, 
+      ICON, LAST_TIME)
+    values (#{id,jdbcType=NUMERIC}, #{username,jdbcType=NVARCHAR}, #{password,jdbcType=NVARCHAR}, 
+      #{icon,jdbcType=NVARCHAR}, #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultType="java.lang.Long">
+    select count(*) from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_ADMIN
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.username != null">
+        USERNAME = #{record.username,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.icon != null">
+        ICON = #{record.icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.lastTime != null">
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_ADMIN
+    set ID = #{record.id,jdbcType=NUMERIC},
+      USERNAME = #{record.username,jdbcType=NVARCHAR},
+      PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      ICON = #{record.icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    <set>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    set USERNAME = #{username,jdbcType=NVARCHAR},
+      PASSWORD = #{password,jdbcType=NVARCHAR},
+      ICON = #{icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingAdmin">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="USERNAME" jdbcType="NVARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="NVARCHAR" property="password" />
+    <result column="ICON" jdbcType="NVARCHAR" property="icon" />
+    <result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, USERNAME, PASSWORD, ICON, LAST_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingAdminExample">
+    delete from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN (ID, USERNAME, PASSWORD, 
+      ICON, LAST_TIME)
+    values (#{id,jdbcType=NUMERIC}, #{username,jdbcType=NVARCHAR}, #{password,jdbcType=NVARCHAR}, 
+      #{icon,jdbcType=NVARCHAR}, #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultType="java.lang.Long">
+    select count(*) from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_ADMIN
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.username != null">
+        USERNAME = #{record.username,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.icon != null">
+        ICON = #{record.icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.lastTime != null">
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_ADMIN
+    set ID = #{record.id,jdbcType=NUMERIC},
+      USERNAME = #{record.username,jdbcType=NVARCHAR},
+      PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      ICON = #{record.icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    <set>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    set USERNAME = #{username,jdbcType=NVARCHAR},
+      PASSWORD = #{password,jdbcType=NVARCHAR},
+      ICON = #{icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingAdmin">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="USERNAME" jdbcType="NVARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="NVARCHAR" property="password" />
+    <result column="ICON" jdbcType="NVARCHAR" property="icon" />
+    <result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, USERNAME, PASSWORD, ICON, LAST_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from BOYING_ADMIN
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingAdminExample">
+    delete from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN (ID, USERNAME, PASSWORD, 
+      ICON, LAST_TIME)
+    values (#{id,jdbcType=NUMERIC}, #{username,jdbcType=NVARCHAR}, #{password,jdbcType=NVARCHAR}, 
+      #{icon,jdbcType=NVARCHAR}, #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    insert into BOYING_ADMIN
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="username != null">
+        USERNAME,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingAdminExample" resultType="java.lang.Long">
+    select count(*) from BOYING_ADMIN
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_ADMIN
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.username != null">
+        USERNAME = #{record.username,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.icon != null">
+        ICON = #{record.icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.lastTime != null">
+        LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_ADMIN
+    set ID = #{record.id,jdbcType=NUMERIC},
+      USERNAME = #{record.username,jdbcType=NVARCHAR},
+      PASSWORD = #{record.password,jdbcType=NVARCHAR},
+      ICON = #{record.icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    <set>
+      <if test="username != null">
+        USERNAME = #{username,jdbcType=NVARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingAdmin">
+    update BOYING_ADMIN
+    set USERNAME = #{username,jdbcType=NVARCHAR},
+      PASSWORD = #{password,jdbcType=NVARCHAR},
+      ICON = #{icon,jdbcType=NVARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingAdmin">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="USERNAME" jdbcType="NVARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="NVARCHAR" property="password" />
+    <result column="ICON" jdbcType="NVARCHAR" property="icon" />
+    <result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
+  </resultMap>
   <sql id="Base_Column_List">
     ID, USERNAME, PASSWORD, ICON, LAST_TIME
   </sql>

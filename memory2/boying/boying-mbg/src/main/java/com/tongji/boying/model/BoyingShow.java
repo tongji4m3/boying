@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class BoyingShow {
-    private Long id;
+    private Integer id;
 
-    private Long categoryId;
+    private Integer categoryId;
 
     private String name;
 
@@ -22,25 +22,25 @@ public class BoyingShow {
 
     private Date endTime;
 
-    private Long weight;
+    private Integer weight;
 
     private BigDecimal minPrice;
 
     private BigDecimal maxPrice;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -100,11 +100,11 @@ public class BoyingShow {
         this.endTime = endTime;
     }
 
-    public Long getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(Long weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
