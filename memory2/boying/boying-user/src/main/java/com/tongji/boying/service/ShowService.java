@@ -18,7 +18,7 @@ public interface ShowService {
      * 每页条数,分页数
      * 搜索方式(推荐搜索,时间搜索,价格搜索)
      */
-    List<BoyingShowReturn> search(ShowParam param);
+    List<BoyingShow> search(ShowParam param);
 
     /**
      * 获取前台演出详情

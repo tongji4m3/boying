@@ -30,7 +30,7 @@ public class ShowController {
     @ApiOperation("对演出的综合搜索、筛选、排序(所有字段均为可选字段)")
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<BoyingShowReturn>> search(@Validated @RequestBody ShowParam param) throws ParseException {
+    public CommonResult<CommonPage<BoyingShow>> search(@Validated @RequestBody ShowParam param) throws ParseException {
         return CommonResult.success(CommonPage.restPage(showService.search(param)));
     }
 
