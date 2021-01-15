@@ -23,9 +23,9 @@ public class BoyingUser {
 
     private Date createTime;
 
-    private Short gender;
+    private Integer gender;
 
-    private Short adminDelete;
+    private Integer adminDelete;
 
     public Integer getId() {
         return id;
@@ -107,19 +107,19 @@ public class BoyingUser {
         this.createTime = createTime;
     }
 
-    public Short getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Short gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
-    public Short getAdminDelete() {
+    public Integer getAdminDelete() {
         return adminDelete;
     }
 
-    public void setAdminDelete(Short adminDelete) {
+    public void setAdminDelete(Integer adminDelete) {
         this.adminDelete = adminDelete;
     }
 }

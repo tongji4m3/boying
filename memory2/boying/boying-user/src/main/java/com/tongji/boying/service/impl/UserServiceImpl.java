@@ -13,7 +13,6 @@ import com.tongji.boying.config.BoyingUserDetails;
 import com.tongji.boying.dto.userParam.*;
 import com.tongji.boying.mapper.BoyingUserMapper;
 import com.tongji.boying.model.BoyingUser;
-import com.tongji.boying.model.BoyingUserExample;
 import com.tongji.boying.security.util.JwtTokenUtil;
 import com.tongji.boying.service.UserCacheService;
 import com.tongji.boying.service.UserService;
@@ -76,6 +75,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public BoyingUser getByUsername(String username) {
+        return null;
+    }
+
+    /*@Override
+    public BoyingUser getByUsername(String username) {
         BoyingUser user = userCacheService.getUser(username);
         if (user != null) return user; //缓存里面有数据
         BoyingUserExample example = new BoyingUserExample();
@@ -88,15 +92,21 @@ public class UserServiceImpl implements UserService {
         }
         user = userList.get(0);
         //账号未启用
-        if (user.getAdminDelete()) {
+        if (user.getAdminDelete() == 1) {
             Asserts.fail("账号未启用,请联系管理员!");
         }
         userCacheService.setUser(user);//将查询到的数据放入缓存中
         return user;
     }
-
+*/
 
     @Override
+    @DateTimeFormat
+    public void register(UserRegisterParam param) {
+
+    }
+
+    /*@Override
     @DateTimeFormat
     public void register(UserRegisterParam param) {
         String authCode = param.getAuthCode();
@@ -131,7 +141,7 @@ public class UserServiceImpl implements UserService {
         userMapper.insertSelective(user);
         //注册完删除验证码,每个验证码只能使用一次
         userCacheService.delAuthCode(telephone);
-    }
+    }*/
 
     @Override
     public void generateAuthCode(String telephone) {
@@ -173,6 +183,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updatePassword(UpdatePasswordParam param) {
+
+    }
+
+   /* @Override
+    public void updatePassword(UpdatePasswordParam param) {
         String telephone = param.getTelephone();
         String password = param.getPassword();
         String authCode = param.getAuthCode();
@@ -195,7 +210,7 @@ public class UserServiceImpl implements UserService {
 
         //注册完删除验证码,每个验证码只能使用一次
         userCacheService.delAuthCode(telephone);
-    }
+    }*/
 
     @Override
     public BoyingUser getCurrentUser() {
@@ -237,8 +252,12 @@ public class UserServiceImpl implements UserService {
         return token;
     }
 
-
     @Override
+    public String telephoneLogin(TelephoneLoginParam param) {
+        return null;
+    }
+
+   /* @Override
     public String telephoneLogin(TelephoneLoginParam param) {
         String telephone = param.getTelephone();
         String password = param.getPassword();
@@ -256,7 +275,7 @@ public class UserServiceImpl implements UserService {
                 }
                 user = userList.get(0);
                 //账号未启用
-                if (user.getAdminDelete()) {
+                if (user.getAdminDelete() == 1) {
                     Asserts.fail("账号未启用,请联系管理员!");
                 }
                 userCacheService.setUser(user);//将查询到的数据放入缓存中
@@ -274,8 +293,15 @@ public class UserServiceImpl implements UserService {
         }
         return token;
     }
+*/
 
     @Override
+    public String authCodeLogin(AuthCodeLoginParam param) {
+        return null;
+    }
+
+
+    /*@Override
     public String authCodeLogin(AuthCodeLoginParam param) {
         String telephone = param.getTelephone();
         String authCode = param.getAuthCode();
@@ -310,7 +336,7 @@ public class UserServiceImpl implements UserService {
         userCacheService.delAuthCode(telephone);
         return token;
     }
-
+*/
     @Override
     public String refreshToken(String token) {
         return jwtTokenUtil.refreshHeadToken(token);
@@ -331,7 +357,13 @@ public class UserServiceImpl implements UserService {
         currentUser.setIdentityNumber(identityNumber);
         currentUser.setEmail(email);
         currentUser.setIcon(icon);
-        currentUser.setGender(gender);
+        if (gender) {
+            currentUser.setGender(1);
+        }
+        else {
+            currentUser.setGender(0);
+        }
+
         if (age > 0) {
             currentUser.setAge(age);
         }

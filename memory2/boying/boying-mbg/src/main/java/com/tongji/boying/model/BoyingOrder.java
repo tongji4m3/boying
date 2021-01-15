@@ -13,9 +13,9 @@ public class BoyingOrder {
 
     private Date time;
 
-    private Short userDelete;
+    private Integer userDelete;
 
-    private Short adminDelete;
+    private Integer adminDelete;
 
     private Integer ticketCount;
 
@@ -63,19 +63,19 @@ public class BoyingOrder {
         this.time = time;
     }
 
-    public Short getUserDelete() {
+    public Integer getUserDelete() {
         return userDelete;
     }
 
-    public void setUserDelete(Short userDelete) {
+    public void setUserDelete(Integer userDelete) {
         this.userDelete = userDelete;
     }
 
-    public Short getAdminDelete() {
+    public Integer getAdminDelete() {
         return adminDelete;
     }
 
-    public void setAdminDelete(Short adminDelete) {
+    public void setAdminDelete(Integer adminDelete) {
         this.adminDelete = adminDelete;
     }
 

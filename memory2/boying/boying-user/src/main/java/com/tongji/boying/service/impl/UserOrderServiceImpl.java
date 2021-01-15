@@ -1,24 +1,19 @@
 package com.tongji.boying.service.impl;
 
-import cn.hutool.core.util.StrUtil;
-import com.github.pagehelper.PageHelper;
-import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.orderParam.GetOrdersParam;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.mapper.BoyingOrderMapper;
 import com.tongji.boying.mapper.BoyingSeatMapper;
 import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.mapper.BoyingTicketMapper;
-import com.tongji.boying.model.*;
+import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.service.UserOrderService;
 import com.tongji.boying.service.UserService;
 import com.tongji.boying.service.UserTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Service
 public class UserOrderServiceImpl implements UserOrderService {
@@ -37,6 +32,11 @@ public class UserOrderServiceImpl implements UserOrderService {
     private BoyingShowMapper showMapper;
 
     @Override
+    public void add(UserOrderParam param) {
+
+    }
+
+    /*@Override
     public void add(UserOrderParam param) {
         //获取参数
         Integer showId = param.getShowId();
@@ -116,7 +116,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         order.setShowId(showId);
         order.setStatus(1);//待观看状态
         order.setTime(new Date());
-        order.setUserDelete(false);
+        order.setUserDelete(0);
         order.setTicketCount(count);
         order.setPayment(param.getPayment());
 
@@ -127,14 +127,18 @@ public class UserOrderServiceImpl implements UserOrderService {
             System.out.println(order.getId() + "   " + showSeatId);
             userTicketService.add(order.getId(), showSeatId);
         }
-    }
-
+    }*/
 
     @Override
     public void delete(int id) {
+
+    }
+
+   /* @Override
+    public void delete(int id) {
         BoyingUser user = userService.getCurrentUser();
         BoyingOrderExample userOrderExample = new BoyingOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(false);
+        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(0);
         List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
         if (userOrders == null || userOrders.isEmpty()) {
             Asserts.fail("无此订单");
@@ -143,18 +147,23 @@ public class UserOrderServiceImpl implements UserOrderService {
         if (boyingOrder.getStatus() == 1) {
             Asserts.fail("待观看订单不能删除！");
         }
-        if (boyingOrder.getAdminDelete()) {
+        if (boyingOrder.getAdminDelete()==1) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
         }
-        boyingOrder.setUserDelete(true);
+        boyingOrder.setUserDelete(1);
         orderMapper.updateByPrimaryKeySelective(boyingOrder);
-    }
+    }*/
 
     @Override
     public void cancel(int id) {
+
+    }
+
+   /* @Override
+    public void cancel(int id) {
         BoyingUser user = userService.getCurrentUser();
         BoyingOrderExample userOrderExample = new BoyingOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(false);
+        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(0);
         List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
         if (userOrders.isEmpty()) {
             Asserts.fail("无此订单");
@@ -180,13 +189,22 @@ public class UserOrderServiceImpl implements UserOrderService {
             //删除对应的票
             ticketMapper.deleteByPrimaryKey(boyingTicket.getId());
         }
-    }
+    }*/
+
+  /*  @Override
+    public void finish(int id) {
+
+    }*/
 
     @Override
     public void finish(int id) {
+
+    }
+   /* @Override
+    public void finish(int id) {
         BoyingUser user = userService.getCurrentUser();
         BoyingOrderExample userOrderExample = new BoyingOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(false);
+        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(0);
         List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
         if (userOrders.isEmpty()) {
             Asserts.fail("无此订单");
@@ -201,8 +219,14 @@ public class UserOrderServiceImpl implements UserOrderService {
         order.setStatus(2);
         orderMapper.updateByPrimaryKeySelective(order);
     }
+*/
 
     @Override
+    public List<BoyingOrder> list(GetOrdersParam param) {
+        return null;
+    }
+
+   /* @Override
     public List<BoyingOrder> list(GetOrdersParam param) {
         Integer status = param.getStatus();
         Integer pageNum = param.getPageNum();
@@ -220,7 +244,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         if (status != null && status != 0) {
             criteria.andStatusEqualTo(status);
         }
-        criteria.andUserIdEqualTo(user.getId()).andUserDeleteEqualTo(false);
+        criteria.andUserIdEqualTo(user.getId()).andUserDeleteEqualTo(0);
         //根据演出的名称模糊查询
         if (!StrUtil.isEmpty(name)) {
             BoyingShowExample boyingShowExample = new BoyingShowExample();
@@ -245,19 +269,25 @@ public class UserOrderServiceImpl implements UserOrderService {
         }
         return boyingOrders;
     }
+*/
 
     @Override
     public BoyingOrder getItem(int id) {
+        return null;
+    }
+
+   /* @Override
+    public BoyingOrder getItem(int id) {
         BoyingUser user = userService.getCurrentUser();
         BoyingOrderExample userOrderExample = new BoyingOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(false);
+        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(0);
         List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
         if (CollectionUtils.isEmpty(userOrders)) {
             Asserts.fail("该订单不存在！");
         }
-        if (userOrders.get(0).getAdminDelete()) {
+        if (userOrders.get(0).getAdminDelete()==1) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
         }
         return userOrders.get(0);
-    }
+    }*/
 }

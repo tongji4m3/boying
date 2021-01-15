@@ -53,7 +53,7 @@ public class BoyingUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getAdminDelete();
+        return user.getAdminDelete() == 0;
     }
 
     public BoyingUser getUser() {

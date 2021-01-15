@@ -11,7 +11,7 @@ public class BoyingCategory {
 
     private Integer weight;
 
-    private Short adminDelete;
+    private Integer adminDelete;
 
     public Integer getId() {
         return id;
@@ -53,11 +53,11 @@ public class BoyingCategory {
         this.weight = weight;
     }
 
-    public Short getAdminDelete() {
+    public Integer getAdminDelete() {
         return adminDelete;
     }
 
-    public void setAdminDelete(Short adminDelete) {
+    public void setAdminDelete(Integer adminDelete) {
         this.adminDelete = adminDelete;
     }
 }

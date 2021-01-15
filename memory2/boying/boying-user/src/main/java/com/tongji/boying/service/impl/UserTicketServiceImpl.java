@@ -8,7 +8,6 @@ import com.tongji.boying.mapper.BoyingTicketMapper;
 import com.tongji.boying.mapper.BoyingOrderMapper;
 import com.tongji.boying.model.BoyingSeat;
 import com.tongji.boying.model.BoyingTicket;
-import com.tongji.boying.model.BoyingTicketExample;
 import com.tongji.boying.service.ShowSeatService;
 import com.tongji.boying.service.UserService;
 import com.tongji.boying.service.UserTicketService;
@@ -31,16 +30,22 @@ public class UserTicketServiceImpl implements UserTicketService {
     private BoyingSeatMapper boyingSeatMapper;
 
     @Override
-    public int add(int orderId, int seatId) {
+    public void add(int orderId, int seatId) {
         BoyingTicket ticket = new BoyingTicket();
         ticket.setOrderId(orderId);
         ticket.setSeatId(seatId);
         ticket.setQrCodeUrl("https://tongji4m3.oss-cn-beijing.aliyuncs.com/1608898790.jpg");
 
-        return ticketMapper.insertSelective(ticket);
+        int count = ticketMapper.insertSelective(ticket);
+        if (count == 0) Asserts.fail("添加票失败！");
     }
 
     @Override
+    public List<BoyingTicket> list(int orderId) {
+        return null;
+    }
+
+   /* @Override
     public List<BoyingTicket> list(int orderId) {
         BoyingTicketExample ticketExample = new BoyingTicketExample();
         ticketExample.createCriteria().andOrderIdEqualTo(orderId);
@@ -49,9 +54,14 @@ public class UserTicketServiceImpl implements UserTicketService {
             Asserts.fail("该订单没有包含票！");
         }
         return boyingTickets;
-    }
+    }*/
 
     @Override
+    public List<TicketReturn> getShowTickets(Integer orderId) {
+        return null;
+    }
+
+   /* @Override
     public List<TicketReturn> getShowTickets(Integer orderId) {
         BoyingTicketExample ticketExample = new BoyingTicketExample();
         ticketExample.createCriteria().andOrderIdEqualTo(orderId);
@@ -71,5 +81,5 @@ public class UserTicketServiceImpl implements UserTicketService {
             list.add(ticketReturn);
         }
         return list;
-    }
+    }*/
 }

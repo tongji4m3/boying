@@ -37,7 +37,7 @@ public class ShowController {
     @ApiOperation("获取演出详情")
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<BoyingShowReturn> detail(@PathVariable Integer id) {
+    public CommonResult<BoyingShow> detail(@PathVariable Integer id) {
         return CommonResult.success(showService.detail(id));
     }
 }

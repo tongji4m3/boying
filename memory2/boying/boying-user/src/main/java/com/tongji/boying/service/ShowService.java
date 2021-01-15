@@ -23,5 +23,5 @@ public interface ShowService {
     /**
      * 获取前台演出详情
      */
-    BoyingShowReturn detail(int id);
+    BoyingShow detail(int id);
 }

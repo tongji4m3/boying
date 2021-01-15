@@ -8,9 +8,7 @@ import com.tongji.boying.dto.showParam.ShowParam;
 import com.tongji.boying.mapper.BoyingSeatMapper;
 import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.model.BoyingSeat;
-import com.tongji.boying.model.BoyingSeatExample;
 import com.tongji.boying.model.BoyingShow;
-import com.tongji.boying.model.BoyingShowExample;
 import com.tongji.boying.service.ShowService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,11 @@ public class ShowServiceImpl implements ShowService {
     private BoyingSeatMapper seatMapper;
 
     @Override
+    public List<BoyingShowReturn> search(ShowParam param) {
+        return null;
+    }
+
+   /* @Override
     public List<BoyingShowReturn> search(ShowParam param) {
         BoyingShowExample example = new BoyingShowExample();
         BoyingShowExample.Criteria criteria = example.createCriteria();
@@ -81,26 +84,11 @@ public class ShowServiceImpl implements ShowService {
         }
         return boyingShowReturns;
     }
-
+*/
     @Override
-    public BoyingShowReturn detail(int id) {
+    public BoyingShow detail(int id) {
         BoyingShow boyingShow = showMapper.selectByPrimaryKey(id);
         if (boyingShow == null) Asserts.fail("演出信息不存在！");
-        BoyingShowReturn boyingShowReturn = new BoyingShowReturn();
-        BeanUtils.copyProperties(boyingShow, boyingShowReturn);
-        //设置最低级，最高价
-        BoyingSeatExample boyingSeatExample = new BoyingSeatExample();
-        boyingSeatExample.createCriteria().andShowIdEqualTo(id);
-        List<BoyingSeat> boyingSeats = seatMapper.selectByExample(boyingSeatExample);
-        if(boyingSeats==null || boyingSeats.size()==0) Asserts.fail("演出座次不存在！");
-        Double minPrice = Double.MAX_VALUE;
-        Double maxPrice = 0d;
-        for (BoyingSeat boyingSeat : boyingSeats) {
-            minPrice = Math.min(boyingSeat.getPrice(), minPrice);
-            maxPrice = Math.max(boyingSeat.getPrice(), maxPrice);
-        }
-        boyingShowReturn.setMinPrice(minPrice);
-        boyingShowReturn.setMaxPrice(maxPrice);
-        return boyingShowReturn;
+        return boyingShow;
     }
 }
