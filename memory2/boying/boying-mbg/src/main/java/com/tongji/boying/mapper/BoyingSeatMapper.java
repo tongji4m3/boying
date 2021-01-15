@@ -18,4 +18,6 @@ public interface BoyingSeatMapper {
     int updateByPrimaryKey(BoyingSeat record);
 
     List<BoyingSeat> selectList(Integer showId);
+
+    void updateSeatsStock(Integer showId);
 }

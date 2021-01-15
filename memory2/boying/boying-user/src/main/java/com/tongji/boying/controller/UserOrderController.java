@@ -3,10 +3,8 @@ package com.tongji.boying.controller;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.orderParam.GetOrdersParam;
-import com.tongji.boying.dto.orderParam.TicketReturn;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.model.BoyingOrder;
-import com.tongji.boying.model.BoyingSeat;
 import com.tongji.boying.model.BoyingTicket;
 import com.tongji.boying.service.UserOrderService;
 import com.tongji.boying.service.UserTicketService;
@@ -73,7 +71,7 @@ public class UserOrderController {
     @ApiOperation("获取某订单的所有票")
     @RequestMapping(value = "/tickets/{orderId}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<TicketReturn>> getShowTickets(@PathVariable Integer orderId) {
-        return CommonResult.success(ticketService.getShowTickets(orderId));
+    public CommonResult<List<BoyingTicket>> getShowTickets(@PathVariable Integer orderId) {
+        return CommonResult.success(ticketService.list(orderId));
     }
 }

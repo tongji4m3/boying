@@ -110,4 +110,9 @@
             STOCK    = #{stock,jdbcType=NUMERIC}
         where ID = #{id,jdbcType=NUMERIC}
     </update>
+    <update id="updateSeatsStock">
+        update BOYING_SEAT
+        set STOCK = STOCK + 1
+        where show_id = #{showId}
+    </update>
 </mapper>

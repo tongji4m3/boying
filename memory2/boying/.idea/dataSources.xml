@@ -20,5 +20,12 @@
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
       <jdbc-url>jdbc:oracle:thin:@//8.135.22.230:1521/ORCLPDB1.localdomain</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="super1" uuid="8adb41fa-761d-4872-9cdb-037ed4bf3aeb">
+      <driver-ref>oracle</driver-ref>
+      <synchronize>true</synchronize>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//59.110.162.32:1521/orcl</jdbc-url>
+    </data-source>
   </component>
 </project>

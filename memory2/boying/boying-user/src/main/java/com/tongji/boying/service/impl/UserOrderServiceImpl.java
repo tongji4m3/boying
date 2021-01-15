@@ -1,5 +1,7 @@
 package com.tongji.boying.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.orderParam.GetOrdersParam;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.mapper.BoyingOrderMapper;
@@ -7,13 +9,16 @@ import com.tongji.boying.mapper.BoyingSeatMapper;
 import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.mapper.BoyingTicketMapper;
 import com.tongji.boying.model.BoyingOrder;
+import com.tongji.boying.model.BoyingUser;
 import com.tongji.boying.service.UserOrderService;
 import com.tongji.boying.service.UserService;
 import com.tongji.boying.service.UserTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserOrderServiceImpl implements UserOrderService {
@@ -131,163 +136,114 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     @Override
     public void delete(int id) {
-
-    }
-
-   /* @Override
-    public void delete(int id) {
         BoyingUser user = userService.getCurrentUser();
-        BoyingOrderExample userOrderExample = new BoyingOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(0);
-        List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
-        if (userOrders == null || userOrders.isEmpty()) {
-            Asserts.fail("无此订单");
+
+        BoyingOrder order = orderMapper.selectByPrimaryKey(id);
+        if (order == null) {
+            Asserts.fail("该订单不存在！");
         }
-        BoyingOrder boyingOrder = userOrders.get(0);
-        if (boyingOrder.getStatus() == 1) {
-            Asserts.fail("待观看订单不能删除！");
-        }
-        if (boyingOrder.getAdminDelete()==1) {
+
+        if (order.getAdminDelete() == 1) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
         }
-        boyingOrder.setUserDelete(1);
-        orderMapper.updateByPrimaryKeySelective(boyingOrder);
-    }*/
+
+        if (order.getStatus() == 1) {
+            Asserts.fail("待观看订单不能删除！");
+        }
+        order.setUserDelete(1);
+        orderMapper.updateByPrimaryKeySelective(order);
+    }
+
 
     @Override
     public void cancel(int id) {
 
-    }
-
-   /* @Override
-    public void cancel(int id) {
         BoyingUser user = userService.getCurrentUser();
-        BoyingOrderExample userOrderExample = new BoyingOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(0);
-        List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
-        if (userOrders.isEmpty()) {
-            Asserts.fail("无此订单");
+
+        BoyingOrder order = orderMapper.selectByPrimaryKey(id);
+        if (order == null) {
+            Asserts.fail("该订单不存在！");
         }
-        if (userOrders.get(0).getStatus() != 1) {
+
+        if (order.getAdminDelete() == 1) {
+            Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
+        }
+
+        if (order.getStatus() != 1) {
             Asserts.fail("只能取消待观看订单!");
         }
 
         //更新订单的信息
-        BoyingOrder order = userOrders.get(0);
         order.setStatus(3);
         orderMapper.updateByPrimaryKeySelective(order);
 
-        //获取对应的票
-        BoyingTicketExample boyingTicketExample = new BoyingTicketExample();
-        boyingTicketExample.createCriteria().andOrderIdEqualTo(order.getId());
-        List<BoyingTicket> boyingTickets = ticketMapper.selectByExample(boyingTicketExample);
-        for (BoyingTicket boyingTicket : boyingTickets) {
-            //获取对应的演出座次,增加库存
-            BoyingSeat boyingSeat = boyingSeatMapper.selectByPrimaryKey(boyingTicket.getSeatId());
-            boyingSeat.setStock(boyingSeat.getStock() + 1);
-            boyingSeatMapper.updateByPrimaryKeySelective(boyingSeat);
-            //删除对应的票
-            ticketMapper.deleteByPrimaryKey(boyingTicket.getId());
-        }
-    }*/
+        //获取对应的演出座次,增加库存
+        boyingSeatMapper.updateSeatsStock(order.getShowId());
 
-  /*  @Override
-    public void finish(int id) {
+        //删除对应的票
+        ticketMapper.deleteTicketsList(order.getId());
+    }
 
-    }*/
 
     @Override
     public void finish(int id) {
-
-    }
-   /* @Override
-    public void finish(int id) {
         BoyingUser user = userService.getCurrentUser();
-        BoyingOrderExample userOrderExample = new BoyingOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(0);
-        List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
-        if (userOrders.isEmpty()) {
-            Asserts.fail("无此订单");
+
+        BoyingOrder order = orderMapper.selectByPrimaryKey(id);
+        if (order == null) {
+            Asserts.fail("该订单不存在！");
         }
-        if (userOrders.get(0).getStatus() != 1) {
+
+        if (order.getAdminDelete() == 1) {
+            Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
+        }
+
+        if (order.getStatus() != 1) {
             Asserts.fail("只能取消待观看订单!");
         }
-
         //更新订单的信息
         //变成已完成状态
-        BoyingOrder order = userOrders.get(0);
         order.setStatus(2);
         orderMapper.updateByPrimaryKeySelective(order);
     }
-*/
 
     @Override
     public List<BoyingOrder> list(GetOrdersParam param) {
-        return null;
-    }
-
-   /* @Override
-    public List<BoyingOrder> list(GetOrdersParam param) {
-        Integer status = param.getStatus();
         Integer pageNum = param.getPageNum();
         Integer pageSize = param.getPageSize();
-        String name = param.getName();
-
-
-        if (pageNum == null || pageNum == 0) pageNum = 0;
+        if (pageNum == null || pageNum == 0) pageNum = 1;
         if (pageSize == null || pageSize == 0) pageSize = 5;
 
         BoyingUser user = userService.getCurrentUser();
-        BoyingOrderExample userOrderExample = new BoyingOrderExample();
-        BoyingOrderExample.Criteria criteria = userOrderExample.createCriteria();
 
-        if (status != null && status != 0) {
-            criteria.andStatusEqualTo(status);
-        }
-        criteria.andUserIdEqualTo(user.getId()).andUserDeleteEqualTo(0);
-        //根据演出的名称模糊查询
-        if (!StrUtil.isEmpty(name)) {
-            BoyingShowExample boyingShowExample = new BoyingShowExample();
-            boyingShowExample.createCriteria().andNameLike("%" + name + "%");
-            List<BoyingShow> boyingShows = showMapper.selectByExample(boyingShowExample);
-
-            if (boyingShows == null || boyingShows.size() == 0) {
-                Asserts.fail("查询不到相关的订单！");
-            }
-            List<Integer> showIds = new LinkedList<>();
-            for (BoyingShow boyingShow : boyingShows) {
-                showIds.add(boyingShow.getId());
-            }
-            criteria.andShowIdIn(showIds);
-
-        }
+        String name = param.getName();
+        Integer status = param.getStatus();
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", param.getName());
+        map.put("status", param.getStatus());
+        map.put("userId", user.getId());
 
         PageHelper.startPage(pageNum, pageSize);//分页相关
-        List<BoyingOrder> boyingOrders = orderMapper.selectByExample(userOrderExample);
+        List<BoyingOrder> boyingOrders = orderMapper.selectByCondition(map);
         if (boyingOrders == null || boyingOrders.isEmpty()) {
             Asserts.fail("查询的订单不存在！");
         }
         return boyingOrders;
     }
-*/
+
 
     @Override
     public BoyingOrder getItem(int id) {
-        return null;
-    }
-
-   /* @Override
-    public BoyingOrder getItem(int id) {
         BoyingUser user = userService.getCurrentUser();
-        BoyingOrderExample userOrderExample = new BoyingOrderExample();
-        userOrderExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id).andUserDeleteEqualTo(0);
-        List<BoyingOrder> userOrders = orderMapper.selectByExample(userOrderExample);
-        if (CollectionUtils.isEmpty(userOrders)) {
+
+        BoyingOrder order = orderMapper.selectByPrimaryKey(id);
+        if (order == null) {
             Asserts.fail("该订单不存在！");
         }
-        if (userOrders.get(0).getAdminDelete()==1) {
+
+        if (order.getAdminDelete() == 1) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
         }
-        return userOrders.get(0);
-    }*/
+        return order;
+    }
 }
