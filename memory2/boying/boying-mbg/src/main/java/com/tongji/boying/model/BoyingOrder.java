@@ -1,6 +1,5 @@
 package com.tongji.boying.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class BoyingOrder {
@@ -20,7 +19,7 @@ public class BoyingOrder {
 
     private Integer ticketCount;
 
-    private BigDecimal money;
+    private Double money;
 
     private String payment;
 
@@ -88,11 +87,11 @@ public class BoyingOrder {
         this.ticketCount = ticketCount;
     }
 
-    public BigDecimal getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(BigDecimal money) {
+    public void setMoney(Double money) {
         this.money = money;
     }
 

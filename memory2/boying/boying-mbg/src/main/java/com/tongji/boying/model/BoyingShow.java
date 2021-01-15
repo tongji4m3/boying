@@ -1,6 +1,5 @@
 package com.tongji.boying.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class BoyingShow {
@@ -24,9 +23,9 @@ public class BoyingShow {
 
     private Integer weight;
 
-    private BigDecimal minPrice;
+    private Double minPrice;
 
-    private BigDecimal maxPrice;
+    private Double maxPrice;
 
     public Integer getId() {
         return id;
@@ -108,19 +107,19 @@ public class BoyingShow {
         this.weight = weight;
     }
 
-    public BigDecimal getMinPrice() {
+    public Double getMinPrice() {
         return minPrice;
     }
 
-    public void setMinPrice(BigDecimal minPrice) {
+    public void setMinPrice(Double minPrice) {
         this.minPrice = minPrice;
     }
 
-    public BigDecimal getMaxPrice() {
+    public Double getMaxPrice() {
         return maxPrice;
     }
 
-    public void setMaxPrice(BigDecimal maxPrice) {
+    public void setMaxPrice(Double maxPrice) {
         this.maxPrice = maxPrice;
     }
 }

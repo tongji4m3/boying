@@ -274,6 +274,582 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_TICKET
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BOYING_TICKET
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingTicketExample">
+    delete from BOYING_TICKET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingTicket">
+    insert into BOYING_TICKET (ID, ORDER_ID, SEAT_ID, 
+      QR_CODE_URL)
+    values (#{id,jdbcType=NUMERIC}, #{orderId,jdbcType=NUMERIC}, #{seatId,jdbcType=NUMERIC}, 
+      #{qrCodeUrl,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingTicket">
+    insert into BOYING_TICKET
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="seatId != null">
+        SEAT_ID,
+      </if>
+      <if test="qrCodeUrl != null">
+        QR_CODE_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=NUMERIC},
+      </if>
+      <if test="seatId != null">
+        #{seatId,jdbcType=NUMERIC},
+      </if>
+      <if test="qrCodeUrl != null">
+        #{qrCodeUrl,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingTicketExample" resultType="java.lang.Long">
+    select count(*) from BOYING_TICKET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_TICKET
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.orderId != null">
+        ORDER_ID = #{record.orderId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.seatId != null">
+        SEAT_ID = #{record.seatId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.qrCodeUrl != null">
+        QR_CODE_URL = #{record.qrCodeUrl,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_TICKET
+    set ID = #{record.id,jdbcType=NUMERIC},
+      ORDER_ID = #{record.orderId,jdbcType=NUMERIC},
+      SEAT_ID = #{record.seatId,jdbcType=NUMERIC},
+      QR_CODE_URL = #{record.qrCodeUrl,jdbcType=NVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingTicket">
+    update BOYING_TICKET
+    <set>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=NUMERIC},
+      </if>
+      <if test="seatId != null">
+        SEAT_ID = #{seatId,jdbcType=NUMERIC},
+      </if>
+      <if test="qrCodeUrl != null">
+        QR_CODE_URL = #{qrCodeUrl,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingTicket">
+    update BOYING_TICKET
+    set ORDER_ID = #{orderId,jdbcType=NUMERIC},
+      SEAT_ID = #{seatId,jdbcType=NUMERIC},
+      QR_CODE_URL = #{qrCodeUrl,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingTicket">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="ORDER_ID" jdbcType="NUMERIC" property="orderId" />
+    <result column="SEAT_ID" jdbcType="NUMERIC" property="seatId" />
+    <result column="QR_CODE_URL" jdbcType="NVARCHAR" property="qrCodeUrl" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, ORDER_ID, SEAT_ID, QR_CODE_URL
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingTicketExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_TICKET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_TICKET
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BOYING_TICKET
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingTicketExample">
+    delete from BOYING_TICKET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingTicket">
+    insert into BOYING_TICKET (ID, ORDER_ID, SEAT_ID, 
+      QR_CODE_URL)
+    values (#{id,jdbcType=NUMERIC}, #{orderId,jdbcType=NUMERIC}, #{seatId,jdbcType=NUMERIC}, 
+      #{qrCodeUrl,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingTicket">
+    insert into BOYING_TICKET
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="seatId != null">
+        SEAT_ID,
+      </if>
+      <if test="qrCodeUrl != null">
+        QR_CODE_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=NUMERIC},
+      </if>
+      <if test="seatId != null">
+        #{seatId,jdbcType=NUMERIC},
+      </if>
+      <if test="qrCodeUrl != null">
+        #{qrCodeUrl,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingTicketExample" resultType="java.lang.Long">
+    select count(*) from BOYING_TICKET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_TICKET
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.orderId != null">
+        ORDER_ID = #{record.orderId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.seatId != null">
+        SEAT_ID = #{record.seatId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.qrCodeUrl != null">
+        QR_CODE_URL = #{record.qrCodeUrl,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_TICKET
+    set ID = #{record.id,jdbcType=NUMERIC},
+      ORDER_ID = #{record.orderId,jdbcType=NUMERIC},
+      SEAT_ID = #{record.seatId,jdbcType=NUMERIC},
+      QR_CODE_URL = #{record.qrCodeUrl,jdbcType=NVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingTicket">
+    update BOYING_TICKET
+    <set>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=NUMERIC},
+      </if>
+      <if test="seatId != null">
+        SEAT_ID = #{seatId,jdbcType=NUMERIC},
+      </if>
+      <if test="qrCodeUrl != null">
+        QR_CODE_URL = #{qrCodeUrl,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingTicket">
+    update BOYING_TICKET
+    set ORDER_ID = #{orderId,jdbcType=NUMERIC},
+      SEAT_ID = #{seatId,jdbcType=NUMERIC},
+      QR_CODE_URL = #{qrCodeUrl,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingTicket">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="ORDER_ID" jdbcType="NUMERIC" property="orderId" />
+    <result column="SEAT_ID" jdbcType="NUMERIC" property="seatId" />
+    <result column="QR_CODE_URL" jdbcType="NVARCHAR" property="qrCodeUrl" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, ORDER_ID, SEAT_ID, QR_CODE_URL
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingTicketExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_TICKET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_TICKET
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BOYING_TICKET
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingTicketExample">
+    delete from BOYING_TICKET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingTicket">
+    insert into BOYING_TICKET (ID, ORDER_ID, SEAT_ID, 
+      QR_CODE_URL)
+    values (#{id,jdbcType=NUMERIC}, #{orderId,jdbcType=NUMERIC}, #{seatId,jdbcType=NUMERIC}, 
+      #{qrCodeUrl,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingTicket">
+    insert into BOYING_TICKET
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="seatId != null">
+        SEAT_ID,
+      </if>
+      <if test="qrCodeUrl != null">
+        QR_CODE_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=NUMERIC},
+      </if>
+      <if test="seatId != null">
+        #{seatId,jdbcType=NUMERIC},
+      </if>
+      <if test="qrCodeUrl != null">
+        #{qrCodeUrl,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingTicketExample" resultType="java.lang.Long">
+    select count(*) from BOYING_TICKET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_TICKET
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.orderId != null">
+        ORDER_ID = #{record.orderId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.seatId != null">
+        SEAT_ID = #{record.seatId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.qrCodeUrl != null">
+        QR_CODE_URL = #{record.qrCodeUrl,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_TICKET
+    set ID = #{record.id,jdbcType=NUMERIC},
+      ORDER_ID = #{record.orderId,jdbcType=NUMERIC},
+      SEAT_ID = #{record.seatId,jdbcType=NUMERIC},
+      QR_CODE_URL = #{record.qrCodeUrl,jdbcType=NVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingTicket">
+    update BOYING_TICKET
+    <set>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=NUMERIC},
+      </if>
+      <if test="seatId != null">
+        SEAT_ID = #{seatId,jdbcType=NUMERIC},
+      </if>
+      <if test="qrCodeUrl != null">
+        QR_CODE_URL = #{qrCodeUrl,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingTicket">
+    update BOYING_TICKET
+    set ORDER_ID = #{orderId,jdbcType=NUMERIC},
+      SEAT_ID = #{seatId,jdbcType=NUMERIC},
+      QR_CODE_URL = #{qrCodeUrl,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingTicket">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="ORDER_ID" jdbcType="NUMERIC" property="orderId" />
+    <result column="SEAT_ID" jdbcType="NUMERIC" property="seatId" />
+    <result column="QR_CODE_URL" jdbcType="NVARCHAR" property="qrCodeUrl" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, ORDER_ID, SEAT_ID, QR_CODE_URL
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingTicketExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_TICKET
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -10,6 +10,867 @@
     <result column="USER_DELETE" jdbcType="NUMERIC" property="userDelete" />
     <result column="ADMIN_DELETE" jdbcType="NUMERIC" property="adminDelete" />
     <result column="TICKET_COUNT" jdbcType="NUMERIC" property="ticketCount" />
+    <result column="MONEY" jdbcType="FLOAT" property="money" />
+    <result column="PAYMENT" jdbcType="VARCHAR" property="payment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, USER_ID, SHOW_ID, STATUS, TIME, USER_DELETE, ADMIN_DELETE, TICKET_COUNT, MONEY, 
+    PAYMENT
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_ORDER
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BOYING_ORDER
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingOrderExample">
+    delete from BOYING_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingOrder">
+    insert into BOYING_ORDER (ID, USER_ID, SHOW_ID, 
+      STATUS, TIME, USER_DELETE, 
+      ADMIN_DELETE, TICKET_COUNT, MONEY, 
+      PAYMENT)
+    values (#{id,jdbcType=NUMERIC}, #{userId,jdbcType=NUMERIC}, #{showId,jdbcType=NUMERIC}, 
+      #{status,jdbcType=NUMERIC}, #{time,jdbcType=TIMESTAMP}, #{userDelete,jdbcType=NUMERIC}, 
+      #{adminDelete,jdbcType=NUMERIC}, #{ticketCount,jdbcType=NUMERIC}, #{money,jdbcType=FLOAT}, 
+      #{payment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingOrder">
+    insert into BOYING_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="showId != null">
+        SHOW_ID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="time != null">
+        TIME,
+      </if>
+      <if test="userDelete != null">
+        USER_DELETE,
+      </if>
+      <if test="adminDelete != null">
+        ADMIN_DELETE,
+      </if>
+      <if test="ticketCount != null">
+        TICKET_COUNT,
+      </if>
+      <if test="money != null">
+        MONEY,
+      </if>
+      <if test="payment != null">
+        PAYMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=NUMERIC},
+      </if>
+      <if test="showId != null">
+        #{showId,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=NUMERIC},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDelete != null">
+        #{userDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="adminDelete != null">
+        #{adminDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="ticketCount != null">
+        #{ticketCount,jdbcType=NUMERIC},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=FLOAT},
+      </if>
+      <if test="payment != null">
+        #{payment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingOrderExample" resultType="java.lang.Long">
+    select count(*) from BOYING_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_ORDER
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.showId != null">
+        SHOW_ID = #{record.showId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=NUMERIC},
+      </if>
+      <if test="record.time != null">
+        TIME = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userDelete != null">
+        USER_DELETE = #{record.userDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="record.adminDelete != null">
+        ADMIN_DELETE = #{record.adminDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="record.ticketCount != null">
+        TICKET_COUNT = #{record.ticketCount,jdbcType=NUMERIC},
+      </if>
+      <if test="record.money != null">
+        MONEY = #{record.money,jdbcType=FLOAT},
+      </if>
+      <if test="record.payment != null">
+        PAYMENT = #{record.payment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_ORDER
+    set ID = #{record.id,jdbcType=NUMERIC},
+      USER_ID = #{record.userId,jdbcType=NUMERIC},
+      SHOW_ID = #{record.showId,jdbcType=NUMERIC},
+      STATUS = #{record.status,jdbcType=NUMERIC},
+      TIME = #{record.time,jdbcType=TIMESTAMP},
+      USER_DELETE = #{record.userDelete,jdbcType=NUMERIC},
+      ADMIN_DELETE = #{record.adminDelete,jdbcType=NUMERIC},
+      TICKET_COUNT = #{record.ticketCount,jdbcType=NUMERIC},
+      MONEY = #{record.money,jdbcType=FLOAT},
+      PAYMENT = #{record.payment,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingOrder">
+    update BOYING_ORDER
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=NUMERIC},
+      </if>
+      <if test="showId != null">
+        SHOW_ID = #{showId,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=NUMERIC},
+      </if>
+      <if test="time != null">
+        TIME = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDelete != null">
+        USER_DELETE = #{userDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="adminDelete != null">
+        ADMIN_DELETE = #{adminDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="ticketCount != null">
+        TICKET_COUNT = #{ticketCount,jdbcType=NUMERIC},
+      </if>
+      <if test="money != null">
+        MONEY = #{money,jdbcType=FLOAT},
+      </if>
+      <if test="payment != null">
+        PAYMENT = #{payment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingOrder">
+    update BOYING_ORDER
+    set USER_ID = #{userId,jdbcType=NUMERIC},
+      SHOW_ID = #{showId,jdbcType=NUMERIC},
+      STATUS = #{status,jdbcType=NUMERIC},
+      TIME = #{time,jdbcType=TIMESTAMP},
+      USER_DELETE = #{userDelete,jdbcType=NUMERIC},
+      ADMIN_DELETE = #{adminDelete,jdbcType=NUMERIC},
+      TICKET_COUNT = #{ticketCount,jdbcType=NUMERIC},
+      MONEY = #{money,jdbcType=FLOAT},
+      PAYMENT = #{payment,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingOrder">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="USER_ID" jdbcType="NUMERIC" property="userId" />
+    <result column="SHOW_ID" jdbcType="NUMERIC" property="showId" />
+    <result column="STATUS" jdbcType="NUMERIC" property="status" />
+    <result column="TIME" jdbcType="TIMESTAMP" property="time" />
+    <result column="USER_DELETE" jdbcType="NUMERIC" property="userDelete" />
+    <result column="ADMIN_DELETE" jdbcType="NUMERIC" property="adminDelete" />
+    <result column="TICKET_COUNT" jdbcType="NUMERIC" property="ticketCount" />
+    <result column="MONEY" jdbcType="NUMERIC" property="money" />
+    <result column="PAYMENT" jdbcType="VARCHAR" property="payment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, USER_ID, SHOW_ID, STATUS, TIME, USER_DELETE, ADMIN_DELETE, TICKET_COUNT, MONEY, 
+    PAYMENT
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_ORDER
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BOYING_ORDER
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingOrderExample">
+    delete from BOYING_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingOrder">
+    insert into BOYING_ORDER (ID, USER_ID, SHOW_ID, 
+      STATUS, TIME, USER_DELETE, 
+      ADMIN_DELETE, TICKET_COUNT, MONEY, 
+      PAYMENT)
+    values (#{id,jdbcType=NUMERIC}, #{userId,jdbcType=NUMERIC}, #{showId,jdbcType=NUMERIC}, 
+      #{status,jdbcType=NUMERIC}, #{time,jdbcType=TIMESTAMP}, #{userDelete,jdbcType=NUMERIC}, 
+      #{adminDelete,jdbcType=NUMERIC}, #{ticketCount,jdbcType=NUMERIC}, #{money,jdbcType=NUMERIC}, 
+      #{payment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingOrder">
+    insert into BOYING_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="showId != null">
+        SHOW_ID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="time != null">
+        TIME,
+      </if>
+      <if test="userDelete != null">
+        USER_DELETE,
+      </if>
+      <if test="adminDelete != null">
+        ADMIN_DELETE,
+      </if>
+      <if test="ticketCount != null">
+        TICKET_COUNT,
+      </if>
+      <if test="money != null">
+        MONEY,
+      </if>
+      <if test="payment != null">
+        PAYMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=NUMERIC},
+      </if>
+      <if test="showId != null">
+        #{showId,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=NUMERIC},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDelete != null">
+        #{userDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="adminDelete != null">
+        #{adminDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="ticketCount != null">
+        #{ticketCount,jdbcType=NUMERIC},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=NUMERIC},
+      </if>
+      <if test="payment != null">
+        #{payment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingOrderExample" resultType="java.lang.Long">
+    select count(*) from BOYING_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_ORDER
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.showId != null">
+        SHOW_ID = #{record.showId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=NUMERIC},
+      </if>
+      <if test="record.time != null">
+        TIME = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userDelete != null">
+        USER_DELETE = #{record.userDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="record.adminDelete != null">
+        ADMIN_DELETE = #{record.adminDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="record.ticketCount != null">
+        TICKET_COUNT = #{record.ticketCount,jdbcType=NUMERIC},
+      </if>
+      <if test="record.money != null">
+        MONEY = #{record.money,jdbcType=NUMERIC},
+      </if>
+      <if test="record.payment != null">
+        PAYMENT = #{record.payment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_ORDER
+    set ID = #{record.id,jdbcType=NUMERIC},
+      USER_ID = #{record.userId,jdbcType=NUMERIC},
+      SHOW_ID = #{record.showId,jdbcType=NUMERIC},
+      STATUS = #{record.status,jdbcType=NUMERIC},
+      TIME = #{record.time,jdbcType=TIMESTAMP},
+      USER_DELETE = #{record.userDelete,jdbcType=NUMERIC},
+      ADMIN_DELETE = #{record.adminDelete,jdbcType=NUMERIC},
+      TICKET_COUNT = #{record.ticketCount,jdbcType=NUMERIC},
+      MONEY = #{record.money,jdbcType=NUMERIC},
+      PAYMENT = #{record.payment,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingOrder">
+    update BOYING_ORDER
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=NUMERIC},
+      </if>
+      <if test="showId != null">
+        SHOW_ID = #{showId,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=NUMERIC},
+      </if>
+      <if test="time != null">
+        TIME = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDelete != null">
+        USER_DELETE = #{userDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="adminDelete != null">
+        ADMIN_DELETE = #{adminDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="ticketCount != null">
+        TICKET_COUNT = #{ticketCount,jdbcType=NUMERIC},
+      </if>
+      <if test="money != null">
+        MONEY = #{money,jdbcType=NUMERIC},
+      </if>
+      <if test="payment != null">
+        PAYMENT = #{payment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingOrder">
+    update BOYING_ORDER
+    set USER_ID = #{userId,jdbcType=NUMERIC},
+      SHOW_ID = #{showId,jdbcType=NUMERIC},
+      STATUS = #{status,jdbcType=NUMERIC},
+      TIME = #{time,jdbcType=TIMESTAMP},
+      USER_DELETE = #{userDelete,jdbcType=NUMERIC},
+      ADMIN_DELETE = #{adminDelete,jdbcType=NUMERIC},
+      TICKET_COUNT = #{ticketCount,jdbcType=NUMERIC},
+      MONEY = #{money,jdbcType=NUMERIC},
+      PAYMENT = #{payment,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingOrder">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="USER_ID" jdbcType="NUMERIC" property="userId" />
+    <result column="SHOW_ID" jdbcType="NUMERIC" property="showId" />
+    <result column="STATUS" jdbcType="NUMERIC" property="status" />
+    <result column="TIME" jdbcType="TIMESTAMP" property="time" />
+    <result column="USER_DELETE" jdbcType="NUMERIC" property="userDelete" />
+    <result column="ADMIN_DELETE" jdbcType="NUMERIC" property="adminDelete" />
+    <result column="TICKET_COUNT" jdbcType="NUMERIC" property="ticketCount" />
+    <result column="MONEY" jdbcType="NUMERIC" property="money" />
+    <result column="PAYMENT" jdbcType="VARCHAR" property="payment" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, USER_ID, SHOW_ID, STATUS, TIME, USER_DELETE, ADMIN_DELETE, TICKET_COUNT, MONEY, 
+    PAYMENT
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_ORDER
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BOYING_ORDER
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingOrderExample">
+    delete from BOYING_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingOrder">
+    insert into BOYING_ORDER (ID, USER_ID, SHOW_ID, 
+      STATUS, TIME, USER_DELETE, 
+      ADMIN_DELETE, TICKET_COUNT, MONEY, 
+      PAYMENT)
+    values (#{id,jdbcType=NUMERIC}, #{userId,jdbcType=NUMERIC}, #{showId,jdbcType=NUMERIC}, 
+      #{status,jdbcType=NUMERIC}, #{time,jdbcType=TIMESTAMP}, #{userDelete,jdbcType=NUMERIC}, 
+      #{adminDelete,jdbcType=NUMERIC}, #{ticketCount,jdbcType=NUMERIC}, #{money,jdbcType=NUMERIC}, 
+      #{payment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingOrder">
+    insert into BOYING_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="showId != null">
+        SHOW_ID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="time != null">
+        TIME,
+      </if>
+      <if test="userDelete != null">
+        USER_DELETE,
+      </if>
+      <if test="adminDelete != null">
+        ADMIN_DELETE,
+      </if>
+      <if test="ticketCount != null">
+        TICKET_COUNT,
+      </if>
+      <if test="money != null">
+        MONEY,
+      </if>
+      <if test="payment != null">
+        PAYMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=NUMERIC},
+      </if>
+      <if test="showId != null">
+        #{showId,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=NUMERIC},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDelete != null">
+        #{userDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="adminDelete != null">
+        #{adminDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="ticketCount != null">
+        #{ticketCount,jdbcType=NUMERIC},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=NUMERIC},
+      </if>
+      <if test="payment != null">
+        #{payment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingOrderExample" resultType="java.lang.Long">
+    select count(*) from BOYING_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_ORDER
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.showId != null">
+        SHOW_ID = #{record.showId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=NUMERIC},
+      </if>
+      <if test="record.time != null">
+        TIME = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userDelete != null">
+        USER_DELETE = #{record.userDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="record.adminDelete != null">
+        ADMIN_DELETE = #{record.adminDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="record.ticketCount != null">
+        TICKET_COUNT = #{record.ticketCount,jdbcType=NUMERIC},
+      </if>
+      <if test="record.money != null">
+        MONEY = #{record.money,jdbcType=NUMERIC},
+      </if>
+      <if test="record.payment != null">
+        PAYMENT = #{record.payment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_ORDER
+    set ID = #{record.id,jdbcType=NUMERIC},
+      USER_ID = #{record.userId,jdbcType=NUMERIC},
+      SHOW_ID = #{record.showId,jdbcType=NUMERIC},
+      STATUS = #{record.status,jdbcType=NUMERIC},
+      TIME = #{record.time,jdbcType=TIMESTAMP},
+      USER_DELETE = #{record.userDelete,jdbcType=NUMERIC},
+      ADMIN_DELETE = #{record.adminDelete,jdbcType=NUMERIC},
+      TICKET_COUNT = #{record.ticketCount,jdbcType=NUMERIC},
+      MONEY = #{record.money,jdbcType=NUMERIC},
+      PAYMENT = #{record.payment,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingOrder">
+    update BOYING_ORDER
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=NUMERIC},
+      </if>
+      <if test="showId != null">
+        SHOW_ID = #{showId,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=NUMERIC},
+      </if>
+      <if test="time != null">
+        TIME = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDelete != null">
+        USER_DELETE = #{userDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="adminDelete != null">
+        ADMIN_DELETE = #{adminDelete,jdbcType=NUMERIC},
+      </if>
+      <if test="ticketCount != null">
+        TICKET_COUNT = #{ticketCount,jdbcType=NUMERIC},
+      </if>
+      <if test="money != null">
+        MONEY = #{money,jdbcType=NUMERIC},
+      </if>
+      <if test="payment != null">
+        PAYMENT = #{payment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingOrder">
+    update BOYING_ORDER
+    set USER_ID = #{userId,jdbcType=NUMERIC},
+      SHOW_ID = #{showId,jdbcType=NUMERIC},
+      STATUS = #{status,jdbcType=NUMERIC},
+      TIME = #{time,jdbcType=TIMESTAMP},
+      USER_DELETE = #{userDelete,jdbcType=NUMERIC},
+      ADMIN_DELETE = #{adminDelete,jdbcType=NUMERIC},
+      TICKET_COUNT = #{ticketCount,jdbcType=NUMERIC},
+      MONEY = #{money,jdbcType=NUMERIC},
+      PAYMENT = #{payment,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingOrder">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="USER_ID" jdbcType="NUMERIC" property="userId" />
+    <result column="SHOW_ID" jdbcType="NUMERIC" property="showId" />
+    <result column="STATUS" jdbcType="NUMERIC" property="status" />
+    <result column="TIME" jdbcType="TIMESTAMP" property="time" />
+    <result column="USER_DELETE" jdbcType="NUMERIC" property="userDelete" />
+    <result column="ADMIN_DELETE" jdbcType="NUMERIC" property="adminDelete" />
+    <result column="TICKET_COUNT" jdbcType="NUMERIC" property="ticketCount" />
     <result column="MONEY" jdbcType="NUMERIC" property="money" />
     <result column="PAYMENT" jdbcType="VARCHAR" property="payment" />
   </resultMap>

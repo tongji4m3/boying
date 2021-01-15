@@ -1,7 +1,5 @@
 package com.tongji.boying.model;
 
-import java.math.BigDecimal;
-
 public class BoyingSeat {
     private Integer id;
 
@@ -9,7 +7,7 @@ public class BoyingSeat {
 
     private String name;
 
-    private BigDecimal price;
+    private Double price;
 
     private Integer capacity;
 
@@ -39,11 +37,11 @@ public class BoyingSeat {
         this.name = name == null ? null : name.trim();
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

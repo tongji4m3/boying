@@ -1,6 +1,5 @@
 package com.tongji.boying.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -766,52 +765,52 @@ public class BoyingShowExample {
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceEqualTo(BigDecimal value) {
+        public Criteria andMinPriceEqualTo(Double value) {
             addCriterion("MIN_PRICE =", value, "minPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceNotEqualTo(BigDecimal value) {
+        public Criteria andMinPriceNotEqualTo(Double value) {
             addCriterion("MIN_PRICE <>", value, "minPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceGreaterThan(BigDecimal value) {
+        public Criteria andMinPriceGreaterThan(Double value) {
             addCriterion("MIN_PRICE >", value, "minPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andMinPriceGreaterThanOrEqualTo(Double value) {
             addCriterion("MIN_PRICE >=", value, "minPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceLessThan(BigDecimal value) {
+        public Criteria andMinPriceLessThan(Double value) {
             addCriterion("MIN_PRICE <", value, "minPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andMinPriceLessThanOrEqualTo(Double value) {
             addCriterion("MIN_PRICE <=", value, "minPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceIn(List<BigDecimal> values) {
+        public Criteria andMinPriceIn(List<Double> values) {
             addCriterion("MIN_PRICE in", values, "minPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceNotIn(List<BigDecimal> values) {
+        public Criteria andMinPriceNotIn(List<Double> values) {
             addCriterion("MIN_PRICE not in", values, "minPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andMinPriceBetween(Double value1, Double value2) {
             addCriterion("MIN_PRICE between", value1, value2, "minPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andMinPriceNotBetween(Double value1, Double value2) {
             addCriterion("MIN_PRICE not between", value1, value2, "minPrice");
             return (Criteria) this;
         }
@@ -826,52 +825,52 @@ public class BoyingShowExample {
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceEqualTo(BigDecimal value) {
+        public Criteria andMaxPriceEqualTo(Double value) {
             addCriterion("MAX_PRICE =", value, "maxPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceNotEqualTo(BigDecimal value) {
+        public Criteria andMaxPriceNotEqualTo(Double value) {
             addCriterion("MAX_PRICE <>", value, "maxPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceGreaterThan(BigDecimal value) {
+        public Criteria andMaxPriceGreaterThan(Double value) {
             addCriterion("MAX_PRICE >", value, "maxPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andMaxPriceGreaterThanOrEqualTo(Double value) {
             addCriterion("MAX_PRICE >=", value, "maxPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceLessThan(BigDecimal value) {
+        public Criteria andMaxPriceLessThan(Double value) {
             addCriterion("MAX_PRICE <", value, "maxPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andMaxPriceLessThanOrEqualTo(Double value) {
             addCriterion("MAX_PRICE <=", value, "maxPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceIn(List<BigDecimal> values) {
+        public Criteria andMaxPriceIn(List<Double> values) {
             addCriterion("MAX_PRICE in", values, "maxPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceNotIn(List<BigDecimal> values) {
+        public Criteria andMaxPriceNotIn(List<Double> values) {
             addCriterion("MAX_PRICE not in", values, "maxPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andMaxPriceBetween(Double value1, Double value2) {
             addCriterion("MAX_PRICE between", value1, value2, "maxPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andMaxPriceNotBetween(Double value1, Double value2) {
             addCriterion("MAX_PRICE not between", value1, value2, "maxPrice");
             return (Criteria) this;
         }
