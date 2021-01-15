@@ -3,7 +3,7 @@
   <component name="PersistentConfig">
     <option name="historyConfigList">
       <map>
-        <entry key="boying_admin">
+        <entry key="BOYING_ADMIN">
           <value>
             <Config>
               <option name="comment" value="true" />
@@ -11,6 +11,30 @@
               <option name="daoName" value="BoyingAdminDao" />
               <option name="daoPackage" value="generate" />
               <option name="daoPostfix" value="Dao" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="BoyingAdmin" />
+              <option name="modelPackage" value="generate" />
+              <option name="name" value="BOYING_ADMIN" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="ID" />
+              <option name="projectFolder" value="$PROJECT_DIR$" />
+              <option name="tableName" value="BOYING_ADMIN" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="boying_admin">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="BoyingAdminMapper" />
+              <option name="daoPackage" value="generate" />
+              <option name="daoPostfix" value="Mapper" />
               <option name="modelMvnPath" value="src/main/java" />
               <option name="modelName" value="BoyingAdmin" />
               <option name="modelPackage" value="generate" />

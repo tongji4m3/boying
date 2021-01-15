@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tongji.boying.mapper.BoyingOrderMapper">
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingOrder">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="USER_ID" jdbcType="NUMERIC" property="userId" />
+    <result column="SHOW_ID" jdbcType="NUMERIC" property="showId" />
+    <result column="STATUS" jdbcType="NUMERIC" property="status" />
+    <result column="TIME" jdbcType="TIMESTAMP" property="time" />
+    <result column="USER_DELETE" jdbcType="CHAR" property="userDelete" />
+    <result column="ADMIN_DELETE" jdbcType="CHAR" property="adminDelete" />
+    <result column="TICKET_COUNT" jdbcType="NUMERIC" property="ticketCount" />
+    <result column="MONEY" jdbcType="NUMERIC" property="money" />
+    <result column="PAYMENT" jdbcType="VARCHAR" property="payment" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USER_ID, SHOW_ID, STATUS, TIME, USER_DELETE, ADMIN_DELETE, TICKET_COUNT, MONEY, 
+    PAYMENT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_ORDER
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from BOYING_ORDER
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingOrder">
+    insert into BOYING_ORDER (ID, USER_ID, SHOW_ID, 
+      STATUS, TIME, USER_DELETE, 
+      ADMIN_DELETE, TICKET_COUNT, MONEY, 
+      PAYMENT)
+    values (#{id,jdbcType=NUMERIC}, #{userId,jdbcType=NUMERIC}, #{showId,jdbcType=NUMERIC}, 
+      #{status,jdbcType=NUMERIC}, #{time,jdbcType=TIMESTAMP}, #{userDelete,jdbcType=CHAR}, 
+      #{adminDelete,jdbcType=CHAR}, #{ticketCount,jdbcType=NUMERIC}, #{money,jdbcType=NUMERIC}, 
+      #{payment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingOrder">
+    insert into BOYING_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="showId != null">
+        SHOW_ID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="time != null">
+        TIME,
+      </if>
+      <if test="userDelete != null">
+        USER_DELETE,
+      </if>
+      <if test="adminDelete != null">
+        ADMIN_DELETE,
+      </if>
+      <if test="ticketCount != null">
+        TICKET_COUNT,
+      </if>
+      <if test="money != null">
+        MONEY,
+      </if>
+      <if test="payment != null">
+        PAYMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=NUMERIC},
+      </if>
+      <if test="showId != null">
+        #{showId,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=NUMERIC},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDelete != null">
+        #{userDelete,jdbcType=CHAR},
+      </if>
+      <if test="adminDelete != null">
+        #{adminDelete,jdbcType=CHAR},
+      </if>
+      <if test="ticketCount != null">
+        #{ticketCount,jdbcType=NUMERIC},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=NUMERIC},
+      </if>
+      <if test="payment != null">
+        #{payment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingOrder">
+    update BOYING_ORDER
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=NUMERIC},
+      </if>
+      <if test="showId != null">
+        SHOW_ID = #{showId,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=NUMERIC},
+      </if>
+      <if test="time != null">
+        TIME = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userDelete != null">
+        USER_DELETE = #{userDelete,jdbcType=CHAR},
+      </if>
+      <if test="adminDelete != null">
+        ADMIN_DELETE = #{adminDelete,jdbcType=CHAR},
+      </if>
+      <if test="ticketCount != null">
+        TICKET_COUNT = #{ticketCount,jdbcType=NUMERIC},
+      </if>
+      <if test="money != null">
+        MONEY = #{money,jdbcType=NUMERIC},
+      </if>
+      <if test="payment != null">
+        PAYMENT = #{payment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingOrder">
+    update BOYING_ORDER
+    set USER_ID = #{userId,jdbcType=NUMERIC},
+      SHOW_ID = #{showId,jdbcType=NUMERIC},
+      STATUS = #{status,jdbcType=NUMERIC},
+      TIME = #{time,jdbcType=TIMESTAMP},
+      USER_DELETE = #{userDelete,jdbcType=CHAR},
+      ADMIN_DELETE = #{adminDelete,jdbcType=CHAR},
+      TICKET_COUNT = #{ticketCount,jdbcType=NUMERIC},
+      MONEY = #{money,jdbcType=NUMERIC},
+      PAYMENT = #{payment,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+</mapper>

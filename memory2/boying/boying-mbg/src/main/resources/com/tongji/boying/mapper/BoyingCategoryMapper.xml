@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tongji.boying.mapper.BoyingCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingCategory">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="NAME" jdbcType="NVARCHAR" property="name" />
+    <result column="ICON" jdbcType="NVARCHAR" property="icon" />
+    <result column="DESCRIPTION" jdbcType="NVARCHAR" property="description" />
+    <result column="WEIGHT" jdbcType="NUMERIC" property="weight" />
+    <result column="ADMIN_DELETE" jdbcType="CHAR" property="adminDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, ICON, DESCRIPTION, WEIGHT, ADMIN_DELETE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_CATEGORY
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from BOYING_CATEGORY
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingCategory">
+    insert into BOYING_CATEGORY (ID, NAME, ICON, 
+      DESCRIPTION, WEIGHT, ADMIN_DELETE
+      )
+    values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=NVARCHAR}, #{icon,jdbcType=NVARCHAR}, 
+      #{description,jdbcType=NVARCHAR}, #{weight,jdbcType=NUMERIC}, #{adminDelete,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingCategory">
+    insert into BOYING_CATEGORY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="weight != null">
+        WEIGHT,
+      </if>
+      <if test="adminDelete != null">
+        ADMIN_DELETE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=NVARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=NUMERIC},
+      </if>
+      <if test="adminDelete != null">
+        #{adminDelete,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingCategory">
+    update BOYING_CATEGORY
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=NVARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=NVARCHAR},
+      </if>
+      <if test="weight != null">
+        WEIGHT = #{weight,jdbcType=NUMERIC},
+      </if>
+      <if test="adminDelete != null">
+        ADMIN_DELETE = #{adminDelete,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingCategory">
+    update BOYING_CATEGORY
+    set NAME = #{name,jdbcType=NVARCHAR},
+      ICON = #{icon,jdbcType=NVARCHAR},
+      DESCRIPTION = #{description,jdbcType=NVARCHAR},
+      WEIGHT = #{weight,jdbcType=NUMERIC},
+      ADMIN_DELETE = #{adminDelete,jdbcType=CHAR}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+</mapper>

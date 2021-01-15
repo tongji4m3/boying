@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tongji.boying.mapper.BoyingShowMapper">
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingShow">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="CATEGORY_ID" jdbcType="NUMERIC" property="categoryId" />
+    <result column="NAME" jdbcType="NVARCHAR" property="name" />
+    <result column="POSTER" jdbcType="NVARCHAR" property="poster" />
+    <result column="DETAILS" jdbcType="NVARCHAR" property="details" />
+    <result column="CITY" jdbcType="NVARCHAR" property="city" />
+    <result column="ADDRESS" jdbcType="NVARCHAR" property="address" />
+    <result column="START_TIME" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="WEIGHT" jdbcType="NUMERIC" property="weight" />
+    <result column="MIN_PRICE" jdbcType="NUMERIC" property="minPrice" />
+    <result column="MAX_PRICE" jdbcType="NUMERIC" property="maxPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CATEGORY_ID, NAME, POSTER, DETAILS, CITY, ADDRESS, START_TIME, END_TIME, WEIGHT, 
+    MIN_PRICE, MAX_PRICE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_SHOW
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from BOYING_SHOW
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingShow">
+    insert into BOYING_SHOW (ID, CATEGORY_ID, NAME, 
+      POSTER, DETAILS, CITY, 
+      ADDRESS, START_TIME, END_TIME, 
+      WEIGHT, MIN_PRICE, MAX_PRICE
+      )
+    values (#{id,jdbcType=NUMERIC}, #{categoryId,jdbcType=NUMERIC}, #{name,jdbcType=NVARCHAR}, 
+      #{poster,jdbcType=NVARCHAR}, #{details,jdbcType=NVARCHAR}, #{city,jdbcType=NVARCHAR}, 
+      #{address,jdbcType=NVARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{weight,jdbcType=NUMERIC}, #{minPrice,jdbcType=NUMERIC}, #{maxPrice,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingShow">
+    insert into BOYING_SHOW
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="categoryId != null">
+        CATEGORY_ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="poster != null">
+        POSTER,
+      </if>
+      <if test="details != null">
+        DETAILS,
+      </if>
+      <if test="city != null">
+        CITY,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="startTime != null">
+        START_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="weight != null">
+        WEIGHT,
+      </if>
+      <if test="minPrice != null">
+        MIN_PRICE,
+      </if>
+      <if test="maxPrice != null">
+        MAX_PRICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=NUMERIC},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="poster != null">
+        #{poster,jdbcType=NVARCHAR},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=NVARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=NVARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=NVARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=NUMERIC},
+      </if>
+      <if test="minPrice != null">
+        #{minPrice,jdbcType=NUMERIC},
+      </if>
+      <if test="maxPrice != null">
+        #{maxPrice,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingShow">
+    update BOYING_SHOW
+    <set>
+      <if test="categoryId != null">
+        CATEGORY_ID = #{categoryId,jdbcType=NUMERIC},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="poster != null">
+        POSTER = #{poster,jdbcType=NVARCHAR},
+      </if>
+      <if test="details != null">
+        DETAILS = #{details,jdbcType=NVARCHAR},
+      </if>
+      <if test="city != null">
+        CITY = #{city,jdbcType=NVARCHAR},
+      </if>
+      <if test="address != null">
+        ADDRESS = #{address,jdbcType=NVARCHAR},
+      </if>
+      <if test="startTime != null">
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weight != null">
+        WEIGHT = #{weight,jdbcType=NUMERIC},
+      </if>
+      <if test="minPrice != null">
+        MIN_PRICE = #{minPrice,jdbcType=NUMERIC},
+      </if>
+      <if test="maxPrice != null">
+        MAX_PRICE = #{maxPrice,jdbcType=NUMERIC},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingShow">
+    update BOYING_SHOW
+    set CATEGORY_ID = #{categoryId,jdbcType=NUMERIC},
+      NAME = #{name,jdbcType=NVARCHAR},
+      POSTER = #{poster,jdbcType=NVARCHAR},
+      DETAILS = #{details,jdbcType=NVARCHAR},
+      CITY = #{city,jdbcType=NVARCHAR},
+      ADDRESS = #{address,jdbcType=NVARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      WEIGHT = #{weight,jdbcType=NUMERIC},
+      MIN_PRICE = #{minPrice,jdbcType=NUMERIC},
+      MAX_PRICE = #{maxPrice,jdbcType=NUMERIC}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+</mapper>
