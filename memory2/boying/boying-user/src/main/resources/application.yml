@@ -37,6 +37,7 @@ secure:
       - /home/**
       - /category/**
       - /show/**
+      - /seat/**
 
 # 自定义redis key
 redis:

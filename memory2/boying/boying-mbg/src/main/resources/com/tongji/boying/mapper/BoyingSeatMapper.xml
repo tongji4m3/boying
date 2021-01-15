@@ -1,106 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tongji.boying.mapper.BoyingSeatMapper">
-  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingSeat">
-    <id column="ID" jdbcType="NUMERIC" property="id" />
-    <result column="SHOW_ID" jdbcType="NUMERIC" property="showId" />
-    <result column="NAME" jdbcType="NVARCHAR" property="name" />
-    <result column="PRICE" jdbcType="FLOAT" property="price" />
-    <result column="CAPACITY" jdbcType="NUMERIC" property="capacity" />
-    <result column="STOCK" jdbcType="NUMERIC" property="stock" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    ID, SHOW_ID, NAME, PRICE, CAPACITY, STOCK
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from BOYING_SEAT
-    where ID = #{id,jdbcType=NUMERIC}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from BOYING_SEAT
-    where ID = #{id,jdbcType=NUMERIC}
-  </delete>
-  <insert id="insert" parameterType="com.tongji.boying.model.BoyingSeat">
-    insert into BOYING_SEAT (ID, SHOW_ID, NAME, 
-      PRICE, CAPACITY, STOCK
-      )
-    values (#{id,jdbcType=NUMERIC}, #{showId,jdbcType=NUMERIC}, #{name,jdbcType=NVARCHAR}, 
-      #{price,jdbcType=FLOAT}, #{capacity,jdbcType=NUMERIC}, #{stock,jdbcType=NUMERIC}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingSeat">
-    insert into BOYING_SEAT
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        ID,
-      </if>
-      <if test="showId != null">
-        SHOW_ID,
-      </if>
-      <if test="name != null">
-        NAME,
-      </if>
-      <if test="price != null">
-        PRICE,
-      </if>
-      <if test="capacity != null">
-        CAPACITY,
-      </if>
-      <if test="stock != null">
-        STOCK,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=NUMERIC},
-      </if>
-      <if test="showId != null">
-        #{showId,jdbcType=NUMERIC},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=NVARCHAR},
-      </if>
-      <if test="price != null">
-        #{price,jdbcType=FLOAT},
-      </if>
-      <if test="capacity != null">
-        #{capacity,jdbcType=NUMERIC},
-      </if>
-      <if test="stock != null">
-        #{stock,jdbcType=NUMERIC},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingSeat">
-    update BOYING_SEAT
-    <set>
-      <if test="showId != null">
-        SHOW_ID = #{showId,jdbcType=NUMERIC},
-      </if>
-      <if test="name != null">
-        NAME = #{name,jdbcType=NVARCHAR},
-      </if>
-      <if test="price != null">
-        PRICE = #{price,jdbcType=FLOAT},
-      </if>
-      <if test="capacity != null">
-        CAPACITY = #{capacity,jdbcType=NUMERIC},
-      </if>
-      <if test="stock != null">
-        STOCK = #{stock,jdbcType=NUMERIC},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=NUMERIC}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingSeat">
-    update BOYING_SEAT
-    set SHOW_ID = #{showId,jdbcType=NUMERIC},
-      NAME = #{name,jdbcType=NVARCHAR},
-      PRICE = #{price,jdbcType=FLOAT},
-      CAPACITY = #{capacity,jdbcType=NUMERIC},
-      STOCK = #{stock,jdbcType=NUMERIC}
-    where ID = #{id,jdbcType=NUMERIC}
-  </update>
+    <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingSeat">
+        <id column="ID" jdbcType="NUMERIC" property="id"/>
+        <result column="SHOW_ID" jdbcType="NUMERIC" property="showId"/>
+        <result column="NAME" jdbcType="NVARCHAR" property="name"/>
+        <result column="PRICE" jdbcType="FLOAT" property="price"/>
+        <result column="CAPACITY" jdbcType="NUMERIC" property="capacity"/>
+        <result column="STOCK" jdbcType="NUMERIC" property="stock"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, SHOW_ID, NAME, PRICE, CAPACITY, STOCK
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from BOYING_SEAT
+        where ID = #{id,jdbcType=NUMERIC}
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from BOYING_SEAT
+        where ID = #{showId,jdbcType=NUMERIC}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from BOYING_SEAT
+        where ID = #{id,jdbcType=NUMERIC}
+    </delete>
+    <insert id="insert" parameterType="com.tongji.boying.model.BoyingSeat">
+        insert into BOYING_SEAT (ID, SHOW_ID, NAME,
+                                 PRICE, CAPACITY, STOCK)
+        values (#{id,jdbcType=NUMERIC}, #{showId,jdbcType=NUMERIC}, #{name,jdbcType=NVARCHAR},
+                #{price,jdbcType=FLOAT}, #{capacity,jdbcType=NUMERIC}, #{stock,jdbcType=NUMERIC})
+    </insert>
+    <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingSeat">
+        insert into BOYING_SEAT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="showId != null">
+                SHOW_ID,
+            </if>
+            <if test="name != null">
+                NAME,
+            </if>
+            <if test="price != null">
+                PRICE,
+            </if>
+            <if test="capacity != null">
+                CAPACITY,
+            </if>
+            <if test="stock != null">
+                STOCK,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=NUMERIC},
+            </if>
+            <if test="showId != null">
+                #{showId,jdbcType=NUMERIC},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=NVARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=FLOAT},
+            </if>
+            <if test="capacity != null">
+                #{capacity,jdbcType=NUMERIC},
+            </if>
+            <if test="stock != null">
+                #{stock,jdbcType=NUMERIC},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingSeat">
+        update BOYING_SEAT
+        <set>
+            <if test="showId != null">
+                SHOW_ID = #{showId,jdbcType=NUMERIC},
+            </if>
+            <if test="name != null">
+                NAME = #{name,jdbcType=NVARCHAR},
+            </if>
+            <if test="price != null">
+                PRICE = #{price,jdbcType=FLOAT},
+            </if>
+            <if test="capacity != null">
+                CAPACITY = #{capacity,jdbcType=NUMERIC},
+            </if>
+            <if test="stock != null">
+                STOCK = #{stock,jdbcType=NUMERIC},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=NUMERIC}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingSeat">
+        update BOYING_SEAT
+        set SHOW_ID  = #{showId,jdbcType=NUMERIC},
+            NAME     = #{name,jdbcType=NVARCHAR},
+            PRICE    = #{price,jdbcType=FLOAT},
+            CAPACITY = #{capacity,jdbcType=NUMERIC},
+            STOCK    = #{stock,jdbcType=NUMERIC}
+        where ID = #{id,jdbcType=NUMERIC}
+    </update>
 </mapper>

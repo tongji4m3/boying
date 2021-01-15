@@ -18,8 +18,6 @@ import java.util.Map;
 public class ShowServiceImpl implements ShowService {
     @Autowired
     private BoyingShowMapper showMapper;
-    @Autowired
-    private BoyingSeatMapper seatMapper;
 
     @Override
     public List<BoyingShow> search(ShowParam param) {
@@ -31,7 +29,7 @@ public class ShowServiceImpl implements ShowService {
 
         //开启分页相关
         Integer pageNum = param.getPageNum();
-        if (pageNum == null || pageNum == 0) pageNum = 0;
+        if (pageNum == null || pageNum == 0) pageNum = 1;
         Integer pageSize = param.getPageSize();
         if (pageSize == null || pageSize == 0) pageSize = 5;
 
@@ -43,26 +41,6 @@ public class ShowServiceImpl implements ShowService {
         return boyingShows;
     }
 
-    /* @Override
-     public List<BoyingShowReturn> search(ShowParam param) {
-         //关键词模糊搜索
-         if (StrUtil.isNotEmpty(param.getKeyword())) {
-             criteria.andNameLike("%" + param.getKeyword() + "%");
-         }
-
-         //按城市搜索 全国则不限制
-         if (StrUtil.isNotEmpty(param.getCity()) && !param.getCity().equals("全国")) {
-             criteria.andCityEqualTo(param.getCity());
-         }
-
-         //根据菜单搜索
-         if (param.getCategoryId() != null && param.getCategoryId() != 0) {
-             criteria.andCategoryIdEqualTo(param.getCategoryId());
-         }
-
-         example.setOrderByClause("weight desc");
-     }
- */
     @Override
     public BoyingShow detail(int id) {
         BoyingShow boyingShow = showMapper.selectByPrimaryKey(id);
