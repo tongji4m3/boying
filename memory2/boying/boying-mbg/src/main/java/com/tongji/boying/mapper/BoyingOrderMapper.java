@@ -19,4 +19,6 @@ public interface BoyingOrderMapper {
     int updateByPrimaryKey(BoyingOrder record);
 
     List<BoyingOrder> selectByCondition(Map<String, Object> map);
+
+    Integer selectByShowIdUserId(Map<String, Integer> map);
 }

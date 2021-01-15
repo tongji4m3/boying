@@ -9,6 +9,7 @@ import com.tongji.boying.mapper.BoyingSeatMapper;
 import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.mapper.BoyingTicketMapper;
 import com.tongji.boying.model.BoyingOrder;
+import com.tongji.boying.model.BoyingSeat;
 import com.tongji.boying.model.BoyingUser;
 import com.tongji.boying.service.UserOrderService;
 import com.tongji.boying.service.UserService;
@@ -16,6 +17,7 @@ import com.tongji.boying.service.UserTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,16 +38,20 @@ public class UserOrderServiceImpl implements UserOrderService {
     @Autowired
     private BoyingShowMapper showMapper;
 
+
     @Override
-    public void add(UserOrderParam param) {
-
-    }
-
-    /*@Override
     public void add(UserOrderParam param) {
         //获取参数
         Integer showId = param.getShowId();
         List<Integer> showSeatIds = param.getShowSeatIds();
+
+        if (showSeatIds.size() == 0) {
+            Asserts.fail("一个订单至少要有1张票!");
+        }
+        if (showSeatIds.size() > 5) {
+            Asserts.fail("一个订单最多只能有5张票!");
+        }
+
         //存储的是(座次Id，count)
         Map<Integer, Integer> seatMap = new HashMap<>();
         for (Integer showSeatId : showSeatIds) {
@@ -55,40 +61,15 @@ public class UserOrderServiceImpl implements UserOrderService {
         //当前用户
         BoyingUser user = userService.getCurrentUser();
 
-        BoyingOrderExample orderExample = new BoyingOrderExample();
+        //查看当前用户该演出是否下单
+        Map<String, Integer> map = new HashMap<>();
+        map.put("userId", user.getId());
+        map.put("showId", showId);
         //已退票的不算
-        orderExample.createCriteria().andUserIdEqualTo(user.getId()).andShowIdEqualTo(showId).andStatusNotEqualTo(3);
-        List<BoyingOrder> orders = orderMapper.selectByExample(orderExample);
-        if (!orders.isEmpty()) {
+        Integer orderCount = orderMapper.selectByShowIdUserId(map);
+        if (orderCount != null && orderCount != 0) {
             //该用户已经下过单了,不能继续了
             Asserts.fail("您已经对该演出下单过了,不能重复下单!");
-        }
-        if (showSeatIds.size() == 0) {
-            Asserts.fail("一个订单至少要有1张票!");
-        }
-        if (showSeatIds.size() > 5) {
-            Asserts.fail("一个订单最多只能有5张票!");
-        }
-
-        BoyingShow boyingShow = showMapper.selectByPrimaryKey(showId);
-        if (boyingShow == null) {
-            Asserts.fail("演出选择不合法!");
-        }
-
-
-        BoyingSeatExample boyingSeatExample = new BoyingSeatExample();
-        boyingSeatExample.createCriteria().andShowIdEqualTo(boyingShow.getId());
-        //数据库中的座次信息
-        List<BoyingSeat> dbShowSeats = boyingSeatMapper.selectByExample(boyingSeatExample);
-
-        List<Integer> dbShowClassIds = dbShowSeats.stream()
-                .map(BoyingSeat::getId)
-                .collect(Collectors.toList());
-        //校验座次是否合法
-        for (Integer showSeatId : showSeatIds) {
-            if (!dbShowClassIds.contains(showSeatId)) {
-                Asserts.fail("演出座次选择不合法!");
-            }
         }
 
         //查看库存状态
@@ -132,7 +113,7 @@ public class UserOrderServiceImpl implements UserOrderService {
             System.out.println(order.getId() + "   " + showSeatId);
             userTicketService.add(order.getId(), showSeatId);
         }
-    }*/
+    }
 
     @Override
     public void delete(int id) {

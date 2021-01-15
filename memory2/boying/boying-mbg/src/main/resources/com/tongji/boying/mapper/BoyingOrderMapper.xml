@@ -37,6 +37,12 @@
         </if>
 
     </select>
+    <select id="selectByShowIdUserId" resultType="java.lang.Integer">
+        select
+        count(*)
+        from BOYING_ORDER
+        where user_id = #{userId} and show_id = #{showId} and status != 3
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from BOYING_ORDER
@@ -52,7 +58,9 @@
                 #{adminDelete,jdbcType=NUMERIC}, #{ticketCount,jdbcType=NUMERIC}, #{money,jdbcType=FLOAT},
                 #{payment,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingOrder">
+<!--    <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingOrder">-->
+    <insert id="insertSelective" parameterType="com.tongji.boying.model.UserOrder" keyProperty="id"
+            keyColumn="id" useGeneratedKeys="true">
         insert into BOYING_ORDER
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
