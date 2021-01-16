@@ -40,6 +40,10 @@
             <if test="city != null and city != '' and city != '全国'">
                 and city = #{city}
             </if>
+            <if test="startDay != null and endDay != null">
+                and start_time
+                between to_date(#{startDay},'yyyy-MM-dd HH24:MI:SS') and to_date(#{endDay},'yyyy-MM-dd HH24:MI:SS')
+            </if>
         </where>
         <if test="sort == null">
             order by weight desc

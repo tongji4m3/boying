@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="boying-mbg" />
+        <module name="boying-admin" />
         <module name="boying-admin (1)" />
         <module name="boying-user" />
         <module name="community" />
@@ -20,7 +21,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="boying" options="" />
-      <module name="boying-admin" options="" />
+      <module name="boying-admin" options="-parameters" />
       <module name="boying-admin (1)" options="-parameters" />
       <module name="boying-common" options="-parameters" />
       <module name="boying-mbg" options="-parameters" />

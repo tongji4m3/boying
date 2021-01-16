@@ -3,13 +3,13 @@ package com.tongji.boying.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.showParam.ShowParam;
-import com.tongji.boying.mapper.BoyingSeatMapper;
 import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.model.BoyingShow;
 import com.tongji.boying.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +26,15 @@ public class ShowServiceImpl implements ShowService {
         map.put("city", param.getCity());
         map.put("keyword", param.getKeyword());
         map.put("categoryId", param.getCategoryId());
+
+        SimpleDateFormat formatDay = new SimpleDateFormat("yyyy-MM-dd");
+
+        if (param.getStartDay() != null && param.getEndDay() != null) {
+            map.put("startDay", formatDay.format(param.getStartDay()) + " 00:00:00");
+            map.put("endDay", formatDay.format(param.getEndDay()) + " 23:59:59");
+            System.out.println(formatDay.format(param.getStartDay()) + " 00:00:00");
+            System.out.println(formatDay.format(param.getEndDay()) + " 23:59:59");
+        }
 
         //开启分页相关
         Integer pageNum = param.getPageNum();
