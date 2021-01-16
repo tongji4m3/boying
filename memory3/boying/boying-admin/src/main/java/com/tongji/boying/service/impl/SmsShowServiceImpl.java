@@ -48,7 +48,7 @@ public class SmsShowServiceImpl implements SmsShowService {
         example.setOrderByClause("weight desc");
 
         Integer pageNum = param.getPageNum();
-        if (pageNum == null || pageNum == 0) pageNum = 0;
+        if (pageNum == null || pageNum == 0) pageNum = 1;
         Integer pageSize = param.getPageSize();
         if (pageSize == null || pageSize == 0) pageSize = 5;
 

@@ -3,6 +3,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.orderParam.BoyingOrderReturn;
 import com.tongji.boying.dto.orderParam.OrderParam;
 import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.service.NumsOrderService;
@@ -23,7 +24,7 @@ public class NumsOrderController {
     @ApiOperation("查看所有用户订单")
     @RequestMapping(value = "/listOrders", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<BoyingOrder>> listOrders(@Validated @RequestBody OrderParam param) {
+    public CommonResult<CommonPage<BoyingOrderReturn>> listOrders(@Validated @RequestBody OrderParam param) {
         return CommonResult.success(CommonPage.restPage(numsOrderService.listOrders(param)));
     }
 

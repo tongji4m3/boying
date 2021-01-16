@@ -3,6 +3,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.userParam.BoyingUserReturn;
 import com.tongji.boying.dto.userParam.GetUserByNameParam;
 import com.tongji.boying.dto.userParam.NumsUserParam;
 import com.tongji.boying.dto.userParam.UserListParam;
@@ -35,28 +36,28 @@ public class NumsUserController {
     @ApiOperation("获取指定id普通用户")
     @RequestMapping(value = "/getInformation/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<BoyingUser> getUserById(@PathVariable Integer id) {
+    public CommonResult<BoyingUserReturn> getUserById(@PathVariable Integer id) {
         return CommonResult.success(numsUserService.getUserById(id));
     }
 
     @ApiOperation("根据用户名模糊匹配获取普通用户")
     @RequestMapping(value = "/getUserByName", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<BoyingUser>> getUserByName(@Validated @RequestBody GetUserByNameParam param) {
+    public CommonResult<CommonPage<BoyingUserReturn>> getUserByName(@Validated @RequestBody GetUserByNameParam param) {
         return CommonResult.success(CommonPage.restPage(numsUserService.getUserByName(param)));
     }
 
 //    @ApiOperation("查看所有用户")
 //    @RequestMapping(value = "/list", method = RequestMethod.POST)
 //    @ResponseBody
-//    public CommonResult<CommonPage<BoyingUser>> list(@Validated @RequestBody UserListParam param) {
+//    public CommonResult<CommonPage<BoyingUserReturn>> list(@Validated @RequestBody UserListParam param) {
 //        return CommonResult.success(CommonPage.restPage(numsUserService.listAllUsers(param)));
 //    }
 
     @ApiOperation("查看所有用户")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<List<BoyingUser>> list() {
+    public CommonResult<List<BoyingUserReturn>> list() {
         UserListParam param = new UserListParam();
         param.setPageSize(50);
         return CommonResult.success(numsUserService.listAllUsers(param));

@@ -1,5 +1,6 @@
 package com.tongji.boying.service;
 
+import com.tongji.boying.dto.orderParam.BoyingOrderReturn;
 import com.tongji.boying.dto.orderParam.OrderParam;
 import com.tongji.boying.model.BoyingOrder;
 
@@ -9,7 +10,7 @@ public interface NumsOrderService {
     /**
      * 列出所有用户订单
      */
-    List<BoyingOrder> listOrders(OrderParam param);
+    List<BoyingOrderReturn> listOrders(OrderParam param);
 
     /**
      * 删除某id订单

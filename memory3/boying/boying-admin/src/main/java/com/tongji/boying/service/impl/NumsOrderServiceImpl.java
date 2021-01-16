@@ -3,14 +3,18 @@ package com.tongji.boying.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.dto.categoryParam.BoyingCategoryReturn;
+import com.tongji.boying.dto.orderParam.BoyingOrderReturn;
 import com.tongji.boying.dto.orderParam.OrderParam;
 import com.tongji.boying.mapper.BoyingOrderMapper;
 import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.model.BoyingOrderExample;
 import com.tongji.boying.service.NumsOrderService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -19,7 +23,7 @@ public class NumsOrderServiceImpl implements NumsOrderService {
     private BoyingOrderMapper userOrderMapper;
 
     @Override
-    public List<BoyingOrder> listOrders(OrderParam param) {
+    public List<BoyingOrderReturn> listOrders(OrderParam param) {
         BoyingOrderExample boyingOrderExample = new BoyingOrderExample();
         BoyingOrderExample.Criteria criteria = boyingOrderExample.createCriteria();
 
@@ -33,7 +37,7 @@ public class NumsOrderServiceImpl implements NumsOrderService {
         }
 
         Integer pageNum = param.getPageNum();
-        if (pageNum == null || pageNum == 0) pageNum = 0;
+        if (pageNum == null || pageNum == 0) pageNum = 1;
         Integer pageSize = param.getPageSize();
         if (pageSize == null || pageSize == 0) pageSize = 5;
 
@@ -42,7 +46,26 @@ public class NumsOrderServiceImpl implements NumsOrderService {
         PageHelper.startPage(pageNum, pageSize);
         List<BoyingOrder> boyingOrders = userOrderMapper.selectByExample(boyingOrderExample);
         if (ObjectUtil.isEmpty(boyingOrders)) Asserts.fail("不存在任何订单");
-        return boyingOrders;
+
+        List<BoyingOrderReturn> boyingOrderReturns = new LinkedList<>();
+        for (BoyingOrder boyingOrder : boyingOrders) {
+            BoyingOrderReturn boyingOrderReturn = new BoyingOrderReturn();
+            BeanUtils.copyProperties(boyingOrder, boyingOrderReturn);
+            if (boyingOrder.getAdminDelete() == 1) {
+                boyingOrderReturn.setAdminDelete(true);
+            }
+            else {
+                boyingOrderReturn.setAdminDelete(false);
+            }
+            if (boyingOrder.getUserDelete() == 1) {
+                boyingOrderReturn.setUserDelete(true);
+            }
+            else {
+                boyingOrderReturn.setUserDelete(false);
+            }
+            boyingOrderReturns.add(boyingOrderReturn);
+        }
+        return boyingOrderReturns;
     }
 
     @Override

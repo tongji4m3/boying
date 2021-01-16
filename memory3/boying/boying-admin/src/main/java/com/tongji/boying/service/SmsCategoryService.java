@@ -1,5 +1,6 @@
 package com.tongji.boying.service;
 
+import com.tongji.boying.dto.categoryParam.BoyingCategoryReturn;
 import com.tongji.boying.dto.showParam.SmsCategoryParam;
 import com.tongji.boying.model.BoyingCategory;
 
@@ -28,13 +29,13 @@ public interface SmsCategoryService {
     /**
      * 获取所有演出目录列表
      */
-    List<BoyingCategory> list();
+    List<BoyingCategoryReturn> list();
 
 
     /**
      * 获取某个演出目录列表
      */
-    BoyingCategory getCategory(Integer id);
+    BoyingCategoryReturn getCategory(Integer id);
 
     void recover(Integer id);
 

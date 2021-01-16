@@ -1,6 +1,7 @@
 package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.categoryParam.BoyingCategoryReturn;
 import com.tongji.boying.dto.showParam.SmsCategoryParam;
 import com.tongji.boying.model.BoyingCategory;
 import com.tongji.boying.service.SmsCategoryService;
@@ -24,7 +25,7 @@ public class SmsCategoryController {
     @ApiOperation("获取所有目录")
     @RequestMapping(value = "/listAll", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<List<BoyingCategory>> listAll() {
+    public CommonResult<List<BoyingCategoryReturn>> listAll() {
         return CommonResult.success(categoryService.list());
     }
 
@@ -64,7 +65,7 @@ public class SmsCategoryController {
     @ApiOperation("获取某个目录")
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<BoyingCategory> getCategory(@PathVariable Integer id) {
+    public CommonResult<BoyingCategoryReturn> getCategory(@PathVariable Integer id) {
         return CommonResult.success(categoryService.getCategory(id));
     }
 }

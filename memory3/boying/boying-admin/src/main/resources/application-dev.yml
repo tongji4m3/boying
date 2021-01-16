@@ -3,10 +3,14 @@ server:
 
 spring:
   datasource:
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    url: jdbc:oracle:thin:@8.135.22.230:1521/ORCLPDB1.localdomain
+#    username: test
+#    password: test
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@8.135.22.230:1521/ORCLPDB1.localdomain
-    username: test
-    password: test
+    url: jdbc:oracle:thin:@59.110.162.32:1521/orcl
+    username: sjs
+    password: sjs@2020
     druid:
       initial-size: 5 #连接池初始化大小
       min-idle: 10 #最小空闲连接数

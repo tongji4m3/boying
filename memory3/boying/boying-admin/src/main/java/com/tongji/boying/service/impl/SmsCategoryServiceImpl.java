@@ -3,6 +3,7 @@ package com.tongji.boying.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.dto.categoryParam.BoyingCategoryReturn;
 import com.tongji.boying.dto.showParam.SmsCategoryParam;
 import com.tongji.boying.mapper.BoyingCategoryMapper;
 import com.tongji.boying.model.BoyingCategory;
@@ -12,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -62,19 +64,42 @@ public class SmsCategoryServiceImpl implements SmsCategoryService {
     }
 
     @Override
-    public List<BoyingCategory> list() {
+    public List<BoyingCategoryReturn> list() {
         BoyingCategoryExample example = new BoyingCategoryExample();
         example.setOrderByClause("weight desc");
         List<BoyingCategory> categoryList = categoryMapper.selectByExample(example);
         if (ObjectUtil.isEmpty(categoryList)) Asserts.fail("无目录!");
-        return categoryList;
+
+
+        List<BoyingCategoryReturn> boyingCategoryReturnList = new LinkedList<>();
+        for (BoyingCategory boyingCategory : categoryList) {
+            BoyingCategoryReturn boyingCategoryReturn = new BoyingCategoryReturn();
+            BeanUtils.copyProperties(boyingCategory, boyingCategoryReturn);
+            if (boyingCategory.getAdminDelete() == 1) {
+                boyingCategoryReturn.setAdminDelete(true);
+            }
+            else {
+                boyingCategoryReturn.setAdminDelete(false);
+            }
+            boyingCategoryReturnList.add(boyingCategoryReturn);
+        }
+        return boyingCategoryReturnList;
     }
 
     @Override
-    public BoyingCategory getCategory(Integer id) {
+    public BoyingCategoryReturn getCategory(Integer id) {
         BoyingCategory boyingCategory = categoryMapper.selectByPrimaryKey(id);
         if (boyingCategory == null) Asserts.fail("演出目录不存在！");
-        return boyingCategory;
+//        BeanUtils.copyProperties(param, user);
+        BoyingCategoryReturn boyingCategoryReturn = new BoyingCategoryReturn();
+        BeanUtils.copyProperties(boyingCategory, boyingCategoryReturn);
+        if (boyingCategory.getAdminDelete() == 1) {
+            boyingCategoryReturn.setAdminDelete(true);
+        }
+        else {
+            boyingCategoryReturn.setAdminDelete(false);
+        }
+        return boyingCategoryReturn;
     }
 
     @Override

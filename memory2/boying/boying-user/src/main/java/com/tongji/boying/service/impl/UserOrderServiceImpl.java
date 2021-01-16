@@ -3,6 +3,7 @@ package com.tongji.boying.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.orderParam.GetOrdersParam;
+import com.tongji.boying.dto.orderParam.TestParam;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.mapper.BoyingOrderMapper;
 import com.tongji.boying.mapper.BoyingSeatMapper;
@@ -38,13 +39,13 @@ public class UserOrderServiceImpl implements UserOrderService {
     private BoyingShowMapper showMapper;
 
     @Override
-    public void generate(Integer count) {
+    public void generate(TestParam param) {
         Random random = new Random();
         //从这些演出中下单
 //        List<Integer> showIds = showMapper.selectIdList();
 
         //模拟 10000 人并发请求
-        int userCount = 100;
+        int userCount = param.getThreadCount();
 
 
         CountDownLatch countDownLatch = new CountDownLatch(userCount);
@@ -52,7 +53,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         for (int k = 0; k < userCount; k++) {
             new Thread((() -> {
                 //下单count次
-                for (int i = 0; i < count; i++) {
+                for (int i = 0; i < param.getOrderCount(); i++) {
                     //[1,1000] 随机下单用户
                     Integer userId = random.nextInt(1000) + 1;
 

@@ -3,6 +3,7 @@ package com.tongji.boying.controller;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.orderParam.GetOrdersParam;
+import com.tongji.boying.dto.orderParam.TestParam;
 import com.tongji.boying.dto.orderParam.TicketReturn;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.model.BoyingOrder;
@@ -31,12 +32,12 @@ public class UserOrderController {
     @Autowired
     private UserTicketService ticketService;
 
-    @ApiOperation("订单生成器,生成count个订单")
-    @RequestMapping(value = "/generate/{count}", method = RequestMethod.POST)
+    @ApiOperation("模拟高并发请求的API")
+    @RequestMapping(value = "/generate", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult generate(@PathVariable Integer count) {
+    public CommonResult generate(@Validated @RequestBody TestParam param) {
         long start = System.currentTimeMillis();
-        orderService.generate(count);
+        orderService.generate(param);
         long time = System.currentTimeMillis() - start;
         return CommonResult.success(null, "需要:" + time + "s");
     }

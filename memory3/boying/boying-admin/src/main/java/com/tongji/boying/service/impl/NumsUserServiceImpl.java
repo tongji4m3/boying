@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.dto.userParam.BoyingUserReturn;
 import com.tongji.boying.dto.userParam.GetUserByNameParam;
 import com.tongji.boying.dto.userParam.NumsUserParam;
 import com.tongji.boying.dto.userParam.UserListParam;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -45,16 +47,33 @@ public class NumsUserServiceImpl implements NumsUserService {
 
 
     @Override
-    public BoyingUser getUserById(Integer id) {
+    public BoyingUserReturn getUserById(Integer id) {
         BoyingUser boyingUser = userMapper.selectByPrimaryKey(id);
         if (boyingUser == null) Asserts.fail("该用户不存在！");
-        return boyingUser;
+
+        BoyingUserReturn boyingUserReturn = new BoyingUserReturn();
+
+        BeanUtils.copyProperties(boyingUser, boyingUserReturn);
+        if (boyingUser.getAdminDelete() == 1) {
+            boyingUserReturn.setAdminDelete(true);
+        }
+        else {
+            boyingUserReturn.setAdminDelete(false);
+        }
+        if (boyingUser.getGender() == 1) {
+            boyingUserReturn.setGender(true);
+        }
+        else {
+            boyingUserReturn.setGender(false);
+        }
+
+        return boyingUserReturn;
     }
 
     @Override
-    public List<BoyingUser> getUserByName(GetUserByNameParam param) {
+    public List<BoyingUserReturn> getUserByName(GetUserByNameParam param) {
         Integer pageNum = param.getPageNum();
-        if (pageNum == null || pageNum == 0) pageNum = 0;
+        if (pageNum == null || pageNum == 0) pageNum = 1;
         Integer pageSize = param.getPageSize();
         if (pageSize == null || pageSize == 0) pageSize = 5;
 
@@ -71,13 +90,33 @@ public class NumsUserServiceImpl implements NumsUserService {
         PageHelper.startPage(pageNum, pageSize);
         List<BoyingUser> boyingUsers = userMapper.selectByExample(boyingUserExample);
         if (boyingUsers == null || boyingUsers.isEmpty()) Asserts.fail("该用户不存在！");
-        return boyingUsers;
+
+
+        List<BoyingUserReturn> boyingUserReturnList = new LinkedList<>();
+        for (BoyingUser boyingUser : boyingUsers) {
+            BoyingUserReturn boyingUserReturn = new BoyingUserReturn();
+            BeanUtils.copyProperties(boyingUser, boyingUserReturn);
+            if (boyingUser.getAdminDelete() == 1) {
+                boyingUserReturn.setAdminDelete(true);
+            }
+            else {
+                boyingUserReturn.setAdminDelete(false);
+            }
+            if (boyingUser.getGender() == 1) {
+                boyingUserReturn.setGender(true);
+            }
+            else {
+                boyingUserReturn.setGender(false);
+            }
+            boyingUserReturnList.add(boyingUserReturn);
+        }
+        return boyingUserReturnList;
     }
 
     @Override
-    public List<BoyingUser> listAllUsers(UserListParam param) {
+    public List<BoyingUserReturn> listAllUsers(UserListParam param) {
         Integer pageNum = param.getPageNum();
-        if (pageNum == null || pageNum == 0) pageNum = 0;
+        if (pageNum == null || pageNum == 0) pageNum = 1;
         Integer pageSize = param.getPageSize();
         if (pageSize == null || pageSize == 0) pageSize = 5;
         BoyingUserExample boyingUserExample = new BoyingUserExample();
@@ -87,7 +126,26 @@ public class NumsUserServiceImpl implements NumsUserService {
         PageHelper.startPage(pageNum, pageSize);
         List<BoyingUser> boyingUsers = userMapper.selectByExample(boyingUserExample);
         if (ObjectUtil.isEmpty(boyingUsers)) Asserts.fail("不存在任何用户");
-        return boyingUsers;
+
+        List<BoyingUserReturn> boyingUserReturnList = new LinkedList<>();
+        for (BoyingUser boyingUser : boyingUsers) {
+            BoyingUserReturn boyingUserReturn = new BoyingUserReturn();
+            BeanUtils.copyProperties(boyingUser, boyingUserReturn);
+            if (boyingUser.getAdminDelete() == 1) {
+                boyingUserReturn.setAdminDelete(true);
+            }
+            else {
+                boyingUserReturn.setAdminDelete(false);
+            }
+            if (boyingUser.getGender() == 1) {
+                boyingUserReturn.setGender(true);
+            }
+            else {
+                boyingUserReturn.setGender(false);
+            }
+            boyingUserReturnList.add(boyingUserReturn);
+        }
+        return boyingUserReturnList;
     }
 
     @Override
@@ -127,6 +185,17 @@ public class NumsUserServiceImpl implements NumsUserService {
 
         BoyingUser user = new BoyingUser();
         BeanUtils.copyProperties(param, user);
+
+        if (param.getGender() != null) {
+            if (param.getGender()) {
+                user.setGender(1);
+            }
+            else {
+                user.setGender(0);
+            }
+        }
+        user.setAdminDelete(0);
+
         user.setPassword(passwordEncoder.encode(param.getPassword()));//存储加密后的
         int count = userMapper.insertSelective(user);
         if (count == 0) Asserts.fail("添加用户失败！");

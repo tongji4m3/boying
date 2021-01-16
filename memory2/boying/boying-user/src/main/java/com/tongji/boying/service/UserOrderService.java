@@ -1,6 +1,7 @@
 package com.tongji.boying.service;
 
 import com.tongji.boying.dto.orderParam.GetOrdersParam;
+import com.tongji.boying.dto.orderParam.TestParam;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.model.BoyingOrder;
 
@@ -28,5 +29,5 @@ public interface UserOrderService {
 
     BoyingOrder getItem(int id);
 
-    void generate(Integer count);
+    void generate(TestParam param);
 }
