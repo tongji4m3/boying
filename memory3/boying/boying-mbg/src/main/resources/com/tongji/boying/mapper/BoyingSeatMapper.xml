@@ -1,118 +1,228 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tongji.boying.mapper.BoyingSeatMapper">
-    <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingSeat">
-        <id column="ID" jdbcType="NUMERIC" property="id"/>
-        <result column="SHOW_ID" jdbcType="NUMERIC" property="showId"/>
-        <result column="NAME" jdbcType="NVARCHAR" property="name"/>
-        <result column="PRICE" jdbcType="FLOAT" property="price"/>
-        <result column="CAPACITY" jdbcType="NUMERIC" property="capacity"/>
-        <result column="STOCK" jdbcType="NUMERIC" property="stock"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-        ID, SHOW_ID, NAME, PRICE, CAPACITY, STOCK
-    </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from BOYING_SEAT
-        where ID = #{id,jdbcType=NUMERIC}
-    </select>
-
-    <select id="selectList" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from BOYING_SEAT
-        where show_id = #{showId,jdbcType=NUMERIC}
-    </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete
-        from BOYING_SEAT
-        where ID = #{id,jdbcType=NUMERIC}
-    </delete>
-    <insert id="insert" parameterType="com.tongji.boying.model.BoyingSeat">
-        insert into BOYING_SEAT (ID, SHOW_ID, NAME,
-                                 PRICE, CAPACITY, STOCK)
-        values (#{id,jdbcType=NUMERIC}, #{showId,jdbcType=NUMERIC}, #{name,jdbcType=NVARCHAR},
-                #{price,jdbcType=FLOAT}, #{capacity,jdbcType=NUMERIC}, #{stock,jdbcType=NUMERIC})
-    </insert>
-    <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingSeat">
-        insert into BOYING_SEAT
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                ID,
-            </if>
-            <if test="showId != null">
-                SHOW_ID,
-            </if>
-            <if test="name != null">
-                NAME,
-            </if>
-            <if test="price != null">
-                PRICE,
-            </if>
-            <if test="capacity != null">
-                CAPACITY,
-            </if>
-            <if test="stock != null">
-                STOCK,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=NUMERIC},
-            </if>
-            <if test="showId != null">
-                #{showId,jdbcType=NUMERIC},
-            </if>
-            <if test="name != null">
-                #{name,jdbcType=NVARCHAR},
-            </if>
-            <if test="price != null">
-                #{price,jdbcType=FLOAT},
-            </if>
-            <if test="capacity != null">
-                #{capacity,jdbcType=NUMERIC},
-            </if>
-            <if test="stock != null">
-                #{stock,jdbcType=NUMERIC},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingSeat">
-        update BOYING_SEAT
-        <set>
-            <if test="showId != null">
-                SHOW_ID = #{showId,jdbcType=NUMERIC},
-            </if>
-            <if test="name != null">
-                NAME = #{name,jdbcType=NVARCHAR},
-            </if>
-            <if test="price != null">
-                PRICE = #{price,jdbcType=FLOAT},
-            </if>
-            <if test="capacity != null">
-                CAPACITY = #{capacity,jdbcType=NUMERIC},
-            </if>
-            <if test="stock != null">
-                STOCK = #{stock,jdbcType=NUMERIC},
-            </if>
-        </set>
-        where ID = #{id,jdbcType=NUMERIC}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingSeat">
-        update BOYING_SEAT
-        set SHOW_ID  = #{showId,jdbcType=NUMERIC},
-            NAME     = #{name,jdbcType=NVARCHAR},
-            PRICE    = #{price,jdbcType=FLOAT},
-            CAPACITY = #{capacity,jdbcType=NUMERIC},
-            STOCK    = #{stock,jdbcType=NUMERIC}
-        where ID = #{id,jdbcType=NUMERIC}
-    </update>
-    <update id="updateSeatsStock">
-        update BOYING_SEAT
-        set STOCK = STOCK + 1
-        where id = #{id}
-    </update>
+  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingSeat">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="SHOW_ID" jdbcType="NUMERIC" property="showId" />
+    <result column="NAME" jdbcType="NVARCHAR" property="name" />
+    <result column="PRICE" jdbcType="FLOAT" property="price" />
+    <result column="CAPACITY" jdbcType="NUMERIC" property="capacity" />
+    <result column="STOCK" jdbcType="NUMERIC" property="stock" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, SHOW_ID, NAME, PRICE, CAPACITY, STOCK
+  </sql>
+  <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingSeatExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOYING_SEAT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOYING_SEAT
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from BOYING_SEAT
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingSeatExample">
+    delete from BOYING_SEAT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tongji.boying.model.BoyingSeat">
+    insert into BOYING_SEAT (ID, SHOW_ID, NAME, 
+      PRICE, CAPACITY, STOCK
+      )
+    values (#{id,jdbcType=NUMERIC}, #{showId,jdbcType=NUMERIC}, #{name,jdbcType=NVARCHAR}, 
+      #{price,jdbcType=FLOAT}, #{capacity,jdbcType=NUMERIC}, #{stock,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingSeat">
+    insert into BOYING_SEAT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="showId != null">
+        SHOW_ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="capacity != null">
+        CAPACITY,
+      </if>
+      <if test="stock != null">
+        STOCK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="showId != null">
+        #{showId,jdbcType=NUMERIC},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=FLOAT},
+      </if>
+      <if test="capacity != null">
+        #{capacity,jdbcType=NUMERIC},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tongji.boying.model.BoyingSeatExample" resultType="java.lang.Long">
+    select count(*) from BOYING_SEAT
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOYING_SEAT
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.showId != null">
+        SHOW_ID = #{record.showId,jdbcType=NUMERIC},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.price != null">
+        PRICE = #{record.price,jdbcType=FLOAT},
+      </if>
+      <if test="record.capacity != null">
+        CAPACITY = #{record.capacity,jdbcType=NUMERIC},
+      </if>
+      <if test="record.stock != null">
+        STOCK = #{record.stock,jdbcType=NUMERIC},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOYING_SEAT
+    set ID = #{record.id,jdbcType=NUMERIC},
+      SHOW_ID = #{record.showId,jdbcType=NUMERIC},
+      NAME = #{record.name,jdbcType=NVARCHAR},
+      PRICE = #{record.price,jdbcType=FLOAT},
+      CAPACITY = #{record.capacity,jdbcType=NUMERIC},
+      STOCK = #{record.stock,jdbcType=NUMERIC}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingSeat">
+    update BOYING_SEAT
+    <set>
+      <if test="showId != null">
+        SHOW_ID = #{showId,jdbcType=NUMERIC},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="price != null">
+        PRICE = #{price,jdbcType=FLOAT},
+      </if>
+      <if test="capacity != null">
+        CAPACITY = #{capacity,jdbcType=NUMERIC},
+      </if>
+      <if test="stock != null">
+        STOCK = #{stock,jdbcType=NUMERIC},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingSeat">
+    update BOYING_SEAT
+    set SHOW_ID = #{showId,jdbcType=NUMERIC},
+      NAME = #{name,jdbcType=NVARCHAR},
+      PRICE = #{price,jdbcType=FLOAT},
+      CAPACITY = #{capacity,jdbcType=NUMERIC},
+      STOCK = #{stock,jdbcType=NUMERIC}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
 </mapper>

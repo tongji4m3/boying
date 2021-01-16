@@ -95,7 +95,13 @@ public class NumsUserServiceImpl implements NumsUserService {
         BoyingUser user = userMapper.selectByPrimaryKey(id);
         if (user == null) Asserts.fail("用户不存在！");
         //切换用户状态
-        user.setAdminDelete(!user.getAdminDelete());
+        if (user.getAdminDelete() == 1) {
+            user.setAdminDelete(0);
+        }
+        else {
+            user.setAdminDelete(1);
+        }
+
 
         //删除用户的缓存
         String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getUsername();

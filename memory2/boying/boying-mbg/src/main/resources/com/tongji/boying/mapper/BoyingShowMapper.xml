@@ -15,6 +15,7 @@
         <result column="MIN_PRICE" jdbcType="FLOAT" property="minPrice"/>
         <result column="MAX_PRICE" jdbcType="FLOAT" property="maxPrice"/>
     </resultMap>
+
     <sql id="Base_Column_List">
         ID, CATEGORY_ID, NAME, POSTER, DETAILS, CITY, ADDRESS, START_TIME, END_TIME, WEIGHT,
     MIN_PRICE, MAX_PRICE
@@ -69,6 +70,9 @@
         <if test="sort == 6">
             order by MAX_PRICE desc
         </if>
+    </select>
+    <select id="selectIdList" resultType="java.lang.Integer">
+        select id from BOYING_SHOW
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

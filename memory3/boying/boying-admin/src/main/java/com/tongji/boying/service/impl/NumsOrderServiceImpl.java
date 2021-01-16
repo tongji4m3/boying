@@ -20,7 +20,6 @@ public class NumsOrderServiceImpl implements NumsOrderService {
 
     @Override
     public List<BoyingOrder> listOrders(OrderParam param) {
-
         BoyingOrderExample boyingOrderExample = new BoyingOrderExample();
         BoyingOrderExample.Criteria criteria = boyingOrderExample.createCriteria();
 
@@ -50,7 +49,7 @@ public class NumsOrderServiceImpl implements NumsOrderService {
     public void deleteOrder(Integer id) {
         BoyingOrder boyingOrder = userOrderMapper.selectByPrimaryKey(id);
         if(boyingOrder==null) Asserts.fail("要删除的订单不存在！");
-        boyingOrder.setAdminDelete(true);
+        boyingOrder.setAdminDelete(1);
         int count = userOrderMapper.updateByPrimaryKeySelective(boyingOrder);
         if(count==0) Asserts.fail("删除订单失败！");
     }
@@ -59,7 +58,7 @@ public class NumsOrderServiceImpl implements NumsOrderService {
     public void recoverOrder(Integer id) {
         BoyingOrder boyingOrder = userOrderMapper.selectByPrimaryKey(id);
         if(boyingOrder==null) Asserts.fail("要恢复的订单不存在！");
-        boyingOrder.setAdminDelete(false);
+        boyingOrder.setAdminDelete(0);
         int count = userOrderMapper.updateByPrimaryKeySelective(boyingOrder);
         if(count==0) Asserts.fail("恢复订单失败！");
     }

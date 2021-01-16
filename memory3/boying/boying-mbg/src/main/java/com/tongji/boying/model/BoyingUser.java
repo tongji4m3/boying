@@ -1,10 +1,7 @@
 package com.tongji.boying.model;
 
-import lombok.ToString;
-
 import java.util.Date;
 
-@ToString
 public class BoyingUser {
     private Integer id;
 

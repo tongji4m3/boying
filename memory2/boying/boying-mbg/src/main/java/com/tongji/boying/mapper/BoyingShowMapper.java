@@ -19,4 +19,7 @@ public interface BoyingShowMapper {
     int updateByPrimaryKey(BoyingShow record);
 
     List<BoyingShow> selectList(Map<String, Object> map);
+
+//    查询所有演出Id列表
+    List<Integer> selectIdList();
 }

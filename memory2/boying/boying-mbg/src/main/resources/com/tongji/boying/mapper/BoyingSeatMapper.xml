@@ -115,4 +115,10 @@
         set STOCK = STOCK + 1
         where id = #{id}
     </update>
+    <update id="decreaseStock">
+        update BOYING_SEAT
+        set STOCK = STOCK - 1
+        where id = #{seatId}
+          and STOCK >= 1
+    </update>
 </mapper>

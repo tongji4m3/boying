@@ -56,7 +56,7 @@ public class SmsCategoryServiceImpl implements SmsCategoryService {
     @Override
     public void delete(Integer id) {
         BoyingCategory boyingCategory = categoryMapper.selectByPrimaryKey(id);
-        boyingCategory.setAdminDelete(true);
+        boyingCategory.setAdminDelete(1);
         int count = categoryMapper.updateByPrimaryKeySelective(boyingCategory);
         if (count == 0) Asserts.fail("删除失败！");
     }
@@ -80,7 +80,7 @@ public class SmsCategoryServiceImpl implements SmsCategoryService {
     @Override
     public void recover(Integer id) {
         BoyingCategory boyingCategory = categoryMapper.selectByPrimaryKey(id);
-        boyingCategory.setAdminDelete(false);
+        boyingCategory.setAdminDelete(0);
         int count = categoryMapper.updateByPrimaryKeySelective(boyingCategory);
         if (count == 0) Asserts.fail("恢复失败！");
     }

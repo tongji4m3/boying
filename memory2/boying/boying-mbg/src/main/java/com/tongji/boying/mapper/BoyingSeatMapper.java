@@ -20,4 +20,6 @@ public interface BoyingSeatMapper {
     List<BoyingSeat> selectList(Integer showId);
 
     void updateSeatsStock(Integer id);
+
+    int decreaseStock(Integer seatId);
 }

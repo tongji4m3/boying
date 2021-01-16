@@ -3,6 +3,7 @@ package com.tongji.boying.controller;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.orderParam.GetOrdersParam;
+import com.tongji.boying.dto.orderParam.TicketReturn;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.model.BoyingTicket;
@@ -30,12 +31,23 @@ public class UserOrderController {
     @Autowired
     private UserTicketService ticketService;
 
+    @ApiOperation("订单生成器,生成count个订单")
+    @RequestMapping(value = "/generate/{count}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult generate(@PathVariable Integer count) {
+        long start = System.currentTimeMillis();
+        orderService.generate(count);
+        long time = System.currentTimeMillis() - start;
+        return CommonResult.success(null, "需要:" + time + "s");
+    }
+
+
     @ApiOperation("用户下单")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult add(@Validated @RequestBody UserOrderParam param) {
         orderService.add(param);
-        return CommonResult.success(null,"下单成功");
+        return CommonResult.success(null, "下单成功");
     }
 
     @ApiOperation("删除订单")
@@ -43,7 +55,7 @@ public class UserOrderController {
     @ResponseBody
     public CommonResult delete(@PathVariable int id) {
         orderService.delete(id);
-        return CommonResult.success(null,"删除订单成功");
+        return CommonResult.success(null, "删除订单成功");
     }
 
     @ApiOperation("取消订单")
@@ -51,7 +63,7 @@ public class UserOrderController {
     @ResponseBody
     public CommonResult cancel(@PathVariable int id) {
         orderService.cancel(id);
-        return CommonResult.success(null,"取消订单成功");
+        return CommonResult.success(null, "取消订单成功");
     }
 
     @ApiOperation("显示所有订单")
@@ -71,7 +83,7 @@ public class UserOrderController {
     @ApiOperation("获取某订单的所有票")
     @RequestMapping(value = "/tickets/{orderId}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<BoyingTicket>> getShowTickets(@PathVariable Integer orderId) {
+    public CommonResult<List<TicketReturn>> getShowTickets(@PathVariable Integer orderId) {
         return CommonResult.success(ticketService.list(orderId));
     }
 }

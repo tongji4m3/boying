@@ -10,13 +10,14 @@
         <module name="boying-mbg" />
         <module name="boying-admin" />
         <module name="boying-admin (1)" />
-        <module name="boying-user" />
         <module name="community" />
         <module name="boying-common" />
         <module name="boying-security" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8" />
+    <bytecodeTargetLevel target="8">
+      <module name="boying-user" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
