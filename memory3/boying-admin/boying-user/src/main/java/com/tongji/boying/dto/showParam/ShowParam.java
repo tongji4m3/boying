@@ -31,10 +31,4 @@ public class ShowParam {
 
     @ApiModelProperty("每页大小(0或null为不添加该约束,则默认大小为5)")
     private Integer pageSize;
-
-    @ApiModelProperty(value = "演出开始时间")
-    private Date startDay;
-
-    @ApiModelProperty(value = "演出结束时间")
-    private Date endDay;
 }

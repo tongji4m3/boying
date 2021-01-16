@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ojdbc8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/boying-user/lib/ojdbc8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
