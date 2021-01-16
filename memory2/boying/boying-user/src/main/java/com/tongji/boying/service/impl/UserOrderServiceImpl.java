@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 @Service
 public class UserOrderServiceImpl implements UserOrderService {
@@ -41,81 +42,101 @@ public class UserOrderServiceImpl implements UserOrderService {
         Random random = new Random();
         //从这些演出中下单
 //        List<Integer> showIds = showMapper.selectIdList();
-        //下单count次
-        for (int i = 0; i < count; i++) {
-            //[1,1000] 随机下单用户
-            Integer userId = random.nextInt(1000) + 1;
 
-            //随机一个演出
+        //模拟 10000 人并发请求
+        int userCount = 100;
+
+
+        CountDownLatch countDownLatch = new CountDownLatch(userCount);
+
+        for (int k = 0; k < userCount; k++) {
+            new Thread((() -> {
+                //下单count次
+                for (int i = 0; i < count; i++) {
+                    //[1,1000] 随机下单用户
+                    Integer userId = random.nextInt(1000) + 1;
+
+                    //随机一个演出
 //            Integer showId = showIds.get(random.nextInt(showIds.size()));
-//            Integer showId = random.nextInt(10000000) + 1;
-            Integer showId = random.nextInt(1000) + 1;
+                    Integer showId = random.nextInt(10000000) + 1;
+//                    Integer showId = random.nextInt(1000) + 1;
 
-            //查看当前用户该演出是否下单
-            Map<String, Integer> map = new HashMap<>();
-            map.put("userId", userId);
-            map.put("showId", showId);
-            //已退票的不算
-            Integer orderCount = orderMapper.selectByShowIdUserId(map);
-            if (orderCount != null && orderCount != 0) {
-                //该用户已经下过单了,不能继续了
-                continue;
-            }
+                    //查看当前用户该演出是否下单
+                    Map<String, Integer> map = new HashMap<>();
+                    map.put("userId", userId);
+                    map.put("showId", showId);
+                    //已退票的不算
+                    Integer orderCount = orderMapper.selectByShowIdUserId(map);
+                    if (orderCount != null && orderCount != 0) {
+                        //该用户已经下过单了,不能继续了
+                        continue;
+                    }
 
-            //找该演出的座次
-            List<BoyingSeat> boyingSeats = boyingSeatMapper.selectList(showId);
-            int seatDecrease = 10;
-            //要买的座次Id
-            int seatIndex = 0;
-            int seatId = 0;
+                    //找该演出的座次
+                    List<BoyingSeat> boyingSeats = boyingSeatMapper.selectList(showId);
+                    int seatDecrease = 10;
+                    //要买的座次Id
+                    int seatIndex = 0;
+                    int seatId = 0;
 
-            while (true) {
-                seatDecrease--;
-                //随机对一个座次修改
-                seatIndex = random.nextInt(boyingSeats.size());
-                seatId = boyingSeats.get(seatIndex).getId();
-                //检验座次，并减库存
-                int success = boyingSeatMapper.decreaseStock(seatId);
-                //如果成功买到了票，就不继续减库存了 、  或者都没票了
-                if (success > 0 || seatDecrease == 0) {
-                    break;
+                    while (true) {
+                        seatDecrease--;
+                        //随机对一个座次修改
+                        seatIndex = random.nextInt(boyingSeats.size());
+                        seatId = boyingSeats.get(seatIndex).getId();
+                        //检验座次，并减库存
+                        int success = boyingSeatMapper.decreaseStock(seatId);
+                        //如果成功买到了票，就不继续减库存了 、  或者都没票了
+                        if (success > 0 || seatDecrease == 0) {
+                            break;
+                        }
+                    }
+                    if (seatDecrease == 0) {
+                        //没能找到有库存的，下一个
+                        continue;
+                    }
+
+
+                    //生成订单
+                    BoyingOrder order = new BoyingOrder();
+
+
+                    //随机支付方式
+                    int randomPayment = random.nextInt(2);
+                    if (randomPayment % 2 == 0) {
+                        order.setPayment("微信支付");
+                    }
+                    else {
+                        order.setPayment("支付宝");
+                    }
+
+
+                    order.setUserId(userId);
+                    order.setShowId(showId);
+                    order.setStatus(1);//待观看状态
+                    order.setTime(new Date());
+                    order.setUserDelete(0);
+                    order.setAdminDelete(0);
+                    //只下单一个
+                    order.setTicketCount(1);
+
+                    order.setMoney(boyingSeats.get(seatIndex).getPrice());
+
+                    orderMapper.insertSelective(order);
+
+                    //生成票
+                    userTicketService.add(order.getId(), seatId);
                 }
-            }
-            if (seatDecrease == 0) {
-                //没能找到有库存的，下一个
-                continue;
-            }
+                countDownLatch.countDown();
+            })).start();
+        }
 
-
-            //生成订单
-            BoyingOrder order = new BoyingOrder();
-
-
-            //随机支付方式
-            int randomPayment = random.nextInt(2);
-            if (randomPayment % 2 == 0) {
-                order.setPayment("微信支付");
-            }
-            else {
-                order.setPayment("支付宝");
-            }
-
-
-            order.setUserId(userId);
-            order.setShowId(showId);
-            order.setStatus(1);//待观看状态
-            order.setTime(new Date());
-            order.setUserDelete(0);
-            order.setAdminDelete(0);
-            //只下单一个
-            order.setTicketCount(1);
-
-            order.setMoney(boyingSeats.get(seatIndex).getPrice());
-
-            orderMapper.insertSelective(order);
-
-            //生成票
-            userTicketService.add(order.getId(), seatId);
+        //必须要减到0才能解除、执行下面的代码
+        try {
+            countDownLatch.await();
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
