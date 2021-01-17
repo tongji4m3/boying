@@ -18,6 +18,8 @@ public interface BoyingOrderMapper {
 
     List<BoyingOrder> selectByExample(BoyingOrderExample example);
 
+    Double selectMoney(BoyingOrderExample example);
+
     BoyingOrder selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") BoyingOrder record, @Param("example") BoyingOrderExample example);

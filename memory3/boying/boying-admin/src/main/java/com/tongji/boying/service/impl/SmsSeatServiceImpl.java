@@ -7,6 +7,7 @@ import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.showParam.ShowSeatAddParam;
 import com.tongji.boying.dto.showParam.ShowSeatListParam;
 import com.tongji.boying.mapper.BoyingSeatMapper;
+import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.model.BoyingSeat;
 import com.tongji.boying.model.BoyingSeatExample;
 import com.tongji.boying.model.BoyingShow;
@@ -19,10 +20,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SmsSeatServiceImpl implements SmsSeatService
-{
+public class SmsSeatServiceImpl implements SmsSeatService {
     @Autowired
     BoyingSeatMapper boyingSeatMapper;
+    @Autowired
+    BoyingShowMapper boyingShowMapper;
 
     @Override
     public void create(ShowSeatAddParam param) {
@@ -49,7 +51,26 @@ public class SmsSeatServiceImpl implements SmsSeatService
         boyingSeat.setStock(stock);
 
         int count = boyingSeatMapper.insertSelective(boyingSeat);
-        if(count==0) Asserts.fail("创建演出座次失败！");
+        if (count == 0) Asserts.fail("创建演出座次失败！");
+
+        //修改演出的最低价，最高价
+        double price = param.getPrice();
+        double minPrice = param.getPrice();
+        double maxPrice = param.getPrice();
+        for (BoyingSeat seat : boyingSeats) {
+            minPrice = Math.min(minPrice, seat.getPrice());
+            maxPrice = Math.max(maxPrice, seat.getPrice());
+        }
+
+        //说明没有触及最低价，最高价
+        if (minPrice != price && maxPrice != price) {
+            return;
+        }
+        BoyingShow boyingShow = new BoyingShow();
+        boyingShow.setId(param.getShowId());
+        boyingShow.setMinPrice(minPrice);
+        boyingShow.setMaxPrice(maxPrice);
+        boyingShowMapper.updateByPrimaryKeySelective(boyingShow);
     }
 
     @Override

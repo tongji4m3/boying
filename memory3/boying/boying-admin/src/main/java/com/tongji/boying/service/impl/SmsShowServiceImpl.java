@@ -88,12 +88,13 @@ public class SmsShowServiceImpl implements SmsShowService {
         BoyingShowExample.Criteria criteria = boyingShowExample.createCriteria();
         criteria.andNameEqualTo(param.getName());
         List<BoyingShow> shows = boyingShowMapper.selectByExample(boyingShowExample);
-        if (CollUtil.isNotEmpty(shows)) {
+
+        /*if (CollUtil.isNotEmpty(shows)) {
             //说明还不是修改本身
             if (!shows.get(0).getId().equals(id)) {
                 Asserts.fail("演出名称不能重复!");
             }
-        }
+        }*/
 
         BoyingShow show = new BoyingShow();
 

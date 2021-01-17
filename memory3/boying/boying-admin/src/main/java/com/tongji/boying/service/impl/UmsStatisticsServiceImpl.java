@@ -1,11 +1,11 @@
 package com.tongji.boying.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.tongji.boying.mapper.BoyingUserMapper;
 import com.tongji.boying.mapper.BoyingOrderMapper;
-import com.tongji.boying.model.BoyingUserExample;
+import com.tongji.boying.mapper.BoyingUserMapper;
 import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.model.BoyingOrderExample;
+import com.tongji.boying.model.BoyingUserExample;
 import com.tongji.boying.service.UmsStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,12 +63,20 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
 
     @Override
     public double sumOrderMoneyByDay(Date date) {
-        double sum = 0;
+
         Date dateStart = dateDispose(date);
         Date dateEnd = dateAddOneDay(dateStart);
         BoyingOrderExample example = new BoyingOrderExample();
-        example.createCriteria().andTimeBetween(dateStart, dateEnd);
-        List<BoyingOrder> list = userOrderMapper.selectByExample(example);
+        BoyingOrderExample.Criteria criteria = example.createCriteria();
+        criteria.andTimeBetween(dateStart, dateEnd);
+        criteria.andStatusNotEqualTo(3);
+
+        /* List<Double> doubles = userOrderMapper.selectMoney(example);
+        for (Double money : doubles) {
+            sum += money;
+        }*/
+
+        /*List<BoyingOrder> list = userOrderMapper.selectByExample(example);
         if (CollUtil.isNotEmpty(list)) {
             for (BoyingOrder order : list) {
                 //已取消订单不计算在内
@@ -76,26 +84,38 @@ public class UmsStatisticsServiceImpl implements UmsStatisticsService {
                     sum += order.getMoney();
                 }
             }
-        }
-        return sum;
+        }*/
+        Double total = userOrderMapper.selectMoney(example);
+
+        if (total == null) return 0;
+        return total;
     }
 
 
     @Override
     public double sumAllOrderMoney() {
-        double sum = 0;
         BoyingOrderExample example = new BoyingOrderExample();
-        example.createCriteria().andIdIsNotNull();
-        List<BoyingOrder> list = userOrderMapper.selectByExample(example);
-        if (CollUtil.isNotEmpty(list)) {
-            for (BoyingOrder order : list) {
-                //已取消订单不计算在内
-                if (order.getStatus() != 3) {
-                    sum += order.getMoney();
-                }
-            }
-        }
-        return sum;
+        //已取消订单不计算在内
+        example.createCriteria().andIdIsNotNull().andStatusNotEqualTo(3);
+
+        Double total = userOrderMapper.selectMoney(example);
+
+        if (total == null) return 0;
+        return total;
+
+//        if (CollUtil.isNotEmpty(list)) {
+//            for (BoyingOrder order : list) {
+//                //已取消订单不计算在内
+//                if (order.getStatus() != 3) {
+//                    sum += order.getMoney();
+//                }
+//            }
+//        }
+
+//        List<Double> doubles = userOrderMapper.selectMoney(example);
+//        for (Double money : doubles) {
+//            sum += money;
+//        }
     }
 
     @Override
