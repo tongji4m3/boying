@@ -115,7 +115,7 @@ public class NumsUserServiceImpl implements NumsUserService {
     }
 
     @Override
-    public List<BoyingUserReturn> listAllUsers(UserListParam param) {
+    public List<BoyingUser> listAllUsers(UserListParam param) {
         Integer pageNum = param.getPageNum();
         if (pageNum == null || pageNum == 0) pageNum = 1;
         Integer pageSize = param.getPageSize();
@@ -128,7 +128,9 @@ public class NumsUserServiceImpl implements NumsUserService {
         List<BoyingUser> boyingUsers = userMapper.selectByExample(boyingUserExample);
         if (ObjectUtil.isEmpty(boyingUsers)) Asserts.fail("不存在任何用户");
 
-        List<BoyingUserReturn> boyingUserReturnList = new LinkedList<>();
+        return boyingUsers;
+
+        /*List<BoyingUserReturn> boyingUserReturnList = new LinkedList<>();
         for (BoyingUser boyingUser : boyingUsers) {
             BoyingUserReturn boyingUserReturn = new BoyingUserReturn();
             BeanUtils.copyProperties(boyingUser, boyingUserReturn);
@@ -146,7 +148,7 @@ public class NumsUserServiceImpl implements NumsUserService {
             }
             boyingUserReturnList.add(boyingUserReturn);
         }
-        return boyingUserReturnList;
+        return boyingUserReturnList;*/
     }
 
     @Override

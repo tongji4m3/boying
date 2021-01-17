@@ -55,12 +55,10 @@ public class NumsUserController {
 //    }
 
     @ApiOperation("查看所有用户")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<BoyingUserReturn>> list() {
-        UserListParam param = new UserListParam();
-        param.setPageSize(50);
-        return CommonResult.success(numsUserService.listAllUsers(param));
+    public CommonResult<CommonPage<BoyingUser>> list(@Validated @RequestBody UserListParam param) {
+        return CommonResult.success(CommonPage.restPage(numsUserService.listAllUsers(param)));
     }
 
     @ApiOperation("切换指定id普通用户账号启用状态")

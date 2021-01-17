@@ -21,7 +21,7 @@ public interface NumsUserService {
      * 获取所有用户信息
      * @param param
      */
-    List<BoyingUserReturn> listAllUsers(UserListParam param);
+    List<BoyingUser> listAllUsers(UserListParam param);
 
     /**
      * 根据id设置用户启用状态为启用
