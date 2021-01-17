@@ -43,6 +43,9 @@
         from BOYING_ORDER
         where user_id = #{userId} and show_id = #{showId} and status != 3
     </select>
+    <select id="selectOrderList" resultMap="BaseResultMap">
+        select * from boying_order
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from BOYING_ORDER

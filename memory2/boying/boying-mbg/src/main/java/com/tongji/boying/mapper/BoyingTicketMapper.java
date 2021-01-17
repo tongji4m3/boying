@@ -20,4 +20,6 @@ public interface BoyingTicketMapper {
     List<BoyingTicket> getListByOrderId(int orderId);
 
     void deleteTicketsList(Integer orderId);
+
+    List<BoyingTicket> selectTicketList();
 }

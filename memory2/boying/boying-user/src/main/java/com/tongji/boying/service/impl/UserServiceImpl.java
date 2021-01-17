@@ -23,7 +23,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -211,21 +210,16 @@ public class UserServiceImpl implements UserService {
 
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
-        try {
-            UserDetails userDetails = loadUserByUsername(username);
-            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-                throw new BadCredentialsException("密码不正确");
-            }
+        UserDetails userDetails = loadUserByUsername(username);
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+            throw new BadCredentialsException("密码不正确");
+        }
 //            获取该用户的上下文信息
 //            username和password被获得后封装到一个UsernamePasswordAuthenticationToken
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 //            围绕该用户建立安全上下文（security context）
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            token = jwtTokenUtil.generateToken(userDetails);
-        }
-        catch (AuthenticationException e) {
-            LOGGER.warn("登录异常:{}", e.getMessage());
-        }
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        token = jwtTokenUtil.generateToken(userDetails);
         return token;
     }
 
@@ -236,32 +230,28 @@ public class UserServiceImpl implements UserService {
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
 
-        try {
-            BoyingUser user = userCacheService.getUserByTelephone(telephone);
-            //缓存里面没有数据
+        BoyingUser user = userCacheService.getUserByTelephone(telephone);
+        //缓存里面没有数据
+        if (user == null) {
+            //根据手机号查询是否存在
+            user = userMapper.selectByPhone(telephone);
             if (user == null) {
-                //根据手机号查询是否存在
-                user = userMapper.selectByPhone(telephone);
-                if (user == null) {
-                    Asserts.fail("该账号不存在");
-                }
-                //账号未启用
-                if (user.getAdminDelete() == 1) {
-                    Asserts.fail("账号未启用,请联系管理员!");
-                }
-                userCacheService.setUser(user);//将查询到的数据放入缓存中
-                if (!passwordEncoder.matches(password, user.getPassword())) {
-                    throw new BadCredentialsException("密码不正确");
-                }
+                Asserts.fail("该账号不存在");
             }
-            UserDetails userDetails = loadUserByUsername(user.getUsername());
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            token = jwtTokenUtil.generateToken(userDetails);
+            //账号未启用
+            if (user.getAdminDelete() == 1) {
+                Asserts.fail("账号未启用,请联系管理员!");
+            }
+            userCacheService.setUser(user);//将查询到的数据放入缓存中
         }
-        catch (AuthenticationException e) {
-            LOGGER.warn("登录异常:{}", e.getMessage());
+        //缓存有数据，说明手机号是对的，直接检查密码即可
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new BadCredentialsException("密码不正确");
         }
+        UserDetails userDetails = loadUserByUsername(user.getUsername());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        token = jwtTokenUtil.generateToken(userDetails);
         return token;
     }
 
@@ -275,25 +265,20 @@ public class UserServiceImpl implements UserService {
         }
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
-        try {
-            BoyingUser user = userCacheService.getUserByTelephone(telephone);
-            //缓存里面没有数据
+        BoyingUser user = userCacheService.getUserByTelephone(telephone);
+        //缓存里面没有数据
+        if (user == null) {
+            //根据手机号查询是否存在
+            user = userMapper.selectByPhone(telephone);
             if (user == null) {
-                //根据手机号查询是否存在
-                user = userMapper.selectByPhone(telephone);
-                if (user == null) {
-                    Asserts.fail("该账号不存在");
-                }
-                userCacheService.setUser(user);//将查询到的数据放入缓存中
+                Asserts.fail("该账号不存在");
             }
-            UserDetails userDetails = loadUserByUsername(user.getUsername());
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            token = jwtTokenUtil.generateToken(userDetails);
+            userCacheService.setUser(user);//将查询到的数据放入缓存中
         }
-        catch (AuthenticationException e) {
-            LOGGER.warn("登录异常:{}", e.getMessage());
-        }
+        UserDetails userDetails = loadUserByUsername(user.getUsername());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        token = jwtTokenUtil.generateToken(userDetails);
         //注册完删除验证码,每个验证码只能使用一次
         userCacheService.delAuthCode(telephone);
         return token;

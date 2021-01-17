@@ -22,4 +22,6 @@ public interface BoyingShowMapper {
 
 //    查询所有演出Id列表
     List<Integer> selectIdList();
+
+    List<BoyingShow> selectShowList();
 }

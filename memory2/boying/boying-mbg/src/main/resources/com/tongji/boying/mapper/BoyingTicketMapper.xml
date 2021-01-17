@@ -22,6 +22,9 @@
         from BOYING_TICKET
         where order_id = #{orderId}
     </select>
+    <select id="selectTicketList" resultMap="BaseResultMap">
+        select * from boying_ticket
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from BOYING_TICKET

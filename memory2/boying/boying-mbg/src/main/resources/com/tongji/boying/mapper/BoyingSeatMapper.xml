@@ -25,6 +25,9 @@
         from BOYING_SEAT
         where show_id = #{showId,jdbcType=NUMERIC}
     </select>
+    <select id="selectSeatList" resultMap="BaseResultMap">
+        select * from boying_seat
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete

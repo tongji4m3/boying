@@ -21,4 +21,6 @@ public interface BoyingOrderMapper {
     List<BoyingOrder> selectByCondition(Map<String, Object> map);
 
     Integer selectByShowIdUserId(Map<String, Integer> map);
+
+    List<BoyingOrder> selectOrderList();
 }

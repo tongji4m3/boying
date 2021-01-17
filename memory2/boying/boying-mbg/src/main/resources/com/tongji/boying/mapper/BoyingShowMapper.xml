@@ -74,6 +74,9 @@
     <select id="selectIdList" resultType="java.lang.Integer">
         select id from BOYING_SHOW
     </select>
+    <select id="selectShowList" resultMap="BaseResultMap">
+        select * from boying_show
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete

@@ -22,4 +22,6 @@ public interface BoyingSeatMapper {
     void updateSeatsStock(Integer id);
 
     int decreaseStock(Integer seatId);
+
+    List<BoyingSeat> selectSeatList();
 }

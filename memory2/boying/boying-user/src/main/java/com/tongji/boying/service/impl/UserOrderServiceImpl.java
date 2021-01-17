@@ -37,6 +37,8 @@ public class UserOrderServiceImpl implements UserOrderService {
     private BoyingTicketMapper ticketMapper;
     @Autowired
     private BoyingShowMapper showMapper;
+    @Autowired
+    private BoyingSeatMapper seatMapper;
 
     @Override
     public void generate(TestParam param) {
@@ -47,7 +49,6 @@ public class UserOrderServiceImpl implements UserOrderService {
         //模拟 10000 人并发请求
         int userCount = param.getThreadCount();
 
-
         CountDownLatch countDownLatch = new CountDownLatch(userCount);
 
         for (int k = 0; k < userCount; k++) {
@@ -55,14 +56,14 @@ public class UserOrderServiceImpl implements UserOrderService {
                 //下单count次
                 for (int i = 0; i < param.getOrderCount(); i++) {
                     //[1,1000] 随机下单用户
-                    Integer userId = random.nextInt(1000) + 1;
+                    Integer userId = random.nextInt(200000) + 1;
 
                     //随机一个演出
 //            Integer showId = showIds.get(random.nextInt(showIds.size()));
-                    Integer showId = random.nextInt(10000000) + 1;
+                    Integer showId = random.nextInt(40000) + 1;
 //                    Integer showId = random.nextInt(1000) + 1;
 
-                    //查看当前用户该演出是否下单
+                   /* //查看当前用户该演出是否下单
                     Map<String, Integer> map = new HashMap<>();
                     map.put("userId", userId);
                     map.put("showId", showId);
@@ -71,7 +72,7 @@ public class UserOrderServiceImpl implements UserOrderService {
                     if (orderCount != null && orderCount != 0) {
                         //该用户已经下过单了,不能继续了
                         continue;
-                    }
+                    }*/
 
                     //找该演出的座次
                     List<BoyingSeat> boyingSeats = boyingSeatMapper.selectList(showId);
@@ -80,7 +81,7 @@ public class UserOrderServiceImpl implements UserOrderService {
                     int seatIndex = 0;
                     int seatId = 0;
 
-                    while (true) {
+                   /* while (true) {
                         seatDecrease--;
                         //随机对一个座次修改
                         seatIndex = random.nextInt(boyingSeats.size());
@@ -95,8 +96,13 @@ public class UserOrderServiceImpl implements UserOrderService {
                     if (seatDecrease == 0) {
                         //没能找到有库存的，下一个
                         continue;
-                    }
+                    }*/
 
+                    //随机对一个座次修改
+                    seatIndex = random.nextInt(boyingSeats.size());
+                    seatId = boyingSeats.get(seatIndex).getId();
+                    //检验座次，并减库存
+                    boyingSeatMapper.decreaseStock(seatId);
 
                     //生成订单
                     BoyingOrder order = new BoyingOrder();
@@ -141,6 +147,100 @@ public class UserOrderServiceImpl implements UserOrderService {
         }
     }
 
+/*    @Override
+    public void generate(TestParam param) {
+        Random random = new Random();
+        List<BoyingSeat> boyingSeatList = seatMapper.selectSeatList();
+        System.out.println(boyingSeatList.size());
+
+        Map<Integer, List<BoyingSeat>> seatsMap = new HashMap<>();
+        for (BoyingSeat boyingSeat : boyingSeatList) {
+            //说明没加入过这个
+            if (seatsMap.get(boyingSeat.getShowId()) == null) {
+                seatsMap.put(boyingSeat.getShowId(), new LinkedList<>());
+            }
+            seatsMap.get(boyingSeat.getShowId()).add(boyingSeat);
+        }
+        boyingSeatList = null;
+
+        //下单count次
+        int count = param.getOrderCount();
+        for (int i = 0; i < count; i++) {
+            //[1,1000] 随机下单用户
+            Integer userId = random.nextInt(1000) + 1;
+
+            //随机一个演出
+//            Integer showId = showIds.get(random.nextInt(showIds.size()));
+            Integer showId = random.nextInt(40000) + 1;
+//                    Integer showId = random.nextInt(1000) + 1;
+
+           *//* //查看当前用户该演出是否下单
+            Map<String, Integer> map = new HashMap<>();
+            map.put("userId", userId);
+            map.put("showId", showId);*//*
+
+            //找该演出的座次
+//                    List<BoyingSeat> boyingSeats = boyingSeatMapper.selectList(showId);
+            List<BoyingSeat> boyingSeats = seatsMap.get(showId);
+
+            int seatDecrease = 10;
+            //要买的座次Id
+            int seatIndex = 0;
+            int seatId = 0;
+
+            boyingSeatMapper.decreaseStock(seatId);
+
+            *//*while (true) {
+                seatDecrease--;
+                //随机对一个座次修改
+                seatIndex = random.nextInt(boyingSeats.size());
+                seatId = boyingSeats.get(seatIndex).getId();
+                //检验座次，并减库存
+                int success = boyingSeatMapper.decreaseStock(seatId);
+                //如果成功买到了票，就不继续减库存了 、  或者都没票了
+                if (success > 0 || seatDecrease == 0) {
+                    break;
+                }
+            }
+            if (seatDecrease == 0) {
+                //没能找到有库存的，下一个
+                continue;
+            }*//*
+
+
+            //生成订单
+            BoyingOrder order = new BoyingOrder();
+
+
+            //随机支付方式
+            int randomPayment = random.nextInt(2);
+            if (randomPayment % 2 == 0) {
+                order.setPayment("微信支付");
+            }
+            else {
+                order.setPayment("支付宝");
+            }
+
+
+            order.setUserId(userId);
+            order.setShowId(showId);
+            order.setStatus(1);//待观看状态
+            order.setTime(new Date());
+            order.setUserDelete(0);
+            order.setAdminDelete(0);
+            //只下单一个
+            order.setTicketCount(1);
+
+            order.setMoney(boyingSeats.get(seatIndex).getPrice());
+
+            orderMapper.insertSelective(order);
+
+            //生成票
+            userTicketService.add(order.getId(), seatId);
+        }
+    }*/
+
+
     @Override
     public void add(UserOrderParam param) {
         //获取参数
@@ -150,8 +250,8 @@ public class UserOrderServiceImpl implements UserOrderService {
         if (showSeatIds.size() == 0) {
             Asserts.fail("一个订单至少要有1张票!");
         }
-        if (showSeatIds.size() > 5) {
-            Asserts.fail("一个订单最多只能有5张票!");
+        if (showSeatIds.size() > 6) {
+            Asserts.fail("一个订单最多只能有6张票!");
         }
 
         //存储的是(座次Id，count)
