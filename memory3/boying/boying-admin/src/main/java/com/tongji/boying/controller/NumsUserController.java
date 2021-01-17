@@ -43,7 +43,7 @@ public class NumsUserController {
     @ApiOperation("根据用户名模糊匹配获取普通用户")
     @RequestMapping(value = "/getUserByName", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<BoyingUserReturn>> getUserByName(@Validated @RequestBody GetUserByNameParam param) {
+    public CommonResult<CommonPage<BoyingUser>> getUserByName(@Validated @RequestBody GetUserByNameParam param) {
         return CommonResult.success(CommonPage.restPage(numsUserService.getUserByName(param)));
     }
 

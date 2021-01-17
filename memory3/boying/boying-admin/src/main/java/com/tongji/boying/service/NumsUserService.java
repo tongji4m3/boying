@@ -4,6 +4,7 @@ import com.tongji.boying.dto.userParam.BoyingUserReturn;
 import com.tongji.boying.dto.userParam.NumsUserParam;
 import com.tongji.boying.dto.userParam.GetUserByNameParam;
 import com.tongji.boying.dto.userParam.UserListParam;
+import com.tongji.boying.model.BoyingUser;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface NumsUserService {
     BoyingUserReturn getUserById(Integer id);
 
 
-    List<BoyingUserReturn> getUserByName(GetUserByNameParam param);
+    List<BoyingUser> getUserByName(GetUserByNameParam param);
 
     /**
      * 获取所有用户信息

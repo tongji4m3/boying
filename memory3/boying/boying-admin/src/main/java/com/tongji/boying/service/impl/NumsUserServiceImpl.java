@@ -71,7 +71,7 @@ public class NumsUserServiceImpl implements NumsUserService {
     }
 
     @Override
-    public List<BoyingUserReturn> getUserByName(GetUserByNameParam param) {
+    public List<BoyingUser> getUserByName(GetUserByNameParam param) {
         Integer pageNum = param.getPageNum();
         if (pageNum == null || pageNum == 0) pageNum = 1;
         Integer pageSize = param.getPageSize();
@@ -92,25 +92,26 @@ public class NumsUserServiceImpl implements NumsUserService {
         if (boyingUsers == null || boyingUsers.isEmpty()) Asserts.fail("该用户不存在！");
 
 
-        List<BoyingUserReturn> boyingUserReturnList = new LinkedList<>();
-        for (BoyingUser boyingUser : boyingUsers) {
-            BoyingUserReturn boyingUserReturn = new BoyingUserReturn();
-            BeanUtils.copyProperties(boyingUser, boyingUserReturn);
-            if (boyingUser.getAdminDelete() == 1) {
-                boyingUserReturn.setAdminDelete(true);
-            }
-            else {
-                boyingUserReturn.setAdminDelete(false);
-            }
-            if (boyingUser.getGender() == 1) {
-                boyingUserReturn.setGender(true);
-            }
-            else {
-                boyingUserReturn.setGender(false);
-            }
-            boyingUserReturnList.add(boyingUserReturn);
-        }
-        return boyingUserReturnList;
+        return boyingUsers;
+//        List<BoyingUserReturn> boyingUserReturnList = new LinkedList<>();
+//        for (BoyingUser boyingUser : boyingUsers) {
+//            BoyingUserReturn boyingUserReturn = new BoyingUserReturn();
+//            BeanUtils.copyProperties(boyingUser, boyingUserReturn);
+//            if (boyingUser.getAdminDelete() == 1) {
+//                boyingUserReturn.setAdminDelete(true);
+//            }
+//            else {
+//                boyingUserReturn.setAdminDelete(false);
+//            }
+//            if (boyingUser.getGender() == 1) {
+//                boyingUserReturn.setGender(true);
+//            }
+//            else {
+//                boyingUserReturn.setGender(false);
+//            }
+//            boyingUserReturnList.add(boyingUserReturn);
+//        }
+//        return boyingUserReturnList;
     }
 
     @Override

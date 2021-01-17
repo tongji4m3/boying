@@ -83,6 +83,8 @@ public class SmsSeatServiceImpl implements SmsSeatService {
             criteria.andShowIdEqualTo(param.getShowId());
         }
 
+        example.setOrderByClause("name");
+
         Integer pageNum = param.getPageNum();
         if (pageNum == null || pageNum == 0) pageNum = 1;
         Integer pageSize = param.getPageSize();

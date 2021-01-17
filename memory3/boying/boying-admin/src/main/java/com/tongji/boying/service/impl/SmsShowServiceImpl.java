@@ -31,7 +31,7 @@ public class SmsShowServiceImpl implements SmsShowService {
     private BoyingCategoryMapper boyingCategoryMapper;
 
     @Override
-    public List<BoyingShowReturn> list(SmsShowListParam param) {
+    public List<BoyingShow> list(SmsShowListParam param) {
         BoyingShowExample example = new BoyingShowExample();
         BoyingShowExample.Criteria criteria = example.createCriteria();
 
@@ -58,7 +58,9 @@ public class SmsShowServiceImpl implements SmsShowService {
             Asserts.fail("查询不到演出信息!");
         }
 
-        List<BoyingShowReturn> list = new LinkedList<>();
+        return boyingShows;
+
+       /* List<BoyingShowReturn> list = new LinkedList<>();
 
         for (BoyingShow boyingShow : boyingShows) {
             BoyingShowReturn boyingShowReturn = new BoyingShowReturn();
@@ -68,7 +70,7 @@ public class SmsShowServiceImpl implements SmsShowService {
             boyingShowReturn.setCategory(boyingCategory.getName());
             list.add(boyingShowReturn);
         }
-        return list;
+        return list;*/
     }
 
     @Override

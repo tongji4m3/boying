@@ -24,7 +24,8 @@ public class NumsOrderController {
     @ApiOperation("查看所有用户订单")
     @RequestMapping(value = "/listOrders", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<BoyingOrderReturn>> listOrders(@Validated @RequestBody OrderParam param) {
+    public CommonResult<CommonPage<BoyingOrder>> listOrders(@Validated @RequestBody OrderParam param) {
+
         return CommonResult.success(CommonPage.restPage(numsOrderService.listOrders(param)));
     }
 

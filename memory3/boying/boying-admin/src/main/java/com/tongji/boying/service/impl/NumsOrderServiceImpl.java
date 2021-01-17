@@ -23,7 +23,7 @@ public class NumsOrderServiceImpl implements NumsOrderService {
     private BoyingOrderMapper userOrderMapper;
 
     @Override
-    public List<BoyingOrderReturn> listOrders(OrderParam param) {
+    public List<BoyingOrder> listOrders(OrderParam param) {
         BoyingOrderExample boyingOrderExample = new BoyingOrderExample();
         BoyingOrderExample.Criteria criteria = boyingOrderExample.createCriteria();
 
@@ -47,7 +47,9 @@ public class NumsOrderServiceImpl implements NumsOrderService {
         List<BoyingOrder> boyingOrders = userOrderMapper.selectByExample(boyingOrderExample);
         if (ObjectUtil.isEmpty(boyingOrders)) Asserts.fail("不存在任何订单");
 
-        List<BoyingOrderReturn> boyingOrderReturns = new LinkedList<>();
+        return boyingOrders;
+
+        /*List<BoyingOrderReturn> boyingOrderReturns = new LinkedList<>();
         for (BoyingOrder boyingOrder : boyingOrders) {
             BoyingOrderReturn boyingOrderReturn = new BoyingOrderReturn();
             BeanUtils.copyProperties(boyingOrder, boyingOrderReturn);
@@ -65,7 +67,7 @@ public class NumsOrderServiceImpl implements NumsOrderService {
             }
             boyingOrderReturns.add(boyingOrderReturn);
         }
-        return boyingOrderReturns;
+        return boyingOrderReturns;*/
     }
 
     @Override

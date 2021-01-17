@@ -10,7 +10,7 @@ public interface NumsOrderService {
     /**
      * 列出所有用户订单
      */
-    List<BoyingOrderReturn> listOrders(OrderParam param);
+    List<BoyingOrder> listOrders(OrderParam param);
 
     /**
      * 删除某id订单

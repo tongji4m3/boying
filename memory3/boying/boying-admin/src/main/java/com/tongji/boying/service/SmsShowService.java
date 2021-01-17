@@ -15,7 +15,7 @@ public interface SmsShowService {
      * 查看演出
      * @param param
      */
-    List<BoyingShowReturn> list(SmsShowListParam param);
+    List<BoyingShow> list(SmsShowListParam param);
 
     /**
      * 添加演出

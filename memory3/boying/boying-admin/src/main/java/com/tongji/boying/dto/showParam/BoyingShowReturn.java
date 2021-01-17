@@ -42,4 +42,8 @@ public class BoyingShowReturn {
 
     @ApiModelProperty(value = "该演出展示的优先基本,0为不展示")
     private Integer weight;
+
+    private Double minPrice;
+
+    private Double maxPrice;
 }
