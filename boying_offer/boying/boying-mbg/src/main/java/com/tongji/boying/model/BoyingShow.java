@@ -33,6 +33,10 @@ public class BoyingShow implements Serializable {
     @ApiModelProperty(value = "该演出展示的优先基本,0为不展示")
     private Integer weight;
 
+    private Double minPrice;
+
+    private Double maxPrice;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -115,6 +119,22 @@ public class BoyingShow implements Serializable {
         this.weight = weight;
     }
 
+    public Double getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(Double minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public Double getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(Double maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -131,6 +151,8 @@ public class BoyingShow implements Serializable {
         sb.append(", startTime=").append(startTime);
         sb.append(", endTime=").append(endTime);
         sb.append(", weight=").append(weight);
+        sb.append(", minPrice=").append(minPrice);
+        sb.append(", maxPrice=").append(maxPrice);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
