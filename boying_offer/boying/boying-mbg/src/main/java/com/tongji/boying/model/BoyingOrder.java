@@ -29,7 +29,7 @@ public class BoyingOrder implements Serializable {
     private Boolean adminDelete;
 
     @ApiModelProperty(value = "票的总数")
-    private Integer amount;
+    private Integer ticketCount;
 
     @ApiModelProperty(value = "该演出座次的单价")
     private Double ticketPrice;
@@ -109,12 +109,12 @@ public class BoyingOrder implements Serializable {
         this.adminDelete = adminDelete;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getTicketCount() {
+        return ticketCount;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setTicketCount(Integer ticketCount) {
+        this.ticketCount = ticketCount;
     }
 
     public Double getTicketPrice() {
@@ -163,7 +163,7 @@ public class BoyingOrder implements Serializable {
         sb.append(", time=").append(time);
         sb.append(", userDelete=").append(userDelete);
         sb.append(", adminDelete=").append(adminDelete);
-        sb.append(", amount=").append(amount);
+        sb.append(", ticketCount=").append(ticketCount);
         sb.append(", ticketPrice=").append(ticketPrice);
         sb.append(", orderPrice=").append(orderPrice);
         sb.append(", payment=").append(payment);

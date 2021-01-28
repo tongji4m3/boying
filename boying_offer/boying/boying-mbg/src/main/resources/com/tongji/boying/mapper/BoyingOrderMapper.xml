@@ -1,188 +1,211 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tongji.boying.mapper.BoyingOrderMapper">
-  <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingOrder">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="show_id" jdbcType="INTEGER" property="showId" />
-    <result column="seat_id" jdbcType="INTEGER" property="seatId" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="time" jdbcType="TIMESTAMP" property="time" />
-    <result column="user_delete" jdbcType="BIT" property="userDelete" />
-    <result column="admin_delete" jdbcType="BIT" property="adminDelete" />
-    <result column="amount" jdbcType="INTEGER" property="amount" />
-    <result column="ticket_price" jdbcType="DOUBLE" property="ticketPrice" />
-    <result column="order_price" jdbcType="DOUBLE" property="orderPrice" />
-    <result column="payment" jdbcType="VARCHAR" property="payment" />
-    <result column="qr_code_url" jdbcType="VARCHAR" property="qrCodeUrl" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, user_id, show_id, seat_id, status, time, user_delete, admin_delete, amount, ticket_price, 
-    order_price, payment, qr_code_url
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from boying_order
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from boying_order
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.tongji.boying.model.BoyingOrder">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into boying_order (user_id, show_id, seat_id, 
-      status, time, user_delete, 
-      admin_delete, amount, ticket_price, 
-      order_price, payment, qr_code_url
-      )
-    values (#{userId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{seatId,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{userDelete,jdbcType=BIT}, 
-      #{adminDelete,jdbcType=BIT}, #{amount,jdbcType=INTEGER}, #{ticketPrice,jdbcType=DOUBLE}, 
-      #{orderPrice,jdbcType=DOUBLE}, #{payment,jdbcType=VARCHAR}, #{qrCodeUrl,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingOrder">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into boying_order
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="showId != null">
-        show_id,
-      </if>
-      <if test="seatId != null">
-        seat_id,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="time != null">
-        time,
-      </if>
-      <if test="userDelete != null">
-        user_delete,
-      </if>
-      <if test="adminDelete != null">
-        admin_delete,
-      </if>
-      <if test="amount != null">
-        amount,
-      </if>
-      <if test="ticketPrice != null">
-        ticket_price,
-      </if>
-      <if test="orderPrice != null">
-        order_price,
-      </if>
-      <if test="payment != null">
-        payment,
-      </if>
-      <if test="qrCodeUrl != null">
-        qr_code_url,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="showId != null">
-        #{showId,jdbcType=INTEGER},
-      </if>
-      <if test="seatId != null">
-        #{seatId,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="time != null">
-        #{time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userDelete != null">
-        #{userDelete,jdbcType=BIT},
-      </if>
-      <if test="adminDelete != null">
-        #{adminDelete,jdbcType=BIT},
-      </if>
-      <if test="amount != null">
-        #{amount,jdbcType=INTEGER},
-      </if>
-      <if test="ticketPrice != null">
-        #{ticketPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="orderPrice != null">
-        #{orderPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="payment != null">
-        #{payment,jdbcType=VARCHAR},
-      </if>
-      <if test="qrCodeUrl != null">
-        #{qrCodeUrl,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingOrder">
-    update boying_order
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="showId != null">
-        show_id = #{showId,jdbcType=INTEGER},
-      </if>
-      <if test="seatId != null">
-        seat_id = #{seatId,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="time != null">
-        time = #{time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userDelete != null">
-        user_delete = #{userDelete,jdbcType=BIT},
-      </if>
-      <if test="adminDelete != null">
-        admin_delete = #{adminDelete,jdbcType=BIT},
-      </if>
-      <if test="amount != null">
-        amount = #{amount,jdbcType=INTEGER},
-      </if>
-      <if test="ticketPrice != null">
-        ticket_price = #{ticketPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="orderPrice != null">
-        order_price = #{orderPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="payment != null">
-        payment = #{payment,jdbcType=VARCHAR},
-      </if>
-      <if test="qrCodeUrl != null">
-        qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingOrder">
-    update boying_order
-    set user_id = #{userId,jdbcType=INTEGER},
-      show_id = #{showId,jdbcType=INTEGER},
-      seat_id = #{seatId,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      time = #{time,jdbcType=TIMESTAMP},
-      user_delete = #{userDelete,jdbcType=BIT},
-      admin_delete = #{adminDelete,jdbcType=BIT},
-      amount = #{amount,jdbcType=INTEGER},
-      ticket_price = #{ticketPrice,jdbcType=DOUBLE},
-      order_price = #{orderPrice,jdbcType=DOUBLE},
-      payment = #{payment,jdbcType=VARCHAR},
-      qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingOrder">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="show_id" jdbcType="INTEGER" property="showId"/>
+        <result column="seat_id" jdbcType="INTEGER" property="seatId"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+        <result column="user_delete" jdbcType="BIT" property="userDelete"/>
+        <result column="admin_delete" jdbcType="BIT" property="adminDelete"/>
+        <result column="ticket_count" jdbcType="INTEGER" property="ticketCount"/>
+        <result column="ticket_price" jdbcType="DOUBLE" property="ticketPrice"/>
+        <result column="order_price" jdbcType="DOUBLE" property="orderPrice"/>
+        <result column="payment" jdbcType="VARCHAR" property="payment"/>
+        <result column="qr_code_url" jdbcType="VARCHAR" property="qrCodeUrl"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, show_id, seat_id, status, time, user_delete, admin_delete, ticket_count,
+    ticket_price, order_price, payment, qr_code_url
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from boying_order
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from boying_order
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.tongji.boying.model.BoyingOrder">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into boying_order (user_id, show_id, seat_id,
+        status, time, user_delete,
+        admin_delete, ticket_count, ticket_price,
+        order_price, payment, qr_code_url
+        )
+        values (#{userId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{seatId,jdbcType=INTEGER},
+        #{status,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{userDelete,jdbcType=BIT},
+        #{adminDelete,jdbcType=BIT}, #{ticketCount,jdbcType=INTEGER}, #{ticketPrice,jdbcType=DOUBLE},
+        #{orderPrice,jdbcType=DOUBLE}, #{payment,jdbcType=VARCHAR}, #{qrCodeUrl,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingOrder">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into boying_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="showId != null">
+                show_id,
+            </if>
+            <if test="seatId != null">
+                seat_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="userDelete != null">
+                user_delete,
+            </if>
+            <if test="adminDelete != null">
+                admin_delete,
+            </if>
+            <if test="ticketCount != null">
+                ticket_count,
+            </if>
+            <if test="ticketPrice != null">
+                ticket_price,
+            </if>
+            <if test="orderPrice != null">
+                order_price,
+            </if>
+            <if test="payment != null">
+                payment,
+            </if>
+            <if test="qrCodeUrl != null">
+                qr_code_url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="showId != null">
+                #{showId,jdbcType=INTEGER},
+            </if>
+            <if test="seatId != null">
+                #{seatId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userDelete != null">
+                #{userDelete,jdbcType=BIT},
+            </if>
+            <if test="adminDelete != null">
+                #{adminDelete,jdbcType=BIT},
+            </if>
+            <if test="ticketCount != null">
+                #{ticketCount,jdbcType=INTEGER},
+            </if>
+            <if test="ticketPrice != null">
+                #{ticketPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="orderPrice != null">
+                #{orderPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="payment != null">
+                #{payment,jdbcType=VARCHAR},
+            </if>
+            <if test="qrCodeUrl != null">
+                #{qrCodeUrl,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingOrder">
+        update boying_order
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="showId != null">
+                show_id = #{showId,jdbcType=INTEGER},
+            </if>
+            <if test="seatId != null">
+                seat_id = #{seatId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userDelete != null">
+                user_delete = #{userDelete,jdbcType=BIT},
+            </if>
+            <if test="adminDelete != null">
+                admin_delete = #{adminDelete,jdbcType=BIT},
+            </if>
+            <if test="ticketCount != null">
+                ticket_count = #{ticketCount,jdbcType=INTEGER},
+            </if>
+            <if test="ticketPrice != null">
+                ticket_price = #{ticketPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="orderPrice != null">
+                order_price = #{orderPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="payment != null">
+                payment = #{payment,jdbcType=VARCHAR},
+            </if>
+            <if test="qrCodeUrl != null">
+                qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingOrder">
+        update boying_order
+        set user_id      = #{userId,jdbcType=INTEGER},
+            show_id      = #{showId,jdbcType=INTEGER},
+            seat_id      = #{seatId,jdbcType=INTEGER},
+            status       = #{status,jdbcType=INTEGER},
+            time         = #{time,jdbcType=TIMESTAMP},
+            user_delete  = #{userDelete,jdbcType=BIT},
+            admin_delete = #{adminDelete,jdbcType=BIT},
+            ticket_count = #{ticketCount,jdbcType=INTEGER},
+            ticket_price = #{ticketPrice,jdbcType=DOUBLE},
+            order_price  = #{orderPrice,jdbcType=DOUBLE},
+            payment      = #{payment,jdbcType=VARCHAR},
+            qr_code_url  = #{qrCodeUrl,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from boying_order
+        where user_id = #{userId} and admin_delete != 1 and user_delete != 1
+        <if test="status != null and status != 0">
+            and status = #{status}
+        </if>
+        <if test="name != null and name != ''">
+            and show_id in
+            (select id from boying_show where name like '%' || #{name} || '%')
+        </if>
+
+    </select>
+
+    <select id="selectByShowIdUserId" resultType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from boying_order
+        where user_id = #{userId} and show_id = #{showId} and status != 3
+    </select>
 </mapper>

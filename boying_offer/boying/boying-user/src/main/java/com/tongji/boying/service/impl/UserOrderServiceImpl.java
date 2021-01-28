@@ -3,13 +3,10 @@ package com.tongji.boying.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.orderParam.GetOrdersParam;
-import com.tongji.boying.dto.orderParam.TestParam;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.mapper.BoyingOrderMapper;
 import com.tongji.boying.mapper.BoyingSeatMapper;
-import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.model.BoyingOrder;
-import com.tongji.boying.model.BoyingSeat;
 import com.tongji.boying.model.BoyingUser;
 import com.tongji.boying.service.UserOrderService;
 import com.tongji.boying.service.UserService;
@@ -17,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
 
 @Service
 public class UserOrderServiceImpl implements UserOrderService {
@@ -28,28 +24,20 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     @Autowired
     private BoyingSeatMapper boyingSeatMapper;
-    @Autowired
-    private BoyingShowMapper showMapper;
-    @Autowired
-    private BoyingSeatMapper seatMapper;
 
     @Override
     public void add(UserOrderParam param) {
         //获取参数
         Integer showId = param.getShowId();
-        List<Integer> showSeatIds = param.getShowSeatIds();
+        Integer seatId = param.getSeatId();
+        Integer ticketCount = param.getCount();
+        String payment = param.getPayment();
 
-        if (showSeatIds.size() == 0) {
+        if (ticketCount <= 0) {
             Asserts.fail("一个订单至少要有1张票!");
         }
-        if (showSeatIds.size() > 6) {
-            Asserts.fail("一个订单最多只能有6张票!");
-        }
-
-        //存储的是(座次Id，count)
-        Map<Integer, Integer> seatMap = new HashMap<>();
-        for (Integer showSeatId : showSeatIds) {
-            seatMap.put(showSeatId, seatMap.getOrDefault(showSeatId, 0) + 1);
+        if (ticketCount > 3) {
+            Asserts.fail("一个订单最多只能有3张票!");
         }
 
         //当前用户
@@ -66,29 +54,13 @@ public class UserOrderServiceImpl implements UserOrderService {
             Asserts.fail("您已经对该演出下单过了,不能重复下单!");
         }
 
-        //查看库存状态
-        for (Map.Entry<Integer, Integer> entry : seatMap.entrySet()) {
-            BoyingSeat boyingSeat = boyingSeatMapper.selectByPrimaryKey(entry.getKey());
-            if (boyingSeat.getStock() < entry.getValue()) {
-                //只要有一个库存没有，则告知不合法
-                Asserts.fail("库存不足！");
-            }
+        //查看库存状态 并减库存
+        Integer updateCount = boyingSeatMapper.decreaseStock(seatId, ticketCount);
+        if (updateCount == 0) {
+            Asserts.fail("库存不足！");
         }
 
-        //订单总数,订单总金额
-        double totalMoney = 0;
-        int count = 0;
-
-        //减库存
-        for (Map.Entry<Integer, Integer> entry : seatMap.entrySet()) {
-            BoyingSeat boyingSeat = boyingSeatMapper.selectByPrimaryKey(entry.getKey());
-
-            totalMoney += boyingSeat.getPrice() * entry.getValue();
-            count += entry.getValue();
-
-            boyingSeat.setStock(boyingSeat.getStock() - entry.getValue());
-            boyingSeatMapper.updateByPrimaryKeySelective(boyingSeat);
-        }
+        Double ticketPrice = boyingSeatMapper.selectPrice(seatId);
 
         //生成订单
         BoyingOrder order = new BoyingOrder();
@@ -96,17 +68,13 @@ public class UserOrderServiceImpl implements UserOrderService {
         order.setShowId(showId);
         order.setStatus(1);//待观看状态
         order.setTime(new Date());
-        order.setUserDelete(0);
-        order.setTicketCount(count);
-        order.setPayment(param.getPayment());
-
-        order.setMoney(totalMoney);
+        order.setUserDelete(false);
+        order.setTicketCount(ticketCount);
+        order.setPayment(payment);
+        order.setTicketPrice(ticketPrice);
+        order.setOrderPrice(ticketPrice * ticketCount);
+        order.setQrCodeUrl("二维码");
         orderMapper.insertSelective(order);
-        //生成票
-        for (Integer showSeatId : showSeatIds) {
-            System.out.println(order.getId() + "   " + showSeatId);
-            userTicketService.add(order.getId(), showSeatId);
-        }
     }
 
     @Override
@@ -148,13 +116,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         orderMapper.updateByPrimaryKeySelective(order);
 
         //获取对应的演出座次,增加库存
-        List<BoyingTicket> listByOrderId = ticketMapper.getListByOrderId(order.getId());
-        for (BoyingTicket boyingTicket : listByOrderId) {
-            boyingSeatMapper.updateSeatsStock(boyingTicket.getSeatId());
-        }
-
-        //删除对应的票
-        ticketMapper.deleteTicketsList(order.getId());
+        boyingSeatMapper.increaseStock(order.getSeatId(),order.getTicketCount());
     }
 
 
@@ -183,8 +145,6 @@ public class UserOrderServiceImpl implements UserOrderService {
 
         BoyingUser user = userService.getCurrentUser();
 
-        String name = param.getName();
-        Integer status = param.getStatus();
         Map<String, Object> map = new HashMap<>();
         map.put("name", param.getName());
         map.put("status", param.getStatus());

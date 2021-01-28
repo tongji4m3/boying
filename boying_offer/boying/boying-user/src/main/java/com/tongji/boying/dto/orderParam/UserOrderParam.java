@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -17,11 +19,18 @@ public class UserOrderParam {
     @NotNull(message = "演出Id不能为空")
     private Integer showId;
 
+    @ApiModelProperty(value = "seatId")
+    @NotNull(message = "演出座次Id不能为空")
+    private Integer seatId;
+
+    @ApiModelProperty(value = "购买的票数（最多三张)")
+    @NotNull(message = "购买的演出票数不能为空")
+    @Max(3)
+    @Min(1)
+    private Integer count;
+
     @ApiModelProperty(value = "订单支付方式")
     @NotEmpty(message = "订单支付方式不能为空!")
     private String payment;
-
-    @ApiModelProperty(value = "演出座次Id的集合")
-    private List<Integer> showSeatIds;
 }
 
