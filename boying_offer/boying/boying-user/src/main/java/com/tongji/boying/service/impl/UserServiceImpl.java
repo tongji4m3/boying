@@ -306,12 +306,7 @@ public class UserServiceImpl implements UserService {
         currentUser.setIcon(icon);
 
         if (gender != null) {
-            if (gender) {
-                currentUser.setGender(1);
-            }
-            else {
-                currentUser.setGender(0);
-            }
+            currentUser.setGender(gender);
         }
 
         if (age != null && age > 0) {

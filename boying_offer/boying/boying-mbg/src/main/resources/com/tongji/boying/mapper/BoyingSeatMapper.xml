@@ -17,6 +17,12 @@
     from boying_seat
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from boying_seat
+    where show_id = #{showId}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from boying_seat
     where id = #{id,jdbcType=INTEGER}

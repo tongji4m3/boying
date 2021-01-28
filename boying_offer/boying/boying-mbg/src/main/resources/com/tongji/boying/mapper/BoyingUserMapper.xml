@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingUser">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
@@ -15,8 +16,8 @@
     <result column="admin_delete" jdbcType="BIT" property="adminDelete" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, username, phone, email, icon, real_name, identity_number, age, create_time, gender, 
-    admin_delete
+    id, username, password, phone, email, icon, real_name, identity_number, age, create_time, 
+    gender, admin_delete
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -30,10 +31,6 @@
     from boying_user
     where username = #{username}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from boying_user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
   <select id="selectByUsernameAndPhone" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -46,18 +43,22 @@
     from boying_user
     where phone = #{telephone}
   </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from boying_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.BoyingUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into boying_user (username, phone, email, 
-      icon, real_name, identity_number, 
-      age, create_time, gender, 
-      admin_delete)
-    values (#{username,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{icon,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{identityNumber,jdbcType=VARCHAR}, 
-      #{age,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{gender,jdbcType=BIT}, 
-      #{adminDelete,jdbcType=BIT})
+    insert into boying_user (username, password, phone, 
+      email, icon, real_name, 
+      identity_number, age, create_time, 
+      gender, admin_delete)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{identityNumber,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{gender,jdbcType=BIT}, #{adminDelete,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -67,6 +68,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="username != null">
         username,
+      </if>
+      <if test="password != null">
+        password,
       </if>
       <if test="phone != null">
         phone,
@@ -99,6 +103,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
@@ -135,6 +142,9 @@
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
@@ -168,6 +178,7 @@
   <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingUser">
     update boying_user
     set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},

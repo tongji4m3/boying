@@ -172,4 +172,48 @@
       max_price = #{maxPrice,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectList" parameterType="Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from boying_show
+    <where>
+      <if test="categoryId != null and categoryId != 0">
+        category_id = #{categoryId}
+      </if>
+      <if test="keyword != null and keyword != ''">
+        and name like '%' || #{keyword} || '%'
+      </if>
+      <if test="city != null and city != '' and city != '全国'">
+        and city = #{city}
+      </if>
+      <if test="startDay != null and endDay != null">
+        and start_time
+        between #{startDay} and #{endDay}
+      </if>
+    </where>
+    <if test="sort == null">
+      order by weight desc
+    </if>
+    <if test="sort == 0">
+      order by weight desc
+    </if>
+    <if test="sort == 1">
+      order by START_TIME asc
+    </if>
+    <if test="sort == 2">
+      order by START_TIME desc
+    </if>
+    <if test="sort == 3">
+      order by MIN_PRICE asc
+    </if>
+    <if test="sort == 4">
+      order by MIN_PRICE desc
+    </if>
+    <if test="sort == 5">
+      order by MAX_PRICE asc
+    </if>
+    <if test="sort == 6">
+      order by MAX_PRICE desc
+    </if>
+  </select>
 </mapper>

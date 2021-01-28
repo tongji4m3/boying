@@ -101,4 +101,11 @@
       admin_delete = #{adminDelete,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from boying_category
+    where admin_delete = 0
+    order by weight desc
+  </select>
 </mapper>

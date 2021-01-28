@@ -2,6 +2,8 @@ package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.BoyingCategory;
 
+import java.util.List;
+
 public interface BoyingCategoryMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface BoyingCategoryMapper {
     int updateByPrimaryKeySelective(BoyingCategory record);
 
     int updateByPrimaryKey(BoyingCategory record);
+
+    List<BoyingCategory> selectList();
 }

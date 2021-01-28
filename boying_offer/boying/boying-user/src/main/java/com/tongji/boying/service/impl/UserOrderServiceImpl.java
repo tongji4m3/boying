@@ -8,10 +8,8 @@ import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.mapper.BoyingOrderMapper;
 import com.tongji.boying.mapper.BoyingSeatMapper;
 import com.tongji.boying.mapper.BoyingShowMapper;
-import com.tongji.boying.mapper.BoyingTicketMapper;
 import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.model.BoyingSeat;
-import com.tongji.boying.model.BoyingTicket;
 import com.tongji.boying.model.BoyingUser;
 import com.tongji.boying.service.UserOrderService;
 import com.tongji.boying.service.UserService;
@@ -27,218 +25,13 @@ public class UserOrderServiceImpl implements UserOrderService {
     private BoyingOrderMapper orderMapper;
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserTicketService userTicketService;
 
     @Autowired
     private BoyingSeatMapper boyingSeatMapper;
     @Autowired
-    private BoyingTicketMapper ticketMapper;
-    @Autowired
     private BoyingShowMapper showMapper;
     @Autowired
     private BoyingSeatMapper seatMapper;
-
-    @Override
-    public void generate(TestParam param) {
-        Random random = new Random();
-        //从这些演出中下单
-//        List<Integer> showIds = showMapper.selectIdList();
-
-        //模拟 10000 人并发请求
-        int userCount = param.getThreadCount();
-
-        CountDownLatch countDownLatch = new CountDownLatch(userCount);
-
-        for (int k = 0; k < userCount; k++) {
-            new Thread((() -> {
-                //下单count次
-                for (int i = 0; i < param.getOrderCount(); i++) {
-                    //[1,1000] 随机下单用户
-                    Integer userId = random.nextInt(200000) + 1;
-
-                    //随机一个演出
-//            Integer showId = showIds.get(random.nextInt(showIds.size()));
-                    Integer showId = random.nextInt(40000) + 1;
-//                    Integer showId = random.nextInt(1000) + 1;
-
-                   /* //查看当前用户该演出是否下单
-                    Map<String, Integer> map = new HashMap<>();
-                    map.put("userId", userId);
-                    map.put("showId", showId);
-                    //已退票的不算
-                    Integer orderCount = orderMapper.selectByShowIdUserId(map);
-                    if (orderCount != null && orderCount != 0) {
-                        //该用户已经下过单了,不能继续了
-                        continue;
-                    }*/
-
-                    //找该演出的座次
-                    List<BoyingSeat> boyingSeats = boyingSeatMapper.selectList(showId);
-                    int seatDecrease = 10;
-                    //要买的座次Id
-                    int seatIndex = 0;
-                    int seatId = 0;
-
-                   /* while (true) {
-                        seatDecrease--;
-                        //随机对一个座次修改
-                        seatIndex = random.nextInt(boyingSeats.size());
-                        seatId = boyingSeats.get(seatIndex).getId();
-                        //检验座次，并减库存
-                        int success = boyingSeatMapper.decreaseStock(seatId);
-                        //如果成功买到了票，就不继续减库存了 、  或者都没票了
-                        if (success > 0 || seatDecrease == 0) {
-                            break;
-                        }
-                    }
-                    if (seatDecrease == 0) {
-                        //没能找到有库存的，下一个
-                        continue;
-                    }*/
-
-                    //随机对一个座次修改
-                    seatIndex = random.nextInt(boyingSeats.size());
-                    seatId = boyingSeats.get(seatIndex).getId();
-                    //检验座次，并减库存
-                    boyingSeatMapper.decreaseStock(seatId);
-
-                    //生成订单
-                    BoyingOrder order = new BoyingOrder();
-
-
-                    //随机支付方式
-                    int randomPayment = random.nextInt(2);
-                    if (randomPayment % 2 == 0) {
-                        order.setPayment("微信支付");
-                    }
-                    else {
-                        order.setPayment("支付宝");
-                    }
-
-
-                    order.setUserId(userId);
-                    order.setShowId(showId);
-                    order.setStatus(1);//待观看状态
-                    order.setTime(new Date());
-                    order.setUserDelete(0);
-                    order.setAdminDelete(0);
-                    //只下单一个
-                    order.setTicketCount(1);
-
-                    order.setMoney(boyingSeats.get(seatIndex).getPrice());
-
-                    orderMapper.insertSelective(order);
-
-                    //生成票
-                    userTicketService.add(order.getId(), seatId);
-                }
-                countDownLatch.countDown();
-            })).start();
-        }
-
-        //必须要减到0才能解除、执行下面的代码
-        try {
-            countDownLatch.await();
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-/*    @Override
-    public void generate(TestParam param) {
-        Random random = new Random();
-        List<BoyingSeat> boyingSeatList = seatMapper.selectSeatList();
-        System.out.println(boyingSeatList.size());
-
-        Map<Integer, List<BoyingSeat>> seatsMap = new HashMap<>();
-        for (BoyingSeat boyingSeat : boyingSeatList) {
-            //说明没加入过这个
-            if (seatsMap.get(boyingSeat.getShowId()) == null) {
-                seatsMap.put(boyingSeat.getShowId(), new LinkedList<>());
-            }
-            seatsMap.get(boyingSeat.getShowId()).add(boyingSeat);
-        }
-        boyingSeatList = null;
-
-        //下单count次
-        int count = param.getOrderCount();
-        for (int i = 0; i < count; i++) {
-            //[1,1000] 随机下单用户
-            Integer userId = random.nextInt(1000) + 1;
-
-            //随机一个演出
-//            Integer showId = showIds.get(random.nextInt(showIds.size()));
-            Integer showId = random.nextInt(40000) + 1;
-//                    Integer showId = random.nextInt(1000) + 1;
-
-           *//* //查看当前用户该演出是否下单
-            Map<String, Integer> map = new HashMap<>();
-            map.put("userId", userId);
-            map.put("showId", showId);*//*
-
-            //找该演出的座次
-//                    List<BoyingSeat> boyingSeats = boyingSeatMapper.selectList(showId);
-            List<BoyingSeat> boyingSeats = seatsMap.get(showId);
-
-            int seatDecrease = 10;
-            //要买的座次Id
-            int seatIndex = 0;
-            int seatId = 0;
-
-            boyingSeatMapper.decreaseStock(seatId);
-
-            *//*while (true) {
-                seatDecrease--;
-                //随机对一个座次修改
-                seatIndex = random.nextInt(boyingSeats.size());
-                seatId = boyingSeats.get(seatIndex).getId();
-                //检验座次，并减库存
-                int success = boyingSeatMapper.decreaseStock(seatId);
-                //如果成功买到了票，就不继续减库存了 、  或者都没票了
-                if (success > 0 || seatDecrease == 0) {
-                    break;
-                }
-            }
-            if (seatDecrease == 0) {
-                //没能找到有库存的，下一个
-                continue;
-            }*//*
-
-
-            //生成订单
-            BoyingOrder order = new BoyingOrder();
-
-
-            //随机支付方式
-            int randomPayment = random.nextInt(2);
-            if (randomPayment % 2 == 0) {
-                order.setPayment("微信支付");
-            }
-            else {
-                order.setPayment("支付宝");
-            }
-
-
-            order.setUserId(userId);
-            order.setShowId(showId);
-            order.setStatus(1);//待观看状态
-            order.setTime(new Date());
-            order.setUserDelete(0);
-            order.setAdminDelete(0);
-            //只下单一个
-            order.setTicketCount(1);
-
-            order.setMoney(boyingSeats.get(seatIndex).getPrice());
-
-            orderMapper.insertSelective(order);
-
-            //生成票
-            userTicketService.add(order.getId(), seatId);
-        }
-    }*/
-
 
     @Override
     public void add(UserOrderParam param) {
@@ -318,36 +111,31 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     @Override
     public void delete(int id) {
-        BoyingUser user = userService.getCurrentUser();
-
         BoyingOrder order = orderMapper.selectByPrimaryKey(id);
         if (order == null) {
             Asserts.fail("该订单不存在！");
         }
 
-        if (order.getAdminDelete() == 1) {
+        if (order.getAdminDelete()) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
         }
 
         if (order.getStatus() == 1) {
             Asserts.fail("待观看订单不能删除！");
         }
-        order.setUserDelete(1);
+        order.setUserDelete(true);
         orderMapper.updateByPrimaryKeySelective(order);
     }
 
 
     @Override
     public void cancel(int id) {
-
-        BoyingUser user = userService.getCurrentUser();
-
         BoyingOrder order = orderMapper.selectByPrimaryKey(id);
         if (order == null) {
             Asserts.fail("该订单不存在！");
         }
 
-        if (order.getAdminDelete() == 1) {
+        if (order.getAdminDelete()) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
         }
 
@@ -372,19 +160,13 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     @Override
     public void finish(int id) {
-        BoyingUser user = userService.getCurrentUser();
-
         BoyingOrder order = orderMapper.selectByPrimaryKey(id);
         if (order == null) {
             Asserts.fail("该订单不存在！");
         }
 
-        if (order.getAdminDelete() == 1) {
+        if (order.getAdminDelete()) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
-        }
-
-        if (order.getStatus() != 1) {
-            Asserts.fail("只能取消待观看订单!");
         }
         //更新订单的信息
         //变成已完成状态
@@ -422,11 +204,11 @@ public class UserOrderServiceImpl implements UserOrderService {
         BoyingUser user = userService.getCurrentUser();
 
         BoyingOrder order = orderMapper.selectByPrimaryKey(id);
-        if (order == null || order.getUserDelete() == 1) {
+        if (order == null || order.getUserDelete()) {
             Asserts.fail("该订单不存在！");
         }
 
-        if (order.getAdminDelete() == 1) {
+        if (order.getAdminDelete()) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
         }
         return order;

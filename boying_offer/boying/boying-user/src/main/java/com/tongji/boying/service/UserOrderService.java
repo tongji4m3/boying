@@ -28,6 +28,4 @@ public interface UserOrderService {
     List<BoyingOrder> list(GetOrdersParam param);
 
     BoyingOrder getItem(int id);
-
-    void generate(TestParam param);
 }
