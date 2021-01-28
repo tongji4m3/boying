@@ -1,6 +1,5 @@
 package com.tongji.boying.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.mapper.BoyingSeatMapper;
 import com.tongji.boying.model.*;
@@ -17,9 +16,7 @@ public class ShowSeatServiceImpl implements ShowSeatService {
 
     @Override
     public List<BoyingSeat> getShowSeatList(Integer showId) {
-        BoyingSeatExample example = new BoyingSeatExample();
-        example.createCriteria().andShowIdEqualTo(showId);
-        List<BoyingSeat> boyingSeats = showSeatMapper.selectByExample(example);
+        List<BoyingSeat> boyingSeats = showSeatMapper.selectList(showId);
         if (boyingSeats == null || boyingSeats.size() == 0) {
             Asserts.fail("演出座次不存在！");
         }

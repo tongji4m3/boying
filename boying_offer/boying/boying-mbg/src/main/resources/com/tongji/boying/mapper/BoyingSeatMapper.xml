@@ -7,10 +7,9 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="price" jdbcType="DOUBLE" property="price" />
     <result column="capacity" jdbcType="INTEGER" property="capacity" />
-    <result column="stock" jdbcType="INTEGER" property="stock" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, show_id, name, price, capacity, stock
+    id, show_id, name, price, capacity
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -27,9 +26,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into boying_seat (show_id, name, price, 
-      capacity, stock)
+      capacity)
     values (#{showId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
-      #{capacity,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER})
+      #{capacity,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingSeat">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -49,9 +48,6 @@
       <if test="capacity != null">
         capacity,
       </if>
-      <if test="stock != null">
-        stock,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="showId != null">
@@ -65,9 +61,6 @@
       </if>
       <if test="capacity != null">
         #{capacity,jdbcType=INTEGER},
-      </if>
-      <if test="stock != null">
-        #{stock,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -86,9 +79,6 @@
       <if test="capacity != null">
         capacity = #{capacity,jdbcType=INTEGER},
       </if>
-      <if test="stock != null">
-        stock = #{stock,jdbcType=INTEGER},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -97,8 +87,7 @@
     set show_id = #{showId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
-      capacity = #{capacity,jdbcType=INTEGER},
-      stock = #{stock,jdbcType=INTEGER}
+      capacity = #{capacity,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

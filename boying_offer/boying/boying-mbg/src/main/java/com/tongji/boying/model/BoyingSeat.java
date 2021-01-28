@@ -18,9 +18,6 @@ public class BoyingSeat implements Serializable {
     @ApiModelProperty(value = "该级别座位的容量")
     private Integer capacity;
 
-    @ApiModelProperty(value = "库存")
-    private Integer stock;
-
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -63,14 +60,6 @@ public class BoyingSeat implements Serializable {
         this.capacity = capacity;
     }
 
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -82,7 +71,6 @@ public class BoyingSeat implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", price=").append(price);
         sb.append(", capacity=").append(capacity);
-        sb.append(", stock=").append(stock);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

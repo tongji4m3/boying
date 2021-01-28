@@ -13,6 +13,9 @@ public class BoyingOrder implements Serializable {
     @ApiModelProperty(value = "所属演出Id")
     private Integer showId;
 
+    @ApiModelProperty(value = "对应演出座次Id")
+    private Integer seatId;
+
     @ApiModelProperty(value = "待观看，已完成，已取消(1，2，3)")
     private Integer status;
 
@@ -26,13 +29,19 @@ public class BoyingOrder implements Serializable {
     private Boolean adminDelete;
 
     @ApiModelProperty(value = "票的总数")
-    private Integer ticketCount;
+    private Integer amount;
+
+    @ApiModelProperty(value = "该演出座次的单价")
+    private Double ticketPrice;
 
     @ApiModelProperty(value = "订单总价格")
-    private Double money;
+    private Double orderPrice;
 
     @ApiModelProperty(value = "订单支付方式（支付宝，微信)")
     private String payment;
+
+    @ApiModelProperty(value = "二维码图片,供观影人验证入场")
+    private String qrCodeUrl;
 
     private static final long serialVersionUID = 1L;
 
@@ -58,6 +67,14 @@ public class BoyingOrder implements Serializable {
 
     public void setShowId(Integer showId) {
         this.showId = showId;
+    }
+
+    public Integer getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(Integer seatId) {
+        this.seatId = seatId;
     }
 
     public Integer getStatus() {
@@ -92,20 +109,28 @@ public class BoyingOrder implements Serializable {
         this.adminDelete = adminDelete;
     }
 
-    public Integer getTicketCount() {
-        return ticketCount;
+    public Integer getAmount() {
+        return amount;
     }
 
-    public void setTicketCount(Integer ticketCount) {
-        this.ticketCount = ticketCount;
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
-    public Double getMoney() {
-        return money;
+    public Double getTicketPrice() {
+        return ticketPrice;
     }
 
-    public void setMoney(Double money) {
-        this.money = money;
+    public void setTicketPrice(Double ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+
+    public Double getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(Double orderPrice) {
+        this.orderPrice = orderPrice;
     }
 
     public String getPayment() {
@@ -114,6 +139,14 @@ public class BoyingOrder implements Serializable {
 
     public void setPayment(String payment) {
         this.payment = payment;
+    }
+
+    public String getQrCodeUrl() {
+        return qrCodeUrl;
+    }
+
+    public void setQrCodeUrl(String qrCodeUrl) {
+        this.qrCodeUrl = qrCodeUrl;
     }
 
     @Override
@@ -125,13 +158,16 @@ public class BoyingOrder implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
         sb.append(", showId=").append(showId);
+        sb.append(", seatId=").append(seatId);
         sb.append(", status=").append(status);
         sb.append(", time=").append(time);
         sb.append(", userDelete=").append(userDelete);
         sb.append(", adminDelete=").append(adminDelete);
-        sb.append(", ticketCount=").append(ticketCount);
-        sb.append(", money=").append(money);
+        sb.append(", amount=").append(amount);
+        sb.append(", ticketPrice=").append(ticketPrice);
+        sb.append(", orderPrice=").append(orderPrice);
         sb.append(", payment=").append(payment);
+        sb.append(", qrCodeUrl=").append(qrCodeUrl);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -5,17 +5,20 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="show_id" jdbcType="INTEGER" property="showId" />
+    <result column="seat_id" jdbcType="INTEGER" property="seatId" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="user_delete" jdbcType="BIT" property="userDelete" />
     <result column="admin_delete" jdbcType="BIT" property="adminDelete" />
-    <result column="ticket_count" jdbcType="INTEGER" property="ticketCount" />
-    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="ticket_price" jdbcType="DOUBLE" property="ticketPrice" />
+    <result column="order_price" jdbcType="DOUBLE" property="orderPrice" />
     <result column="payment" jdbcType="VARCHAR" property="payment" />
+    <result column="qr_code_url" jdbcType="VARCHAR" property="qrCodeUrl" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, show_id, status, time, user_delete, admin_delete, ticket_count, money, 
-    payment
+    id, user_id, show_id, seat_id, status, time, user_delete, admin_delete, amount, ticket_price, 
+    order_price, payment, qr_code_url
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -31,13 +34,15 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into boying_order (user_id, show_id, status, 
-      time, user_delete, admin_delete, 
-      ticket_count, money, payment
+    insert into boying_order (user_id, show_id, seat_id, 
+      status, time, user_delete, 
+      admin_delete, amount, ticket_price, 
+      order_price, payment, qr_code_url
       )
-    values (#{userId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{time,jdbcType=TIMESTAMP}, #{userDelete,jdbcType=BIT}, #{adminDelete,jdbcType=BIT}, 
-      #{ticketCount,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, #{payment,jdbcType=VARCHAR}
+    values (#{userId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{seatId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{userDelete,jdbcType=BIT}, 
+      #{adminDelete,jdbcType=BIT}, #{amount,jdbcType=INTEGER}, #{ticketPrice,jdbcType=DOUBLE}, 
+      #{orderPrice,jdbcType=DOUBLE}, #{payment,jdbcType=VARCHAR}, #{qrCodeUrl,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingOrder">
@@ -52,6 +57,9 @@
       <if test="showId != null">
         show_id,
       </if>
+      <if test="seatId != null">
+        seat_id,
+      </if>
       <if test="status != null">
         status,
       </if>
@@ -64,14 +72,20 @@
       <if test="adminDelete != null">
         admin_delete,
       </if>
-      <if test="ticketCount != null">
-        ticket_count,
+      <if test="amount != null">
+        amount,
       </if>
-      <if test="money != null">
-        money,
+      <if test="ticketPrice != null">
+        ticket_price,
+      </if>
+      <if test="orderPrice != null">
+        order_price,
       </if>
       <if test="payment != null">
         payment,
+      </if>
+      <if test="qrCodeUrl != null">
+        qr_code_url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -80,6 +94,9 @@
       </if>
       <if test="showId != null">
         #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="seatId != null">
+        #{seatId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -93,14 +110,20 @@
       <if test="adminDelete != null">
         #{adminDelete,jdbcType=BIT},
       </if>
-      <if test="ticketCount != null">
-        #{ticketCount,jdbcType=INTEGER},
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
       </if>
-      <if test="money != null">
-        #{money,jdbcType=DOUBLE},
+      <if test="ticketPrice != null">
+        #{ticketPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderPrice != null">
+        #{orderPrice,jdbcType=DOUBLE},
       </if>
       <if test="payment != null">
         #{payment,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCodeUrl != null">
+        #{qrCodeUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -112,6 +135,9 @@
       </if>
       <if test="showId != null">
         show_id = #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="seatId != null">
+        seat_id = #{seatId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -125,14 +151,20 @@
       <if test="adminDelete != null">
         admin_delete = #{adminDelete,jdbcType=BIT},
       </if>
-      <if test="ticketCount != null">
-        ticket_count = #{ticketCount,jdbcType=INTEGER},
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
       </if>
-      <if test="money != null">
-        money = #{money,jdbcType=DOUBLE},
+      <if test="ticketPrice != null">
+        ticket_price = #{ticketPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderPrice != null">
+        order_price = #{orderPrice,jdbcType=DOUBLE},
       </if>
       <if test="payment != null">
         payment = #{payment,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCodeUrl != null">
+        qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -141,13 +173,16 @@
     update boying_order
     set user_id = #{userId,jdbcType=INTEGER},
       show_id = #{showId,jdbcType=INTEGER},
+      seat_id = #{seatId,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       time = #{time,jdbcType=TIMESTAMP},
       user_delete = #{userDelete,jdbcType=BIT},
       admin_delete = #{adminDelete,jdbcType=BIT},
-      ticket_count = #{ticketCount,jdbcType=INTEGER},
-      money = #{money,jdbcType=DOUBLE},
-      payment = #{payment,jdbcType=VARCHAR}
+      amount = #{amount,jdbcType=INTEGER},
+      ticket_price = #{ticketPrice,jdbcType=DOUBLE},
+      order_price = #{orderPrice,jdbcType=DOUBLE},
+      payment = #{payment,jdbcType=VARCHAR},
+      qr_code_url = #{qrCodeUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

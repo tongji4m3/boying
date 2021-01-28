@@ -3,17 +3,14 @@ package com.tongji.boying.model;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
-public class BoyingTicket implements Serializable {
+public class BoyingStock implements Serializable {
     private Integer id;
 
-    @ApiModelProperty(value = "所属订单Id")
-    private Integer orderId;
-
-    @ApiModelProperty(value = "所属座次Id")
+    @ApiModelProperty(value = "对应演出座次Id")
     private Integer seatId;
 
-    @ApiModelProperty(value = "二维码图片,供观影人验证入场")
-    private String qrCodeUrl;
+    @ApiModelProperty(value = "剩余的库存")
+    private Integer stock;
 
     private static final long serialVersionUID = 1L;
 
@@ -25,14 +22,6 @@ public class BoyingTicket implements Serializable {
         this.id = id;
     }
 
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
-
     public Integer getSeatId() {
         return seatId;
     }
@@ -41,12 +30,12 @@ public class BoyingTicket implements Serializable {
         this.seatId = seatId;
     }
 
-    public String getQrCodeUrl() {
-        return qrCodeUrl;
+    public Integer getStock() {
+        return stock;
     }
 
-    public void setQrCodeUrl(String qrCodeUrl) {
-        this.qrCodeUrl = qrCodeUrl;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     @Override
@@ -56,9 +45,8 @@ public class BoyingTicket implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", orderId=").append(orderId);
         sb.append(", seatId=").append(seatId);
-        sb.append(", qrCodeUrl=").append(qrCodeUrl);
+        sb.append(", stock=").append(stock);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

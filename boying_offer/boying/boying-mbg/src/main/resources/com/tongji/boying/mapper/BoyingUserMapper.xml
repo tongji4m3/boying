@@ -24,10 +24,28 @@
     from boying_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByUsername" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from boying_user
+    where username = #{username}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from boying_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <select id="selectByUsernameAndPhone" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from boying_user
+    where username = #{username} and phone = #{telephone}
+  </select>
+  <select id="selectByPhone" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from boying_user
+    where phone = #{telephone}
+  </select>
   <insert id="insert" parameterType="com.tongji.boying.model.BoyingUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()

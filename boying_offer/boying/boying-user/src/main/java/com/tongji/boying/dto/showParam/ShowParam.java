@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -20,9 +21,23 @@ public class ShowParam {
     @ApiModelProperty("演出目录Id(0或null为不添加该约束,即查询出所有演出)")
     private Integer categoryId;
 
+    @ApiModelProperty("排序相关(0或null为不添加该约束,即按推荐顺序) " +
+            "1为开始时间升序，2为开始时间降序" +
+            "3为最低价升序,4为最低价降序 " +
+            "5为最高价升序,6为最高价降序")
+    private Integer sort;
+
     @ApiModelProperty("分页的第几页(0或null为不添加该约束,即查询第一页)(0和1都代表第一页)")
     private Integer pageNum;
 
     @ApiModelProperty("每页大小(0或null为不添加该约束,则默认大小为5)")
     private Integer pageSize;
+
+    @ApiModelProperty(value = "演出开始时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date startDay;
+
+    @ApiModelProperty(value = "演出结束时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date endDay;
 }
