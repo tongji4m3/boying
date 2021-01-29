@@ -197,7 +197,7 @@
         </if>
         <if test="name != null and name != ''">
             and show_id in
-            (select id from boying_show where name like '%' || #{name} || '%')
+            (select id from boying_show where name like concat('%',#{name,jdbcType=VARCHAR},'%')
         </if>
 
     </select>

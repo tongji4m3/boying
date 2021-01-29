@@ -32,8 +32,6 @@ public class ShowServiceImpl implements ShowService {
         if (param.getStartDay() != null && param.getEndDay() != null) {
             map.put("startDay", formatDay.format(param.getStartDay()) + " 00:00:00");
             map.put("endDay", formatDay.format(param.getEndDay()) + " 23:59:59");
-            System.out.println(formatDay.format(param.getStartDay()) + " 00:00:00");
-            System.out.println(formatDay.format(param.getEndDay()) + " 23:59:59");
         }
 
         //开启分页相关
