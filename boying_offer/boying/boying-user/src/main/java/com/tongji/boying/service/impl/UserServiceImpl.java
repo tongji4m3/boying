@@ -117,6 +117,7 @@ public class UserServiceImpl implements UserService {
         BoyingUser user = new BoyingUser();
         user.setUsername(username);
         user.setPhone(telephone);
+        System.out.println(passwordEncoder.encode(password));
         user.setPassword(passwordEncoder.encode(password));//存储加密后的
         //设置默认头像
         if (StringUtils.isEmpty(icon)) {

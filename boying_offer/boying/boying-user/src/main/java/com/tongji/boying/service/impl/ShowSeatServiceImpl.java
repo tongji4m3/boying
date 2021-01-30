@@ -6,6 +6,7 @@ import com.tongji.boying.model.*;
 import com.tongji.boying.service.ShowSeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,5 +22,27 @@ public class ShowSeatServiceImpl implements ShowSeatService {
             Asserts.fail("演出座次不存在！");
         }
         return boyingSeats;
+    }
+
+    @Override
+    public Integer getSeatStock(Integer seatId) {
+        return showSeatMapper.getSeatStock(seatId);
+    }
+
+    @Override
+    public BoyingSeat selectByPrimaryKey(Integer seatId) {
+        return showSeatMapper.selectByPrimaryKey(seatId);
+    }
+
+    @Override
+    @Transactional
+    public Integer decreaseStock(Integer seatId, Integer ticketCount) {
+        return showSeatMapper.decreaseStock(seatId,ticketCount);
+    }
+
+    @Override
+    @Transactional
+    public void increaseStock(Integer seatId, Integer ticketCount) {
+        showSeatMapper.increaseStock(seatId,ticketCount);
     }
 }

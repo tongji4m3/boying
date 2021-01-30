@@ -29,4 +29,12 @@ public class ShowSeatController {
     public CommonResult<List<BoyingSeat>> getShowSeatList(@PathVariable Integer showId) {
         return CommonResult.success(seatService.getShowSeatList(showId));
     }
+
+
+    @ApiOperation("获取某演唱会座次的库存")
+    @RequestMapping(value = "/seatStock/{seatId}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<Integer> getSeatStock(@PathVariable Integer seatId) {
+        return CommonResult.success(seatService.getSeatStock(seatId));
+    }
 }

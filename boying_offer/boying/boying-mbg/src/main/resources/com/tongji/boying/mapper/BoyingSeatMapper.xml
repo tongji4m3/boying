@@ -28,6 +28,11 @@
         from boying_seat
         where id = #{seatId};
     </select>
+    <select id="getSeatStock" resultType="java.lang.Integer">
+        select stock
+        from boying_stock
+        where id = #{seatId};
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from boying_seat
@@ -106,7 +111,7 @@
     <update id="decreaseStock">
         update boying_stock
         set stock = stock - #{ticketCount}
-        where seat_id = #{seatId}
+        where id = #{seatId}
           and stock >= #{ticketCount}
     </update>
 
@@ -114,6 +119,6 @@
     <update id="increaseStock">
         update boying_stock
         set stock = stock + #{ticketCount}
-        where seat_id = #{seatId}
+        where id = #{seatId}
     </update>
 </mapper>
