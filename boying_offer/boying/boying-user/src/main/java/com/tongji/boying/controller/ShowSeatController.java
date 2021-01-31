@@ -3,6 +3,7 @@ package com.tongji.boying.controller;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.model.BoyingSeat;
+import com.tongji.boying.model.ItemModel;
 import com.tongji.boying.service.ShowSeatService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,10 +24,10 @@ public class ShowSeatController {
     @Autowired
     private ShowSeatService seatService;
 
-    @ApiOperation("获取某演唱会场次的所有座次")
+    @ApiOperation("获取某演唱会场次的所有座次信息")
     @RequestMapping(value = "/detail/{showId}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<BoyingSeat>> getShowSeatList(@PathVariable Integer showId) {
+    public CommonResult<List<ItemModel>> getShowSeatList(@PathVariable Integer showId) {
         return CommonResult.success(seatService.getShowSeatList(showId));
     }
 

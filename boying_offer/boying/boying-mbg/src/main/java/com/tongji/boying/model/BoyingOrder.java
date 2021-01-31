@@ -16,6 +16,9 @@ public class BoyingOrder implements Serializable {
     @ApiModelProperty(value = "对应演出座次Id")
     private Integer seatId;
 
+    @ApiModelProperty(value = "若非0，则代表是秒杀商品的价格")
+    private Integer promoId;
+
     @ApiModelProperty(value = "待观看，已完成，已取消(1，2，3)")
     private Integer status;
 
@@ -75,6 +78,14 @@ public class BoyingOrder implements Serializable {
 
     public void setSeatId(Integer seatId) {
         this.seatId = seatId;
+    }
+
+    public Integer getPromoId() {
+        return promoId;
+    }
+
+    public void setPromoId(Integer promoId) {
+        this.promoId = promoId;
     }
 
     public Integer getStatus() {
@@ -159,6 +170,7 @@ public class BoyingOrder implements Serializable {
         sb.append(", userId=").append(userId);
         sb.append(", showId=").append(showId);
         sb.append(", seatId=").append(seatId);
+        sb.append(", promoId=").append(promoId);
         sb.append(", status=").append(status);
         sb.append(", time=").append(time);
         sb.append(", userDelete=").append(userDelete);

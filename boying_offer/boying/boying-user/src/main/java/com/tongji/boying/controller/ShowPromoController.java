@@ -2,6 +2,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.model.BoyingPromo;
+import com.tongji.boying.model.PromoModel;
 import com.tongji.boying.service.ShowPromoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +28,7 @@ public class ShowPromoController {
     @ApiOperation("获取某演唱会座次的活动信息")
     @RequestMapping(value = "/detail/{seatId}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<BoyingPromo> getPromo(@PathVariable Integer seatId) {
+    public CommonResult<PromoModel> getPromo(@PathVariable Integer seatId) {
         return CommonResult.success(PromoService.getPromo(seatId));
     }
 }

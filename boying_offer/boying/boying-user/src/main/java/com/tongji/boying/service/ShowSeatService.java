@@ -1,11 +1,12 @@
 package com.tongji.boying.service;
 
 import com.tongji.boying.model.BoyingSeat;
+import com.tongji.boying.model.ItemModel;
 
 import java.util.List;
 
 public interface ShowSeatService {
-    List<BoyingSeat> getShowSeatList(Integer showId);
+    List<ItemModel> getShowSeatList(Integer showId);
 
     Integer getSeatStock(Integer seatId);
 
