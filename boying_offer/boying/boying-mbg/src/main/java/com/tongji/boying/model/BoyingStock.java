@@ -6,9 +6,6 @@ import java.io.Serializable;
 public class BoyingStock implements Serializable {
     private Integer id;
 
-    @ApiModelProperty(value = "对应演出座次Id")
-    private Integer seatId;
-
     @ApiModelProperty(value = "剩余的库存")
     private Integer stock;
 
@@ -20,14 +17,6 @@ public class BoyingStock implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getSeatId() {
-        return seatId;
-    }
-
-    public void setSeatId(Integer seatId) {
-        this.seatId = seatId;
     }
 
     public Integer getStock() {
@@ -45,7 +34,6 @@ public class BoyingStock implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", seatId=").append(seatId);
         sb.append(", stock=").append(stock);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

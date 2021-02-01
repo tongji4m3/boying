@@ -64,12 +64,12 @@ public class BoyingSeatServiceImpl implements BoyingSeatService {
     private BoyingSeatModel convertModelFromDataObject(BoyingSeat seatDO) {
         BoyingStock stockDO = boyingStockService.selectByPrimaryKey(seatDO.getId());
 
-        BoyingPromoModel boyingPromoModel = boyingPromoService.getPromo(seatDO.getId());
 
         BoyingSeatModel boyingSeatModel = new BoyingSeatModel();
         BeanUtils.copyProperties(seatDO, boyingSeatModel);
         boyingSeatModel.setStock(stockDO.getStock());
 
+        BoyingPromoModel boyingPromoModel = boyingPromoService.getPromo(seatDO.getId());
         //存在秒杀活动，而且是未开始或者是正在进行中的
         if (boyingPromoModel != null && boyingPromoModel.getStatus() != 3) {
             boyingSeatModel.setBoyingPromoModel(boyingPromoModel);

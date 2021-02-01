@@ -25,7 +25,7 @@ public class BoyingSeatController {
     private BoyingSeatService seatService;
 
     @ApiOperation("获取某演唱会场次的所有座次信息")
-    @RequestMapping(value = "/detail/{showId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/seatList/{showId}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<BoyingSeatVO>> getShowSeatList(@PathVariable Integer showId) {
         List<BoyingSeatModel> showSeatList = seatService.getShowSeatList(showId);

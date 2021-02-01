@@ -33,17 +33,19 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         Integer seatId = param.getSeatId();
         Integer ticketCount = param.getCount();
         String payment = param.getPayment();
+        // 若promoId不为0，则是秒杀座次价格
+        Integer promoId = param.getPromoId();
 
         //当前用户
         BoyingUser user = boyingUserService.getCurrentUser();
 
         //对showId,payment做校验
 
-        BoyingSeatModel itemModel = boyingSeatService.getShowSeat(seatId);
-        if (itemModel == null) {
+        BoyingSeatModel seatModel = boyingSeatService.getShowSeat(seatId);
+        if (seatModel == null) {
             Asserts.fail("演出座次不存在！");
         }
-        if (!itemModel.getShowId().equals(showId)) {
+        if (!seatModel.getShowId().equals(showId)) {
             Asserts.fail("该演出座次不属于该演出！");
         }
 
@@ -55,20 +57,20 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
             Asserts.fail("您已经对该演出下单过了,不能重复下单!");
         }
 
-        Double ticketPrice = itemModel.getPrice();
+        Double ticketPrice = seatModel.getPrice();
 
-        Integer promoId = param.getPromoId();
+
         if (promoId == null) promoId = 0;
         //校验活动信息
         if (promoId != 0) {
-            //（1）校验对应活动是否存在这个适用商品
-            if (promoId.intValue() != itemModel.getBoyingPromoModel().getId()) {
+            //校验对应活动是否存在这个座次
+            if (seatModel.getBoyingPromoModel()==null || !promoId.equals(seatModel.getBoyingPromoModel().getId())) {
                 Asserts.fail("活动信息不正确");
-                //（2）校验活动是否正在进行中
-            } else if (itemModel.getBoyingPromoModel().getStatus() != 2) {
+                //校验活动是否正在进行中
+            } else if (seatModel.getBoyingPromoModel().getStatus() != 2) {
                 Asserts.fail("活动信息还未开始");
             }
-            ticketPrice = itemModel.getBoyingPromoModel().getPrice();
+            ticketPrice = seatModel.getBoyingPromoModel().getPrice();
         }
 
         //查看库存状态 并减库存

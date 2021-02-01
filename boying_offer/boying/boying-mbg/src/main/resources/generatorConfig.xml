@@ -38,7 +38,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.tongji.boying.mapper"
                              targetProject="boying-mbg\src\main\java"/>
         <!--生成全部表tableName设为%-->
-                <table tableName="boying_order"
+                <table tableName="boying_stock"
                        enableCountByExample="false"
                        enableDeleteByExample="false"
                        enableSelectByExample="false"

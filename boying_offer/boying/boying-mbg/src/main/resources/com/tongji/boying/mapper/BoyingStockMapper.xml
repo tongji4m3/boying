@@ -3,11 +3,10 @@
 <mapper namespace="com.tongji.boying.mapper.BoyingStockMapper">
   <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingStock">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="seat_id" jdbcType="INTEGER" property="seatId" />
     <result column="stock" jdbcType="INTEGER" property="stock" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, seat_id, stock
+    id, stock
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,8 +22,8 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into boying_stock (seat_id, stock)
-    values (#{seatId,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER})
+    insert into boying_stock (stock)
+    values (#{stock,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingStock">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -32,17 +31,11 @@
     </selectKey>
     insert into boying_stock
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="seatId != null">
-        seat_id,
-      </if>
       <if test="stock != null">
         stock,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="seatId != null">
-        #{seatId,jdbcType=INTEGER},
-      </if>
       <if test="stock != null">
         #{stock,jdbcType=INTEGER},
       </if>
@@ -51,9 +44,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingStock">
     update boying_stock
     <set>
-      <if test="seatId != null">
-        seat_id = #{seatId,jdbcType=INTEGER},
-      </if>
       <if test="stock != null">
         stock = #{stock,jdbcType=INTEGER},
       </if>
@@ -62,8 +52,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingStock">
     update boying_stock
-    set seat_id = #{seatId,jdbcType=INTEGER},
-      stock = #{stock,jdbcType=INTEGER}
+    set stock = #{stock,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

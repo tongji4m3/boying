@@ -21,14 +21,16 @@ public class BoyingPromoServiceImpl implements BoyingPromoService {
         //获取对应演出的秒杀活动信息
         BoyingPromo promoDO = boyingPromoMapper.selectBySeatId(seatId);
         if (promoDO == null) {
-            Asserts.fail("对应的活动不存在！");
+            return null;
         }
+
         //dataObject->model
         BoyingPromoModel boyingPromoModel = new BoyingPromoModel();
         BeanUtils.copyProperties(promoDO, boyingPromoModel);
 
         //判断当前时间是否秒杀活动即将开始或正在进行
-        if (boyingPromoModel.getStartTime().before(new Date())) {
+        //秒杀活动状态 1表示还未开始，2表示进行中，3表示已结束
+        if (boyingPromoModel.getStartTime().after(new Date())) {
             boyingPromoModel.setStatus(1);
         } else if (boyingPromoModel.getEndTime().before(new Date())) {
             boyingPromoModel.setStatus(3);
