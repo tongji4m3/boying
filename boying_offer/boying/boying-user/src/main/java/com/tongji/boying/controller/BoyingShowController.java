@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 @Api(tags = "ShowController", description = "前台演出相关API")
 @RequestMapping("/show")
-public class ShowController {
+public class BoyingShowController {
 
     @Autowired
     private ShowService showService;

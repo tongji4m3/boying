@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 @Api(tags = "ShowSeatController", description = "前台演出座次相关API")
 @RequestMapping("/seat")
-public class ShowSeatController {
+public class BoyingSeatController {
     @Autowired
     private ShowSeatService seatService;
 

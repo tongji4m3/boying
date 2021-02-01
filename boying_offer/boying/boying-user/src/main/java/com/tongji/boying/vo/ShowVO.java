@@ -1,4 +1,4 @@
-package com.tongji.boying.dto.showParam;
+package com.tongji.boying.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class BoyingShowDetailsReturn {
+public class ShowVO {
     private Integer id;
 
     private String name;

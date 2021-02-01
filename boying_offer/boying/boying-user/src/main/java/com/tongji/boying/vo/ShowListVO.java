@@ -1,4 +1,4 @@
-package com.tongji.boying.dto.showParam;
+package com.tongji.boying.vo;
 
 import com.tongji.boying.model.BoyingCategory;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class BoyingShowListReturn {
+public class ShowListVO {
     private Integer id;
 
     private String name;

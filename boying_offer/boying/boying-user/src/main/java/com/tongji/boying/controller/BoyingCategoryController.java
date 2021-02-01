@@ -18,7 +18,7 @@ import java.util.List;
 @Controller
 @Api(tags = "ShowCategoryController", description = "查看演出菜单目录相关API")
 @RequestMapping("/category")
-public class ShowCategoryController {
+public class BoyingCategoryController {
     @Autowired
     private ShowCategoryService showCategoryService;
 

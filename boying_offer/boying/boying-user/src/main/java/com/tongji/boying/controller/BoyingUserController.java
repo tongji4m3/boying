@@ -3,8 +3,11 @@ package com.tongji.boying.controller;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.userParam.*;
 import com.tongji.boying.service.UserService;
+import com.tongji.boying.vo.LoginVO;
+import com.tongji.boying.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,7 +26,7 @@ import java.security.Principal;
 @Controller
 @Api(tags = "UserController", description = "用户模块用户相关信息API")
 @RequestMapping("/user")
-public class UserController {
+public class BoyingUserController {
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
     @Value("${jwt.tokenHead}")
@@ -45,7 +48,7 @@ public class UserController {
     @ResponseBody
     public CommonResult usernameLogin(@Validated @RequestBody UsernameLoginParam param) {
         String token = userService.login(param);
-        return CommonResult.success(new LoginReturn(token, tokenHead));
+        return CommonResult.success(new LoginVO(token, tokenHead));
     }
 
     @ApiOperation("用户手机号密码登录")
@@ -53,7 +56,7 @@ public class UserController {
     @ResponseBody
     public CommonResult telephoneLogin(@Validated @RequestBody TelephoneLoginParam param) {
         String token = userService.telephoneLogin(param);
-        return CommonResult.success(new LoginReturn(token, tokenHead));
+        return CommonResult.success(new LoginVO(token, tokenHead));
     }
 
     @ApiOperation("用户手机号验证码登录")
@@ -61,16 +64,20 @@ public class UserController {
     @ResponseBody
     public CommonResult authCodeLogin(@Validated @RequestBody AuthCodeLoginParam param) {
         String token = userService.authCodeLogin(param);
-        return CommonResult.success(new LoginReturn(token, tokenHead));
+        return CommonResult.success(new LoginVO(token, tokenHead));
     }
 
     @ApiOperation("获取用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult info(Principal principal) {
+    public CommonResult<UserVO> info(Principal principal) {
 //        防止直接查询时报错
         if (principal == null) return CommonResult.unauthorized(null);
-        return CommonResult.success(userService.getCurrentUser());
+
+        //将核心领域模型用户对象转化为可供UI使用的viewObject对象
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(userService.getCurrentUser(), userVO);
+        return CommonResult.success(userVO);
     }
 
     @ApiOperation("更新个人信息")
@@ -107,6 +114,6 @@ public class UserController {
         String token = request.getHeader(tokenHeader);
         String refreshToken = userService.refreshToken(token);
         if (refreshToken == null) return CommonResult.failed("token已经过期或暂时不能刷新token!");
-        return CommonResult.success(new LoginReturn(token, tokenHead));
+        return CommonResult.success(new LoginVO(token, tokenHead));
     }
 }

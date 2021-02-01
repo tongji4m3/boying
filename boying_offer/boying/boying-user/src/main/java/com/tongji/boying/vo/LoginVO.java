@@ -1,4 +1,4 @@
-package com.tongji.boying.dto.userParam;
+package com.tongji.boying.vo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,12 +7,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class LoginReturn {
+public class LoginVO {
     private String token;
     private String tokenHead;
 
 
-    public LoginReturn(String token, String tokenHead) {
+    public LoginVO(String token, String tokenHead) {
         this.token = token;
         this.tokenHead = tokenHead;
     }
