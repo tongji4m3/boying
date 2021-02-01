@@ -5,7 +5,7 @@ import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.showParam.ShowParam;
 import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.model.BoyingShow;
-import com.tongji.boying.service.ShowService;
+import com.tongji.boying.service.BoyingShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ShowServiceImpl implements ShowService {
+public class BoyingShowServiceImpl implements BoyingShowService {
     @Autowired
-    private BoyingShowMapper showMapper;
+    private BoyingShowMapper boyingShowMapper;
 
     @Override
     public List<BoyingShow> search(ShowParam param) {
@@ -41,7 +41,7 @@ public class ShowServiceImpl implements ShowService {
         if (pageSize == null || pageSize == 0) pageSize = 5;
 
         PageHelper.startPage(pageNum, pageSize);
-        List<BoyingShow> boyingShows = showMapper.selectList(map);
+        List<BoyingShow> boyingShows = boyingShowMapper.selectList(map);
         if (boyingShows == null || boyingShows.size() == 0) {
             Asserts.fail("查询不到演出信息!");
         }
@@ -50,7 +50,7 @@ public class ShowServiceImpl implements ShowService {
 
     @Override
     public BoyingShow detail(int id) {
-        BoyingShow boyingShow = showMapper.selectByPrimaryKey(id);
+        BoyingShow boyingShow = boyingShowMapper.selectByPrimaryKey(id);
         if (boyingShow == null) Asserts.fail("演出信息不存在！");
         return boyingShow;
     }

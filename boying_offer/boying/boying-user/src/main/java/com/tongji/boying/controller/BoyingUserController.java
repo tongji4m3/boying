@@ -2,9 +2,9 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.userParam.*;
-import com.tongji.boying.service.UserService;
+import com.tongji.boying.service.BoyingUserService;
 import com.tongji.boying.vo.LoginVO;
-import com.tongji.boying.vo.UserVO;
+import com.tongji.boying.vo.BoyingUserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -33,60 +33,60 @@ public class BoyingUserController {
     private String tokenHead;
 
     @Autowired
-    private UserService userService;
+    private BoyingUserService boyingUserService;
 
     @ApiOperation("用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult register(@Validated @RequestBody UserRegisterParam param) {
-        userService.register(param);
-        return CommonResult.success(null, "注册成功");
+    public CommonResult<String> register(@Validated @RequestBody UserRegisterParam param) {
+        boyingUserService.register(param);
+        return CommonResult.success("注册成功");
     }
 
     @ApiOperation("用户账号密码登录")
     @RequestMapping(value = "/usernameLogin", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult usernameLogin(@Validated @RequestBody UsernameLoginParam param) {
-        String token = userService.login(param);
+    public CommonResult<LoginVO> usernameLogin(@Validated @RequestBody UsernameLoginParam param) {
+        String token = boyingUserService.login(param);
         return CommonResult.success(new LoginVO(token, tokenHead));
     }
 
     @ApiOperation("用户手机号密码登录")
     @RequestMapping(value = "/telephoneLogin", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult telephoneLogin(@Validated @RequestBody TelephoneLoginParam param) {
-        String token = userService.telephoneLogin(param);
+    public CommonResult<LoginVO> telephoneLogin(@Validated @RequestBody TelephoneLoginParam param) {
+        String token = boyingUserService.telephoneLogin(param);
         return CommonResult.success(new LoginVO(token, tokenHead));
     }
 
     @ApiOperation("用户手机号验证码登录")
     @RequestMapping(value = "/authCodeLogin", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult authCodeLogin(@Validated @RequestBody AuthCodeLoginParam param) {
-        String token = userService.authCodeLogin(param);
+    public CommonResult<LoginVO> authCodeLogin(@Validated @RequestBody AuthCodeLoginParam param) {
+        String token = boyingUserService.authCodeLogin(param);
         return CommonResult.success(new LoginVO(token, tokenHead));
     }
 
     @ApiOperation("获取用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<UserVO> info(Principal principal) {
+    public CommonResult<BoyingUserVO> info(Principal principal) {
 //        防止直接查询时报错
         if (principal == null) return CommonResult.unauthorized(null);
 
         //将核心领域模型用户对象转化为可供UI使用的viewObject对象
-        UserVO userVO = new UserVO();
-        BeanUtils.copyProperties(userService.getCurrentUser(), userVO);
-        return CommonResult.success(userVO);
+        BoyingUserVO boyingUserVO = new BoyingUserVO();
+        BeanUtils.copyProperties(boyingUserService.getCurrentUser(), boyingUserVO);
+        return CommonResult.success(boyingUserVO);
     }
 
     @ApiOperation("更新个人信息")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updateInfo(Principal principal, @Validated @RequestBody UpdateInfoParam param) {
+    public CommonResult<String> updateInfo(Principal principal, @Validated @RequestBody UpdateInfoParam param) {
         //        防止直接查询时报错
         if (principal == null) return CommonResult.unauthorized(null);
-        userService.updateInfo(param);
+        boyingUserService.updateInfo(param);
         return CommonResult.success("更新个人信息成功!");
     }
 
@@ -94,25 +94,25 @@ public class BoyingUserController {
     @ApiOperation("获取验证码")
     @RequestMapping(value = "/getAuthCode", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult getAuthCode(@RequestBody String telephone) {
-        userService.generateAuthCode(telephone);
+    public CommonResult<String> getAuthCode(@RequestBody String telephone) {
+        boyingUserService.generateAuthCode(telephone);
         return CommonResult.success("获取验证码成功");
     }
 
     @ApiOperation("修改密码")
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updatePassword(@Validated @RequestBody UpdatePasswordParam param) {
-        userService.updatePassword(param);
+    public CommonResult<String> updatePassword(@Validated @RequestBody UpdatePasswordParam param) {
+        boyingUserService.updatePassword(param);
         return CommonResult.success(null, "密码修改成功");
     }
 
     @ApiOperation(value = "刷新token")
     @RequestMapping(value = "/refreshToken", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult refreshToken(HttpServletRequest request) {
+    public CommonResult<LoginVO> refreshToken(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
-        String refreshToken = userService.refreshToken(token);
+        String refreshToken = boyingUserService.refreshToken(token);
         if (refreshToken == null) return CommonResult.failed("token已经过期或暂时不能刷新token!");
         return CommonResult.success(new LoginVO(token, tokenHead));
     }

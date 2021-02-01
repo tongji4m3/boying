@@ -1,5 +1,6 @@
 package com.tongji.boying.vo;
 
+import com.tongji.boying.model.BoyingCategory;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +11,16 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class ShowVO {
+public class BoyingShowListVO {
     private Integer id;
 
     private String name;
+
+    @ApiModelProperty(value = "该演唱会目录相关信息")
+    private BoyingCategory category;
+
+    @ApiModelProperty(value = "该演唱会具体图文信息")
+    private String details;
 
     @ApiModelProperty(value = "该演唱会的海报信息")
     private String poster;

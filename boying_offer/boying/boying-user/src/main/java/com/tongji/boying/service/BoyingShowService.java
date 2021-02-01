@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 前台演出管理Service
  */
-public interface ShowService {
+public interface BoyingShowService {
     /**
      * 综合搜索演出
      * 关键词,城市,目录,时间

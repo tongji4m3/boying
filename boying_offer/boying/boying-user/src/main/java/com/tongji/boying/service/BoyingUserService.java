@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author tongji4m3
  */
-public interface UserService {
+public interface BoyingUserService {
     void register(UserRegisterParam param);
 
     String login(UsernameLoginParam param);

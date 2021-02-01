@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class UserVO {
+public class BoyingUserVO {
     private Integer id;
 
     @ApiModelProperty(value = "用户名")

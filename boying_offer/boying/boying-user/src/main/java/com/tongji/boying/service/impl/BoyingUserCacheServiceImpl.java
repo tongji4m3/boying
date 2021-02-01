@@ -3,17 +3,17 @@ package com.tongji.boying.service.impl;
 import com.tongji.boying.common.service.RedisService;
 import com.tongji.boying.mapper.BoyingUserMapper;
 import com.tongji.boying.model.BoyingUser;
-import com.tongji.boying.service.UserCacheService;
+import com.tongji.boying.service.BoyingUserCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserCacheServiceImpl implements UserCacheService {
+public class BoyingUserCacheServiceImpl implements BoyingUserCacheService {
     @Autowired
     private RedisService redisService;
     @Autowired
-    private BoyingUserMapper userMapper;
+    private BoyingUserMapper boyingUserMapper;
     @Value("${redis.database}")
     private String REDIS_DATABASE;
     //    除验证码之外的过期时间
@@ -30,7 +30,7 @@ public class UserCacheServiceImpl implements UserCacheService {
     @Override
     public void delUser(int userId) {
 //        确保全局不会redis缓存key混乱
-        BoyingUser user = userMapper.selectByPrimaryKey(userId);
+        BoyingUser user = boyingUserMapper.selectByPrimaryKey(userId);
         if (user != null) {
             String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getUsername();
             String key2 = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getPhone();

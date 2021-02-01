@@ -13,8 +13,8 @@ import com.tongji.boying.dto.userParam.*;
 import com.tongji.boying.mapper.BoyingUserMapper;
 import com.tongji.boying.model.BoyingUser;
 import com.tongji.boying.security.util.JwtTokenUtil;
-import com.tongji.boying.service.UserCacheService;
-import com.tongji.boying.service.UserService;
+import com.tongji.boying.service.BoyingUserCacheService;
+import com.tongji.boying.service.BoyingUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +39,12 @@ import java.util.Random;
  * 用户管理Service实现类
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class BoyingUserServiceImpl implements BoyingUserService {
     //    便于日志的打印
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BoyingUserServiceImpl.class);
 
     @Autowired
-    private BoyingUserMapper userMapper;
+    private BoyingUserMapper boyingUserMapper;
 
     /**
      * 用于密码加密
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
      * 对用户信息进行一些缓存操作
      */
     @Autowired
-    private UserCacheService userCacheService;
+    private BoyingUserCacheService boyingUserCacheService;
     /**
      * 验证码的前缀与过期时间
      */
@@ -73,11 +73,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public BoyingUser getByUsername(String username) {
-        BoyingUser user = userCacheService.getUser(username);
+        BoyingUser user = boyingUserCacheService.getUser(username);
         if (user != null) return user; //缓存里面有数据
 
         //根据用户名查询是否存在
-        user = userMapper.selectByUsername(username);
+        user = boyingUserMapper.selectByUsername(username);
 
         //不能给过于详细的错误提示！
         if (user == null) Asserts.fail("用户名或密码错误");
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
         //账号未启用
         if (user.getAdminDelete()) Asserts.fail("账号未启用,请联系管理员!");
 
-        userCacheService.setUser(user);//将查询到的数据放入缓存中
+        boyingUserCacheService.setUser(user);//将查询到的数据放入缓存中
         return user;
     }
 
@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> map = new HashMap<>();
         map.put("telephone", telephone);
         map.put("username", username);
-        BoyingUser dbUser = userMapper.selectByUsernameAndPhone(map);
+        BoyingUser dbUser = boyingUserMapper.selectByUsernameAndPhone(map);
         if (dbUser != null) {
             Asserts.fail("该用户已经存在或手机号已注册");
         }
@@ -124,9 +124,9 @@ public class UserServiceImpl implements UserService {
             icon = "https://tongji4m3.oss-cn-beijing.aliyuncs.com/f_f_object_156_s512_f_object_156_0.png";
         }
         user.setIcon(icon);
-        userMapper.insertSelective(user);
+        boyingUserMapper.insertSelective(user);
         //注册完删除验证码,每个验证码只能使用一次
-        userCacheService.delAuthCode(telephone);
+        boyingUserCacheService.delAuthCode(telephone);
     }
 
 
@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService {
             sb.append(random.nextInt(10));
         }
         //为该手机号生成验证码
-        userCacheService.setAuthCode(telephone, sb.toString());
+        boyingUserCacheService.setAuthCode(telephone, sb.toString());
 
 //        阿里云 短信服务代码
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4G94MzD6ozcAAS3yq3zS", "xdeS40tkkA3zC3F7d8szDJ7fu1N3Ch");
@@ -171,7 +171,7 @@ public class UserServiceImpl implements UserService {
         String password = param.getPassword();
         String authCode = param.getAuthCode();
         //根据手机号查询是否存在
-        BoyingUser user = userMapper.selectByPhone(telephone);
+        BoyingUser user = boyingUserMapper.selectByPhone(telephone);
         if (user == null) {
             Asserts.fail("该账号不存在");
         }
@@ -180,12 +180,12 @@ public class UserServiceImpl implements UserService {
             Asserts.fail("验证码错误");
         }
         user.setPassword(passwordEncoder.encode(password));//密码加密
-        userMapper.updateByPrimaryKeySelective(user);//只更新不为空的字段
+        boyingUserMapper.updateByPrimaryKeySelective(user);//只更新不为空的字段
 
-        userCacheService.delUser(user.getId());//删除无效缓存
+        boyingUserCacheService.delUser(user.getId());//删除无效缓存
 
         //注册完删除验证码,每个验证码只能使用一次
-        userCacheService.delAuthCode(telephone);
+        boyingUserCacheService.delAuthCode(telephone);
     }
 
     @Override
@@ -231,11 +231,11 @@ public class UserServiceImpl implements UserService {
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
 
-        BoyingUser user = userCacheService.getUserByTelephone(telephone);
+        BoyingUser user = boyingUserCacheService.getUserByTelephone(telephone);
         //缓存里面没有数据
         if (user == null) {
             //根据手机号查询是否存在
-            user = userMapper.selectByPhone(telephone);
+            user = boyingUserMapper.selectByPhone(telephone);
             if (user == null) {
                 Asserts.fail("该账号不存在");
             }
@@ -243,7 +243,7 @@ public class UserServiceImpl implements UserService {
             if (user.getAdminDelete()) {
                 Asserts.fail("账号未启用,请联系管理员!");
             }
-            userCacheService.setUser(user);//将查询到的数据放入缓存中
+            boyingUserCacheService.setUser(user);//将查询到的数据放入缓存中
         }
         //缓存有数据，说明手机号是对的，直接检查密码即可
         if (!passwordEncoder.matches(password, user.getPassword())) {
@@ -266,22 +266,22 @@ public class UserServiceImpl implements UserService {
         }
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
-        BoyingUser user = userCacheService.getUserByTelephone(telephone);
+        BoyingUser user = boyingUserCacheService.getUserByTelephone(telephone);
         //缓存里面没有数据
         if (user == null) {
             //根据手机号查询是否存在
-            user = userMapper.selectByPhone(telephone);
+            user = boyingUserMapper.selectByPhone(telephone);
             if (user == null) {
                 Asserts.fail("该账号不存在");
             }
-            userCacheService.setUser(user);//将查询到的数据放入缓存中
+            boyingUserCacheService.setUser(user);//将查询到的数据放入缓存中
         }
         UserDetails userDetails = loadUserByUsername(user.getUsername());
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         token = jwtTokenUtil.generateToken(userDetails);
         //注册完删除验证码,每个验证码只能使用一次
-        userCacheService.delAuthCode(telephone);
+        boyingUserCacheService.delAuthCode(telephone);
         return token;
     }
 
@@ -315,9 +315,9 @@ public class UserServiceImpl implements UserService {
         }
 
 
-        int count = userMapper.updateByPrimaryKeySelective(currentUser);//只更新不为空的字段
+        int count = boyingUserMapper.updateByPrimaryKeySelective(currentUser);//只更新不为空的字段
         if (count == 0) Asserts.fail("更新失败！");
-        userCacheService.delUser(currentUser.getId());//删除无效缓存
+        boyingUserCacheService.delUser(currentUser.getId());//删除无效缓存
     }
 
     //对输入的验证码进行校验
@@ -326,7 +326,7 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 //        redis中存储了该手机号未过期的验证码
-        String realAuthCode = userCacheService.getAuthCode(telephone);
+        String realAuthCode = boyingUserCacheService.getAuthCode(telephone);
         return authCode.equals(realAuthCode);
     }
 }

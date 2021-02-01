@@ -5,7 +5,7 @@ import com.tongji.boying.model.BoyingUser;
 /**
  * 用户信息缓存业务类
  */
-public interface UserCacheService {
+public interface BoyingUserCacheService {
     /**
      * 删除用户缓存
      */

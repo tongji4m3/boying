@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class PromoModel {
+public class BoyingPromoModel {
     private Integer id;
 
     //秒杀活动状态 1表示还未开始，2表示进行中，3表示已结束

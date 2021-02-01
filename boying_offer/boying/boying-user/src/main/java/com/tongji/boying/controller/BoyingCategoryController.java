@@ -2,7 +2,7 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.model.BoyingCategory;
-import com.tongji.boying.service.ShowCategoryService;
+import com.tongji.boying.service.BoyingCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +20,20 @@ import java.util.List;
 @RequestMapping("/category")
 public class BoyingCategoryController {
     @Autowired
-    private ShowCategoryService showCategoryService;
+    private BoyingCategoryService boyingCategoryService;
 
 
     @ApiOperation("获取菜单")
         @RequestMapping(value = "/categories", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<BoyingCategory>> getCategories() {
-        return CommonResult.success(showCategoryService.categories());
+        return CommonResult.success(boyingCategoryService.categories());
     }
 
     @ApiOperation("获取某个目录")
     @RequestMapping(value = "/details/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<BoyingCategory> getCategory(@PathVariable Integer id) {
-        return CommonResult.success(showCategoryService.getCategory(id));
+        return CommonResult.success(boyingCategoryService.getCategory(id));
     }
 }

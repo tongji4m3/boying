@@ -6,25 +6,25 @@ import com.tongji.boying.dto.orderParam.GetOrdersParam;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.mapper.BoyingOrderMapper;
 import com.tongji.boying.model.BoyingOrder;
-import com.tongji.boying.model.BoyingSeat;
+import com.tongji.boying.model.BoyingSeatModel;
 import com.tongji.boying.model.BoyingUser;
-import com.tongji.boying.service.ShowSeatService;
-import com.tongji.boying.service.UserOrderService;
-import com.tongji.boying.service.UserService;
+import com.tongji.boying.service.BoyingSeatService;
+import com.tongji.boying.service.BoyingOrderService;
+import com.tongji.boying.service.BoyingUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class UserOrderServiceImpl implements UserOrderService {
+public class BoyingOrderServiceImpl implements BoyingOrderService {
     @Autowired
-    private BoyingOrderMapper orderMapper;
+    private BoyingOrderMapper boyingOrderMapper;
     @Autowired
-    private UserService userService;
+    private BoyingUserService boyingUserService;
 
     @Autowired
-    private ShowSeatService showSeatService;
+    private BoyingSeatService boyingSeatService;
 
     @Override
     public void add(UserOrderParam param) {
@@ -35,33 +35,47 @@ public class UserOrderServiceImpl implements UserOrderService {
         String payment = param.getPayment();
 
         //当前用户
-        BoyingUser user = userService.getCurrentUser();
+        BoyingUser user = boyingUserService.getCurrentUser();
 
         //对showId,payment做校验
 
-        BoyingSeat boyingSeat = showSeatService.selectByPrimaryKey(seatId);
-        if (boyingSeat==null) {
+        BoyingSeatModel itemModel = boyingSeatService.getShowSeat(seatId);
+        if (itemModel == null) {
             Asserts.fail("演出座次不存在！");
         }
-        if (!boyingSeat.getShowId().equals(showId)) {
+        if (!itemModel.getShowId().equals(showId)) {
             Asserts.fail("该演出座次不属于该演出！");
         }
-        Double ticketPrice = boyingSeat.getPrice();
 
         //查看当前用户该演出是否下单
         //已退票的不算
-        Integer orderCount = orderMapper.selectByShowIdUserId(user.getId(),showId);
+        Integer orderCount = boyingOrderMapper.selectByShowIdUserId(user.getId(), showId);
         if (orderCount != null && orderCount != 0) {
             //该用户已经下过单了,不能继续了
             Asserts.fail("您已经对该演出下单过了,不能重复下单!");
         }
 
+        Double ticketPrice = itemModel.getPrice();
+
+        Integer promoId = param.getPromoId();
+        if (promoId == null) promoId = 0;
+        //校验活动信息
+        if (promoId != 0) {
+            //（1）校验对应活动是否存在这个适用商品
+            if (promoId.intValue() != itemModel.getBoyingPromoModel().getId()) {
+                Asserts.fail("活动信息不正确");
+                //（2）校验活动是否正在进行中
+            } else if (itemModel.getBoyingPromoModel().getStatus() != 2) {
+                Asserts.fail("活动信息还未开始");
+            }
+            ticketPrice = itemModel.getBoyingPromoModel().getPrice();
+        }
+
         //查看库存状态 并减库存
-        Integer updateCount = showSeatService.decreaseStock(seatId, ticketCount);
+        Integer updateCount = boyingSeatService.decreaseStock(seatId, ticketCount);
         if (updateCount == 0) {
             Asserts.fail("库存不足！");
         }
-
 
 
         //生成订单
@@ -69,6 +83,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         order.setUserId(user.getId());
         order.setShowId(showId);
         order.setSeatId(seatId);
+        order.setPromoId(promoId);
         order.setStatus(1);//待观看状态
         order.setTime(new Date());
         order.setUserDelete(false);
@@ -77,12 +92,12 @@ public class UserOrderServiceImpl implements UserOrderService {
         order.setTicketPrice(ticketPrice);
         order.setOrderPrice(ticketPrice * ticketCount);
         order.setQrCodeUrl("二维码");
-        orderMapper.insertSelective(order);
+        boyingOrderMapper.insertSelective(order);
     }
 
     @Override
     public void delete(int id) {
-        BoyingOrder order = orderMapper.selectByPrimaryKey(id);
+        BoyingOrder order = boyingOrderMapper.selectByPrimaryKey(id);
 
         if (order.getAdminDelete()) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
@@ -92,13 +107,13 @@ public class UserOrderServiceImpl implements UserOrderService {
             Asserts.fail("待观看订单不能删除！");
         }
         order.setUserDelete(true);
-        orderMapper.updateByPrimaryKeySelective(order);
+        boyingOrderMapper.updateByPrimaryKeySelective(order);
     }
 
 
     @Override
     public void cancel(int id) {
-        BoyingOrder order = orderMapper.selectByPrimaryKey(id);
+        BoyingOrder order = boyingOrderMapper.selectByPrimaryKey(id);
 
         if (order.getAdminDelete()) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
@@ -110,16 +125,16 @@ public class UserOrderServiceImpl implements UserOrderService {
 
         //更新订单的信息
         order.setStatus(3);
-        orderMapper.updateByPrimaryKeySelective(order);
+        boyingOrderMapper.updateByPrimaryKeySelective(order);
 
         //获取对应的演出座次,增加库存
-        showSeatService.increaseStock(order.getSeatId(),order.getTicketCount());
+        boyingSeatService.increaseStock(order.getSeatId(), order.getTicketCount());
     }
 
 
     @Override
     public void finish(int id) {
-        BoyingOrder order = orderMapper.selectByPrimaryKey(id);
+        BoyingOrder order = boyingOrderMapper.selectByPrimaryKey(id);
 
         if (order.getAdminDelete()) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
@@ -127,12 +142,12 @@ public class UserOrderServiceImpl implements UserOrderService {
         //更新订单的信息
         //变成已完成状态
         order.setStatus(2);
-        orderMapper.updateByPrimaryKeySelective(order);
+        boyingOrderMapper.updateByPrimaryKeySelective(order);
     }
 
     @Override
     public BoyingOrder getItem(int id) {
-        BoyingOrder order = orderMapper.selectByPrimaryKey(id);
+        BoyingOrder order = boyingOrderMapper.selectByPrimaryKey(id);
         if (order.getAdminDelete()) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
         }
@@ -146,7 +161,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         if (pageNum == null || pageNum == 0) pageNum = 1;
         if (pageSize == null || pageSize == 0) pageSize = 5;
 
-        BoyingUser user = userService.getCurrentUser();
+        BoyingUser user = boyingUserService.getCurrentUser();
 
         Map<String, Object> map = new HashMap<>();
         map.put("name", param.getName());
@@ -154,7 +169,7 @@ public class UserOrderServiceImpl implements UserOrderService {
         map.put("userId", user.getId());
 
         PageHelper.startPage(pageNum, pageSize);//分页相关
-        List<BoyingOrder> boyingOrders = orderMapper.selectByCondition(map);
+        List<BoyingOrder> boyingOrders = boyingOrderMapper.selectByCondition(map);
         if (boyingOrders == null || boyingOrders.isEmpty()) {
             Asserts.fail("查询的订单不存在！");
         }

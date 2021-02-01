@@ -23,6 +23,9 @@ public class UserOrderParam {
     @NotNull(message = "演出座次Id不能为空")
     private Integer seatId;
 
+    @ApiModelProperty(value = "promoId")
+    private Integer promoId;
+
     @ApiModelProperty(value = "购买的票数（最多三张)")
     @NotNull(message = "购买的演出票数不能为空")
     @Max(3)
