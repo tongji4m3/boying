@@ -1,0 +1,38 @@
+upstream boying {
+    server  101.132.157.174:8000 weight=1;
+    server  47.100.47.244:8000 weight=1;
+}
+
+server {
+    listen      8000;
+    server_name 47.100.88.187;
+
+    location / {
+        root   html;
+        index  index.html index.htm swagger-ui.html;
+        proxy_pass  http://boying;
+    }
+}
+
+
+//最新配置
+//proxy_set_header Host $http_host:$proxy_port;代表Nginx是Client，那两台是服务器的。所以要设置Host是真正请求的那个主机的域名和端口号
+//proxy_set_header X-Real-IP $remote_addr;拿到的是远端的地址，不然就只拿到Nginx的地址
+//proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;代表是Nginx转发的
+upstream boying {
+    server  172.17.57.2:8000 weight=1;
+    server  172.17.4.156:8000 weight=1;
+}
+
+server {
+    listen      8000;
+    server_name 47.100.88.187;
+
+    location / {
+        proxy_pass  http://boying;
+        proxy_set_header Host $http_host:$proxy_port;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
