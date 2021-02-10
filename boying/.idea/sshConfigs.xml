@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="47.103.203.188" id="df6a4fb3-170c-44d4-b6dd-ae707314f78f" port="22" customName="MySQL" nameFormat="CUSTOM" username="root">
+        <option name="customName" value="MySQL" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

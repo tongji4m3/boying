@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/boying-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/boying-mbg/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/boying-security/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/boying-user/src/main/java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
