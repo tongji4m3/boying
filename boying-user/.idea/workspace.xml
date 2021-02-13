@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="66892b7b-2827-4883-b212-d17bb64dc641" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/deployment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/dictionaries/12549.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/libraries/ojdbc8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/libraries/ojdbc8__2_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/libraries/ojdbc8__3_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/smartfox_info.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/sshConfigs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/.idea/webServers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/lib/ojdbc8.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/BoyingAdminApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/config/AdminUserDetails.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/config/BoyingSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/config/GlobalCorsConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/config/MyBatisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/config/SwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/controller/NumsOrderController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/controller/NumsTicketController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/controller/NumsUserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/controller/SmsCategoryController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/controller/SmsSeatController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/controller/SmsShowController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/controller/UmsLoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/controller/UmsStatisticsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/adminParam/AdminInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/adminParam/LoginReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/adminParam/UsernameLoginParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/categoryParam/BoyingCategoryReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/orderParam/BoyingOrderReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/orderParam/OrderParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/orderParam/TicketParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/orderParam/TicketReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/BoyingShowReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/ShowSeatAddParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/ShowSeatListParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/SmsCategoryParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/SmsShowListParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/SmsShowParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/userParam/BoyingUserReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/userParam/GetUserByNameParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/userParam/NumsUserParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/dto/userParam/UserListParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/NumsOrderService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/NumsTicketService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/NumsUserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/SmsCategoryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/SmsSeatService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/SmsShowService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/UmsAdminService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/UmsStatisticsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/NumsOrderServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/NumsTicketServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/NumsUserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/SmsCategoryServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/SmsSeatServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/SmsShowServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/UmsAdminServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/UmsStatisticsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/validator/FlagValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/java/com/tongji/boying/validator/FlagValidatorClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/resources/application-dev.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-admin/src/main/resources/banner.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/api/CommonPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/api/CommonResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/api/IErrorCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/api/ResultCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/config/BaseRedisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/config/BaseSwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/domain/SwaggerProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/domain/WebLog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/exception/ApiException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/exception/Asserts.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/exception/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/log/WebLogAspect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/service/RedisService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/java/com/tongji/boying/common/service/impl/RedisServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-common/src/main/resources/logback-spring.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/lib/ojdbc8.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/CommentGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/Generator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/mapper/BoyingAdminMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/mapper/BoyingCategoryMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/mapper/BoyingOrderMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/mapper/BoyingSeatMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/mapper/BoyingShowMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/mapper/BoyingTicketMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/mapper/BoyingUserMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingAdmin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingAdminExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingCategory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingCategoryExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingOrder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingOrderExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingSeat.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingSeatExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingShow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingShowExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingTicket.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingTicketExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/java/com/tongji/boying/model/BoyingUserExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/resources/com/tongji/boying/mapper/BoyingAdminMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/resources/com/tongji/boying/mapper/BoyingCategoryMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/resources/com/tongji/boying/mapper/BoyingOrderMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/resources/com/tongji/boying/mapper/BoyingSeatMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/resources/com/tongji/boying/mapper/BoyingShowMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/resources/com/tongji/boying/mapper/BoyingTicketMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/resources/com/tongji/boying/mapper/BoyingUserMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-mbg/src/main/resources/generatorConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/annotation/CacheException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/aspect/RedisCacheAspect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/component/DynamicAccessDecisionManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/component/DynamicSecurityFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/component/DynamicSecurityMetadataSource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/component/DynamicSecurityService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/component/JwtAuthenticationTokenFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/component/RestAuthenticationEntryPoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/component/RestfulAccessDeniedHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/config/IgnoreUrlsConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/config/RedisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/boying-security/src/main/java/com/tongji/boying/security/util/JwtTokenUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memory3/boying/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/deployment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/dictionaries/12549.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/free-mybatis-generator-config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/libraries/ojdbc8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/libraries/ojdbc8__2_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/smartfox_info.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/sshConfigs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/.idea/webServers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/BoyingAdminApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/config/AdminUserDetails.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/config/BoyingSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/config/GlobalCorsConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/config/MyBatisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/config/SwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/controller/NumsOrderController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/controller/NumsTicketController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/controller/NumsUserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/controller/SmsCategoryController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/controller/SmsSeatController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/controller/SmsShowController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/controller/UmsLoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/controller/UmsStatisticsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/adminParam/AdminInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/adminParam/LoginReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/adminParam/UsernameLoginParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/orderParam/OrderParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/orderParam/TicketParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/orderParam/TicketReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/BoyingShowReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/ShowSeatAddParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/ShowSeatListParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/SmsCategoryParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/SmsShowListParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/showParam/SmsShowParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/userParam/GetUserByNameParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/userParam/NumsUserParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/dto/userParam/UserListParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/NumsOrderService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/NumsTicketService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/NumsUserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/SmsCategoryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/SmsSeatService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/SmsShowService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/UmsAdminService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/UmsStatisticsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/NumsOrderServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/NumsTicketServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/NumsUserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/SmsCategoryServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/SmsSeatServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/SmsShowServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/UmsAdminServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/service/impl/UmsStatisticsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/validator/FlagValidator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/java/com/tongji/boying/validator/FlagValidatorClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/resources/application-dev.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/resources/application-prod.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-admin/src/main/resources/banner.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/api/CommonPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/api/CommonResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/api/IErrorCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/api/ResultCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/config/BaseRedisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/config/BaseSwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/domain/SwaggerProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/domain/WebLog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/exception/ApiException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/exception/Asserts.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/exception/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/log/WebLogAspect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/service/RedisService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/java/com/tongji/boying/common/service/impl/RedisServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-common/src/main/resources/logback-spring.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/annotation/CacheException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/aspect/RedisCacheAspect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/component/DynamicAccessDecisionManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/component/DynamicSecurityFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/component/DynamicSecurityMetadataSource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/component/DynamicSecurityService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/component/JwtAuthenticationTokenFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/component/RestAuthenticationEntryPoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/component/RestfulAccessDeniedHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/config/IgnoreUrlsConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/config/RedisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-security/src/main/java/com/tongji/boying/security/util/JwtTokenUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/lib/ojdbc8.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/BoyingUserApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/config/BoyingSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/config/BoyingUserDetails.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/config/GlobalCorsConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/config/JacksonConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/config/MyBatisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/config/SwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/controller/ShowCategoryController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/controller/ShowController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/controller/ShowSeatController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/controller/UserOrderController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/orderParam/GetOrdersParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/orderParam/TicketReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/orderParam/UserOrderParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/showParam/BoyingShowReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/showParam/ShowParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/userParam/AuthCodeLoginParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/userParam/LoginReturn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/userParam/TelephoneLoginParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/userParam/UpdateInfoParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/userParam/UpdatePasswordParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/userParam/UserRegisterParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/dto/userParam/UsernameLoginParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/ShowCategoryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/ShowSeatService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/ShowService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/UserCacheService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/UserOrderService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/UserTicketService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/impl/ShowCategoryServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/impl/ShowSeatServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/impl/ShowServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/impl/UserCacheServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/impl/UserOrderServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/impl/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/java/com/tongji/boying/service/impl/UserTicketServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/resources/application-dev.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/boying-user/src/main/resources/banner.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../memoryDatabase/boying/pom.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1o3awrXBmD4vZyzv7pS1WfvCh73" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoyingUserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="boying-user" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.tongji.boying.BoyingUserApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+    <option name="myConnectionType" value="NONE" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="66892b7b-2827-4883-b212-d17bb64dc641" name="Default Changelist" comment="" />
+      <created>1612517972899</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1612517972899</updated>
+      <workItem from="1612517974379" duration="117000" />
+      <workItem from="1612518152466" duration="634000" />
+      <workItem from="1612592418103" duration="1412000" />
+      <workItem from="1612594036980" duration="613000" />
+      <workItem from="1612679474288" duration="1066000" />
+      <workItem from="1612784777261" duration="42000" />
+      <workItem from="1613257644580" duration="150000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>
