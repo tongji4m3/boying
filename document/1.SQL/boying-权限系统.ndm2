@@ -1193,23 +1193,6 @@
                 "objectType": "ForeignKey_MYSQL",
                 "name": "",
                 "fields": [
-                  "menu_id"
-                ],
-                "referenceSchema": "test1",
-                "referenceTable": "menu",
-                "referenceFields": [
-                  "menu_id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "",
-                "fields": [
                   "role_id"
                 ],
                 "referenceSchema": "test1",
@@ -1378,23 +1361,6 @@
                 "objectType": "ForeignKey_MYSQL",
                 "name": "",
                 "fields": [
-                  "admin_id"
-                ],
-                "referenceSchema": "test1",
-                "referenceTable": "admin",
-                "referenceFields": [
-                  "admin_id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              },
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "",
-                "fields": [
                   "role_id"
                 ],
                 "referenceSchema": "test1",
@@ -1559,23 +1525,6 @@
               "comment": ""
             },
             "foreignKeys": [
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "",
-                "fields": [
-                  "role_id"
-                ],
-                "referenceSchema": "test1",
-                "referenceTable": "role",
-                "referenceFields": [
-                  "role_id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              },
               {
                 "objectType": "ForeignKey_MYSQL",
                 "name": "",
@@ -1821,25 +1770,7 @@
               "indexMethod": "BTREE",
               "comment": ""
             },
-            "foreignKeys": [
-              {
-                "objectType": "ForeignKey_MYSQL",
-                "name": "",
-                "fields": [
-                  "resource_category_id"
-                ],
-                "referenceSchema": "test1",
-                "referenceTable": "resource_category",
-                "referenceFields": [
-                  "resource_category_id"
-                ],
-                "onDelete": "",
-                "onUpdate": "",
-                "sourceCardinality": "ManyRelationship",
-                "targetCardinality": "OneAndOnlyOneRelationship",
-                "oldName": ""
-              }
-            ],
+            "foreignKeys": [],
             "triggers": [],
             "tablePartitions": []
           }
@@ -1992,246 +1923,7 @@
         }
       ],
       "layers": [],
-      "relations": [
-        {
-          "name": "",
-          "sourceTableName": "role_menu",
-          "sourceSchemaName": "test1",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 860,
-              "y": 385
-            },
-            {
-              "x": 860,
-              "y": 395
-            }
-          ],
-          "label": {
-            "x": 812,
-            "y": 335,
-            "width": 50,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "",
-          "sourceTableName": "role_menu",
-          "sourceSchemaName": "test1",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 860,
-              "y": 245
-            },
-            {
-              "x": 860,
-              "y": 245
-            }
-          ],
-          "label": {
-            "x": 862,
-            "y": 215,
-            "width": 50,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "",
-          "sourceTableName": "admin_role",
-          "sourceSchemaName": "test1",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 1160,
-              "y": 140
-            },
-            {
-              "x": 1165,
-              "y": 140
-            }
-          ],
-          "label": {
-            "x": 1156,
-            "y": 112,
-            "width": 50,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "",
-          "sourceTableName": "admin_role",
-          "sourceSchemaName": "test1",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 965,
-              "y": 140
-            },
-            {
-              "x": 958,
-              "y": 140
-            }
-          ],
-          "label": {
-            "x": 981,
-            "y": 142,
-            "width": 50,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "",
-          "sourceTableName": "role_resource",
-          "sourceSchemaName": "test1",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 722,
-              "y": 140
-            },
-            {
-              "x": 745,
-              "y": 140
-            }
-          ],
-          "label": {
-            "x": 662,
-            "y": 102,
-            "width": 50,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "",
-          "sourceTableName": "role_resource",
-          "sourceSchemaName": "test1",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 515,
-              "y": 140
-            },
-            {
-              "x": 500,
-              "y": 140
-            }
-          ],
-          "label": {
-            "x": 525,
-            "y": 102,
-            "width": 50,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        },
-        {
-          "name": "",
-          "sourceTableName": "resource",
-          "sourceSchemaName": "test1",
-          "lineWidth": 1,
-          "visible": true,
-          "vertices": [
-            {
-              "x": 265,
-              "y": 140
-            },
-            {
-              "x": 250,
-              "y": 140
-            }
-          ],
-          "label": {
-            "x": 281,
-            "y": 142,
-            "width": 50,
-            "height": 30,
-            "fontName": "Arial Unicode MS",
-            "fontSize": 14,
-            "fontColor": {
-              "r": 51,
-              "g": 51,
-              "b": 51,
-              "a": 1
-            },
-            "isFontBold": false,
-            "isFontItalic": false,
-            "isVisible": false
-          }
-        }
-      ],
+      "relations": [],
       "viewRelations": []
     }
   ]
