@@ -6,7 +6,7 @@ SpringSecurity需要的用户详情
 
 ### getAuthorities()
 
-返回当前用户拥有的资源权限,权限命名为:
+返回当前用户拥有的资源权限,权限命名为：
 
 `resource.getResourceId() + ":" + resource.getName()`
 

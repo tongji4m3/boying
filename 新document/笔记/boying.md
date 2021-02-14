@@ -27,7 +27,7 @@ vim /usr/local/nginx/conf/nginx.conf
 
 
 
-
+高并发控制
 
 # 活动整合方式
 
