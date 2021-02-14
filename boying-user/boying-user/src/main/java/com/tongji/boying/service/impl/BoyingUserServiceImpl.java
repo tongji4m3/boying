@@ -208,6 +208,8 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         String username = param.getUsername();
         String password = param.getPassword();
 
+        System.out.println(passwordEncoder.encode(password));
+
         String token = null;
         //密码需要客户端加密后传递,但是传递的仍然是明文
         UserDetails userDetails = loadUserByUsername(username);
