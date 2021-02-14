@@ -4,8 +4,8 @@ import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.UmsAdminInfoParam;
 import com.tongji.boying.dto.UmsAdminRegisterParam;
-import com.tongji.boying.model.Admin;
-import com.tongji.boying.model.Role;
+import com.tongji.boying.model.AdminUser;
+import com.tongji.boying.model.AdminRole;
 import com.tongji.boying.service.UmsAdminService;
 import com.tongji.boying.service.UmsMenuService;
 import com.tongji.boying.service.UmsRoleService;
@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Controller
 @Api(tags = "UmsAdminController", description = "后台管理员管理")
-@RequestMapping("/admin")
+@RequestMapping("/AdminUser")
 public class UmsAdminController
 {
     @Value("${jwt.tokenHeader}")
@@ -47,10 +47,10 @@ public class UmsAdminController
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Admin> register(@Validated @RequestBody UmsAdminRegisterParam param)
+    public CommonResult<AdminUser> register(@Validated @RequestBody UmsAdminRegisterParam param)
     {
-        Admin admin = adminService.register(param);
-        if (admin == null)
+        AdminUser adminUser = adminService.register(param);
+        if (adminUser == null)
         {
             return CommonResult.failed("注册失败!");
         }
@@ -60,12 +60,12 @@ public class UmsAdminController
     @ApiOperation("根据管理员名分页获取管理员列表")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<Admin>> list(@RequestParam(value = "keyword", required = false) String keyword,
+    public CommonResult<CommonPage<AdminUser>> list(@RequestParam(value = "keyword", required = false) String keyword,
                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                 @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum)
     {
 //        pageNum为页数，pageSize为一个页面显示几条数据
-        List<Admin> adminList = adminService.list(keyword, pageSize, pageNum);
+        List<AdminUser> adminList = adminService.list(keyword, pageSize, pageNum);
         return CommonResult.success(CommonPage.restPage(adminList));
     }
 
@@ -74,10 +74,10 @@ public class UmsAdminController
     @ResponseBody
     public CommonResult<Map<String, Object>> getItem(@PathVariable Integer id)
     {
-        Admin admin = adminService.getItem(id);
-        if (admin == null) return CommonResult.failed("查询的管理员不存在");
+        AdminUser AdminUser = adminService.getItem(id);
+        if (AdminUser == null) return CommonResult.failed("查询的管理员不存在");
         Map<String, Object> data = new HashMap<>();
-        data.put("admin", admin);
+        data.put("AdminUser", AdminUser);
         data.put("menus", menuService.categoryMap(id));
         data.put("resource", roleService.getResourceList(id));
         data.put("roles", adminService.getRoleList(id));
@@ -152,7 +152,7 @@ public class UmsAdminController
     }
 
     @ApiOperation("给管理员分配角色")
-    @RequestMapping(value = "/role/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/AdminRole/update", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult updateRole(@RequestParam("adminId") Integer adminId,
                                    @RequestParam("roleIds") List<Integer> roleIds)
@@ -166,7 +166,7 @@ public class UmsAdminController
     }
 
     @ApiOperation("删除管理员角色")
-    @RequestMapping(value = "/role/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/AdminRole/delete", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult deleteRole(@RequestParam("adminId") Integer adminId,
                                    @RequestParam("roleIds") List<Integer> roleIds)
@@ -180,11 +180,11 @@ public class UmsAdminController
     }
 
     @ApiOperation("获取指定管理员的角色")
-    @RequestMapping(value = "/role/{adminId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/AdminRole/{adminId}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<Role>> getRoleList(@PathVariable Integer adminId)
+    public CommonResult<List<AdminRole>> getRoleList(@PathVariable Integer adminId)
     {
-        List<Role> roleList = adminService.getRoleList(adminId);
+        List<AdminRole> roleList = adminService.getRoleList(adminId);
         return CommonResult.success(roleList);
     }
 }

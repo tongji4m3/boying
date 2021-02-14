@@ -1,6 +1,6 @@
 package com.tongji.boying.config;
 
-import com.tongji.boying.model.Resource;
+import com.tongji.boying.model.AdminResource;
 import com.tongji.boying.security.component.DynamicSecurityService;
 import com.tongji.boying.security.config.SecurityConfig;
 import com.tongji.boying.service.UmsAdminService;
@@ -48,10 +48,10 @@ public class BoyingSecurityConfig extends SecurityConfig
             public Map<String, ConfigAttribute> loadDataSource()
             {
                 Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-                List<Resource> resourceList = resourceService.listAll();
-                for (Resource resource : resourceList)
+                List<AdminResource> resourceList = resourceService.listAll();
+                for (AdminResource resource : resourceList)
                 {
-                    map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getResourceId() + ":" + resource.getName()));
+                    map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
                 }
                 return map;
             }

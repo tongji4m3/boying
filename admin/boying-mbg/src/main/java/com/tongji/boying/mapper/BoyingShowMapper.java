@@ -10,27 +10,21 @@ public interface BoyingShowMapper {
 
     int deleteByExample(BoyingShowExample example);
 
-    int deleteByPrimaryKey(Integer showId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(BoyingShow record);
 
     int insertSelective(BoyingShow record);
 
-    List<BoyingShow> selectByExampleWithBLOBs(BoyingShowExample example);
-
     List<BoyingShow> selectByExample(BoyingShowExample example);
 
-    BoyingShow selectByPrimaryKey(Integer showId);
+    BoyingShow selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") BoyingShow record, @Param("example") BoyingShowExample example);
-
-    int updateByExampleWithBLOBs(@Param("record") BoyingShow record, @Param("example") BoyingShowExample example);
 
     int updateByExample(@Param("record") BoyingShow record, @Param("example") BoyingShowExample example);
 
     int updateByPrimaryKeySelective(BoyingShow record);
-
-    int updateByPrimaryKeyWithBLOBs(BoyingShow record);
 
     int updateByPrimaryKey(BoyingShow record);
 }

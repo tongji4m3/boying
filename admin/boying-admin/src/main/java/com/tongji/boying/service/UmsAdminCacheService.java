@@ -1,8 +1,8 @@
 package com.tongji.boying.service;
 
 
-import com.tongji.boying.model.Admin;
-import com.tongji.boying.model.Resource;
+import com.tongji.boying.model.AdminUser;
+import com.tongji.boying.model.AdminResource;
 
 import java.util.List;
 
@@ -39,20 +39,20 @@ public interface UmsAdminCacheService
     /**
      * 获取缓存后台管理员信息
      */
-    Admin getAdmin(String username);
+    AdminUser getAdmin(String username);
 
     /**
      * 设置缓存后台管理员信息
      */
-    void setAdmin(Admin admin);
+    void setAdmin(AdminUser AdminUser);
 
     /**
      * 获取缓存后台管理员资源列表
      */
-    List<Resource> getResourceList(Integer adminId);
+    List<AdminResource> getResourceList(Integer adminId);
 
     /**
      * 设置后台管理员资源列表
      */
-    void setResourceList(Integer adminId, List<Resource> resourceList);
+    void setResourceList(Integer adminId, List<AdminResource> resourceList);
 }

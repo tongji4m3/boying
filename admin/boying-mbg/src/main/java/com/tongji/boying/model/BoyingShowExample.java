@@ -1,9 +1,7 @@
 package com.tongji.boying.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class BoyingShowExample {
@@ -107,89 +105,123 @@ public class BoyingShowExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
-        }
-
-        public Criteria andShowIdIsNull() {
-            addCriterion("show_id is null");
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
             return (Criteria) this;
         }
 
-        public Criteria andShowIdIsNotNull() {
-            addCriterion("show_id is not null");
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andShowIdEqualTo(Integer value) {
-            addCriterion("show_id =", value, "showId");
+        public Criteria andIdEqualTo(Integer value) {
+            addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andShowIdNotEqualTo(Integer value) {
-            addCriterion("show_id <>", value, "showId");
+        public Criteria andIdNotEqualTo(Integer value) {
+            addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andShowIdGreaterThan(Integer value) {
-            addCriterion("show_id >", value, "showId");
+        public Criteria andIdGreaterThan(Integer value) {
+            addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andShowIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("show_id >=", value, "showId");
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andShowIdLessThan(Integer value) {
-            addCriterion("show_id <", value, "showId");
+        public Criteria andIdLessThan(Integer value) {
+            addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andShowIdLessThanOrEqualTo(Integer value) {
-            addCriterion("show_id <=", value, "showId");
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
+            addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andShowIdIn(List<Integer> values) {
-            addCriterion("show_id in", values, "showId");
+        public Criteria andIdIn(List<Integer> values) {
+            addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andShowIdNotIn(List<Integer> values) {
-            addCriterion("show_id not in", values, "showId");
+        public Criteria andIdNotIn(List<Integer> values) {
+            addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andShowIdBetween(Integer value1, Integer value2) {
-            addCriterion("show_id between", value1, value2, "showId");
+        public Criteria andIdBetween(Integer value1, Integer value2) {
+            addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andShowIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("show_id not between", value1, value2, "showId");
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdIsNull() {
+            addCriterion("category_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdIsNotNull() {
+            addCriterion("category_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdEqualTo(Integer value) {
+            addCriterion("category_id =", value, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdNotEqualTo(Integer value) {
+            addCriterion("category_id <>", value, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdGreaterThan(Integer value) {
+            addCriterion("category_id >", value, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("category_id >=", value, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdLessThan(Integer value) {
+            addCriterion("category_id <", value, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdLessThanOrEqualTo(Integer value) {
+            addCriterion("category_id <=", value, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdIn(List<Integer> values) {
+            addCriterion("category_id in", values, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdNotIn(List<Integer> values) {
+            addCriterion("category_id not in", values, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdBetween(Integer value1, Integer value2) {
+            addCriterion("category_id between", value1, value2, "categoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("category_id not between", value1, value2, "categoryId");
             return (Criteria) this;
         }
 
@@ -263,66 +295,6 @@ public class BoyingShowExample {
             return (Criteria) this;
         }
 
-        public Criteria andCategoryIdIsNull() {
-            addCriterion("category_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCategoryIdIsNotNull() {
-            addCriterion("category_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCategoryIdEqualTo(Integer value) {
-            addCriterion("category_id =", value, "categoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCategoryIdNotEqualTo(Integer value) {
-            addCriterion("category_id <>", value, "categoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCategoryIdGreaterThan(Integer value) {
-            addCriterion("category_id >", value, "categoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCategoryIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("category_id >=", value, "categoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCategoryIdLessThan(Integer value) {
-            addCriterion("category_id <", value, "categoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCategoryIdLessThanOrEqualTo(Integer value) {
-            addCriterion("category_id <=", value, "categoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCategoryIdIn(List<Integer> values) {
-            addCriterion("category_id in", values, "categoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCategoryIdNotIn(List<Integer> values) {
-            addCriterion("category_id not in", values, "categoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCategoryIdBetween(Integer value1, Integer value2) {
-            addCriterion("category_id between", value1, value2, "categoryId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCategoryIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("category_id not between", value1, value2, "categoryId");
-            return (Criteria) this;
-        }
-
         public Criteria andPosterIsNull() {
             addCriterion("poster is null");
             return (Criteria) this;
@@ -393,183 +365,73 @@ public class BoyingShowExample {
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceIsNull() {
-            addCriterion("min_price is null");
+        public Criteria andDetailsIsNull() {
+            addCriterion("details is null");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceIsNotNull() {
-            addCriterion("min_price is not null");
+        public Criteria andDetailsIsNotNull() {
+            addCriterion("details is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceEqualTo(BigDecimal value) {
-            addCriterion("min_price =", value, "minPrice");
+        public Criteria andDetailsEqualTo(String value) {
+            addCriterion("details =", value, "details");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceNotEqualTo(BigDecimal value) {
-            addCriterion("min_price <>", value, "minPrice");
+        public Criteria andDetailsNotEqualTo(String value) {
+            addCriterion("details <>", value, "details");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceGreaterThan(BigDecimal value) {
-            addCriterion("min_price >", value, "minPrice");
+        public Criteria andDetailsGreaterThan(String value) {
+            addCriterion("details >", value, "details");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("min_price >=", value, "minPrice");
+        public Criteria andDetailsGreaterThanOrEqualTo(String value) {
+            addCriterion("details >=", value, "details");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceLessThan(BigDecimal value) {
-            addCriterion("min_price <", value, "minPrice");
+        public Criteria andDetailsLessThan(String value) {
+            addCriterion("details <", value, "details");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("min_price <=", value, "minPrice");
+        public Criteria andDetailsLessThanOrEqualTo(String value) {
+            addCriterion("details <=", value, "details");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceIn(List<BigDecimal> values) {
-            addCriterion("min_price in", values, "minPrice");
+        public Criteria andDetailsLike(String value) {
+            addCriterion("details like", value, "details");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceNotIn(List<BigDecimal> values) {
-            addCriterion("min_price not in", values, "minPrice");
+        public Criteria andDetailsNotLike(String value) {
+            addCriterion("details not like", value, "details");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("min_price between", value1, value2, "minPrice");
+        public Criteria andDetailsIn(List<String> values) {
+            addCriterion("details in", values, "details");
             return (Criteria) this;
         }
 
-        public Criteria andMinPriceNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("min_price not between", value1, value2, "minPrice");
+        public Criteria andDetailsNotIn(List<String> values) {
+            addCriterion("details not in", values, "details");
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceIsNull() {
-            addCriterion("max_price is null");
+        public Criteria andDetailsBetween(String value1, String value2) {
+            addCriterion("details between", value1, value2, "details");
             return (Criteria) this;
         }
 
-        public Criteria andMaxPriceIsNotNull() {
-            addCriterion("max_price is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxPriceEqualTo(BigDecimal value) {
-            addCriterion("max_price =", value, "maxPrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxPriceNotEqualTo(BigDecimal value) {
-            addCriterion("max_price <>", value, "maxPrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxPriceGreaterThan(BigDecimal value) {
-            addCriterion("max_price >", value, "maxPrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxPriceGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("max_price >=", value, "maxPrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxPriceLessThan(BigDecimal value) {
-            addCriterion("max_price <", value, "maxPrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxPriceLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("max_price <=", value, "maxPrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxPriceIn(List<BigDecimal> values) {
-            addCriterion("max_price in", values, "maxPrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxPriceNotIn(List<BigDecimal> values) {
-            addCriterion("max_price not in", values, "maxPrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxPriceBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("max_price between", value1, value2, "maxPrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxPriceNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("max_price not between", value1, value2, "maxPrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightIsNull() {
-            addCriterion("weight is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightIsNotNull() {
-            addCriterion("weight is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightEqualTo(Integer value) {
-            addCriterion("weight =", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightNotEqualTo(Integer value) {
-            addCriterion("weight <>", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightGreaterThan(Integer value) {
-            addCriterion("weight >", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightGreaterThanOrEqualTo(Integer value) {
-            addCriterion("weight >=", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightLessThan(Integer value) {
-            addCriterion("weight <", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightLessThanOrEqualTo(Integer value) {
-            addCriterion("weight <=", value, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightIn(List<Integer> values) {
-            addCriterion("weight in", values, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightNotIn(List<Integer> values) {
-            addCriterion("weight not in", values, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightBetween(Integer value1, Integer value2) {
-            addCriterion("weight between", value1, value2, "weight");
-            return (Criteria) this;
-        }
-
-        public Criteria andWeightNotBetween(Integer value1, Integer value2) {
-            addCriterion("weight not between", value1, value2, "weight");
+        public Criteria andDetailsNotBetween(String value1, String value2) {
+            addCriterion("details not between", value1, value2, "details");
             return (Criteria) this;
         }
 
@@ -713,123 +575,303 @@ public class BoyingShowExample {
             return (Criteria) this;
         }
 
-        public Criteria andDayStartIsNull() {
-            addCriterion("day_start is null");
+        public Criteria andStartTimeIsNull() {
+            addCriterion("start_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andDayStartIsNotNull() {
-            addCriterion("day_start is not null");
+        public Criteria andStartTimeIsNotNull() {
+            addCriterion("start_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDayStartEqualTo(Date value) {
-            addCriterionForJDBCDate("day_start =", value, "dayStart");
+        public Criteria andStartTimeEqualTo(Date value) {
+            addCriterion("start_time =", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayStartNotEqualTo(Date value) {
-            addCriterionForJDBCDate("day_start <>", value, "dayStart");
+        public Criteria andStartTimeNotEqualTo(Date value) {
+            addCriterion("start_time <>", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayStartGreaterThan(Date value) {
-            addCriterionForJDBCDate("day_start >", value, "dayStart");
+        public Criteria andStartTimeGreaterThan(Date value) {
+            addCriterion("start_time >", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayStartGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("day_start >=", value, "dayStart");
+        public Criteria andStartTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("start_time >=", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayStartLessThan(Date value) {
-            addCriterionForJDBCDate("day_start <", value, "dayStart");
+        public Criteria andStartTimeLessThan(Date value) {
+            addCriterion("start_time <", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayStartLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("day_start <=", value, "dayStart");
+        public Criteria andStartTimeLessThanOrEqualTo(Date value) {
+            addCriterion("start_time <=", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayStartIn(List<Date> values) {
-            addCriterionForJDBCDate("day_start in", values, "dayStart");
+        public Criteria andStartTimeIn(List<Date> values) {
+            addCriterion("start_time in", values, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayStartNotIn(List<Date> values) {
-            addCriterionForJDBCDate("day_start not in", values, "dayStart");
+        public Criteria andStartTimeNotIn(List<Date> values) {
+            addCriterion("start_time not in", values, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayStartBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("day_start between", value1, value2, "dayStart");
+        public Criteria andStartTimeBetween(Date value1, Date value2) {
+            addCriterion("start_time between", value1, value2, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayStartNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("day_start not between", value1, value2, "dayStart");
+        public Criteria andStartTimeNotBetween(Date value1, Date value2) {
+            addCriterion("start_time not between", value1, value2, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndIsNull() {
-            addCriterion("day_end is null");
+        public Criteria andEndTimeIsNull() {
+            addCriterion("end_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndIsNotNull() {
-            addCriterion("day_end is not null");
+        public Criteria andEndTimeIsNotNull() {
+            addCriterion("end_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndEqualTo(Date value) {
-            addCriterionForJDBCDate("day_end =", value, "dayEnd");
+        public Criteria andEndTimeEqualTo(Date value) {
+            addCriterion("end_time =", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndNotEqualTo(Date value) {
-            addCriterionForJDBCDate("day_end <>", value, "dayEnd");
+        public Criteria andEndTimeNotEqualTo(Date value) {
+            addCriterion("end_time <>", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndGreaterThan(Date value) {
-            addCriterionForJDBCDate("day_end >", value, "dayEnd");
+        public Criteria andEndTimeGreaterThan(Date value) {
+            addCriterion("end_time >", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("day_end >=", value, "dayEnd");
+        public Criteria andEndTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("end_time >=", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndLessThan(Date value) {
-            addCriterionForJDBCDate("day_end <", value, "dayEnd");
+        public Criteria andEndTimeLessThan(Date value) {
+            addCriterion("end_time <", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("day_end <=", value, "dayEnd");
+        public Criteria andEndTimeLessThanOrEqualTo(Date value) {
+            addCriterion("end_time <=", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndIn(List<Date> values) {
-            addCriterionForJDBCDate("day_end in", values, "dayEnd");
+        public Criteria andEndTimeIn(List<Date> values) {
+            addCriterion("end_time in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndNotIn(List<Date> values) {
-            addCriterionForJDBCDate("day_end not in", values, "dayEnd");
+        public Criteria andEndTimeNotIn(List<Date> values) {
+            addCriterion("end_time not in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("day_end between", value1, value2, "dayEnd");
+        public Criteria andEndTimeBetween(Date value1, Date value2) {
+            addCriterion("end_time between", value1, value2, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andDayEndNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("day_end not between", value1, value2, "dayEnd");
+        public Criteria andEndTimeNotBetween(Date value1, Date value2) {
+            addCriterion("end_time not between", value1, value2, "endTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightIsNull() {
+            addCriterion("weight is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightIsNotNull() {
+            addCriterion("weight is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightEqualTo(Integer value) {
+            addCriterion("weight =", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotEqualTo(Integer value) {
+            addCriterion("weight <>", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGreaterThan(Integer value) {
+            addCriterion("weight >", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGreaterThanOrEqualTo(Integer value) {
+            addCriterion("weight >=", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightLessThan(Integer value) {
+            addCriterion("weight <", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightLessThanOrEqualTo(Integer value) {
+            addCriterion("weight <=", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightIn(List<Integer> values) {
+            addCriterion("weight in", values, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotIn(List<Integer> values) {
+            addCriterion("weight not in", values, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightBetween(Integer value1, Integer value2) {
+            addCriterion("weight between", value1, value2, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotBetween(Integer value1, Integer value2) {
+            addCriterion("weight not between", value1, value2, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceIsNull() {
+            addCriterion("min_price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceIsNotNull() {
+            addCriterion("min_price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceEqualTo(Double value) {
+            addCriterion("min_price =", value, "minPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceNotEqualTo(Double value) {
+            addCriterion("min_price <>", value, "minPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceGreaterThan(Double value) {
+            addCriterion("min_price >", value, "minPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceGreaterThanOrEqualTo(Double value) {
+            addCriterion("min_price >=", value, "minPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceLessThan(Double value) {
+            addCriterion("min_price <", value, "minPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceLessThanOrEqualTo(Double value) {
+            addCriterion("min_price <=", value, "minPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceIn(List<Double> values) {
+            addCriterion("min_price in", values, "minPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceNotIn(List<Double> values) {
+            addCriterion("min_price not in", values, "minPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceBetween(Double value1, Double value2) {
+            addCriterion("min_price between", value1, value2, "minPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinPriceNotBetween(Double value1, Double value2) {
+            addCriterion("min_price not between", value1, value2, "minPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceIsNull() {
+            addCriterion("max_price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceIsNotNull() {
+            addCriterion("max_price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceEqualTo(Double value) {
+            addCriterion("max_price =", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceNotEqualTo(Double value) {
+            addCriterion("max_price <>", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceGreaterThan(Double value) {
+            addCriterion("max_price >", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceGreaterThanOrEqualTo(Double value) {
+            addCriterion("max_price >=", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceLessThan(Double value) {
+            addCriterion("max_price <", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceLessThanOrEqualTo(Double value) {
+            addCriterion("max_price <=", value, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceIn(List<Double> values) {
+            addCriterion("max_price in", values, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceNotIn(List<Double> values) {
+            addCriterion("max_price not in", values, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceBetween(Double value1, Double value2) {
+            addCriterion("max_price between", value1, value2, "maxPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaxPriceNotBetween(Double value1, Double value2) {
+            addCriterion("max_price not between", value1, value2, "maxPrice");
             return (Criteria) this;
         }
     }

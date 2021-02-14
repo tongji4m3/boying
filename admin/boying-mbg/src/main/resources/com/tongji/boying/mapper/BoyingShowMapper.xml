@@ -2,20 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tongji.boying.mapper.BoyingShowMapper">
   <resultMap id="BaseResultMap" type="com.tongji.boying.model.BoyingShow">
-    <id column="show_id" jdbcType="INTEGER" property="showId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="poster" jdbcType="VARCHAR" property="poster" />
-    <result column="min_price" jdbcType="DECIMAL" property="minPrice" />
-    <result column="max_price" jdbcType="DECIMAL" property="maxPrice" />
-    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="details" jdbcType="VARCHAR" property="details" />
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="day_start" jdbcType="DATE" property="dayStart" />
-    <result column="day_end" jdbcType="DATE" property="dayEnd" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tongji.boying.model.BoyingShow">
-    <result column="details" jdbcType="LONGVARCHAR" property="details" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="min_price" jdbcType="DOUBLE" property="minPrice" />
+    <result column="max_price" jdbcType="DOUBLE" property="maxPrice" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,28 +74,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    show_id, name, category_id, poster, min_price, max_price, weight, city, address, 
-    day_start, day_end
+    id, category_id, name, poster, details, city, address, start_time, end_time, weight, 
+    min_price, max_price
   </sql>
-  <sql id="Blob_Column_List">
-    details
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.tongji.boying.model.BoyingShowExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from boying_show
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingShowExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -112,17 +91,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from boying_show
-    where show_id = #{showId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from boying_show
-    where show_id = #{showId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.tongji.boying.model.BoyingShowExample">
     delete from boying_show
@@ -131,40 +108,35 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.BoyingShow">
-    insert into boying_show (show_id, name, category_id, 
-      poster, min_price, max_price, 
-      weight, city, address, 
-      day_start, day_end, details
-      )
-    values (#{showId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
-      #{poster,jdbcType=VARCHAR}, #{minPrice,jdbcType=DECIMAL}, #{maxPrice,jdbcType=DECIMAL}, 
-      #{weight,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{dayStart,jdbcType=DATE}, #{dayEnd,jdbcType=DATE}, #{details,jdbcType=LONGVARCHAR}
-      )
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into boying_show (category_id, name, poster, 
+      details, city, address, 
+      start_time, end_time, weight, 
+      min_price, max_price)
+    values (#{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{poster,jdbcType=VARCHAR}, 
+      #{details,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{weight,jdbcType=INTEGER}, 
+      #{minPrice,jdbcType=DOUBLE}, #{maxPrice,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingShow">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into boying_show
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="showId != null">
-        show_id,
+      <if test="categoryId != null">
+        category_id,
       </if>
       <if test="name != null">
         name,
       </if>
-      <if test="categoryId != null">
-        category_id,
-      </if>
       <if test="poster != null">
         poster,
       </if>
-      <if test="minPrice != null">
-        min_price,
-      </if>
-      <if test="maxPrice != null">
-        max_price,
-      </if>
-      <if test="weight != null">
-        weight,
+      <if test="details != null">
+        details,
       </if>
       <if test="city != null">
         city,
@@ -172,37 +144,34 @@
       <if test="address != null">
         address,
       </if>
-      <if test="dayStart != null">
-        day_start,
+      <if test="startTime != null">
+        start_time,
       </if>
-      <if test="dayEnd != null">
-        day_end,
+      <if test="endTime != null">
+        end_time,
       </if>
-      <if test="details != null">
-        details,
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="minPrice != null">
+        min_price,
+      </if>
+      <if test="maxPrice != null">
+        max_price,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="showId != null">
-        #{showId,jdbcType=INTEGER},
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="categoryId != null">
-        #{categoryId,jdbcType=INTEGER},
-      </if>
       <if test="poster != null">
         #{poster,jdbcType=VARCHAR},
       </if>
-      <if test="minPrice != null">
-        #{minPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="maxPrice != null">
-        #{maxPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="weight != null">
-        #{weight,jdbcType=INTEGER},
+      <if test="details != null">
+        #{details,jdbcType=VARCHAR},
       </if>
       <if test="city != null">
         #{city,jdbcType=VARCHAR},
@@ -210,14 +179,20 @@
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="dayStart != null">
-        #{dayStart,jdbcType=DATE},
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="dayEnd != null">
-        #{dayEnd,jdbcType=DATE},
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="details != null">
-        #{details,jdbcType=LONGVARCHAR},
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="minPrice != null">
+        #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="maxPrice != null">
+        #{maxPrice,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -230,26 +205,20 @@
   <update id="updateByExampleSelective" parameterType="map">
     update boying_show
     <set>
-      <if test="record.showId != null">
-        show_id = #{record.showId,jdbcType=INTEGER},
-      </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.categoryId != null">
         category_id = #{record.categoryId,jdbcType=INTEGER},
       </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
       <if test="record.poster != null">
         poster = #{record.poster,jdbcType=VARCHAR},
       </if>
-      <if test="record.minPrice != null">
-        min_price = #{record.minPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="record.maxPrice != null">
-        max_price = #{record.maxPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="record.weight != null">
-        weight = #{record.weight,jdbcType=INTEGER},
+      <if test="record.details != null">
+        details = #{record.details,jdbcType=VARCHAR},
       </if>
       <if test="record.city != null">
         city = #{record.city,jdbcType=VARCHAR},
@@ -257,51 +226,40 @@
       <if test="record.address != null">
         address = #{record.address,jdbcType=VARCHAR},
       </if>
-      <if test="record.dayStart != null">
-        day_start = #{record.dayStart,jdbcType=DATE},
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.dayEnd != null">
-        day_end = #{record.dayEnd,jdbcType=DATE},
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.details != null">
-        details = #{record.details,jdbcType=LONGVARCHAR},
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.minPrice != null">
+        min_price = #{record.minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.maxPrice != null">
+        max_price = #{record.maxPrice,jdbcType=DOUBLE},
       </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update boying_show
-    set show_id = #{record.showId,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
-      category_id = #{record.categoryId,jdbcType=INTEGER},
-      poster = #{record.poster,jdbcType=VARCHAR},
-      min_price = #{record.minPrice,jdbcType=DECIMAL},
-      max_price = #{record.maxPrice,jdbcType=DECIMAL},
-      weight = #{record.weight,jdbcType=INTEGER},
-      city = #{record.city,jdbcType=VARCHAR},
-      address = #{record.address,jdbcType=VARCHAR},
-      day_start = #{record.dayStart,jdbcType=DATE},
-      day_end = #{record.dayEnd,jdbcType=DATE},
-      details = #{record.details,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByExample" parameterType="map">
     update boying_show
-    set show_id = #{record.showId,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=INTEGER},
       category_id = #{record.categoryId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
       poster = #{record.poster,jdbcType=VARCHAR},
-      min_price = #{record.minPrice,jdbcType=DECIMAL},
-      max_price = #{record.maxPrice,jdbcType=DECIMAL},
-      weight = #{record.weight,jdbcType=INTEGER},
+      details = #{record.details,jdbcType=VARCHAR},
       city = #{record.city,jdbcType=VARCHAR},
       address = #{record.address,jdbcType=VARCHAR},
-      day_start = #{record.dayStart,jdbcType=DATE},
-      day_end = #{record.dayEnd,jdbcType=DATE}
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      weight = #{record.weight,jdbcType=INTEGER},
+      min_price = #{record.minPrice,jdbcType=DOUBLE},
+      max_price = #{record.maxPrice,jdbcType=DOUBLE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -309,23 +267,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tongji.boying.model.BoyingShow">
     update boying_show
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
       <if test="categoryId != null">
         category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="poster != null">
         poster = #{poster,jdbcType=VARCHAR},
       </if>
-      <if test="minPrice != null">
-        min_price = #{minPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="maxPrice != null">
-        max_price = #{maxPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="weight != null">
-        weight = #{weight,jdbcType=INTEGER},
+      <if test="details != null">
+        details = #{details,jdbcType=VARCHAR},
       </if>
       <if test="city != null">
         city = #{city,jdbcType=VARCHAR},
@@ -333,45 +285,37 @@
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
-      <if test="dayStart != null">
-        day_start = #{dayStart,jdbcType=DATE},
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="dayEnd != null">
-        day_end = #{dayEnd,jdbcType=DATE},
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="details != null">
-        details = #{details,jdbcType=LONGVARCHAR},
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="minPrice != null">
+        min_price = #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="maxPrice != null">
+        max_price = #{maxPrice,jdbcType=DOUBLE},
       </if>
     </set>
-    where show_id = #{showId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tongji.boying.model.BoyingShow">
-    update boying_show
-    set name = #{name,jdbcType=VARCHAR},
-      category_id = #{categoryId,jdbcType=INTEGER},
-      poster = #{poster,jdbcType=VARCHAR},
-      min_price = #{minPrice,jdbcType=DECIMAL},
-      max_price = #{maxPrice,jdbcType=DECIMAL},
-      weight = #{weight,jdbcType=INTEGER},
-      city = #{city,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      day_start = #{dayStart,jdbcType=DATE},
-      day_end = #{dayEnd,jdbcType=DATE},
-      details = #{details,jdbcType=LONGVARCHAR}
-    where show_id = #{showId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tongji.boying.model.BoyingShow">
     update boying_show
-    set name = #{name,jdbcType=VARCHAR},
-      category_id = #{categoryId,jdbcType=INTEGER},
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
       poster = #{poster,jdbcType=VARCHAR},
-      min_price = #{minPrice,jdbcType=DECIMAL},
-      max_price = #{maxPrice,jdbcType=DECIMAL},
-      weight = #{weight,jdbcType=INTEGER},
+      details = #{details,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
-      day_start = #{dayStart,jdbcType=DATE},
-      day_end = #{dayEnd,jdbcType=DATE}
-    where show_id = #{showId,jdbcType=INTEGER}
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      weight = #{weight,jdbcType=INTEGER},
+      min_price = #{minPrice,jdbcType=DOUBLE},
+      max_price = #{maxPrice,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

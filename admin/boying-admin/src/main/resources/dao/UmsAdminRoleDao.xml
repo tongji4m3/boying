@@ -3,37 +3,35 @@
 <mapper namespace="com.tongji.boying.dao.UmsAdminRoleDao">
     <!--批量新增回写主键支持-->
     <insert id="insertList">
-        INSERT INTO admin_role (admin_id, role_id) VALUES
+        INSERT INTO admin_user_role (user_id, role_id) VALUES
         <foreach collection="list" separator="," item="item" index="index">
             (#{item.adminId,jdbcType=INTEGER},
             #{item.roleId,jdbcType=INTEGER})
         </foreach>
     </insert>
-    <select id="getRoleList" resultMap="com.tongji.boying.mapper.RoleMapper.BaseResultMap">
-        select role.*
-        from admin_role
-                 left join role on admin_role.role_id = role.role_id
-        where admin_role.admin_id = #{adminId}
-          and role.status=1
-          and role.role_id is not null
+    <select id="getRoleList" resultMap="com.tongji.boying.mapper.AdminRoleMapper.BaseResultMap">
+        select admin_role.*
+        from admin_user_role
+                 join admin_role on admin_user_role.role_id = admin_role.id
+        where admin_user_role.user_id = #{userId}
+          and admin_role.status = 1;
     </select>
 
 
-    <select id="getResourceList" resultMap="com.tongji.boying.mapper.ResourceMapper.BaseResultMap">
-        select distinct resource.*
-        from admin_role
-                 left join role on admin_role.role_id=role.role_id
-                 left join role_resource on admin_role.role_id = role_resource.role_id
-                 left join resource on role_resource.resource_id = resource.resource_id
-        where admin_role.admin_id = #{adminId}
-          and role.status=1
-          and resource.resource_id is not null
+    <select id="getResourceList" resultMap="com.tongji.boying.mapper.AdminResourceMapper.BaseResultMap">
+        select distinct admin_resource.*
+        from admin_user_role
+                 join admin_role on admin_user_role.role_id = admin_role.id
+                 join admin_role_resource on admin_role.id = admin_role_resource.role_id
+                 join admin_resource on admin_role_resource.resource_id = admin_resource.id
+        where admin_user_role.user_id = #{userId}
+          and admin_role.status = 1
+          and admin_resource.status = 1;
     </select>
     <select id="getAdminIdList" resultType="java.lang.Integer">
-        SELECT DISTINCT admin_role.admin_id
-        FROM role_resource
-                 LEFT JOIN admin_role ON role_resource.role_id = admin_role.role_id
-        WHERE role_resource.resource_id = #{resourceId}
-          and admin_role.admin_role_id is not null
+        SELECT DISTINCT admin_role.id
+        FROM admin_role_resource
+                 JOIN admin_role ON admin_role_resource.role_id = admin_role.id
+        WHERE admin_role_resource.resource_id = #{resourceId}
     </select>
 </mapper>

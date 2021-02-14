@@ -1,8 +1,9 @@
 package com.tongji.boying.dao;
 
 import com.tongji.boying.model.AdminRole;
-import com.tongji.boying.model.Resource;
-import com.tongji.boying.model.Role;
+import com.tongji.boying.model.AdminResource;
+import com.tongji.boying.model.AdminRole;
+import com.tongji.boying.model.AdminUserRole;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -15,17 +16,17 @@ public interface UmsAdminRoleDao
     /**
      * 批量插入用户角色关系
      */
-    int insertList(@Param("list") List<AdminRole> adminRoleList);
+    int insertList(@Param("list") List<AdminUserRole> adminUserRoles);
 
     /**
      * 获取用于所有角色
      */
-    List<Role> getRoleList(@Param("adminId") Integer adminId);
+    List<AdminRole> getRoleList(@Param("userId") Integer userId);
 
     /**
      * 获取用户所有可访问资源
      */
-    List<Resource> getResourceList(@Param("adminId") Integer adminId);
+    List<AdminResource> getResourceList(@Param("userId") Integer userId);
 
     /**
      * 获取资源相关用户ID列表

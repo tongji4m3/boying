@@ -4,8 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.UmsAdminInfoParam;
-import com.tongji.boying.model.Admin;
-import com.tongji.boying.model.Menu;
+import com.tongji.boying.model.AdminUser;
+import com.tongji.boying.model.AdminMenu;
 import com.tongji.boying.service.UmsAdminService;
 import com.tongji.boying.service.UmsMenuService;
 import com.tongji.boying.service.UmsResourceService;
@@ -90,20 +90,20 @@ public class UmsLoginController
         {
             return CommonResult.unauthorized(null);
         }
-        Admin admin = adminService.getCurrentAdmin();
+        AdminUser adminUser = adminService.getCurrentAdmin();
         Map<String, Object> data = new HashMap<>();
-        data.put("username", admin.getUsername());
-        data.put("icon", admin.getIcon());
-        data.put("email", admin.getEmail());
-        data.put("loginTime", admin.getLoginTime());
-        data.put("menus", menuService.categoryMap(admin.getAdminId()));
-        data.put("resource", roleService.getResourceList(admin.getAdminId()));
-        data.put("roles", adminService.getRoleList(admin.getAdminId()));
+        data.put("username", adminUser.getUsername());
+        data.put("icon", adminUser.getIcon());
+        data.put("email", adminUser.getEmail());
+        data.put("loginTime", adminUser.getLoginTime());
+        data.put("menus", menuService.categoryMap(adminUser.getId()));
+        data.put("resource", roleService.getResourceList(adminUser.getId()));
+        data.put("roles", adminService.getRoleList(adminUser.getId()));
         return CommonResult.success(data);
     }
 
     @ApiOperation(value = "获取当前登录管理员的菜单信息,用于前端动态生成菜单")
-    @RequestMapping(value = "/menu", method = RequestMethod.POST)
+    @RequestMapping(value = "/AdminMenu", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult getAdminMenu(Principal principal)
     {
@@ -112,8 +112,8 @@ public class UmsLoginController
         {
             return CommonResult.unauthorized(null);
         }
-        Admin currentAdmin = adminService.getCurrentAdmin();
-        Map<Menu, List<Menu>> data = menuService.categoryMap(currentAdmin.getAdminId());
+        AdminUser currentAdmin = adminService.getCurrentAdmin();
+        Map<AdminMenu, List<AdminMenu>> data = menuService.categoryMap(currentAdmin.getId());
         if (CollUtil.isEmpty(data))
         {
             Asserts.fail("当前登录管理员的菜单为空!");
@@ -160,8 +160,8 @@ public class UmsLoginController
         {
             return CommonResult.unauthorized(null);
         }
-        Admin admin = adminService.getCurrentAdmin();
-        int count = adminService.update(admin.getAdminId(), param);
+        AdminUser AdminUser = adminService.getCurrentAdmin();
+        int count = adminService.update(AdminUser.getId(), param);
         if (count > 0)
         {
             return CommonResult.success(count);

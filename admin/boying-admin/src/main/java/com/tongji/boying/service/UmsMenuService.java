@@ -2,7 +2,7 @@ package com.tongji.boying.service;
 
 
 import com.tongji.boying.dto.UmsMenuParam;
-import com.tongji.boying.model.Menu;
+import com.tongji.boying.model.AdminMenu;
 
 import java.util.List;
 import java.util.Map;
@@ -27,7 +27,7 @@ public interface UmsMenuService
     /**
      * 根据ID获取菜单详情
      */
-    Menu getItem(Integer id);
+    AdminMenu getItem(Integer id);
 
     /**
      * 根据ID删除菜单
@@ -37,7 +37,7 @@ public interface UmsMenuService
     /**
      * 分页查询后台菜单
      */
-    List<Menu> list(Integer parentId, Integer pageSize, Integer pageNum);
+    List<AdminMenu> list(Integer parentId, Integer pageSize, Integer pageNum);
 
 
     /**
@@ -45,7 +45,7 @@ public interface UmsMenuService
      *
      * @return
      */
-    Map<Menu, List<Menu>> categoryMap();
+    Map<AdminMenu, List<AdminMenu>> categoryMap();
 
 
     /**
@@ -53,7 +53,7 @@ public interface UmsMenuService
      *
      * @return
      */
-    Map<Menu, List<Menu>> categoryMap(Integer adminId);
+    Map<AdminMenu, List<AdminMenu>> categoryMap(Integer adminId);
     /**
      * 修改菜单显示状态
      */

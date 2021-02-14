@@ -10,7 +10,7 @@ public interface AdminRoleMapper {
 
     int deleteByExample(AdminRoleExample example);
 
-    int deleteByPrimaryKey(Integer adminRoleId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(AdminRole record);
 
@@ -18,7 +18,7 @@ public interface AdminRoleMapper {
 
     List<AdminRole> selectByExample(AdminRoleExample example);
 
-    AdminRole selectByPrimaryKey(Integer adminRoleId);
+    AdminRole selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") AdminRole record, @Param("example") AdminRoleExample example);
 

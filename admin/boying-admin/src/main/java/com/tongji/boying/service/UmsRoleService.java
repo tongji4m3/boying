@@ -1,9 +1,9 @@
 package com.tongji.boying.service;
 
 import com.tongji.boying.dto.UmsRoleParam;
-import com.tongji.boying.model.Menu;
-import com.tongji.boying.model.Resource;
-import com.tongji.boying.model.Role;
+import com.tongji.boying.model.AdminMenu;
+import com.tongji.boying.model.AdminResource;
+import com.tongji.boying.model.AdminRole;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -38,27 +38,27 @@ public interface UmsRoleService
     /**
      * 获取所有角色列表
      */
-    List<Role> list();
+    List<AdminRole> list();
 
     /**
      * 分页获取角色列表
      */
-    List<Role> list(String keyword, Integer pageSize, Integer pageNum);
+    List<AdminRole> list(String keyword, Integer pageSize, Integer pageNum);
 
     /**
      * 根据管理员ID获取对应菜单
      */
-    List<Menu> getMenuList(Integer adminId);
+    List<AdminMenu> getMenuList(Integer adminId);
 
     /**
      * 获取角色相关菜单
      */
-    List<Menu> listMenu(Integer roleId);
+    List<AdminMenu> listMenu(Integer roleId);
 
     /**
      * 获取角色相关资源
      */
-    List<Resource> listResource(Integer roleId);
+    List<AdminResource> listResource(Integer roleId);
 
     /**
      * 给角色分配菜单
@@ -72,7 +72,7 @@ public interface UmsRoleService
     @Transactional
     int allocResource(Integer roleId, List<Integer> resourceIds);
 
-    List<Resource> getResourceList(Integer adminId);
+    List<AdminResource> getResourceList(Integer adminId);
 
     int updateStatus(Integer id, Boolean status);
 }

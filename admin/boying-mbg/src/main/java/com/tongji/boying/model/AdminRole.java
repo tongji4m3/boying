@@ -2,38 +2,85 @@ package com.tongji.boying.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.Date;
 
 public class AdminRole implements Serializable {
-    private Integer adminRoleId;
+    private Integer id;
 
-    private Integer adminId;
+    @ApiModelProperty(value = "角色名称")
+    private String name;
 
-    private Integer roleId;
+    @ApiModelProperty(value = "角色描述")
+    private String description;
+
+    @ApiModelProperty(value = "后台用户数量")
+    private Integer adminCount;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
+
+    @ApiModelProperty(value = "启用状态：0->禁用；1->启用")
+    private Boolean status;
+
+    @ApiModelProperty(value = "角色的显示优先级")
+    private Integer weight;
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getAdminRoleId() {
-        return adminRoleId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setAdminRoleId(Integer adminRoleId) {
-        this.adminRoleId = adminRoleId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getAdminId() {
-        return adminId;
+    public String getName() {
+        return name;
     }
 
-    public void setAdminId(Integer adminId) {
-        this.adminId = adminId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getAdminCount() {
+        return adminCount;
+    }
+
+    public void setAdminCount(Integer adminCount) {
+        this.adminCount = adminCount;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     @Override
@@ -42,9 +89,13 @@ public class AdminRole implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", adminRoleId=").append(adminRoleId);
-        sb.append(", adminId=").append(adminId);
-        sb.append(", roleId=").append(roleId);
+        sb.append(", id=").append(id);
+        sb.append(", name=").append(name);
+        sb.append(", description=").append(description);
+        sb.append(", adminCount=").append(adminCount);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", status=").append(status);
+        sb.append(", weight=").append(weight);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

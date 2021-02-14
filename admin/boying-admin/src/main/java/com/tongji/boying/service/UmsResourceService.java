@@ -2,7 +2,7 @@ package com.tongji.boying.service;
 
 
 import com.tongji.boying.dto.UmsResourceParam;
-import com.tongji.boying.model.Resource;
+import com.tongji.boying.model.AdminResource;
 
 import java.util.List;
 
@@ -14,19 +14,19 @@ public interface UmsResourceService
     /**
      * 添加资源
      *
-     * @param resource
+     * @param AdminResource
      */
-    int create(UmsResourceParam resource);
+    int create(UmsResourceParam AdminResource);
 
     /**
      * 修改资源
      */
-    int update(Integer id, UmsResourceParam resource);
+    int update(Integer id, UmsResourceParam AdminResource);
 
     /**
      * 获取资源详情
      */
-    Resource getItem(Integer id);
+    AdminResource getItem(Integer id);
 
     /**
      * 删除资源
@@ -36,10 +36,10 @@ public interface UmsResourceService
     /**
      * 分页查询资源
      */
-    List<Resource> list(Integer categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum);
+    List<AdminResource> list(Integer categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum);
 
     /**
      * 查询全部资源
      */
-    List<Resource> listAll();
+    List<AdminResource> listAll();
 }
