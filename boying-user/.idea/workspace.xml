@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66892b7b-2827-4883-b212-d17bb64dc641" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingUserServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +69,7 @@
       <workItem from="1612679474288" duration="1066000" />
       <workItem from="1612784777261" duration="42000" />
       <workItem from="1613257644580" duration="150000" />
-      <workItem from="1613262459353" duration="942000" />
+      <workItem from="1613262459353" duration="1317000" />
     </task>
     <servers />
   </component>
