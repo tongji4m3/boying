@@ -10,6 +10,7 @@ import com.tongji.boying.dto.UmsAdminInfoParam;
 import com.tongji.boying.dto.UmsAdminRegisterParam;
 import com.tongji.boying.mapper.AdminUserMapper;
 import com.tongji.boying.mapper.AdminRoleMapper;
+import com.tongji.boying.mapper.AdminUserRoleMapper;
 import com.tongji.boying.model.*;
 import com.tongji.boying.security.util.JwtTokenUtil;
 import com.tongji.boying.service.UmsAdminCacheService;
@@ -49,6 +50,8 @@ public class UmsAdminServiceImpl implements UmsAdminService
     private AdminUserMapper adminUserMapper;
     @Autowired
     private AdminRoleMapper adminRoleMapper;
+    @Autowired
+    private AdminUserRoleMapper adminUserRoleMapper;
     @Autowired
     private UmsAdminCacheService adminCacheService;
     @Autowired
@@ -201,25 +204,25 @@ public class UmsAdminServiceImpl implements UmsAdminService
     }
 
     @Override
-    public int updateRole(Integer adminId, List<Integer> roleIds)
+    public int updateRole(Integer userId, List<Integer> roleIds)
     {
-        if(adminUserMapper.selectByPrimaryKey(adminId)==null) Asserts.fail("该管理员不存在!");
+        if(adminUserMapper.selectByPrimaryKey(userId)==null) Asserts.fail("该管理员不存在!");
         if(roleIds == null) Asserts.fail("请传入要分配的角色Id列表!");
 
         int count = roleIds.size();
         //先删除原来的关系
-        AdminRoleExample adminRoleExample = new AdminRoleExample();
-        adminRoleExample.createCriteria().andIdEqualTo(adminId);
+        AdminUserRoleExample adminUserRoleExample = new AdminUserRoleExample();
+        adminUserRoleExample.createCriteria().andUserIdEqualTo(userId);
         //该角色对应的管理员人数-1
-        List<AdminRole> adminRoles = adminRoleMapper.selectByExample(adminRoleExample);
-        for (AdminRole adminRole : adminRoles)
+        List<AdminUserRole> adminUserRoles = adminUserRoleMapper.selectByExample(adminUserRoleExample);
+        for (AdminUserRole adminUserRole : adminUserRoles)
         {
             AdminRole role = new AdminRole();
-            role.setId(role.getId());
-            role.setAdminCount(adminRoleMapper.selectByPrimaryKey(role.getId()).getAdminCount()-1);
+            role.setId(adminUserRole.getId());
+            role.setAdminCount(adminRoleMapper.selectByPrimaryKey(adminUserRole.getId()).getAdminCount()-1);
             adminRoleMapper.updateByPrimaryKeySelective(role);
         }
-        adminRoleMapper.deleteByExample(adminRoleExample);
+        adminUserRoleMapper.deleteByExample(adminUserRoleExample);
 
 
         //判断角色是否都是存在与数据库中的
@@ -233,12 +236,12 @@ public class UmsAdminServiceImpl implements UmsAdminService
         //建立新关系
         if (!CollectionUtils.isEmpty(roleIds))
         {
-            List<AdminRole> list = new ArrayList<>();
+            List<AdminUserRole> list = new ArrayList<>();
             for (Integer roleId : roleIds)
             {
-                AdminRole adminRole = new AdminRole();
-                adminRole.setId(adminId);
-                adminRole.setId(roleId);
+                AdminUserRole adminRole = new AdminUserRole();
+                adminRole.setUserId(userId);
+                adminRole.setRoleId(roleId);
                 list.add(adminRole);
                 //对应角色管理员人数+1
                 AdminRole AdminRole = new AdminRole();
@@ -248,7 +251,7 @@ public class UmsAdminServiceImpl implements UmsAdminService
             }
             adminRoleDao.insertList(list);
         }
-        adminCacheService.delResourceList(adminId);
+        adminCacheService.delResourceList(userId);
         return count;
     }
 

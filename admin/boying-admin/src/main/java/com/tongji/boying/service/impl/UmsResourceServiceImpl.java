@@ -5,12 +5,10 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.UmsResourceParam;
-import com.tongji.boying.mapper.ResourceCategoryMapper;
-import com.tongji.boying.mapper.ResourceMapper;
-import com.tongji.boying.model.Resource;
-import com.tongji.boying.model.ResourceCategory;
-import com.tongji.boying.model.ResourceCategoryExample;
-import com.tongji.boying.model.ResourceExample;
+import com.tongji.boying.mapper.AdminCategoryMapper;
+import com.tongji.boying.mapper.AdminResourceMapper;
+import com.tongji.boying.model.AdminResource;
+import com.tongji.boying.model.AdminResourceExample;
 import com.tongji.boying.service.UmsAdminCacheService;
 import com.tongji.boying.service.UmsResourceService;
 import org.springframework.beans.BeanUtils;
@@ -27,38 +25,38 @@ import java.util.List;
 public class UmsResourceServiceImpl implements UmsResourceService
 {
     @Autowired
-    private ResourceMapper resourceMapper;
+    private AdminResourceMapper AdminResourceMapper;
     @Autowired
     private UmsAdminCacheService adminCacheService;
 
     @Autowired
-    private ResourceCategoryMapper resourceCategoryMapper;
+    private AdminCategoryMapper AdminCategoryMapper;
 
     @Override
     public int create(UmsResourceParam param)
     {
         checkResourceParam(param, -1);
-        Resource resource = new Resource();
-        BeanUtils.copyProperties(param, resource);
-        resource.setCreateTime(new Date());
-        return resourceMapper.insertSelective(resource);
+        AdminResource AdminResource = new AdminResource();
+        BeanUtils.copyProperties(param, AdminResource);
+        AdminResource.setCreateTime(new Date());
+        return AdminResourceMapper.insertSelective(AdminResource);
     }
 
     @Override
     public int update(Integer id, UmsResourceParam param)
     {
-        if(resourceMapper.selectByPrimaryKey(id)==null)
+        if(AdminResourceMapper.selectByPrimaryKey(id)==null)
         {
             Asserts.fail("要修改的资源Id不存在!");
         }
         checkResourceParam(param, id);
 
 
-        Resource resource = new Resource();
-        BeanUtils.copyProperties(param, resource);
-        resource.setResourceId(id);
+        AdminResource AdminResource = new AdminResource();
+        BeanUtils.copyProperties(param, AdminResource);
+        AdminResource.setId(id);
 
-        int count = resourceMapper.updateByPrimaryKeySelective(resource);
+        int count = AdminResourceMapper.updateByPrimaryKeySelective(AdminResource);
         adminCacheService.delResourceListByResource(id);
         return count;
     }
@@ -66,14 +64,14 @@ public class UmsResourceServiceImpl implements UmsResourceService
     private void checkResourceParam(UmsResourceParam param, Integer id)
     {
         //除要修改的外是否还存在重名的
-        ResourceExample resourceExample = new ResourceExample();
-        ResourceExample.Criteria criteria = resourceExample.createCriteria();
+        AdminResourceExample AdminResourceExample = new AdminResourceExample();
+        AdminResourceExample.Criteria criteria = AdminResourceExample.createCriteria();
         criteria.andNameEqualTo(param.getName());
         if (id != -1)
         {
-            criteria.andResourceIdNotEqualTo(id);
+            criteria.andIdNotEqualTo(id);
         }
-        List<Resource> resources = resourceMapper.selectByExample(resourceExample);
+        List<AdminResource> resources = AdminResourceMapper.selectByExample(AdminResourceExample);
         if (CollUtil.isNotEmpty(resources))
         {
             //说明有重名资源名称
@@ -82,28 +80,28 @@ public class UmsResourceServiceImpl implements UmsResourceService
     }
 
     @Override
-    public Resource getItem(Integer id)
+    public AdminResource getItem(Integer id)
     {
-        return resourceMapper.selectByPrimaryKey(id);
+        return AdminResourceMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public int delete(Integer id)
     {
-        int count = resourceMapper.deleteByPrimaryKey(id);
+        int count = AdminResourceMapper.deleteByPrimaryKey(id);
         adminCacheService.delResourceListByResource(id);
         return count;
     }
 
     @Override
-    public List<Resource> list(Integer categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum)
+    public List<AdminResource> list(Integer categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum)
     {
         PageHelper.startPage(pageNum, pageSize);
-        ResourceExample example = new ResourceExample();
-        ResourceExample.Criteria criteria = example.createCriteria();
+        AdminResourceExample example = new AdminResourceExample();
+        AdminResourceExample.Criteria criteria = example.createCriteria();
         if (categoryId != null)
         {
-            criteria.andResourceCategoryIdEqualTo(categoryId);
+            criteria.andIdEqualTo(categoryId);
         }
         if (StrUtil.isNotEmpty(nameKeyword))
         {
@@ -113,12 +111,12 @@ public class UmsResourceServiceImpl implements UmsResourceService
         {
             criteria.andUrlLike('%' + urlKeyword + '%');
         }
-        return resourceMapper.selectByExample(example);
+        return AdminResourceMapper.selectByExample(example);
     }
 
     @Override
-    public List<Resource> listAll()
+    public List<AdminResource> listAll()
     {
-        return resourceMapper.selectByExample(new ResourceExample());
+        return AdminResourceMapper.selectByExample(new AdminResourceExample());
     }
 }

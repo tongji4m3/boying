@@ -6,9 +6,9 @@ import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dao.UmsRoleDao;
 import com.tongji.boying.dto.UmsMenuParam;
-import com.tongji.boying.mapper.MenuMapper;
-import com.tongji.boying.model.Menu;
-import com.tongji.boying.model.MenuExample;
+import com.tongji.boying.mapper.AdminMenuMapper;
+import com.tongji.boying.model.AdminMenu;
+import com.tongji.boying.model.AdminMenuExample;
 import com.tongji.boying.service.UmsMenuService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class UmsMenuServiceImpl implements UmsMenuService
 {
     @Autowired
-    private MenuMapper menuMapper;
+    private AdminMenuMapper AdminMenuMapper;
     @Autowired
     private UmsRoleDao roleDao;
 
@@ -35,26 +35,26 @@ public class UmsMenuServiceImpl implements UmsMenuService
         //默认-1代表是create模式的检查
         checkMenuParam(param, -1);
         //不能自己更新菜单level
-        Menu menu = new Menu();
-        BeanUtils.copyProperties(param, menu);
-        menu.setCreateTime(new Date());
-        menu.setHidden(false);
-        updateLevel(menu);
-        return menuMapper.insertSelective(menu);
+        AdminMenu AdminMenu = new AdminMenu();
+        BeanUtils.copyProperties(param, AdminMenu);
+        AdminMenu.setCreateTime(new Date());
+        AdminMenu.setStatus(true);
+        updateLevel(AdminMenu);
+        return AdminMenuMapper.insertSelective(AdminMenu);
     }
 
     private void checkMenuParam(UmsMenuParam param, Integer id)
     {
         //        检查是否有重名菜单
-        MenuExample menuExample = new MenuExample();
-        MenuExample.Criteria criteria = menuExample.createCriteria();
+        AdminMenuExample AdminMenuExample = new AdminMenuExample();
+        AdminMenuExample.Criteria criteria = AdminMenuExample.createCriteria();
         criteria.andTitleEqualTo(param.getTitle());
         //为了修改时不会连本身的菜单都不能修改
         if (id != -1)
         {
-            criteria.andMenuIdNotEqualTo(id);
+            criteria.andIdNotEqualTo(id);
         }
-        List<Menu> menus = menuMapper.selectByExample(menuExample);
+        List<AdminMenu> menus = AdminMenuMapper.selectByExample(AdminMenuExample);
         if (CollUtil.isNotEmpty(menus))
         {
             Asserts.fail("菜单名称重复!");
@@ -63,9 +63,9 @@ public class UmsMenuServiceImpl implements UmsMenuService
         if (param.getParentId() != 0)
         {
             //要插入的父级菜单存在
-            MenuExample menuExample1 = new MenuExample();
-            menuExample1.createCriteria().andMenuIdEqualTo(param.getParentId()).andParentIdEqualTo(0);
-            List<Menu> menus1 = menuMapper.selectByExample(menuExample1);
+            AdminMenuExample menuExample1 = new AdminMenuExample();
+            menuExample1.createCriteria().andIdEqualTo(param.getParentId()).andParentIdEqualTo(0);
+            List<AdminMenu> menus1 = AdminMenuMapper.selectByExample(menuExample1);
             if (CollUtil.isEmpty(menus1))
             {
                 Asserts.fail("输入的parentId不合法!");
@@ -76,24 +76,24 @@ public class UmsMenuServiceImpl implements UmsMenuService
     /**
      * 修改菜单层级
      */
-    private void updateLevel(Menu menu)
+    private void updateLevel(AdminMenu AdminMenu)
     {
-        if (menu.getParentId() == 0)
+        if (AdminMenu.getParentId() == 0)
         {
             //没有父菜单时为一级菜单
-            menu.setLevel(0);
+            AdminMenu.setLevel(0);
         }
         else
         {
             //有父菜单时选择根据父菜单level设置
-            Menu parentMenu = menuMapper.selectByPrimaryKey(menu.getParentId());
+            AdminMenu parentMenu = AdminMenuMapper.selectByPrimaryKey(AdminMenu.getParentId());
             if (parentMenu != null)
             {
-                menu.setLevel(parentMenu.getLevel() + 1);
+                AdminMenu.setLevel(parentMenu.getLevel() + 1);
             }
             else
             {
-                menu.setLevel(0);
+                AdminMenu.setLevel(0);
             }
         }
     }
@@ -103,7 +103,7 @@ public class UmsMenuServiceImpl implements UmsMenuService
     {
         //如果是修改首先检查对应修改id是否存在
         // 还需要检查是否是一级菜单,一级菜单不能再修改parentId
-        Menu checkMenu = menuMapper.selectByPrimaryKey(id);
+        AdminMenu checkMenu = AdminMenuMapper.selectByPrimaryKey(id);
         if (checkMenu == null)
         {
             Asserts.fail("要修改的菜单id不存在!");
@@ -118,92 +118,92 @@ public class UmsMenuServiceImpl implements UmsMenuService
         checkMenuParam(param, id);
 
         //不能自己更新菜单level
-        Menu menu = new Menu();
-        BeanUtils.copyProperties(param, menu);
-        menu.setMenuId(id);
-        updateLevel(menu);
-        return menuMapper.updateByPrimaryKeySelective(menu);
+        AdminMenu AdminMenu = new AdminMenu();
+        BeanUtils.copyProperties(param, AdminMenu);
+        AdminMenu.setId(id);
+        updateLevel(AdminMenu);
+        return AdminMenuMapper.updateByPrimaryKeySelective(AdminMenu);
     }
 
     @Override
-    public Menu getItem(Integer id)
+    public AdminMenu getItem(Integer id)
     {
-        return menuMapper.selectByPrimaryKey(id);
+        return AdminMenuMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public int delete(Integer id)
     {
-        Menu menu = getItem(id);
-        if (menu == null)
+        AdminMenu AdminMenu = getItem(id);
+        if (AdminMenu == null)
         {
             Asserts.fail("要删除的菜单不存在!");
         }
-        if (menu.getParentId() == 0)
+        if (AdminMenu.getParentId() == 0)
         {
             //说明是父级菜单
-            MenuExample example = new MenuExample();
-            example.createCriteria().andParentIdEqualTo(menu.getMenuId());
-            if (ObjectUtil.isNotEmpty(menuMapper.selectByExample(example)))
+            AdminMenuExample example = new AdminMenuExample();
+            example.createCriteria().andParentIdEqualTo(AdminMenu.getId());
+            if (ObjectUtil.isNotEmpty(AdminMenuMapper.selectByExample(example)))
             {
                 //说明有子菜单
                 Asserts.fail("该菜单还有子菜单,不能删除!");
             }
         }
-        return menuMapper.deleteByPrimaryKey(id);
+        return AdminMenuMapper.deleteByPrimaryKey(id);
     }
 
 
     @Override
-    public List<Menu> list(Integer parentId, Integer pageSize, Integer pageNum)
+    public List<AdminMenu> list(Integer parentId, Integer pageSize, Integer pageNum)
     {
         PageHelper.startPage(pageNum, pageSize);
-        MenuExample example = new MenuExample();
+        AdminMenuExample example = new AdminMenuExample();
         example.setOrderByClause("sort desc");
         example.createCriteria().andParentIdEqualTo(parentId);
-        return menuMapper.selectByExample(example);
+        return AdminMenuMapper.selectByExample(example);
     }
 
     @Override
-    public Map<Menu, List<Menu>> categoryMap()
+    public Map<AdminMenu, List<AdminMenu>> categoryMap()
     {
         //用LinkedHashMap保持插入顺序,保证最后结果的权重
-        Map<Menu, List<Menu>> map = new LinkedHashMap<>();
-        MenuExample example = new MenuExample();
+        Map<AdminMenu, List<AdminMenu>> map = new LinkedHashMap<>();
+        AdminMenuExample example = new AdminMenuExample();
         example.createCriteria().andParentIdEqualTo(0);
         example.setOrderByClause("sort desc");
-        List<Menu> parents = menuMapper.selectByExample(example);
-        for (Menu parent : parents)
+        List<AdminMenu> parents = AdminMenuMapper.selectByExample(example);
+        for (AdminMenu parent : parents)
         {
-            MenuExample menuExample = new MenuExample();
-            menuExample.setOrderByClause("sort desc");
-            menuExample.createCriteria().andParentIdEqualTo(parent.getMenuId());
-            map.put(parent, menuMapper.selectByExample(menuExample));
+            AdminMenuExample AdminMenuExample = new AdminMenuExample();
+            AdminMenuExample.setOrderByClause("sort desc");
+            AdminMenuExample.createCriteria().andParentIdEqualTo(parent.getId());
+            map.put(parent, AdminMenuMapper.selectByExample(AdminMenuExample));
         }
         return map;
     }
 
     @Override
-    public Map<Menu, List<Menu>> categoryMap(Integer adminId)
+    public Map<AdminMenu, List<AdminMenu>> categoryMap(Integer adminId)
     {
         //用LinkedHashMap保持插入顺序,保证最后结果的权重
-        Map<Menu, List<Menu>> map = new LinkedHashMap<>();
+        Map<AdminMenu, List<AdminMenu>> map = new LinkedHashMap<>();
 
         //管理员Id对应的所有菜单信息,其中role必须有效
-        List<Menu> menuList = roleDao.getMenuList(adminId);
+        List<AdminMenu> menuList = roleDao.getMenuList(adminId);
         //先获取父级可用菜单 并排序
-        List<Menu> parents = menuList.stream().
-                filter(menu -> menu.getParentId() == 0 && !menu.getHidden() && menu.getSort() != 0)
-                .sorted((menu1,menu2)->{return menu2.getSort()-menu1.getSort();}).
+        List<AdminMenu> parents = menuList.stream().
+                filter(AdminMenu -> AdminMenu.getParentId() == 0 && AdminMenu.getStatus())
+                .sorted((menu1,menu2)->{return menu2.getWeight()-menu1.getWeight();}).
         collect(Collectors.toList());
 
         //对每个父级菜单
-        for (Menu parent : parents)
+        for (AdminMenu parent : parents)
         {
             //获取该父级菜单的子菜单
-            List<Menu> sons = menuList.stream().
-                    filter(menu -> menu.getParentId().equals(parent.getMenuId()) && !menu.getHidden() && menu.getSort() != 0)
-                    .sorted((menu1,menu2)->{return menu2.getSort()-menu1.getSort();}).
+            List<AdminMenu> sons = menuList.stream().
+                    filter(AdminMenu -> AdminMenu.getParentId().equals(parent.getId()) && AdminMenu.getStatus())
+                    .sorted((menu1,menu2)->{return menu2.getWeight()-menu1.getWeight();}).
                             collect(Collectors.toList());
             map.put(parent, sons);
         }
@@ -214,10 +214,10 @@ public class UmsMenuServiceImpl implements UmsMenuService
     @Override
     public int updateHidden(Integer id, Boolean hidden)
     {
-        Menu menu = new Menu();
-        menu.setMenuId(id);
-        menu.setHidden(hidden);
-        return menuMapper.updateByPrimaryKeySelective(menu);
+        AdminMenu AdminMenu = new AdminMenu();
+        AdminMenu.setId(id);
+        AdminMenu.setStatus(!hidden);
+        return AdminMenuMapper.updateByPrimaryKeySelective(AdminMenu);
     }
 
 }

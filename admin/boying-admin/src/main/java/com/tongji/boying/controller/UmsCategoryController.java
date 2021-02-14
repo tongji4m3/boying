@@ -3,7 +3,7 @@ package com.tongji.boying.controller;
 import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.UmsResourceCategoryParam;
-import com.tongji.boying.model.ResourceCategory;
+import com.tongji.boying.model.AdminCategory;
 import com.tongji.boying.service.UmsCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Controller
 @Api(tags = "UmsResourceCategoryController", description = "后台资源分类管理")
-@RequestMapping("/resourceCategory")
+@RequestMapping("/AdminCategory")
 public class UmsCategoryController
 {
     @Autowired
@@ -28,9 +28,9 @@ public class UmsCategoryController
     @ApiOperation("查询所有后台资源分类")
     @RequestMapping(value = "/listAll", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<ResourceCategory>> listAll()
+    public CommonResult<List<AdminCategory>> listAll()
     {
-        List<ResourceCategory> resourceCategories = resourceCategoryService.listAll();
+        List<AdminCategory> resourceCategories = resourceCategoryService.listAll();
         if(CollUtil.isEmpty(resourceCategories))
         {
             return CommonResult.failed("后台资源分类不存在!");
@@ -90,10 +90,10 @@ public class UmsCategoryController
     @ApiOperation("根据ID获取资源详情")
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<ResourceCategory> getItem(@PathVariable Integer id)
+    public CommonResult<AdminCategory> getItem(@PathVariable Integer id)
     {
-        ResourceCategory resourceCategory = resourceCategoryService.getItem(id);
-        if(resourceCategory==null) return CommonResult.failed("没有该后台资源分类");
-        return CommonResult.success(resourceCategory);
+        AdminCategory AdminCategory = resourceCategoryService.getItem(id);
+        if(AdminCategory==null) return CommonResult.failed("没有该后台资源分类");
+        return CommonResult.success(AdminCategory);
     }
 }

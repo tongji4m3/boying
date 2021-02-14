@@ -4,9 +4,9 @@ import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.UmsRoleParam;
-import com.tongji.boying.model.Menu;
-import com.tongji.boying.model.Resource;
-import com.tongji.boying.model.Role;
+import com.tongji.boying.model.AdminMenu;
+import com.tongji.boying.model.AdminResource;
+import com.tongji.boying.model.AdminRole;
 import com.tongji.boying.service.UmsRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Controller
 @Api(tags = "UmsRoleController", description = "后台用户角色管理")
-@RequestMapping("/role")
+@RequestMapping("/AdminRole")
 public class UmsRoleController
 {
     @Autowired
@@ -83,9 +83,9 @@ public class UmsRoleController
     @ApiOperation("获取所有角色")
     @RequestMapping(value = "/listAll", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<Role>> listAll()
+    public CommonResult<List<AdminRole>> listAll()
     {
-        List<Role> roleList = roleService.list();
+        List<AdminRole> roleList = roleService.list();
         if(ObjectUtil.isEmpty(roleList)) return CommonResult.failed("无角色!");
         return CommonResult.success(roleList);
     }
@@ -93,11 +93,11 @@ public class UmsRoleController
     @ApiOperation("根据角色名称分页获取角色列表")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<Role>> list(@RequestParam(value = "keyword", required = false) String keyword,
+    public CommonResult<CommonPage<AdminRole>> list(@RequestParam(value = "keyword", required = false) String keyword,
                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum)
     {
-        List<Role> roleList = roleService.list(keyword, pageSize, pageNum);
+        List<AdminRole> roleList = roleService.list(keyword, pageSize, pageNum);
         if(ObjectUtil.isEmpty(roleList)) return CommonResult.failed("无角色!");
         return CommonResult.success(CommonPage.restPage(roleList));
     }
@@ -118,18 +118,18 @@ public class UmsRoleController
     @ApiOperation("获取角色相关菜单")
     @RequestMapping(value = "/listMenu/{roleId}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<Menu>> listMenu(@PathVariable Integer roleId)
+    public CommonResult<List<AdminMenu>> listMenu(@PathVariable Integer roleId)
     {
-        List<Menu> roleList = roleService.listMenu(roleId);
+        List<AdminMenu> roleList = roleService.listMenu(roleId);
         return CommonResult.success(roleList);
     }
 
     @ApiOperation("获取角色相关资源")
     @RequestMapping(value = "/listResource/{roleId}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<Resource>> listResource(@PathVariable Integer roleId)
+    public CommonResult<List<AdminResource>> listResource(@PathVariable Integer roleId)
     {
-        List<Resource> roleList = roleService.listResource(roleId);
+        List<AdminResource> roleList = roleService.listResource(roleId);
         return CommonResult.success(roleList);
     }
 

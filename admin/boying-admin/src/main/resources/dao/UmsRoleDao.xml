@@ -2,28 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tongji.boying.dao.UmsRoleDao">
 
-    <select id="getMenuList" resultMap="com.tongji.boying.mapper.MenuMapper.BaseResultMap">
-        SELECT distinct menu.*
-        FROM admin_role
-                 left join role on admin_role.role_id = role.role_id
-                 LEFT JOIN role_menu ON admin_role.role_id = role_menu.role_id
-                 LEFT JOIN menu ON role_menu.menu_id = menu.menu_id
-        WHERE admin_role.admin_id = #{adminId}
-          and role.status = 1
-          and menu.menu_id is not null
+    <select id="getMenuList" resultMap="com.tongji.boying.mapper.AdminMenuMapper.BaseResultMap">
+        SELECT distinct admin_menu.*
+        FROM admin_user_role
+                 JOIN admin_role on admin_user_role.role_id = admin_role.id
+                 JOIN admin_role_menu ON admin_role.id = admin_role_menu.role_id
+                 JOIN admin_menu ON admin_role_menu.menu_id = admin_menu.id
+        WHERE admin_user_role.user_id = #{userId}
+          and admin_role.status = 1
     </select>
-    <select id="getMenuListByRoleId" resultMap="com.tongji.boying.mapper.MenuMapper.BaseResultMap">
-        SELECT distinct menu.*
-        FROM role_menu
-                 LEFT JOIN menu ON role_menu.menu_id = menu.menu_id
-        WHERE role_menu.role_id = #{roleId}
-          and menu.menu_id is not null
+    <select id="getMenuListByRoleId" resultMap="com.tongji.boying.mapper.AdminMenuMapper.BaseResultMap">
+        SELECT distinct admin_menu.*
+        FROM admin_role_menu
+                 JOIN admin_menu ON admin_role_menu.menu_id = admin_menu.id
+        WHERE admin_role_menu.role_id = #{roleId}
     </select>
-    <select id="getResourceListByRoleId" resultMap="com.tongji.boying.mapper.ResourceMapper.BaseResultMap">
-        SELECT distinct resource.*
-        FROM role_resource
-                 LEFT JOIN resource ON role_resource.resource_id = resource.resource_id
-        WHERE role_resource.role_id = #{roleId}
-          and resource.resource_id is not null
+    <select id="getResourceListByRoleId" resultMap="com.tongji.boying.mapper.AdminResourceMapper.BaseResultMap">
+        SELECT distinct admin_resource.*
+        FROM admin_role_resource
+                 JOIN admin_resource ON admin_role_resource.resource_id = admin_resource.id
+        WHERE admin_role_resource.role_id = #{roleId}
     </select>
 </mapper>

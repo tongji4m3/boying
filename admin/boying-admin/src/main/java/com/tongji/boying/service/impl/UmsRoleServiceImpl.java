@@ -26,19 +26,19 @@ import java.util.List;
 public class UmsRoleServiceImpl implements UmsRoleService
 {
     @Autowired
-    private RoleMapper roleMapper;
+    private AdminRoleMapper AdminRoleMapper;
     @Autowired
-    private RoleMenuMapper roleMenuMapper;
+    private AdminRoleMenuMapper AdminRoleMenuMapper;
     @Autowired
-    private RoleResourceMapper roleResourceRelationMapper;
+    private AdminRoleResourceMapper roleResourceRelationMapper;
     @Autowired
     private UmsAdminCacheService adminCacheService;
 
     @Autowired
-    private MenuMapper menuMapper;
+    private AdminMenuMapper AdminMenuMapper;
 
     @Autowired
-    private ResourceMapper resourceMapper;
+    private AdminResourceMapper AdminResourceMapper;
 
     @Autowired
     private UmsRoleDao roleDao;
@@ -49,24 +49,24 @@ public class UmsRoleServiceImpl implements UmsRoleService
     public int create(UmsRoleParam param)
     {
         checkRoleParam(param, -1);
-        Role role = new Role();
-        BeanUtils.copyProperties(param, role);
-        role.setCreateTime(new Date());
-        role.setAdminCount(0);
-        role.setStatus(true);
-        return roleMapper.insertSelective(role);
+        AdminRole AdminRole = new AdminRole();
+        BeanUtils.copyProperties(param, AdminRole);
+        AdminRole.setCreateTime(new Date());
+        AdminRole.setAdminCount(0);
+        AdminRole.setStatus(true);
+        return AdminRoleMapper.insertSelective(AdminRole);
     }
 
     private void checkRoleParam(UmsRoleParam param, Integer id)
     {
-        RoleExample roleExample = new RoleExample();
-        RoleExample.Criteria criteria = roleExample.createCriteria();
+        AdminRoleExample AdminRoleExample = new AdminRoleExample();
+        AdminRoleExample.Criteria criteria = AdminRoleExample.createCriteria();
         criteria.andNameEqualTo(param.getName());
         if (id != -1)
         {
-            criteria.andRoleIdNotEqualTo(id);
+            criteria.andIdNotEqualTo(id);
         }
-        List<Role> roles = roleMapper.selectByExample(roleExample);
+        List<AdminRole> roles = AdminRoleMapper.selectByExample(AdminRoleExample);
         if (CollUtil.isNotEmpty(roles))
         {
             Asserts.fail("角色名称不能重复!");
@@ -78,22 +78,22 @@ public class UmsRoleServiceImpl implements UmsRoleService
     public int update(Integer id, UmsRoleParam param)
     {
         checkRoleParam(param, id);
-        Role role = new Role();
-        BeanUtils.copyProperties(param, role);
-        role.setRoleId(id);
-        return roleMapper.updateByPrimaryKeySelective(role);
+        AdminRole AdminRole = new AdminRole();
+        BeanUtils.copyProperties(param, AdminRole);
+        AdminRole.setId(id);
+        return AdminRoleMapper.updateByPrimaryKeySelective(AdminRole);
     }
 
     @Override
     public int delete(List<Integer> ids)
     {
-        RoleExample example = new RoleExample();
-        example.createCriteria().andRoleIdIn(ids);
-        if (roleMapper.selectByExample(example).size() != ids.size())
+        AdminRoleExample example = new AdminRoleExample();
+        example.createCriteria().andIdIn(ids);
+        if (AdminRoleMapper.selectByExample(example).size() != ids.size())
         {
             Asserts.fail("某些角色Id不存在!");
         }
-        int count = roleMapper.deleteByExample(example);
+        int count = AdminRoleMapper.deleteByExample(example);
         adminCacheService.delResourceListByRoleIds(ids);
         return count;
     }
@@ -101,63 +101,63 @@ public class UmsRoleServiceImpl implements UmsRoleService
     @Override
     public int delete(Integer id)
     {
-        int count = roleMapper.deleteByPrimaryKey(id);
+        int count = AdminRoleMapper.deleteByPrimaryKey(id);
         adminCacheService.delResourceListByRole(id);
         return count;
     }
 
 
     @Override
-    public List<Role> list()
+    public List<AdminRole> list()
     {
-        return roleMapper.selectByExample(new RoleExample());
+        return AdminRoleMapper.selectByExample(new AdminRoleExample());
     }
 
     @Override
-    public List<Role> list(String keyword, Integer pageSize, Integer pageNum)
+    public List<AdminRole> list(String keyword, Integer pageSize, Integer pageNum)
     {
         PageHelper.startPage(pageNum, pageSize);
-        RoleExample example = new RoleExample();
+        AdminRoleExample example = new AdminRoleExample();
         if (!StringUtils.isEmpty(keyword))
         {
             example.createCriteria().andNameLike("%" + keyword + "%");
         }
-        return roleMapper.selectByExample(example);
+        return AdminRoleMapper.selectByExample(example);
     }
 
     @Override
-    public List<Menu> getMenuList(Integer adminId)
+    public List<AdminMenu> getMenuList(Integer adminId)
     {
 
         return roleDao.getMenuList(adminId);
     }
 
     @Override
-    public List<Menu> listMenu(Integer roleId)
+    public List<AdminMenu> listMenu(Integer roleId)
     {
-        if (ObjectUtil.isEmpty(roleMapper.selectByPrimaryKey(roleId))) Asserts.fail("该角色不存在");
+        if (ObjectUtil.isEmpty(AdminRoleMapper.selectByPrimaryKey(roleId))) Asserts.fail("该角色不存在");
         return roleDao.getMenuListByRoleId(roleId);
     }
 
     @Override
-    public List<Resource> listResource(Integer roleId)
+    public List<AdminResource> listResource(Integer roleId)
     {
-        if (ObjectUtil.isEmpty(roleMapper.selectByPrimaryKey(roleId))) Asserts.fail("该角色不存在");
+        if (ObjectUtil.isEmpty(AdminRoleMapper.selectByPrimaryKey(roleId))) Asserts.fail("该角色不存在");
         return roleDao.getResourceListByRoleId(roleId);
     }
 
     @Override
     public int allocMenu(Integer roleId, List<Integer> menuIds)
     {
-        if (ObjectUtil.isEmpty(roleMapper.selectByPrimaryKey(roleId))) Asserts.fail("该角色不存在");
+        if (ObjectUtil.isEmpty(AdminRoleMapper.selectByPrimaryKey(roleId))) Asserts.fail("该角色不存在");
         //先删除原有关系
-        RoleMenuExample example = new RoleMenuExample();
+        AdminRoleMenuExample example = new AdminRoleMenuExample();
         example.createCriteria().andRoleIdEqualTo(roleId);
-        roleMenuMapper.deleteByExample(example);
+        AdminRoleMenuMapper.deleteByExample(example);
 
-        MenuExample menuExample = new MenuExample();
-        menuExample.createCriteria().andMenuIdIn(menuIds);
-        List<Menu> menus = menuMapper.selectByExample(menuExample);
+        AdminMenuExample AdminMenuExample = new AdminMenuExample();
+        AdminMenuExample.createCriteria().andIdIn(menuIds);
+        List<AdminMenu> menus = AdminMenuMapper.selectByExample(AdminMenuExample);
         if (menus.size() != menuIds.size())
         {
 //            说明有些menuId不存在
@@ -167,10 +167,10 @@ public class UmsRoleServiceImpl implements UmsRoleService
         //批量插入新关系
         for (Integer menuId : menuIds)
         {
-            RoleMenu relation = new RoleMenu();
-            relation.setRoleId(roleId);
+            AdminRoleMenu relation = new AdminRoleMenu();
+            relation.setId(roleId);
             relation.setMenuId(menuId);
-            roleMenuMapper.insert(relation);
+            AdminRoleMenuMapper.insert(relation);
         }
         return menuIds.size();
     }
@@ -178,16 +178,16 @@ public class UmsRoleServiceImpl implements UmsRoleService
     @Override
     public int allocResource(Integer roleId, List<Integer> resourceIds)
     {
-        if (ObjectUtil.isEmpty(roleMapper.selectByPrimaryKey(roleId))) Asserts.fail("该角色不存在");
+        if (ObjectUtil.isEmpty(AdminRoleMapper.selectByPrimaryKey(roleId))) Asserts.fail("该角色不存在");
         //先删除原有关系
-        RoleResourceExample example = new RoleResourceExample();
+        AdminRoleResourceExample example = new AdminRoleResourceExample();
         example.createCriteria().andRoleIdEqualTo(roleId);
         roleResourceRelationMapper.deleteByExample(example);
 
         //不在Resource表中则不加
-        ResourceExample resourceExample = new ResourceExample();
-        resourceExample.createCriteria().andResourceIdIn(resourceIds);
-        List<Resource> resources = resourceMapper.selectByExample(resourceExample);
+        AdminResourceExample AdminResourceExample = new AdminResourceExample();
+        AdminResourceExample.createCriteria().andIdIn(resourceIds);
+        List<AdminResource> resources = AdminResourceMapper.selectByExample(AdminResourceExample);
         if (resources.size() != resourceIds.size())
         {
             //            说明有些resourceId不存在
@@ -197,8 +197,8 @@ public class UmsRoleServiceImpl implements UmsRoleService
         //批量插入新关系
         for (Integer resourceId : resourceIds)
         {
-            RoleResource relation = new RoleResource();
-            relation.setRoleId(roleId);
+            AdminRoleResource relation = new AdminRoleResource();
+            relation.setId(roleId);
             relation.setResourceId(resourceId);
             roleResourceRelationMapper.insert(relation);
         }
@@ -207,9 +207,9 @@ public class UmsRoleServiceImpl implements UmsRoleService
     }
 
     @Override
-    public List<Resource> getResourceList(Integer adminId)
+    public List<AdminResource> getResourceList(Integer adminId)
     {
-        List<Resource> resourceList = adminCacheService.getResourceList(adminId);
+        List<AdminResource> resourceList = adminCacheService.getResourceList(adminId);
         if (CollUtil.isNotEmpty(resourceList))
         {
             return resourceList;
@@ -225,11 +225,11 @@ public class UmsRoleServiceImpl implements UmsRoleService
     @Override
     public int updateStatus(Integer id, Boolean status)
     {
-        Role role = new Role();
-        role.setStatus(status);
-        role.setRoleId(id);
+        AdminRole AdminRole = new AdminRole();
+        AdminRole.setStatus(status);
+        AdminRole.setId(id);
         //因为角色启用状态改变,所以删除与该角色相关的管理员的资源缓存
         adminCacheService.delResourceListByRole(id);
-        return roleMapper.updateByPrimaryKeySelective(role);
+        return AdminRoleMapper.updateByPrimaryKeySelective(AdminRole);
     }
 }

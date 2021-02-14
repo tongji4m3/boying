@@ -4,7 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.UmsMenuParam;
-import com.tongji.boying.model.Menu;
+import com.tongji.boying.model.AdminMenu;
 import com.tongji.boying.service.UmsMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @Controller
 @Api(tags = "UmsMenuController", description = "后台菜单管理")
-@RequestMapping("/menu")
+@RequestMapping("/AdminMenu")
 public class UmsMenuController
 {
 
@@ -64,11 +64,11 @@ public class UmsMenuController
     @ApiOperation("根据ID获取菜单详情")
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Menu> getItem(@PathVariable Integer id)
+    public CommonResult<AdminMenu> getItem(@PathVariable Integer id)
     {
-        Menu menu = menuService.getItem(id);
-        if(menu==null) return CommonResult.failed("该菜单不存在");
-        return CommonResult.success(menu);
+        AdminMenu AdminMenu = menuService.getItem(id);
+        if(AdminMenu==null) return CommonResult.failed("该菜单不存在");
+        return CommonResult.success(AdminMenu);
     }
 
     @ApiOperation("根据ID删除后台菜单")
@@ -90,12 +90,12 @@ public class UmsMenuController
     @ApiOperation("分页查询后台菜单")
     @RequestMapping(value = "/list/{parentId}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<Menu>> list(@PathVariable Integer parentId,
+    public CommonResult<CommonPage<AdminMenu>> list(@PathVariable Integer parentId,
                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum)
     {
         //根据parentId进行查询,所以可以查所有一级菜单,也可以查某一级菜单的所有二级菜单
-        List<Menu> menuList = menuService.list(parentId, pageSize, pageNum);
+        List<AdminMenu> menuList = menuService.list(parentId, pageSize, pageNum);
         if(ObjectUtil.isEmpty(menuList)) return CommonResult.failed("无菜单信息");
         return CommonResult.success(CommonPage.restPage(menuList));
     }
@@ -103,9 +103,9 @@ public class UmsMenuController
     @ApiOperation("树形结构返回所有菜单列表")
     @RequestMapping(value = "/treeList", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Map<Menu, List<Menu>>> treeList()
+    public CommonResult<Map<AdminMenu, List<AdminMenu>>> treeList()
     {
-        Map<Menu, List<Menu>> map = menuService.categoryMap();
+        Map<AdminMenu, List<AdminMenu>> map = menuService.categoryMap();
         if(ObjectUtil.isEmpty(map)) return CommonResult.failed("无菜单信息");
         return CommonResult.success(map);
     }

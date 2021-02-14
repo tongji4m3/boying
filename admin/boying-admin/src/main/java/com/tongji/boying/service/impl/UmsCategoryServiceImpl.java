@@ -3,9 +3,9 @@ package com.tongji.boying.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.UmsResourceCategoryParam;
-import com.tongji.boying.mapper.ResourceCategoryMapper;
-import com.tongji.boying.model.ResourceCategory;
-import com.tongji.boying.model.ResourceCategoryExample;
+import com.tongji.boying.mapper.AdminCategoryMapper;
+import com.tongji.boying.model.AdminCategory;
+import com.tongji.boying.model.AdminCategoryExample;
 import com.tongji.boying.service.UmsCategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,14 @@ import java.util.List;
 public class UmsCategoryServiceImpl implements UmsCategoryService
 {
     @Autowired
-    private ResourceCategoryMapper resourceCategoryMapper;
+    private AdminCategoryMapper AdminCategoryMapper;
 
     @Override
-    public List<ResourceCategory> listAll()
+    public List<AdminCategory> listAll()
     {
-        ResourceCategoryExample example = new ResourceCategoryExample();
-        example.setOrderByClause("sort desc");
-        return resourceCategoryMapper.selectByExample(example);
+        AdminCategoryExample example = new AdminCategoryExample();
+        example.setOrderByClause("weight desc");
+        return AdminCategoryMapper.selectByExample(example);
     }
 
     @Override
@@ -36,22 +36,22 @@ public class UmsCategoryServiceImpl implements UmsCategoryService
     {
         checkResourceCategoryParam(param, -1);
 
-        ResourceCategory resourceCategory = new ResourceCategory();
-        BeanUtils.copyProperties(param, resourceCategory);
-        resourceCategory.setCreateTime(new Date());
-        return resourceCategoryMapper.insertSelective(resourceCategory);
+        AdminCategory AdminCategory = new AdminCategory();
+        BeanUtils.copyProperties(param, AdminCategory);
+        AdminCategory.setCreateTime(new Date());
+        return AdminCategoryMapper.insertSelective(AdminCategory);
     }
 
     private void checkResourceCategoryParam(UmsResourceCategoryParam param, Integer id)
     {
-        ResourceCategoryExample resourceCategoryExample = new ResourceCategoryExample();
-        ResourceCategoryExample.Criteria criteria = resourceCategoryExample.createCriteria();
+        AdminCategoryExample AdminCategoryExample = new AdminCategoryExample();
+        AdminCategoryExample.Criteria criteria = AdminCategoryExample.createCriteria();
         criteria.andNameEqualTo(param.getName());
         if(id!=-1)
         {
-            criteria.andResourceCategoryIdNotEqualTo(id);
+            criteria.andIdNotEqualTo(id);
         }
-        List<ResourceCategory> resourceCategories = resourceCategoryMapper.selectByExample(resourceCategoryExample);
+        List<AdminCategory> resourceCategories = AdminCategoryMapper.selectByExample(AdminCategoryExample);
         if (ObjectUtil.isNotEmpty(resourceCategories))
         {
             //说明有重名资源分类名称
@@ -62,26 +62,26 @@ public class UmsCategoryServiceImpl implements UmsCategoryService
     @Override
     public int update(Integer id, UmsResourceCategoryParam param)
     {
-        if(resourceCategoryMapper.selectByPrimaryKey(id)==null)
+        if(AdminCategoryMapper.selectByPrimaryKey(id)==null)
         {
             Asserts.fail("要修改的资源分类Id不存在!");
         }
         checkResourceCategoryParam(param, id);
-        ResourceCategory resourceCategory = new ResourceCategory();
-        BeanUtils.copyProperties(param, resourceCategory);
-        resourceCategory.setResourceCategoryId(id);
-        return resourceCategoryMapper.updateByPrimaryKeySelective(resourceCategory);
+        AdminCategory AdminCategory = new AdminCategory();
+        BeanUtils.copyProperties(param, AdminCategory);
+        AdminCategory.setId(id);
+        return AdminCategoryMapper.updateByPrimaryKeySelective(AdminCategory);
     }
 
     @Override
-    public ResourceCategory getItem(Integer id)
+    public AdminCategory getItem(Integer id)
     {
-        return resourceCategoryMapper.selectByPrimaryKey(id);
+        return AdminCategoryMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public int delete(Integer id)
     {
-        return resourceCategoryMapper.deleteByPrimaryKey(id);
+        return AdminCategoryMapper.deleteByPrimaryKey(id);
     }
 }

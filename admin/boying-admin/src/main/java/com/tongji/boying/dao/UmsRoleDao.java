@@ -1,7 +1,7 @@
 package com.tongji.boying.dao;
 
-import com.tongji.boying.model.Menu;
-import com.tongji.boying.model.Resource;
+import com.tongji.boying.model.AdminMenu;
+import com.tongji.boying.model.AdminResource;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -14,15 +14,15 @@ public interface UmsRoleDao
     /**
      * 根据后台用户ID获取菜单
      */
-    List<Menu> getMenuList(@Param("adminId") Integer adminId);
+    List<AdminMenu> getMenuList(@Param("userId") Integer userId);
 
     /**
      * 根据角色ID获取菜单
      */
-    List<Menu> getMenuListByRoleId(@Param("roleId") Integer roleId);
+    List<AdminMenu> getMenuListByRoleId(@Param("roleId") Integer roleId);
 
     /**
      * 根据角色ID获取资源
      */
-    List<Resource> getResourceListByRoleId(@Param("roleId") Integer roleId);
+    List<AdminResource> getResourceListByRoleId(@Param("roleId") Integer roleId);
 }

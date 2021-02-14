@@ -3,7 +3,7 @@ package com.tongji.boying.controller;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.UmsResourceParam;
-import com.tongji.boying.model.Resource;
+import com.tongji.boying.model.AdminResource;
 import com.tongji.boying.security.component.DynamicSecurityMetadataSource;
 import com.tongji.boying.service.UmsResourceService;
 import io.swagger.annotations.Api;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Controller
 @Api(tags = "UmsResourceController", description = "后台资源管理")
-@RequestMapping("/resource")
+@RequestMapping("/AdminResource")
 public class UmsResourceController
 {
 
@@ -67,11 +67,11 @@ public class UmsResourceController
     @ApiOperation("根据ID获取资源详情")
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Resource> getItem(@PathVariable Integer id)
+    public CommonResult<AdminResource> getItem(@PathVariable Integer id)
     {
-        Resource resource = resourceService.getItem(id);
-        if(resource==null) return CommonResult.failed("没有该后台资源");
-        return CommonResult.success(resource);
+        AdminResource AdminResource = resourceService.getItem(id);
+        if(AdminResource==null) return CommonResult.failed("没有该后台资源");
+        return CommonResult.success(AdminResource);
     }
 
     @ApiOperation("根据ID删除后台资源")
@@ -94,22 +94,22 @@ public class UmsResourceController
     @ApiOperation("分页模糊查询后台资源")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<CommonPage<Resource>> list(@RequestParam(required = false) Integer categoryId,
+    public CommonResult<CommonPage<AdminResource>> list(@RequestParam(required = false) Integer categoryId,
                                                    @RequestParam(required = false) String nameKeyword,
                                                    @RequestParam(required = false) String urlKeyword,
                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum)
     {
-        List<Resource> resourceList = resourceService.list(categoryId, nameKeyword, urlKeyword, pageSize, pageNum);
+        List<AdminResource> resourceList = resourceService.list(categoryId, nameKeyword, urlKeyword, pageSize, pageNum);
         return CommonResult.success(CommonPage.restPage(resourceList));
     }
 
     @ApiOperation("查询所有后台资源")
     @RequestMapping(value = "/listAll", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<List<Resource>> listAll()
+    public CommonResult<List<AdminResource>> listAll()
     {
-        List<Resource> resourceList = resourceService.listAll();
+        List<AdminResource> resourceList = resourceService.listAll();
         return CommonResult.success(resourceList);
     }
 }
