@@ -1,21 +1,3 @@
-```
-http://www.macrozheng.com/#/architect/mall_arch_04
-
-http://www.macrozheng.com/#/architect/mall_arch_05
-
-http://www.macrozheng.com/#/database/mall_permission
-
-http://www.macrozheng.com/#/technology/permission_front
-
-http://www.macrozheng.com/#/technology/permission_back
-
-http://www.macrozheng.com/#/technology/springsecurity_use
-
-http://www.macrozheng.com/#/technology/redis_permission
-
-
-```
-
 后台管理系统包含报表管理、用户管理、目录管理、演出管理、订单管理、活动管理、权限管理模块。
 
 菜单管理用于控制前端菜单的显示和隐藏，资源管理用来控制后端接口的访问权限。
@@ -70,12 +52,7 @@ JWT是JSON WEB TOKEN的缩写，它是基于 RFC 7519 标准定义的一种可�
 
 mall项目实现方式是Spring Security，相当于把安全功能封装成了一个工具包`mall-security`，然后其他模块通过依赖该工具包来实现权限管理，比如`mall-admin`模块。
 
-# 功能清单
 
-- 菜单管理：可以实现对后台管理系统左侧菜单的管理，支持更换图标、更换名称、控制菜单显示和排序；
-- 资源管理：实现了基于访问路径的后台动态权限控制，控制的权限可以精确到接口级别；
-- 角色管理：可以自定义角色，并为角色分配菜单和资源；
-- 后台用户管理：可以对后台用户进行管理并分配角色，支持分配多个角色。
 
 
 
