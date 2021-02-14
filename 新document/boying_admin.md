@@ -106,15 +106,23 @@ mall项目实现方式是Spring Security，相当于把安全功能封装成了�
 
 
 
-认证、授权
-
 
 
 springSecurity本质上是一个过滤器链
 
+认证、授权
 
+![image-20210214161505848](https://tongji2021.oss-cn-shanghai.aliyuncs.com/img/image-20210214161505848.png)
 
+## @PreAuthorize
 
+注解适合于进入方法前的权限校验
+
+```
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+```
+
+@PreAuthorize("hasAuthority('pms:product:create')")
 
 # FilterSecurityInterceptor.class
 
@@ -181,3 +189,9 @@ public Authentication attemptAuthentication(HttpServletRequest request, HttpServ
     }
 }
 ```
+
+# UserDetailsService
+
+继承他实现用户名密码
+
+# PasswordEncoder
