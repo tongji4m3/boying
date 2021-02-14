@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="新47.103.203.188">
+<dataSource name="boying@47.103.203.188">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.20">
     <root id="1">
       <ServerVersion>5.7.31</ServerVersion>
@@ -8,10 +8,10 @@
       <DefaultCasing>exact</DefaultCasing>
     </root>
     <schema id="2" parent="1" name="boying">
-      <Collation>latin1_swedish_ci</Collation>
+      <Current>1</Current>
+      <Collation>utf8_bin</Collation>
     </schema>
     <schema id="3" parent="1" name="boying_admin">
-      <Current>1</Current>
       <Collation>utf8_bin</Collation>
     </schema>
     <schema id="4" parent="1" name="information_schema">
@@ -756,49 +756,49 @@ SELECT|sys.sys_config
       <ObjectGrants>ALL PRIVILEGES!
 </ObjectGrants>
     </user>
-    <table id="234" parent="3" name="admin_category">
+    <table id="234" parent="2" name="admin_category">
       <Comment>后台资源分类表，在细粒度进行权限控制时，可能资源会比较多，所以设计了个资源分类的概念，便于给角色分配资源。</Comment>
     </table>
-    <table id="235" parent="3" name="admin_menu">
+    <table id="235" parent="2" name="admin_menu">
       <Comment>后台菜单表，用于控制后台用户可以访问的菜单，支持隐藏、排序和更改名称、图标。</Comment>
     </table>
-    <table id="236" parent="3" name="admin_resource">
+    <table id="236" parent="2" name="admin_resource">
       <Comment>后台资源表，用于控制后台用户可以访问的接口，使用了Ant路径的匹配规则，可以使用通配符定义一系列接口的权限。</Comment>
     </table>
-    <table id="237" parent="3" name="admin_role">
+    <table id="237" parent="2" name="admin_role">
       <Comment>后台用户角色表</Comment>
     </table>
-    <table id="238" parent="3" name="admin_role_menu">
+    <table id="238" parent="2" name="admin_role_menu">
       <Comment>后台角色菜单关系表，多对多关系，可以给一个角色分配多个菜单。</Comment>
     </table>
-    <table id="239" parent="3" name="admin_role_resource">
+    <table id="239" parent="2" name="admin_role_resource">
       <Comment>后台角色资源关系表，多对多关系，可以给一个角色分配多个资源。</Comment>
     </table>
-    <table id="240" parent="3" name="admin_user">
+    <table id="240" parent="2" name="admin_user">
       <Comment>后台用户表</Comment>
     </table>
-    <table id="241" parent="3" name="admin_user_role">
+    <table id="241" parent="2" name="admin_user_role">
       <Comment>后台用户和角色关系表</Comment>
     </table>
-    <table id="242" parent="3" name="boying_category">
+    <table id="242" parent="2" name="boying_category">
       <Comment>目录表,可标识是演唱会,还是相声表演等类型</Comment>
     </table>
-    <table id="243" parent="3" name="boying_order">
+    <table id="243" parent="2" name="boying_order">
       <Comment>用户订单表</Comment>
     </table>
-    <table id="244" parent="3" name="boying_promo">
+    <table id="244" parent="2" name="boying_promo">
       <Comment>秒杀活动表</Comment>
     </table>
-    <table id="245" parent="3" name="boying_seat">
+    <table id="245" parent="2" name="boying_seat">
       <Comment>对于某个演唱会的容量信息表.包括每个级别的容量,价格,库存等</Comment>
     </table>
-    <table id="246" parent="3" name="boying_show">
+    <table id="246" parent="2" name="boying_show">
       <Comment>演唱会信息表</Comment>
     </table>
-    <table id="247" parent="3" name="boying_stock">
+    <table id="247" parent="2" name="boying_stock">
       <Comment>演出座次对应的库存</Comment>
     </table>
-    <table id="248" parent="3" name="boying_user">
+    <table id="248" parent="2" name="boying_user">
       <Comment>用户表</Comment>
     </table>
     <column id="249" parent="234" name="id">
