@@ -75,6 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
     /**
      * 用于配置UserDetailsService及PasswordEncoder
+     * 配置了用户名，密码就可以正常登录了
+     * 配置了加密器：PasswordEncoder
      *
      * @param auth
      * @throws Exception
