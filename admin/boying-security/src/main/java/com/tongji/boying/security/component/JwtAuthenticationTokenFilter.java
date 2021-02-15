@@ -52,6 +52,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
             {
                 //SpringSecurity定义用于封装用户信息的类（主要是用户信息和权限）
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+                //验证用户名和是否已过期
                 if (jwtTokenUtil.validateToken(authToken, userDetails))
                 {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

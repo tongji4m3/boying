@@ -49,7 +49,7 @@ public class AdminUserDetails implements UserDetails
     public boolean isAccountNonExpired()
     {
         return true;
-    }
+    } 
 
     @Override
     public boolean isAccountNonLocked()

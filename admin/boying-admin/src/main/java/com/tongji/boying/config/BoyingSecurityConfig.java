@@ -31,6 +31,7 @@ public class BoyingSecurityConfig extends SecurityConfig
     @Autowired
     private UmsResourceService resourceService;
 
+    //实现security模块的该方法，根据用户名获取用户信息
     @Bean
     public UserDetailsService userDetailsService()
     {

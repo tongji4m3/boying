@@ -126,7 +126,7 @@ public class JwtTokenUtil
     }
 
     /**
-     * 根据用户信息生成token
+     * 根据登录用户信息生成token
      */
     public String generateToken(UserDetails userDetails)
     {
