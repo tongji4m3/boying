@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66892b7b-2827-4883-b212-d17bb64dc641" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../admin/boying-security/src/main/java/com/tongji/boying/security/component/DynamicSecurityMetadataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/boying-security/src/main/java/com/tongji/boying/security/component/DynamicSecurityMetadataSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../admin/boying-security/src/main/java/com/tongji/boying/security/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/boying-security/src/main/java/com/tongji/boying/security/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/boying-security/src/main/java/com/tongji/boying/security/component/JwtAuthenticationTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/boying-security/src/main/java/com/tongji/boying/security/component/JwtAuthenticationTokenFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../新document/2.模块说明/4.boying-security技术说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/../新document/2.模块说明/4.boying-security技术说明.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/2.模块说明/6.boying-admin技术说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/../新document/2.模块说明/6.boying-admin技术说明.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

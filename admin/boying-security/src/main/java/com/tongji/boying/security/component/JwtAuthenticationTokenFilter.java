@@ -51,6 +51,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null)
             {
                 //SpringSecurity定义用于封装用户信息的类（主要是用户信息和权限）
+                //这里首先从缓存中获取用户信息和用户权限
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
                 //验证用户名和是否已过期
                 if (jwtTokenUtil.validateToken(authToken, userDetails))
@@ -58,6 +59,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     LOGGER.info("authenticated user:{}", username);
+                    /*
+                    SecurityContextHolder使用了ThreadLocal机制来保存每个使用者的安全上下文。
+                    这意味着，只要针对某个使用者的逻辑执行都是在同一个线程中进行，即使不在各个方法之间以参数的形式传递其安全上下文，
+                    各个方法也能通过SecurityContextHolder工具获取到该安全上下文。只要在处理完当前使用者的请求之后注意清除ThreadLocal中的安全上下文
+                     */
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
