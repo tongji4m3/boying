@@ -16,8 +16,10 @@ import java.util.*;
  */
 public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMetadataSource
 {
-
+    //后台资源规则被缓存在了一个Map对象之中
     private static Map<String, ConfigAttribute> configAttributeMap = null;
+
+    //动态权限相关业务类，自定义的一个动态权限业务接口，其主要用于加载所有的后台资源规则。
     @Autowired
     private DynamicSecurityService dynamicSecurityService;
 
@@ -27,6 +29,11 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
         configAttributeMap = dynamicSecurityService.loadDataSource();
     }
 
+    /**
+     由于我们的后台资源规则被缓存在了一个Map对象之中，所以当后台资源发生变化时，我们需要清空缓存的数据，
+     然后下次查询时就会被重新加载进来。
+     当修改后台资源时，需要调用clearDataSource方法来清空缓存的数据。
+     */
     public void clearDataSource()
     {
         configAttributeMap.clear();

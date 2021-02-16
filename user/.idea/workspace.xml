@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66892b7b-2827-4883-b212-d17bb64dc641" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../新document/2.模块说明/2.boying-common技术说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/../新document/2.模块说明/2.boying-common技术说明.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/boying-security/src/main/java/com/tongji/boying/security/component/DynamicSecurityMetadataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/boying-security/src/main/java/com/tongji/boying/security/component/DynamicSecurityMetadataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../admin/boying-security/src/main/java/com/tongji/boying/security/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../admin/boying-security/src/main/java/com/tongji/boying/security/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../新document/2.模块说明/4.boying-security技术说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/../新document/2.模块说明/4.boying-security技术说明.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../新document/2.模块说明/6.boying-admin技术说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/../新document/2.模块说明/6.boying-admin技术说明.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/3.笔记/后台管理模块后端设计逻辑.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/3.笔记/用户模块后端设计逻辑.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/3.笔记/项目.emmx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/boying.md" beforeDir="false" afterPath="$PROJECT_DIR$/../新document/boying.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +73,7 @@
       <workItem from="1613257644580" duration="150000" />
       <workItem from="1613262459353" duration="2027000" />
       <workItem from="1613267049241" duration="111000" />
-      <workItem from="1613345011313" duration="4242000" />
+      <workItem from="1613345011313" duration="6024000" />
     </task>
     <servers />
   </component>
