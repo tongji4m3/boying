@@ -22,7 +22,6 @@ public class BoyingCategoryController {
     @Autowired
     private BoyingCategoryService boyingCategoryService;
 
-
     @ApiOperation("获取菜单")
         @RequestMapping(value = "/categories", method = RequestMethod.POST)
     @ResponseBody

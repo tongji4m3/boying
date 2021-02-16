@@ -8,10 +8,6 @@ import java.util.List;
 public interface BoyingSeatService {
     List<BoyingSeatModel> getShowSeatList(Integer showId);
 
-    Integer getSeatStock(Integer seatId);
-
-    BoyingSeat selectByPrimaryKey(Integer seatId);
-
     Integer decreaseStock(Integer seatId, Integer ticketCount);
 
     void increaseStock(Integer seatId, Integer ticketCount);

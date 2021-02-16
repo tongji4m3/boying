@@ -18,7 +18,7 @@ public class BoyingPromoServiceImpl implements BoyingPromoService {
 
     @Override
     public BoyingPromoModel getPromo(Integer seatId) {
-        //获取对应演出的秒杀活动信息
+        //获取对应演出座次的秒杀活动信息
         BoyingPromo promoDO = boyingPromoMapper.selectBySeatId(seatId);
         if (promoDO == null) {
             return null;

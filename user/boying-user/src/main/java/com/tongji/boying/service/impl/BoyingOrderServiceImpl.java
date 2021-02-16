@@ -40,7 +40,6 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         BoyingUser user = boyingUserService.getCurrentUser();
 
         //对showId,payment做校验
-
         BoyingSeatModel seatModel = boyingSeatService.getShowSeat(seatId);
         if (seatModel == null) {
             Asserts.fail("演出座次不存在！");
@@ -63,7 +62,7 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         if (promoId == null) promoId = 0;
         //校验活动信息
         if (promoId != 0) {
-            //校验对应活动是否存在这个座次
+            //校验传入的活动是否对应于这个座次
             if (seatModel.getBoyingPromoModel()==null || !promoId.equals(seatModel.getBoyingPromoModel().getId())) {
                 Asserts.fail("活动信息不正确");
                 //校验活动是否正在进行中

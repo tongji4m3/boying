@@ -34,16 +34,6 @@ public class BoyingSeatServiceImpl implements BoyingSeatService {
     }
 
     @Override
-    public Integer getSeatStock(Integer seatId) {
-        return boyingSeatMapper.getSeatStock(seatId);
-    }
-
-    @Override
-    public BoyingSeat selectByPrimaryKey(Integer seatId) {
-        return boyingSeatMapper.selectByPrimaryKey(seatId);
-    }
-
-    @Override
     @Transactional
     public Integer decreaseStock(Integer seatId, Integer ticketCount) {
         return boyingSeatMapper.decreaseStock(seatId, ticketCount);

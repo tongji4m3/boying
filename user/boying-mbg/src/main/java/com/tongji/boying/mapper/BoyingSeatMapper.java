@@ -23,9 +23,5 @@ public interface BoyingSeatMapper {
 
     Integer decreaseStock(Integer seatId,Integer ticketCount);
 
-    Double selectPrice(Integer seatId);
-
     void increaseStock(Integer seatId, Integer ticketCount);
-
-    Integer getSeatStock(Integer seatId);
 }

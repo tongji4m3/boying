@@ -23,16 +23,6 @@
         from boying_seat
         where show_id = #{showId}
     </select>
-    <select id="selectPrice" resultType="java.lang.Double">
-        select price
-        from boying_seat
-        where id = #{seatId};
-    </select>
-    <select id="getSeatStock" resultType="java.lang.Integer">
-        select stock
-        from boying_stock
-        where id = #{seatId};
-    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from boying_seat

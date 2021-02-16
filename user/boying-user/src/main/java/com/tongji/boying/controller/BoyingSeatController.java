@@ -57,12 +57,4 @@ public class BoyingSeatController {
         }
         return boyingSeatVO;
     }
-
-
-    @ApiOperation("获取某演唱会座次的库存")
-    @RequestMapping(value = "/seatStock/{seatId}", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult<Integer> getSeatStock(@PathVariable Integer seatId) {
-        return CommonResult.success(seatService.getSeatStock(seatId));
-    }
 }
