@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66892b7b-2827-4883-b212-d17bb64dc641" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4642afc7-aec6-4b29-b1c3-25dda7957f4b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4642afc7-aec6-4b29-b1c3-25dda7957f4b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-mbg/src/main/java/com/tongji/boying/mapper/BoyingSeatMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-mbg/src/main/java/com/tongji/boying/mapper/BoyingSeatMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-mbg/src/main/resources/com/tongji/boying/mapper/BoyingSeatMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/boying-mbg/src/main/resources/com/tongji/boying/mapper/BoyingSeatMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/controller/BoyingCategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/controller/BoyingCategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/controller/BoyingSeatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/controller/BoyingSeatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/BoyingSeatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/BoyingSeatService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingOrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingOrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingPromoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingPromoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingSeatServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingSeatServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../新document/5.boying-user技术说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/../新document/5.boying-user技术说明.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/8.用户模块后端设计逻辑.md" beforeDir="false" afterPath="$PROJECT_DIR$/../新document/8.用户模块后端设计逻辑.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +16,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1o3awrXBmD4vZyzv7pS1WfvCh73" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -42,6 +42,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="database.data.extractors.current.export.id" value="Comma-separated (CSV)_id" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
@@ -94,7 +95,7 @@
       <workItem from="1613257644580" duration="150000" />
       <workItem from="1613262459353" duration="2027000" />
       <workItem from="1613267049241" duration="111000" />
-      <workItem from="1613345011313" duration="13993000" />
+      <workItem from="1613345011313" duration="16464000" />
     </task>
     <servers />
   </component>
