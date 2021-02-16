@@ -31,11 +31,10 @@
     from boying_user
     where username = #{username}
   </select>
-  <select id="selectByUsernameAndPhone" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
+  <select id="selectByUsernameOrPhone" resultType="java.lang.Integer">
+    select count(*)
     from boying_user
-    where username = #{username} and phone = #{telephone}
+    where username = #{username} or phone = #{telephone}
   </select>
   <select id="selectByPhone" resultMap="BaseResultMap">
     select

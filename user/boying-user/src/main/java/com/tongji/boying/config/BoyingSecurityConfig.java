@@ -23,8 +23,6 @@ public class BoyingSecurityConfig extends SecurityConfig {
     /**
      * 注解@Bean放在方法上，产生一个Bean并且交给Spring容器管理
      * 定义用户信息
-     *
-     * @return
      */
     @Bean
     public UserDetailsService userDetailsService() {

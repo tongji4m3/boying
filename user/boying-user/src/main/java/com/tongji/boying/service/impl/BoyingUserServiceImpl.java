@@ -108,8 +108,15 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         Map<String, Object> map = new HashMap<>();
         map.put("telephone", telephone);
         map.put("username", username);
-        BoyingUser dbUser = boyingUserMapper.selectByUsernameAndPhone(map);
+
+
+        /*BoyingUser dbUser = boyingUserMapper.selectByUsernameAndPhone(map);
         if (dbUser != null) {
+            Asserts.fail("该用户已经存在或手机号已注册");
+        }*/
+
+        Integer userCount = boyingUserMapper.selectByUsernameOrPhone(map);
+        if (userCount != 0) {
             Asserts.fail("该用户已经存在或手机号已注册");
         }
 

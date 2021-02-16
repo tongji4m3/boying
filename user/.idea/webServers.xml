@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="4d003fba-bdb7-4e8d-973d-c67555a0997a" name="boying">
-        <fileTransfer accessType="SFTP" host="47.103.203.188" port="22" sshConfigId="df6a4fb3-170c-44d4-b6dd-ae707314f78f" sshConfig="MySQL">
+        <fileTransfer accessType="SFTP" host="47.100.88.187" port="22" sshConfigId="49447793-aa87-4308-8551-553d64d78485" sshConfig="Nginx">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

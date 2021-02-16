@@ -19,7 +19,7 @@ public interface BoyingUserMapper {
 
     BoyingUser selectByUsername(String username);
 
-    BoyingUser selectByUsernameAndPhone(Map<String, Object> map);
+    Integer selectByUsernameOrPhone(Map<String, Object> map);
 
     BoyingUser selectByPhone(String telephone);
 }

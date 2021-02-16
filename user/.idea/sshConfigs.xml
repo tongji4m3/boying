@@ -5,6 +5,9 @@
       <sshConfig authType="PASSWORD" host="47.103.203.188" id="df6a4fb3-170c-44d4-b6dd-ae707314f78f" port="22" customName="MySQL" nameFormat="CUSTOM" username="root">
         <option name="customName" value="MySQL" />
       </sshConfig>
+      <sshConfig authType="PASSWORD" host="47.100.88.187" id="49447793-aa87-4308-8551-553d64d78485" port="22" customName="Nginx" nameFormat="CUSTOM" username="root">
+        <option name="customName" value="Nginx" />
+      </sshConfig>
     </configs>
   </component>
 </project>
