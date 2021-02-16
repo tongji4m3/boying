@@ -5,9 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66892b7b-2827-4883-b212-d17bb64dc641" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4642afc7-aec6-4b29-b1c3-25dda7957f4b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4642afc7-aec6-4b29-b1c3-25dda7957f4b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/5.boying-user技术说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/../新document/5.boying-user技术说明.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/BoyingOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/BoyingOrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/1.数据库文件/boying.ndm2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/1.数据库文件/boying.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/1.项目分模块构建说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/2.boying-common技术说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/3.boying-mbg技术说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/4.boying-security技术说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/5.boying-user技术说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/6.boying-admin技术说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/7.后台管理模块后端设计逻辑.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/8.用户模块后端设计逻辑.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/9.Nginx.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/upload/image-20210216153841728.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/upload/image-20210216154531210.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../新document/项目.emmx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +56,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="database.data.extractors.current.export.id" value="Comma-separated (CSV)_id" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../code_home/test" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -55,13 +68,15 @@
     <option name="notificationShown" value="true" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -95,7 +110,8 @@
       <workItem from="1613257644580" duration="150000" />
       <workItem from="1613262459353" duration="2027000" />
       <workItem from="1613267049241" duration="111000" />
-      <workItem from="1613345011313" duration="16464000" />
+      <workItem from="1613345011313" duration="17255000" />
+      <workItem from="1613463866804" duration="2245000" />
     </task>
     <servers />
   </component>
