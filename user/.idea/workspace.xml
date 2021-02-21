@@ -5,22 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66892b7b-2827-4883-b212-d17bb64dc641" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/sshConfigs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sshConfigs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/BoyingOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/BoyingOrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/1.数据库文件/boying.ndm2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/1.数据库文件/boying.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/1.项目分模块构建说明.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/2.boying-common技术说明.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/3.boying-mbg技术说明.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/4.boying-security技术说明.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/5.boying-user技术说明.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/6.boying-admin技术说明.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/7.后台管理模块后端设计逻辑.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/8.用户模块后端设计逻辑.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/9.Nginx.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/upload/image-20210216153841728.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/upload/image-20210216154531210.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../新document/项目.emmx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,19 +55,6 @@
     <option name="notificationShown" value="true" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="BoyingUserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="boying-user" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.tongji.boying.BoyingUserApplication" />
@@ -112,6 +86,14 @@
       <workItem from="1613267049241" duration="111000" />
       <workItem from="1613345011313" duration="17255000" />
       <workItem from="1613463866804" duration="2245000" />
+      <workItem from="1613638829499" duration="2094000" />
+      <workItem from="1613694377892" duration="14000" />
+      <workItem from="1613694511558" duration="629000" />
+      <workItem from="1613735988847" duration="2305000" />
+      <workItem from="1613774274510" duration="1747000" />
+      <workItem from="1613785106444" duration="1171000" />
+      <workItem from="1613789345468" duration="100000" />
+      <workItem from="1613818464244" duration="976000" />
     </task>
     <servers />
   </component>
@@ -129,5 +111,36 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/boying-security/src/main/java/com/tongji/boying/security/config/SecurityConfig.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/controller/BoyingUserController.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/boying-security/src/main/java/com/tongji/boying/security/config/SecurityConfig.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/boying-security/src/main/java/com/tongji/boying/security/component/JwtAuthenticationTokenFilter.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/controller/BoyingOrderController.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

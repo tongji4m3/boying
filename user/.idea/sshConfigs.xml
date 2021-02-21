@@ -8,6 +8,9 @@
       <sshConfig authType="PASSWORD" host="47.100.88.187" id="49447793-aa87-4308-8551-553d64d78485" port="22" customName="Nginx" nameFormat="CUSTOM" username="root">
         <option name="customName" value="Nginx" />
       </sshConfig>
+      <sshConfig authType="PASSWORD" host="101.132.157.174" id="6382333b-6613-4320-a378-5dd3aefa1d9f" port="22" customName="Jar1" nameFormat="CUSTOM" username="root">
+        <option name="customName" value="Jar1" />
+      </sshConfig>
     </configs>
   </component>
 </project>
