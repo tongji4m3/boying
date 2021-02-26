@@ -1,6 +1,7 @@
 package com.tongji.boying.service.impl;
 
 import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.common.service.RedisService;
 import com.tongji.boying.mapper.BoyingCategoryMapper;
 import com.tongji.boying.model.BoyingCategory;
 import com.tongji.boying.service.BoyingCategoryService;
@@ -14,9 +15,20 @@ public class BoyingCategoryServiceImpl implements BoyingCategoryService {
     @Autowired
     private BoyingCategoryMapper boyingCategoryMapper;
 
+    @Autowired
+    private RedisService redisService;
+
     @Override
     public List<BoyingCategory> categories() {
-        List<BoyingCategory> categories = boyingCategoryMapper.selectList();
+        List<BoyingCategory> categories = (List<BoyingCategory>)redisService.get("boying_categories");
+        if ( categories != null) {
+            return categories;
+        }
+
+        categories = boyingCategoryMapper.selectList();
+
+        redisService.set("boying_categories",categories);
+
         if (categories == null || categories.size() == 0) {
             Asserts.fail("演出目录为空！");
         }

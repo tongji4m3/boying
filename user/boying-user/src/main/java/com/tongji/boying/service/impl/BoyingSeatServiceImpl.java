@@ -1,6 +1,7 @@
 package com.tongji.boying.service.impl;
 
 import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.common.service.RedisService;
 import com.tongji.boying.mapper.BoyingSeatMapper;
 import com.tongji.boying.model.*;
 import com.tongji.boying.service.BoyingPromoService;
@@ -24,12 +25,21 @@ public class BoyingSeatServiceImpl implements BoyingSeatService {
     @Autowired
     private BoyingPromoService boyingPromoService;
 
+    @Autowired
+    private RedisService redisService;
+
     @Override
     public List<BoyingSeatModel> getShowSeatList(Integer showId) {
-        List<BoyingSeat> boyingSeats = boyingSeatMapper.selectList(showId);
-        if (boyingSeats == null || boyingSeats.size() == 0) {
-            Asserts.fail("演出座次不存在！");
+        List<BoyingSeat> boyingSeats = (List<BoyingSeat>) redisService.get("boying_show_seats:" + showId);
+
+        if (boyingSeats == null) {
+            boyingSeats = boyingSeatMapper.selectList(showId);
+            if (boyingSeats == null || boyingSeats.size() == 0) {
+                Asserts.fail("演出座次不存在！");
+            }
+            redisService.set("boying_show_seats:" + showId, boyingSeats);
         }
+
         return boyingSeats.stream().map(this::convertModelFromDataObject).collect(Collectors.toList());
     }
 

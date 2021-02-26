@@ -1,6 +1,7 @@
 package com.tongji.boying.service.impl;
 
 import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.common.service.RedisService;
 import com.tongji.boying.mapper.BoyingPromoMapper;
 import com.tongji.boying.model.BoyingPromo;
 import com.tongji.boying.model.BoyingPromoModel;
@@ -16,13 +17,27 @@ public class BoyingPromoServiceImpl implements BoyingPromoService {
     @Autowired
     private BoyingPromoMapper boyingPromoMapper;
 
+    @Autowired
+    private RedisService redisService;
+
     @Override
     public BoyingPromoModel getPromo(Integer seatId) {
-        //获取对应演出座次的秒杀活动信息
-        BoyingPromo promoDO = boyingPromoMapper.selectBySeatId(seatId);
-        if (promoDO == null) {
+        BoyingPromo promoDO = (BoyingPromo) redisService.get("boying_promo:" + seatId);
+
+        if (promoDO != null && promoDO.getId() == -1) {
+            //说明数据库中不存在数据，避免缓存穿透
             return null;
         }
+        if (promoDO == null) {
+            //获取对应演出座次的秒杀活动信息
+            promoDO = boyingPromoMapper.selectBySeatId(seatId);
+            if (promoDO == null) {
+                redisService.set("boying_promo:" + seatId, new BoyingPromo(-1));
+                return null;
+            }
+            redisService.set("boying_promo:" + seatId, promoDO);
+        }
+
 
         //dataObject->model
         BoyingPromoModel boyingPromoModel = new BoyingPromoModel();

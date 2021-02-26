@@ -22,6 +22,13 @@ public class BoyingPromo implements Serializable {
     @ApiModelProperty(value = "秒杀时刻座次的价格")
     private Double price;
 
+    public BoyingPromo() {
+    }
+
+    public BoyingPromo(Integer id) {
+        this.id = id;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
