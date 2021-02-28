@@ -32,7 +32,7 @@ public class BoyingPromoServiceImpl implements BoyingPromoService {
             //获取对应演出座次的秒杀活动信息
             promoDO = boyingPromoMapper.selectBySeatId(seatId);
             if (promoDO == null) {
-                redisService.set("boying_promo:" + seatId, new BoyingPromo(-1));
+                redisService.set("boying_promo:" + seatId, new BoyingPromo(-1),5);
                 return null;
             }
             redisService.set("boying_promo:" + seatId, promoDO);

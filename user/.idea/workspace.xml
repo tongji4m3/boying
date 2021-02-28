@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66892b7b-2827-4883-b212-d17bb64dc641" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4642afc7-aec6-4b29-b1c3-25dda7957f4b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4642afc7-aec6-4b29-b1c3-25dda7957f4b.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-mbg/src/main/java/com/tongji/boying/model/BoyingPromo.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-mbg/src/main/java/com/tongji/boying/model/BoyingPromo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingCategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingCategoryServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingPromoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingPromoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingSeatServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingSeatServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boying-user/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/boying-user/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +96,7 @@
       <workItem from="1613899056646" duration="1867000" />
       <workItem from="1614163071223" duration="1306000" />
       <workItem from="1614303681504" duration="6253000" />
+      <workItem from="1614493604477" duration="69000" />
     </task>
     <servers />
   </component>
