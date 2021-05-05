@@ -2,14 +2,6 @@
 # boying
 <a href="#"><img src="https://img.shields.io/badge/qq号-1254931237-red.svg" alt="qq号"></a>   <a href="https://github.com/tongji4m3/boying-web" alt="boying-web"><img src="https://img.shields.io/badge/前端地址-boying_web-blue.svg"></a>   <a href="https://github.com/tongji4m3/boying-admin-web" alt="boying-admin-web"><img src="https://img.shields.io/badge/前端admin地址-boying admin web-yellow.svg"></a>   <a href="#License" alt="License"><img src="https://img.shields.io/github/license/tongji4m3/boying"></a>
 
-
-# 开发规范
-
-1. 统一在**develop**分支下进行提交
-2. 每次提交前(最好在写代码前),先`pull`最新的版本,避免代码冲突
-3. 每次提交说明修改了哪些地方
-4. 遵循统一的代码风格
-
 # 开发进度
 
 > - [x]  数据库设计
@@ -24,21 +16,20 @@
 > - [x]  项目JavaEE文档
 > - [x]  项目技术说明文档(Github)
 > - [ ]  项目自动化部署
-> - [ ]  项目优化,如Redis集群加速,Mysql索引优化
+> - [ ]  项目优化，如Redis集群加速，Mysql索引优化
 
 
 # 项目简介
 
 **boying**是一个娱乐票务平台，包括**前台演出门票购买系统**及**后台管理系统**。
 
-前台系统包括:用户模块,目录模块,演出模块,订单模块
+前台系统包括：用户模块，目录模块，演出模块，订单模块
 
-后台系统包括:权限管理,报表管理,用户管理,演出管理,场次管理,订单管理
+后台系统包括：权限管理，报表管理，用户管理，演出管理，场次管理，订单管理
 
-该项目为**boying**的后端实现,基于`SpringBoot`实现。 **boying**平台前端采用`Vue`开发
+该项目为**boying**的后端实现，基于`SpringBoot`实现。 **boying**平台前端采用`Vue`开发
 
 # 项目地址
-- 文档地址:https://tongji4m3.github.io/boying
 - 演出门票购买系统前端项目地址:[boying-web](https://github.com/tongji4m3/boying-web)
 - 后台管理前端项目地址:[boying-admin-web](https://github.com/tongji4m3/boying-admin-web)
 - 项目演示地址(演出门票购买界面):http://47.103.203.188:8080/boying-user/index.html
@@ -50,15 +41,11 @@
 ## 项目结构
 ```
 boying
-    ├── boying-admin 后台管理及权限管理模块
-    ├── boying-common 封装项目通用代码模块
-    ├── boying-mbg MyBatisGenerator自动生成数据库操作代码
-    ├── boying-security SpringSecurity认证与权限通用代码模块
-    ├── boying-user 前台演出门票购买模块
-    ├── docs docsify生成项目文档网站
+    ├── admin 后台管理及权限管理模块
+    ├── user 前台演出门票购买模块
+    ├── technical_documents 项目的技术文档 
     ├── document 存放一些资源文件以及项目说明文档
     ├── LICENSE 项目使用的开源许可证
-    ├── pom.xml 整体项目的pom文件
     └── README.md 项目的README说明文档
 ```
 
@@ -66,39 +53,11 @@ boying
 
 ### 依赖关系
 
-+ boying-common:封装通用的一些组件
-+ boying-mbg:依赖boying-common,自动生成SQL代码,包含增删改查
-+ boying-security:依赖boying-common,安全管理模块,负责对user,admin
-+ boying-admin:依赖boying-mbg,boying-security
-+ boying-user:依赖boying-mbg,boying-security
-
-### 具体介绍
-
-+ [项目分模块构建说明](document/3.各模块说明文档/项目分模块构建说明.md)
-+ [boying-common技术说明](document/3.各模块说明文档/boying-common技术说明.md)
-+ [boying-mbg技术说明](document/3.各模块说明文档/boying-mbg技术说明.md)
-+ [boying-security技术说明](document/3.各模块说明文档/boying-security技术说明.md)
-+ [boying-user技术说明](document/3.各模块说明文档/boying-user技术说明.md)
-+ [boying-admin技术说明](document/3.各模块说明文档/boying-admin技术说明.md)
-
-## 业务逻辑介绍
-
-+ [用户模块后端设计逻辑](document/4.业务逻辑说明文档/用户模块后端设计逻辑.md)
-+ [后台管理模块权限模块设计逻辑](document/4.业务逻辑说明文档/后台管理模块权限模块设计逻辑.md)
-+ [后台管理模块后端设计逻辑](document/4.业务逻辑说明文档/后台管理模块后端设计逻辑.md)
-
-## 文档结构说明
-
-```
-document
-    ├─0_未归档
-    ├─1.SQL
-    ├─2.资源
-    ├─3.各模块说明文档
-    ├─4.业务逻辑说明文
-    ├─5.技术说明文档
-    └─6.内存数据库文档
-```
++ boying-common：封装通用的一些组件
++ boying-mbg：依赖boying-common，自动生成SQL代码，包含增删改查
++ boying-security：依赖boying-common，安全管理模块，负责对user，admin
++ boying-admin：依赖boying-mbg，boying-security
++ boying-user：依赖boying-mbg，boying-security
 
 ## 开发工具
 
@@ -132,45 +91,15 @@ document
 ### 数据库架构图
 #### 业务逻辑模块
 
-![博影-用户逻辑模块](https://tongji4m3.oss-cn-beijing.aliyuncs.com/博影-用户逻辑模块.png)
+![image-20210505103048998](https://tongji2021.oss-cn-shanghai.aliyuncs.com/img/image-20210505103048998.png)
 
 #### 权限系统模块
 
- ![博影-权限系统](https://tongji4m3.oss-cn-beijing.aliyuncs.com/博影-权限系统.png)
+![image-20210505103123041](https://tongji2021.oss-cn-shanghai.aliyuncs.com/img/image-20210505103123041.png)
 
 
 
-### 数据库ER图
-
-![博影-用例图](https://tongji4m3.oss-cn-beijing.aliyuncs.com/博影-ER图.png)
-
-
-
-### 用例图
-
-![博影-ER图](https://tongji4m3.oss-cn-beijing.aliyuncs.com/博影-用例图.jpg)
-
-
-
-
-
-# 系统部署与配置
-
-本项目部署与阿里云轻量级应用服务器上，使用的系统镜像为CentOS 7.3。
-
-该服务器公网IP地址为：47.103.203.188，配置为1核2G
-
-## 项目地址
-
-- 文档地址:https://tongji4m3.github.io/boying
-- 演出门票购买系统前端项目地址:[boying-web](https://github.com/tongji4m3/boying-web)
-- 后台管理前端项目地址:[boying-admin-web](https://github.com/tongji4m3/boying-admin-web)
-- 项目演示地址(演出门票购买界面):http://47.103.203.188:8080/boying-user/index.html
-- 项目演示地址(后台管理页面):http://47.103.203.188:8080/boying-admin/index.html
-- 后端演出门票购买系统接口地址:http://47.103.203.188:8000/swagger-ui.html
-- 后端后台管理系统接口地址:http://47.103.203.188:7000/swagger-ui.html
-
-
+# 环境配置
 
 ## 本地搭建步骤(Windows)
 
@@ -183,8 +112,8 @@ document
 npm install
 npm run serve
 访问:http://localhost:8080/
-//如果同时打开boying-web与boying-admin-web会出现端口冲突,请自行配置
-//如果要连接自己的后端,请在src\assets\api.js文件中,更改 API_URL: "http://自己的ip地址:自己的端口号"
+//如果同时打开boying-web与boying-admin-web会出现端口冲突，请自行配置
+//如果要连接自己的后端，请在src\assets\api.js文件中,更改 API_URL: "http://自己的ip地址:自己的端口号"
 ```
 
 ### 后端
@@ -198,10 +127,6 @@ npm run serve
 若要启动boying-admin后端,则运行boying-admin子系统的src\main\java\com\tongji\boying\BoyingAdminApplication.java
 启动成功后,则可以访问swagger接口:http://localhost:7000/swagger-ui.html
 ```
-
-![image-20201223183935383](C:%5CUsers%5C12549%5CDesktop%5CGithub%5Cboying%5Cupload%5Cimage-20201223183935383.png)
-
-
 
 ## 数据库搭建步骤
 
@@ -288,8 +213,6 @@ http://自己IP地址:8080/boying-admin
 
 
 
-
-
 ## 常用操作
 
 ### 清空redis缓存
@@ -300,74 +223,6 @@ redis缓存仍然存在,导致修改了数据库,在远程API查询数据仍然�
 docker exec -it redis redis-cli -a "redis"
 flushall
 ```
-
-# 系统架构和组件设计
-
-前后端分离，前端基于Vue-CLI开发，后端基于SpringBoot开发
-
-前端分为用户模块，管理员模块
-
-后端分为用户模块，管理员模块
-
-数据库采用Mysql，Redis
-
-
-
-用户管理,演出管理,订单管理,
-
-![image-20201223191356925](upload%5Cimage-20201223191356925.png)
-
-### 项目结构
-
-+ boying-common 封装通用的一些组件
-+ boying-mbg:依赖boying-common,自动生成SQL代码,包含增删改查
-+ boying-security:依赖boying-common,安全管理模块,负责对user,admin
-+ boying-admin:依赖boying-mbg,boying-security
-+ boying-user:依赖boying-mbg,boying-security
-
-
-
-# 实现
-
-+ 搭建SpringBoot+Mybatis环境,连接MySQL
-+ 集成Swagger
-+ 集成Redis
-+ linux安装docker
-+ docker启动redis,mysql镜像
-+ 连接远程阿里云服务器中docker容器里的redis,mysql
-+ 实现权限管理系统框架搭建
-+ 分模块构建springboot项目
-+ AOP配置日志切面
-
-# 待使用技术
-
-+  [ScreenToGif](http://www.macrozheng.com/#/reference/my_tools?id=screentogif) 项目gitf演示
-
-+  [Hutool](http://www.macrozheng.com/#/reference/hutool?id=hutool中那些常用的工具类和方法) 一个Java工具包，它帮助我们简化每一行代码，避免重复造轮子
-
-+  nginx
-
-+  MySql主从复制,MySql读写分离
-
-+  redis连接工具,搭建Redis集群
-
-+  RabbitMQ
-
-+  使用jenkins自动化部署
-
-+ SpringSecurity JWT
-
-+ OSS文件上传
-
-+ 业务逻辑再仔细研究
-
-+ Jenkins自动化部署
-
-+ 日志功能
-
-+ 模块化编程
-
-	
 
 # License
 

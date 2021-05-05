@@ -5,9 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66892b7b-2827-4883-b212-d17bb64dc641" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/deployment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/dictionaries/12549.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/smartfox_info.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/sshConfigs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/thriftCompiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/webServers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/.nojekyll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/_coverpage.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/_sidebar.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/3.各模块说明文档/boying-admin技术说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/3.各模块说明文档/boying-common技术说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/3.各模块说明文档/boying-mbg技术说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/3.各模块说明文档/boying-security技术说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/3.各模块说明文档/boying-user技术说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/3.各模块说明文档/项目分模块构建说明.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/4.业务逻辑说明文档/后台管理模块后端设计逻辑.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/4.业务逻辑说明文档/后台管理模块权限模块设计逻辑.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/4.业务逻辑说明文档/用户模块后端设计逻辑.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/5.技术说明文档/Java日志.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/5.技术说明文档/权限管理笔记.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/5.技术说明文档/漂亮的GitHub.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/boying/5.技术说明文档/相关技术笔记.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/index.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,23 +82,12 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="BoyingUserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="boying-user" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.tongji.boying.BoyingUserApplication" />
@@ -116,6 +137,8 @@
       <workItem from="1618540830375" duration="346000" />
       <workItem from="1618544867797" duration="10000" />
       <workItem from="1618635643356" duration="295000" />
+      <workItem from="1620006960928" duration="78000" />
+      <workItem from="1620007053709" duration="69000" />
     </task>
     <servers />
   </component>
@@ -156,11 +179,6 @@
           <url>file://$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingSeatServiceImpl.java</url>
           <line>59</line>
           <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/boying-user/src/main/java/com/tongji/boying/service/impl/BoyingPromoServiceImpl.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
