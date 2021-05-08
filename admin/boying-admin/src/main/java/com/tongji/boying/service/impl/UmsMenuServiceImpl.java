@@ -159,7 +159,7 @@ public class UmsMenuServiceImpl implements UmsMenuService
     {
         PageHelper.startPage(pageNum, pageSize);
         AdminMenuExample example = new AdminMenuExample();
-        example.setOrderByClause("sort desc");
+        example.setOrderByClause("weight desc");
         example.createCriteria().andParentIdEqualTo(parentId);
         return AdminMenuMapper.selectByExample(example);
     }
@@ -171,12 +171,12 @@ public class UmsMenuServiceImpl implements UmsMenuService
         Map<AdminMenu, List<AdminMenu>> map = new LinkedHashMap<>();
         AdminMenuExample example = new AdminMenuExample();
         example.createCriteria().andParentIdEqualTo(0);
-        example.setOrderByClause("sort desc");
+        example.setOrderByClause("weight desc");
         List<AdminMenu> parents = AdminMenuMapper.selectByExample(example);
         for (AdminMenu parent : parents)
         {
             AdminMenuExample AdminMenuExample = new AdminMenuExample();
-            AdminMenuExample.setOrderByClause("sort desc");
+            AdminMenuExample.setOrderByClause("weight desc");
             AdminMenuExample.createCriteria().andParentIdEqualTo(parent.getId());
             map.put(parent, AdminMenuMapper.selectByExample(AdminMenuExample));
         }
