@@ -7,6 +7,7 @@ import com.tongji.boying.model.BoyingCategory;
 import com.tongji.boying.service.SmsCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -35,18 +36,29 @@ public class SmsCategoryController
         }
         return CommonResult.failed();
     }
-    @ApiOperation("删除目录")
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @ApiOperation("修改目录启用状态")
+    @RequestMapping(value = "/admin_delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult delete(@PathVariable Integer id)
     {
         System.out.println(id);
-        int count = categoryService.delete(id);
-        if (count > 0)
-        {
-            return CommonResult.success(count);
+        BoyingCategory category = categoryService.getCategory(id);
+        if(category==null){
+            return CommonResult.failed("目录不存在!");
         }
-        return CommonResult.failed("要删除的目录不存在!");
+        if(category.getAdminDelete()){
+            System.out.println("false");
+            category.setAdminDelete(false);
+        }else{
+            System.out.println("true");
+            category.setAdminDelete(true);
+        }
+        SmsCategoryParam param=new SmsCategoryParam();
+        BeanUtils.copyProperties(category,param);
+        System.out.println(category);
+        System.out.println(param);
+        categoryService.update(id,param);
+        return CommonResult.success("成功!");
     }
 
     @ApiOperation("修改目录")

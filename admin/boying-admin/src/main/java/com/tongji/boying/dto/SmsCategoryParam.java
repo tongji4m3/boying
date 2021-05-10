@@ -25,5 +25,5 @@ public class SmsCategoryParam
     private String description;
 
     @ApiModelProperty(value = "管理员是否删除")
-    private int admin_delete;
+    private boolean adminDelete;
 }
