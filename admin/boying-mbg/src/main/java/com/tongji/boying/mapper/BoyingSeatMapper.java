@@ -4,7 +4,9 @@ import com.tongji.boying.model.BoyingSeat;
 import com.tongji.boying.model.BoyingSeatExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BoyingSeatMapper {
     long countByExample(BoyingSeatExample example);
 

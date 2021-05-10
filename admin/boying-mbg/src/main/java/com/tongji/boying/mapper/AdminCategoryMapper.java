@@ -4,7 +4,9 @@ import com.tongji.boying.model.AdminCategory;
 import com.tongji.boying.model.AdminCategoryExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AdminCategoryMapper {
     long countByExample(AdminCategoryExample example);
 

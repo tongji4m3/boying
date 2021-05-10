@@ -4,7 +4,9 @@ import com.tongji.boying.model.AdminMenu;
 import com.tongji.boying.model.AdminMenuExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AdminMenuMapper {
     long countByExample(AdminMenuExample example);
 

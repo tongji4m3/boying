@@ -4,7 +4,9 @@ import com.tongji.boying.model.BoyingOrder;
 import com.tongji.boying.model.BoyingOrderExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BoyingOrderMapper {
     long countByExample(BoyingOrderExample example);
 

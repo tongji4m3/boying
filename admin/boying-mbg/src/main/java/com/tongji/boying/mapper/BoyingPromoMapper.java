@@ -4,7 +4,9 @@ import com.tongji.boying.model.BoyingPromo;
 import com.tongji.boying.model.BoyingPromoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface BoyingPromoMapper {
     long countByExample(BoyingPromoExample example);
 
