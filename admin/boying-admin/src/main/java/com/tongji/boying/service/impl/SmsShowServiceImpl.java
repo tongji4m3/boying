@@ -69,11 +69,11 @@ public class SmsShowServiceImpl implements SmsShowService
         return boyingShowMapper.deleteByExample(example);
     }
 
-    @Override
-    public int delete(Integer id)
-    {
-        return boyingShowMapper.deleteByPrimaryKey(id);
-    }
+//    @Override
+//    public int delete(Integer id)
+//    {
+//        return boyingShowMapper.deleteByPrimaryKey(id);
+//    }
 
     private void checkBoyingShowParam(SmsShowParam param, Integer id)
     {

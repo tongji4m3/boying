@@ -3,6 +3,7 @@ package com.tongji.boying.controller;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.SmsSeatParam;
 import com.tongji.boying.model.BoyingSeat;
+import com.tongji.boying.model.BoyingShow;
 import com.tongji.boying.service.SmsSeatService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -69,5 +70,14 @@ public class SmsSeatController {
             return CommonResult.success("座次显示成功");
         }
         return CommonResult.failed("数据库中暂无座次");
+    }
+
+    @ApiOperation("获取某个show的所有座次")
+    @RequestMapping(value = "/getShowSeat/{showId}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult getShowSeat(@PathVariable Integer showId)
+    {
+        List<BoyingSeat> boyingSeat = seatService.getShowSeat(showId);
+        return CommonResult.success(boyingSeat);
     }
 }

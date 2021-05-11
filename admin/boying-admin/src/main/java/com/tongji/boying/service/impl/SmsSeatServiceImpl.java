@@ -51,6 +51,14 @@ public class SmsSeatServiceImpl implements SmsSeatService {
         return boyingSeatMapper.selectByExample(new BoyingSeatExample());
     }
 
+    @Override
+    public List<BoyingSeat> getShowSeat(Integer id)
+    {
+        BoyingSeatExample example = new BoyingSeatExample();
+        example.createCriteria().andShowIdEqualTo(id);
+        return boyingSeatMapper.selectByExample(example);
+    }
+
     private void checkBoyingSeatParam(SmsSeatParam param, Integer id)
     {
         BoyingShowExample boyingShowExample = new BoyingShowExample();

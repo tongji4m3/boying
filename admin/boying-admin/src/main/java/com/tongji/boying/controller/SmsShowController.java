@@ -75,18 +75,18 @@ public class SmsShowController
         return CommonResult.failed("要修改的演出不存在!");
     }
 
-    @ApiOperation("删除演出")
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult delete(@PathVariable Integer id)
-    {
-        int count = showService.delete(id);
-        if (count > 0)
-        {
-            return CommonResult.success(count);
-        }
-        return CommonResult.failed("要删除的演出不存在!");
-    }
+//    @ApiOperation("删除演出")
+//    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+//    @ResponseBody
+//    public CommonResult delete(@PathVariable Integer id)
+//    {
+//        int count = showService.delete(id);
+//        if (count > 0)
+//        {
+//            return CommonResult.success(count);
+//        }
+//        return CommonResult.failed("要删除的演出不存在!");
+//    }
 
     @ApiOperation("批量删除演出")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)

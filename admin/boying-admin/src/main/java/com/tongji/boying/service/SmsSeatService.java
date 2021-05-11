@@ -28,4 +28,12 @@ public interface SmsSeatService {
      *
      */
     List<BoyingSeat> list();
+
+
+
+    /**
+     * 查看某个show的所有座次
+     *
+     */
+    List<BoyingSeat> getShowSeat(Integer id);
 }
