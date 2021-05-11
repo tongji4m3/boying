@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.SmsShowParam;
 //import com.tongji.boying.dto.UmsRoleParam;
+import com.tongji.boying.model.BoyingCategory;
 import com.tongji.boying.model.BoyingShow;
 //import com.tongji.boying.model.Role;
 import com.tongji.boying.service.SmsShowService;
@@ -37,6 +38,15 @@ public class SmsShowController
         List<BoyingShow> showList = showService.list();
         if (ObjectUtil.isEmpty(showList)) return CommonResult.failed("无角色!");
         return CommonResult.success(showList);
+    }
+
+    @ApiOperation("获取某个演出")
+    @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<BoyingShow> getShow(@PathVariable Integer id)
+    {
+        BoyingShow boyingShow = showService.getShow(id);
+        return CommonResult.success(boyingShow);
     }
 
     @ApiOperation("添加演出")

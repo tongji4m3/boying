@@ -22,6 +22,12 @@ public interface SmsShowService
      *
      */
     List<BoyingShow> list();
+
+    /**
+     * 查看某个演出
+     *
+     */
+    BoyingShow getShow(Integer id);
     /**
      * 添加演出
      *

@@ -31,6 +31,12 @@ public class SmsShowServiceImpl implements SmsShowService
     }
 
     @Override
+    public BoyingShow getShow(Integer id)
+    {
+        return boyingShowMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public int create(SmsShowParam param)
     {
         checkBoyingShowParam(param, -1);
