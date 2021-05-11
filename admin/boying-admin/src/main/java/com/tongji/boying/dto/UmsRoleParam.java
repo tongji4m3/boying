@@ -22,5 +22,5 @@ public class UmsRoleParam
     private Boolean status;
 
     @ApiModelProperty(value = "用于排序")
-    private Integer sort;
+    private Integer weight;
 }
