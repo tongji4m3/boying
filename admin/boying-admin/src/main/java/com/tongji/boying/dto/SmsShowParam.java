@@ -26,10 +26,10 @@ public class SmsShowParam
     private String poster;
 
     @ApiModelProperty(value = "该演唱会的最低价", required = true)
-    private BigDecimal minPrice;
+    private double minPrice;
 
     @ApiModelProperty(value = "该演唱会的最高价", required = true)
-    private BigDecimal maxPrice;
+    private double maxPrice;
 
     @ApiModelProperty(value = "该演出展示的优先基本,0为不展示", required = true)
     private Integer weight;
