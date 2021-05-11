@@ -5,6 +5,7 @@ import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.SmsSeatParam;
 import com.tongji.boying.mapper.BoyingSeatMapper;
 import com.tongji.boying.mapper.BoyingShowMapper;
+import com.tongji.boying.model.BoyingSeatExample;
 import com.tongji.boying.model.BoyingShow;
 import com.tongji.boying.model.BoyingShowExample;
 import com.tongji.boying.service.SmsSeatService;
@@ -31,15 +32,44 @@ public class SmsSeatServiceImpl implements SmsSeatService {
         return boyingSeatMapper.insertSelective(seat);
     }
 
+    @Override
+    public int update(Integer id, SmsSeatParam param) {
+        checkBoyingSeatParam(param, id);
+        BoyingSeat seat = new BoyingSeat();
+        BeanUtils.copyProperties(param, seat);
+        seat.setId(id);
+        return boyingSeatMapper.updateByPrimaryKeySelective(seat);
+    }
+
+    @Override
+    public int delete(Integer id) {
+        return boyingSeatMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<BoyingSeat> list() {
+        return boyingSeatMapper.selectByExample(new BoyingSeatExample());
+    }
 
     private void checkBoyingSeatParam(SmsSeatParam param, Integer id)
     {
         BoyingShowExample boyingShowExample = new BoyingShowExample();
         BoyingShowExample.Criteria criteria = boyingShowExample.createCriteria();
+        BoyingSeatExample boyingSeatExample=new BoyingSeatExample();
+        BoyingSeatExample.Criteria criteria1=boyingSeatExample.createCriteria();
         criteria.andIdEqualTo(param.getShowId());
         if (id != -1)
         {
             criteria.andIdNotEqualTo(id);
+        }
+        else{
+            criteria1.andShowIdEqualTo(param.getShowId());
+            criteria1.andNameEqualTo(param.getName());
+            List<BoyingSeat> seats=boyingSeatMapper.selectByExample(boyingSeatExample);
+            if(CollUtil.isNotEmpty(seats))
+            {
+                Asserts.fail("不能重复添加座次");
+            }
         }
         List<BoyingShow> shows = boyingShowMapper.selectByExample(boyingShowExample);
         if (CollUtil.isEmpty(shows))

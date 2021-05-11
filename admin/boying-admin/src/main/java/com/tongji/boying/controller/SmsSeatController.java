@@ -2,16 +2,15 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.SmsSeatParam;
+import com.tongji.boying.model.BoyingSeat;
 import com.tongji.boying.service.SmsSeatService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @Controller
 @Api(tags = "SmsSeatController", description = "后台座次管理")
@@ -31,5 +30,44 @@ public class SmsSeatController {
             return CommonResult.success(count);
         }
         return CommonResult.failed();
+    }
+
+    @ApiOperation("修改座次")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult update(@PathVariable Integer id,@Validated @RequestBody SmsSeatParam param)
+    {
+        int count = seatService.update(id,param);
+        if (count > 0)
+        {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed("要修改的座次不存在");
+    }
+
+    @ApiOperation("删除座次")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult delete(@PathVariable Integer id)
+    {
+        int count = seatService.delete(id);
+        if (count > 0)
+        {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed("要删除的座次不存在");
+    }
+
+    @ApiOperation("显示座次")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult list()
+    {
+        List<BoyingSeat> list = seatService.list();
+        if (list !=null)
+        {
+            return CommonResult.success("座次显示成功");
+        }
+        return CommonResult.failed("数据库中暂无座次");
     }
 }
