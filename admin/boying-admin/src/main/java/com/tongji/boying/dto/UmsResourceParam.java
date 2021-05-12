@@ -24,4 +24,6 @@ public class UmsResourceParam
     private String url;
     @ApiModelProperty(value = "资源描述")
     private String description;
+    @ApiModelProperty(value = "启用状态")
+    private boolean status;
 }

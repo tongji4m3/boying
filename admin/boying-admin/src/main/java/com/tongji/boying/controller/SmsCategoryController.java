@@ -39,7 +39,7 @@ public class SmsCategoryController
     @ApiOperation("修改目录启用状态")
     @RequestMapping(value = "/admin_delete/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult delete(@PathVariable Integer id)
+    public CommonResult admin_delete(@PathVariable Integer id)
     {
         System.out.println(id);
         BoyingCategory category = categoryService.getCategory(id);

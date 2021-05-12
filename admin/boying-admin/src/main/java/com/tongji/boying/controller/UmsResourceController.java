@@ -2,12 +2,15 @@ package com.tongji.boying.controller;
 
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.SmsCategoryParam;
 import com.tongji.boying.dto.UmsResourceParam;
 import com.tongji.boying.model.AdminResource;
+import com.tongji.boying.model.BoyingCategory;
 import com.tongji.boying.security.component.DynamicSecurityMetadataSource;
 import com.tongji.boying.service.UmsResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -111,5 +114,30 @@ public class UmsResourceController
     {
         List<AdminResource> resourceList = resourceService.listAll();
         return CommonResult.success(resourceList);
+    }
+
+
+    @ApiOperation("修改资源启用状态")
+    @RequestMapping(value = "/changeStatus/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult changeStatus(@PathVariable Integer id)
+    {
+        AdminResource adminResource = resourceService.getItem(id);
+        if(adminResource==null){
+            return CommonResult.failed("目录不存在!");
+        }
+        if(adminResource.getStatus()){
+            System.out.println("hellofalse");
+            adminResource.setStatus(false);
+        }else{
+            System.out.println("hellotrue");
+            adminResource.setStatus(true);
+        }
+        UmsResourceParam param=new UmsResourceParam();
+        BeanUtils.copyProperties(adminResource,param);
+        System.out.println(adminResource);
+        System.out.println(param);
+        resourceService.update(id,param);
+        return CommonResult.success("成功!");
     }
 }
