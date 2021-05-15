@@ -38,7 +38,7 @@ public class UmsMenuServiceImpl implements UmsMenuService
         AdminMenu AdminMenu = new AdminMenu();
         BeanUtils.copyProperties(param, AdminMenu);
         AdminMenu.setCreateTime(new Date());
-        AdminMenu.setStatus(true);
+//        AdminMenu.setStatus(true);
         updateLevel(AdminMenu);
         return AdminMenuMapper.insertSelective(AdminMenu);
     }
@@ -216,7 +216,7 @@ public class UmsMenuServiceImpl implements UmsMenuService
     {
         AdminMenu AdminMenu = new AdminMenu();
         AdminMenu.setId(id);
-        AdminMenu.setStatus(!hidden);
+        AdminMenu.setStatus(hidden);
         return AdminMenuMapper.updateByPrimaryKeySelective(AdminMenu);
     }
 

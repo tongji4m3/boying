@@ -15,7 +15,7 @@ public class UmsResourceParam
 {
     @ApiModelProperty(value = "该资源所属的资源分类")
     @NotNull(message = "该资源所属的资源分类不能为空")
-    private Integer resourceCategoryId;
+    private Integer categoryId;
     @ApiModelProperty(value = "资源名称")
     @NotEmpty(message = "资源名称不能为空")
     private String name;
@@ -26,4 +26,6 @@ public class UmsResourceParam
     private String description;
     @ApiModelProperty(value = "启用状态")
     private boolean status;
+    @ApiModelProperty(value = "资源显示优先级")
+    private int weight;
 }
