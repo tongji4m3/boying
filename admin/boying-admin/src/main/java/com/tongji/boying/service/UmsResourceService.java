@@ -5,6 +5,7 @@ import com.tongji.boying.dto.UmsResourceParam;
 import com.tongji.boying.model.AdminResource;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 后台资源管理Service
@@ -38,6 +39,10 @@ public interface UmsResourceService
      */
     List<AdminResource> list(Integer categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum);
 
+    /**
+     * 查询资源
+     */
+    List<AdminResource> listAdminResource(Integer categoryId);
     /**
      * 查询全部资源
      */

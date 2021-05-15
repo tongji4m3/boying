@@ -8,7 +8,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="status" jdbcType="BIT" property="status" />
     <result column="weight" jdbcType="INTEGER" property="weight" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -110,7 +110,7 @@
       url, description, status, 
       weight)
     values (#{categoryId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{url,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, 
       #{weight,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.AdminResource">
@@ -158,7 +158,7 @@
         #{description,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        #{status,jdbcType=INTEGER},
+        #{status,jdbcType=BIT},
       </if>
       <if test="weight != null">
         #{weight,jdbcType=INTEGER},
@@ -193,7 +193,7 @@
         description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
+        status = #{record.status,jdbcType=BIT},
       </if>
       <if test="record.weight != null">
         weight = #{record.weight,jdbcType=INTEGER},
@@ -211,7 +211,7 @@
       name = #{record.name,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=BIT},
       weight = #{record.weight,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -236,7 +236,7 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+        status = #{status,jdbcType=BIT},
       </if>
       <if test="weight != null">
         weight = #{weight,jdbcType=INTEGER},
@@ -251,7 +251,7 @@
       name = #{name,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
+      status = #{status,jdbcType=BIT},
       weight = #{weight,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

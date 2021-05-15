@@ -25,6 +25,7 @@ public class UmsCategoryController
     @Autowired
     private UmsCategoryService resourceCategoryService;
 
+
     @ApiOperation("查询所有后台资源分类")
     @RequestMapping(value = "/listAll", method = RequestMethod.POST)
     @ResponseBody

@@ -184,6 +184,27 @@ public class UmsMenuServiceImpl implements UmsMenuService
     }
 
     @Override
+    public Map<String, List<AdminMenu>> categoryMap2()
+    {
+        //用LinkedHashMap保持插入顺序,保证最后结果的权重
+        Map<String, List<AdminMenu>> map = new LinkedHashMap<>();
+        AdminMenuExample example = new AdminMenuExample();
+        example.createCriteria().andParentIdEqualTo(0);
+        example.setOrderByClause("weight desc");
+        List<AdminMenu> parents = AdminMenuMapper.selectByExample(example);
+        for (AdminMenu parent : parents)
+        {
+            AdminMenuExample AdminMenuExample = new AdminMenuExample();
+            AdminMenuExample.setOrderByClause("weight desc");
+            AdminMenuExample.createCriteria().andParentIdEqualTo(parent.getId());
+            if(AdminMenuMapper.selectByExample(AdminMenuExample).size()!=0){
+                map.put(parent.getTitle(), AdminMenuMapper.selectByExample(AdminMenuExample));
+            }
+        }
+        return map;
+    }
+
+    @Override
     public Map<AdminMenu, List<AdminMenu>> categoryMap(Integer adminId)
     {
         //用LinkedHashMap保持插入顺序,保证最后结果的权重

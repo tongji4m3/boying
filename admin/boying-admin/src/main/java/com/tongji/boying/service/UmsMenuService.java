@@ -47,6 +47,12 @@ public interface UmsMenuService
      */
     Map<AdminMenu, List<AdminMenu>> categoryMap();
 
+    /**
+     * 树形结构返回所有菜单列表2
+     *
+     * @return
+     */
+    Map<String, List<AdminMenu>> categoryMap2();
 
     /**
      * 树形结构返回某个用户的所有菜单列表,不包括隐藏的,sort为0的

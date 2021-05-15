@@ -874,6 +874,66 @@ public class BoyingShowExample {
             addCriterion("max_price not between", value1, value2, "maxPrice");
             return (Criteria) this;
         }
+
+        public Criteria andAdminDeleteIsNull() {
+            addCriterion("admin_delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteIsNotNull() {
+            addCriterion("admin_delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteEqualTo(Byte value) {
+            addCriterion("admin_delete =", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteNotEqualTo(Byte value) {
+            addCriterion("admin_delete <>", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteGreaterThan(Byte value) {
+            addCriterion("admin_delete >", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteGreaterThanOrEqualTo(Byte value) {
+            addCriterion("admin_delete >=", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteLessThan(Byte value) {
+            addCriterion("admin_delete <", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteLessThanOrEqualTo(Byte value) {
+            addCriterion("admin_delete <=", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteIn(List<Byte> values) {
+            addCriterion("admin_delete in", values, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteNotIn(List<Byte> values) {
+            addCriterion("admin_delete not in", values, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteBetween(Byte value1, Byte value2) {
+            addCriterion("admin_delete between", value1, value2, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteNotBetween(Byte value1, Byte value2) {
+            addCriterion("admin_delete not between", value1, value2, "adminDelete");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

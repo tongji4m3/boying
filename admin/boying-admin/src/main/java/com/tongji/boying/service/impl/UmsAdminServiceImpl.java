@@ -233,9 +233,11 @@ public class UmsAdminServiceImpl implements UmsAdminService
             Asserts.fail("某些分配的角色Id不合法!");
         }
 
+        System.out.println("123");
         //建立新关系
         if (!CollectionUtils.isEmpty(roleIds))
         {
+
             List<AdminUserRole> list = new ArrayList<>();
             for (Integer roleId : roleIds)
             {
@@ -249,7 +251,9 @@ public class UmsAdminServiceImpl implements UmsAdminService
                 AdminRole.setAdminCount(adminRoleMapper.selectByPrimaryKey(roleId).getAdminCount()+1);
                 adminRoleMapper.updateByPrimaryKeySelective(AdminRole);
             }
+            System.out.println("456");
             adminRoleDao.insertList(list);
+            System.out.println("789");
         }
         adminCacheService.delResourceList(userId);
         return count;

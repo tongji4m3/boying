@@ -70,7 +70,7 @@ public interface UmsAdminService
      * 修改管理员角色关系
      */
     @Transactional
-    int updateRole(Integer adminId, List<Integer> roleIds);
+    int updateRole(Integer userId, List<Integer> roleIds);
 
     /**
      * 获取管理员对应角色

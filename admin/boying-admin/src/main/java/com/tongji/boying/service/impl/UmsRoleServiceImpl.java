@@ -163,12 +163,12 @@ public class UmsRoleServiceImpl implements UmsRoleService
 //            说明有些menuId不存在
             Asserts.fail("列表中某些menuId不存在!");
         }
-
+        System.out.println(menuIds);
         //批量插入新关系
         for (Integer menuId : menuIds)
         {
             AdminRoleMenu relation = new AdminRoleMenu();
-            relation.setId(roleId);
+            relation.setRoleId(roleId);
             relation.setMenuId(menuId);
             AdminRoleMenuMapper.insert(relation);
         }
@@ -198,7 +198,7 @@ public class UmsRoleServiceImpl implements UmsRoleService
         for (Integer resourceId : resourceIds)
         {
             AdminRoleResource relation = new AdminRoleResource();
-            relation.setId(roleId);
+            relation.setRoleId(roleId);
             relation.setResourceId(resourceId);
             roleResourceRelationMapper.insert(relation);
         }

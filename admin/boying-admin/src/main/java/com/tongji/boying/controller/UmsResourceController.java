@@ -1,12 +1,13 @@
 package com.tongji.boying.controller;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.SmsCategoryParam;
 import com.tongji.boying.dto.UmsResourceParam;
-import com.tongji.boying.model.AdminResource;
-import com.tongji.boying.model.BoyingCategory;
+import com.tongji.boying.model.*;
 import com.tongji.boying.security.component.DynamicSecurityMetadataSource;
+import com.tongji.boying.service.UmsCategoryService;
 import com.tongji.boying.service.UmsResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,7 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 后台资源管理Controller
@@ -31,6 +34,8 @@ public class UmsResourceController
     private UmsResourceService resourceService;
     @Autowired
     private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
+    @Autowired
+    private UmsCategoryService resourceCategoryService;
 
     @ApiOperation("添加后台资源")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -139,5 +144,22 @@ public class UmsResourceController
         System.out.println(param);
         resourceService.update(id,param);
         return CommonResult.success("成功!");
+    }
+
+    @ApiOperation("树形结构返回所有后台资源列表")
+    @RequestMapping(value = "/treeList", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<Map<String, List<AdminResource>>> treeList()
+    {
+        List<AdminCategory> resourceCategories = resourceCategoryService.listAll();
+        Map<String, List<AdminResource>> res= new LinkedHashMap<>();
+        for (AdminCategory category : resourceCategories)
+        {
+            List<AdminResource> listAdminResource=resourceService.listAdminResource(category.getId());
+            if(listAdminResource.size()!=0){
+                res.put(category.getName(), listAdminResource);
+            }
+        }
+        return CommonResult.success(res);
     }
 }

@@ -23,7 +23,7 @@ public class AdminResource implements Serializable {
     private String description;
 
     @ApiModelProperty(value = "资源启用状态：0->禁用；1->启用")
-    private boolean status;
+    private Boolean status;
 
     @ApiModelProperty(value = "资源显示优先级")
     private Integer weight;
@@ -78,11 +78,11 @@ public class AdminResource implements Serializable {
         this.description = description;
     }
 
-    public boolean getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

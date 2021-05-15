@@ -5,6 +5,8 @@ import com.sun.org.apache.bcel.internal.generic.ACONST_NULL;
 import com.sun.org.apache.bcel.internal.generic.DCONST;
 import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.UmsAllocMenuParam;
+import com.tongji.boying.dto.UmsAllocResourceParam;
 import com.tongji.boying.dto.UmsRoleParam;
 import com.tongji.boying.model.AdminMenu;
 import com.tongji.boying.model.AdminResource;
@@ -12,6 +14,7 @@ import com.tongji.boying.model.AdminRole;
 import com.tongji.boying.service.UmsRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -88,7 +91,7 @@ public class UmsRoleController
     public CommonResult<List<AdminRole>> listAll()
     {
         List<AdminRole> roleList = roleService.list();
-        if(ObjectUtil.isEmpty(roleList)) return CommonResult.failed("无角色!");
+        if (ObjectUtil.isEmpty(roleList)) return CommonResult.failed("无角色!");
         return CommonResult.success(roleList);
     }
 
@@ -96,11 +99,11 @@ public class UmsRoleController
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<AdminRole>> list(@RequestParam(value = "keyword", required = false) String keyword,
-                                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                               @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum)
+                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum)
     {
         List<AdminRole> roleList = roleService.list(keyword, pageSize, pageNum);
-        if(ObjectUtil.isEmpty(roleList)) return CommonResult.failed("无角色!");
+        if (ObjectUtil.isEmpty(roleList)) return CommonResult.failed("无角色!");
         return CommonResult.success(CommonPage.restPage(roleList));
     }
 
@@ -135,11 +138,14 @@ public class UmsRoleController
         return CommonResult.success(roleList);
     }
 
+
     @ApiOperation("给角色分配菜单")
     @RequestMapping(value = "/allocMenu", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult allocMenu(@RequestParam Integer roleId, @RequestParam List<Integer> menuIds)
+    public CommonResult allocMenu(@RequestBody UmsAllocMenuParam umsAllocMenuParam)
     {
+        Integer roleId=umsAllocMenuParam.getRoleId();
+        List<Integer> menuIds=umsAllocMenuParam.getMenuIds();
         int count = roleService.allocMenu(roleId, menuIds);
         return CommonResult.success(count);
     }
@@ -147,8 +153,10 @@ public class UmsRoleController
     @ApiOperation("给角色分配资源")
     @RequestMapping(value = "/allocResource", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult allocResource(@RequestParam Integer roleId, @RequestParam List<Integer> resourceIds)
+    public CommonResult allocResource(@RequestBody UmsAllocResourceParam umsAllocResourceParam)
     {
+        Integer roleId=umsAllocResourceParam.getRoleId();
+        List<Integer> resourceIds=umsAllocResourceParam.getResourceIds();
         int count = roleService.allocResource(roleId, resourceIds);
         return CommonResult.success(count);
     }

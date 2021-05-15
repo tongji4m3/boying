@@ -5,7 +5,7 @@
     <insert id="insertList">
         INSERT INTO admin_user_role (user_id, role_id) VALUES
         <foreach collection="list" separator="," item="item" index="index">
-            (#{item.adminId,jdbcType=INTEGER},
+            (#{item.userId,jdbcType=INTEGER},
             #{item.roleId,jdbcType=INTEGER})
         </foreach>
     </insert>

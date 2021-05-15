@@ -4,6 +4,7 @@ import com.tongji.boying.common.api.CommonPage;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.UmsAdminInfoParam;
 import com.tongji.boying.dto.UmsAdminRegisterParam;
+import com.tongji.boying.dto.UmsAllocRoleParam;
 import com.tongji.boying.model.AdminUser;
 import com.tongji.boying.model.AdminRole;
 import com.tongji.boying.service.UmsAdminService;
@@ -61,7 +62,7 @@ public class UmsAdminController
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<AdminUser>> list(@RequestParam(value = "keyword", required = false) String keyword,
-                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                                @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
                                                 @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum)
     {
 //        pageNum为页数，pageSize为一个页面显示几条数据
@@ -154,10 +155,11 @@ public class UmsAdminController
     @ApiOperation("给管理员分配角色")
     @RequestMapping(value = "/AdminRole/update", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updateRole(@RequestParam("adminId") Integer adminId,
-                                   @RequestParam("roleIds") List<Integer> roleIds)
+    public CommonResult updateRole(@RequestBody UmsAllocRoleParam umsAllocRoleParam)
     {
-        int count = adminService.updateRole(adminId, roleIds);
+        Integer userId=umsAllocRoleParam.getUserId();
+        List<Integer> roleIds=umsAllocRoleParam.getRoleIds();
+        int count = adminService.updateRole(userId, roleIds);
         if (count >= 0)
         {
             return CommonResult.success(count);

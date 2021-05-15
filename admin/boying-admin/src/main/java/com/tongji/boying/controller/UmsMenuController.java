@@ -110,6 +110,17 @@ public class UmsMenuController
         return CommonResult.success(map);
     }
 
+
+    @ApiOperation("树形结构返回所有菜单列表2")
+    @RequestMapping(value = "/treeList2", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<Map<String, List<AdminMenu>>> treeList2()
+    {
+        Map<String, List<AdminMenu>> map = menuService.categoryMap2();
+        if(ObjectUtil.isEmpty(map)) return CommonResult.failed("无菜单信息");
+        return CommonResult.success(map);
+    }
+
     @ApiOperation("修改菜单显示状态")
     @RequestMapping(value = "/updateHidden/{id}", method = RequestMethod.POST)
     @ResponseBody

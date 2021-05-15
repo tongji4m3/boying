@@ -4,9 +4,7 @@ import com.tongji.boying.model.AdminUser;
 import com.tongji.boying.model.AdminUserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface AdminUserMapper {
     long countByExample(AdminUserExample example);
 

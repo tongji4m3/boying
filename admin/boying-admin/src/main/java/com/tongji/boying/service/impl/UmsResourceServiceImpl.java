@@ -7,6 +7,8 @@ import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.UmsResourceParam;
 import com.tongji.boying.mapper.AdminCategoryMapper;
 import com.tongji.boying.mapper.AdminResourceMapper;
+import com.tongji.boying.model.AdminMenu;
+import com.tongji.boying.model.AdminMenuExample;
 import com.tongji.boying.model.AdminResource;
 import com.tongji.boying.model.AdminResourceExample;
 import com.tongji.boying.service.UmsAdminCacheService;
@@ -16,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 后台资源管理Service实现类
@@ -115,8 +119,21 @@ public class UmsResourceServiceImpl implements UmsResourceService
     }
 
     @Override
+    public List<AdminResource> listAdminResource(Integer categoryId)
+    {
+        AdminResourceExample example = new AdminResourceExample();
+        AdminResourceExample.Criteria criteria = example.createCriteria();
+        if (categoryId != null)
+        {
+            criteria.andCategoryIdEqualTo(categoryId);
+        }
+        return AdminResourceMapper.selectByExample(example);
+    }
+
+    @Override
     public List<AdminResource> listAll()
     {
         return AdminResourceMapper.selectByExample(new AdminResourceExample());
     }
+
 }

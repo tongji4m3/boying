@@ -14,6 +14,7 @@
     <result column="weight" jdbcType="INTEGER" property="weight" />
     <result column="min_price" jdbcType="DOUBLE" property="minPrice" />
     <result column="max_price" jdbcType="DOUBLE" property="maxPrice" />
+    <result column="admin_delete" jdbcType="TINYINT" property="adminDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, category_id, name, poster, details, city, address, start_time, end_time, weight, 
-    min_price, max_price
+    min_price, max_price, admin_delete
   </sql>
   <select id="selectByExample" parameterType="com.tongji.boying.model.BoyingShowExample" resultMap="BaseResultMap">
     select
@@ -114,11 +115,13 @@
     insert into boying_show (category_id, name, poster, 
       details, city, address, 
       start_time, end_time, weight, 
-      min_price, max_price)
+      min_price, max_price, admin_delete
+      )
     values (#{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{poster,jdbcType=VARCHAR}, 
       #{details,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{weight,jdbcType=INTEGER}, 
-      #{minPrice,jdbcType=DOUBLE}, #{maxPrice,jdbcType=DOUBLE})
+      #{minPrice,jdbcType=DOUBLE}, #{maxPrice,jdbcType=DOUBLE}, #{adminDelete,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingShow">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -159,6 +162,9 @@
       <if test="maxPrice != null">
         max_price,
       </if>
+      <if test="adminDelete != null">
+        admin_delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="categoryId != null">
@@ -193,6 +199,9 @@
       </if>
       <if test="maxPrice != null">
         #{maxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="adminDelete != null">
+        #{adminDelete,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -241,6 +250,9 @@
       <if test="record.maxPrice != null">
         max_price = #{record.maxPrice,jdbcType=DOUBLE},
       </if>
+      <if test="record.adminDelete != null">
+        admin_delete = #{record.adminDelete,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -259,7 +271,8 @@
       end_time = #{record.endTime,jdbcType=TIMESTAMP},
       weight = #{record.weight,jdbcType=INTEGER},
       min_price = #{record.minPrice,jdbcType=DOUBLE},
-      max_price = #{record.maxPrice,jdbcType=DOUBLE}
+      max_price = #{record.maxPrice,jdbcType=DOUBLE},
+      admin_delete = #{record.adminDelete,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -300,6 +313,9 @@
       <if test="maxPrice != null">
         max_price = #{maxPrice,jdbcType=DOUBLE},
       </if>
+      <if test="adminDelete != null">
+        admin_delete = #{adminDelete,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -315,7 +331,8 @@
       end_time = #{endTime,jdbcType=TIMESTAMP},
       weight = #{weight,jdbcType=INTEGER},
       min_price = #{minPrice,jdbcType=DOUBLE},
-      max_price = #{maxPrice,jdbcType=DOUBLE}
+      max_price = #{maxPrice,jdbcType=DOUBLE},
+      admin_delete = #{adminDelete,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

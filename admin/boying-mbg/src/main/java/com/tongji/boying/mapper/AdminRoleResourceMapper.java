@@ -4,9 +4,7 @@ import com.tongji.boying.model.AdminRoleResource;
 import com.tongji.boying.model.AdminRoleResourceExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface AdminRoleResourceMapper {
     long countByExample(AdminRoleResourceExample example);
 
