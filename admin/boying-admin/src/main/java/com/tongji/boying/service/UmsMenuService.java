@@ -53,7 +53,7 @@ public interface UmsMenuService
      *
      * @return
      */
-    Map<AdminMenu, List<AdminMenu>> categoryMap(Integer adminId);
+    Map<String, List<AdminMenu>> categoryMap(Integer adminId);
     /**
      * 修改菜单显示状态
      */

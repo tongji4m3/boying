@@ -14,6 +14,10 @@
     <result column="weight" jdbcType="INTEGER" property="weight" />
     <result column="min_price" jdbcType="DOUBLE" property="minPrice" />
     <result column="max_price" jdbcType="DOUBLE" property="maxPrice" />
+<<<<<<< Updated upstream
+=======
+    <result column="admin_delete" jdbcType="BIT" property="adminDelete" />
+>>>>>>> Stashed changes
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -118,7 +122,12 @@
     values (#{categoryId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{poster,jdbcType=VARCHAR}, 
       #{details,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{weight,jdbcType=INTEGER}, 
+<<<<<<< Updated upstream
       #{minPrice,jdbcType=DOUBLE}, #{maxPrice,jdbcType=DOUBLE})
+=======
+      #{minPrice,jdbcType=DOUBLE}, #{maxPrice,jdbcType=DOUBLE}, #{adminDelete,jdbcType=BIT}
+      )
+>>>>>>> Stashed changes
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingShow">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -194,6 +203,12 @@
       <if test="maxPrice != null">
         #{maxPrice,jdbcType=DOUBLE},
       </if>
+<<<<<<< Updated upstream
+=======
+      <if test="adminDelete != null">
+        #{adminDelete,jdbcType=BIT},
+      </if>
+>>>>>>> Stashed changes
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.tongji.boying.model.BoyingShowExample" resultType="java.lang.Long">
@@ -241,6 +256,12 @@
       <if test="record.maxPrice != null">
         max_price = #{record.maxPrice,jdbcType=DOUBLE},
       </if>
+<<<<<<< Updated upstream
+=======
+      <if test="record.adminDelete != null">
+        admin_delete = #{record.adminDelete,jdbcType=BIT},
+      </if>
+>>>>>>> Stashed changes
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -259,7 +280,12 @@
       end_time = #{record.endTime,jdbcType=TIMESTAMP},
       weight = #{record.weight,jdbcType=INTEGER},
       min_price = #{record.minPrice,jdbcType=DOUBLE},
+<<<<<<< Updated upstream
       max_price = #{record.maxPrice,jdbcType=DOUBLE}
+=======
+      max_price = #{record.maxPrice,jdbcType=DOUBLE},
+      admin_delete = #{record.adminDelete,jdbcType=BIT}
+>>>>>>> Stashed changes
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -300,6 +326,12 @@
       <if test="maxPrice != null">
         max_price = #{maxPrice,jdbcType=DOUBLE},
       </if>
+<<<<<<< Updated upstream
+=======
+      <if test="adminDelete != null">
+        admin_delete = #{adminDelete,jdbcType=BIT},
+      </if>
+>>>>>>> Stashed changes
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -315,7 +347,12 @@
       end_time = #{endTime,jdbcType=TIMESTAMP},
       weight = #{weight,jdbcType=INTEGER},
       min_price = #{minPrice,jdbcType=DOUBLE},
+<<<<<<< Updated upstream
       max_price = #{maxPrice,jdbcType=DOUBLE}
+=======
+      max_price = #{maxPrice,jdbcType=DOUBLE},
+      admin_delete = #{adminDelete,jdbcType=BIT}
+>>>>>>> Stashed changes
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

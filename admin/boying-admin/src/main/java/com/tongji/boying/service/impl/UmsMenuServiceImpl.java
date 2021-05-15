@@ -184,10 +184,35 @@ public class UmsMenuServiceImpl implements UmsMenuService
     }
 
     @Override
+<<<<<<< Updated upstream
     public Map<AdminMenu, List<AdminMenu>> categoryMap(Integer adminId)
+=======
+    public Map<String, List<AdminMenu>> categoryMap2()
     {
         //用LinkedHashMap保持插入顺序,保证最后结果的权重
-        Map<AdminMenu, List<AdminMenu>> map = new LinkedHashMap<>();
+        Map<String, List<AdminMenu>> map = new LinkedHashMap<>();
+        AdminMenuExample example = new AdminMenuExample();
+        example.createCriteria().andParentIdEqualTo(0);
+        example.setOrderByClause("weight desc");
+        List<AdminMenu> parents = AdminMenuMapper.selectByExample(example);
+        for (AdminMenu parent : parents)
+        {
+            AdminMenuExample AdminMenuExample = new AdminMenuExample();
+            AdminMenuExample.setOrderByClause("weight desc");
+            AdminMenuExample.createCriteria().andParentIdEqualTo(parent.getId());
+            if(AdminMenuMapper.selectByExample(AdminMenuExample).size()!=0){
+                map.put(parent.getTitle(), AdminMenuMapper.selectByExample(AdminMenuExample));
+            }
+        }
+        return map;
+    }
+
+    @Override
+    public Map<String, List<AdminMenu>> categoryMap(Integer adminId)
+>>>>>>> Stashed changes
+    {
+        //用LinkedHashMap保持插入顺序,保证最后结果的权重
+        Map<String, List<AdminMenu>> map = new LinkedHashMap<>();
 
         //管理员Id对应的所有菜单信息,其中role必须有效
         List<AdminMenu> menuList = roleDao.getMenuList(adminId);
@@ -205,7 +230,7 @@ public class UmsMenuServiceImpl implements UmsMenuService
                     filter(AdminMenu -> AdminMenu.getParentId().equals(parent.getId()) && AdminMenu.getStatus())
                     .sorted((menu1,menu2)->{return menu2.getWeight()-menu1.getWeight();}).
                             collect(Collectors.toList());
-            map.put(parent, sons);
+            map.put(parent.getTitle(), sons);
         }
         return map;
     }

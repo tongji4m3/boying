@@ -874,6 +874,69 @@ public class BoyingShowExample {
             addCriterion("max_price not between", value1, value2, "maxPrice");
             return (Criteria) this;
         }
+<<<<<<< Updated upstream
+=======
+
+        public Criteria andAdminDeleteIsNull() {
+            addCriterion("admin_delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteIsNotNull() {
+            addCriterion("admin_delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteEqualTo(Boolean value) {
+            addCriterion("admin_delete =", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteNotEqualTo(Boolean value) {
+            addCriterion("admin_delete <>", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteGreaterThan(Boolean value) {
+            addCriterion("admin_delete >", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("admin_delete >=", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteLessThan(Boolean value) {
+            addCriterion("admin_delete <", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteLessThanOrEqualTo(Boolean value) {
+            addCriterion("admin_delete <=", value, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteIn(List<Boolean> values) {
+            addCriterion("admin_delete in", values, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteNotIn(List<Boolean> values) {
+            addCriterion("admin_delete not in", values, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteBetween(Boolean value1, Boolean value2) {
+            addCriterion("admin_delete between", value1, value2, "adminDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andAdminDeleteNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("admin_delete not between", value1, value2, "adminDelete");
+            return (Criteria) this;
+        }
+>>>>>>> Stashed changes
     }
 
     public static class Criteria extends GeneratedCriteria {

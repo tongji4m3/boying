@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.SmsShowParam;
 import com.tongji.boying.mapper.BoyingShowMapper;
+import com.tongji.boying.model.AdminMenu;
 import com.tongji.boying.model.BoyingShow;
 import com.tongji.boying.model.BoyingShowExample;
 //import com.tongji.boying.model.Role;
@@ -69,11 +70,20 @@ public class SmsShowServiceImpl implements SmsShowService
         return boyingShowMapper.deleteByExample(example);
     }
 
-//    @Override
-//    public int delete(Integer id)
-//    {
-//        return boyingShowMapper.deleteByPrimaryKey(id);
-//    }
+    @Override
+    public int delete(Integer id)
+    {
+        return boyingShowMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateStatus(Integer id, Boolean status)
+    {
+        BoyingShow boyingShow = new BoyingShow();
+        boyingShow.setId(id);
+        boyingShow.setAdminDelete(status);
+        return boyingShowMapper.updateByPrimaryKeySelective(boyingShow);
+    }
 
     private void checkBoyingShowParam(SmsShowParam param, Integer id)
     {

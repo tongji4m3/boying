@@ -37,6 +37,12 @@ public class BoyingShow implements Serializable {
 
     private Double maxPrice;
 
+<<<<<<< Updated upstream
+=======
+    @ApiModelProperty(value = "管理员是否删除该演出，默认0，即不删除")
+    private Boolean adminDelete;
+
+>>>>>>> Stashed changes
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -135,6 +141,17 @@ public class BoyingShow implements Serializable {
         this.maxPrice = maxPrice;
     }
 
+<<<<<<< Updated upstream
+=======
+    public Boolean getAdminDelete() {
+        return adminDelete;
+    }
+
+    public void setAdminDelete(Boolean adminDelete) {
+        this.adminDelete = adminDelete;
+    }
+
+>>>>>>> Stashed changes
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

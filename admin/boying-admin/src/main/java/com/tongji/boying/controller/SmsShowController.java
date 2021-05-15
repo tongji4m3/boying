@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.dto.SmsShowParam;
 //import com.tongji.boying.dto.UmsRoleParam;
+import com.tongji.boying.dto.UmsAdminInfoParam;
 import com.tongji.boying.model.BoyingCategory;
 import com.tongji.boying.model.BoyingShow;
 //import com.tongji.boying.model.Role;
@@ -49,6 +50,20 @@ public class SmsShowController
         return CommonResult.success(boyingShow);
     }
 
+    @ApiOperation("删除某个演出")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<Integer> deleteShow(@PathVariable Integer id)
+    {
+        int res = showService.delete(id);
+        if (res > 0)
+        {
+            return CommonResult.success(res);
+
+        }
+        return CommonResult.failed("删除失败");
+    }
+
     @ApiOperation("添加演出")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
@@ -75,18 +90,7 @@ public class SmsShowController
         return CommonResult.failed("要修改的演出不存在!");
     }
 
-//    @ApiOperation("删除演出")
-//    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-//    @ResponseBody
-//    public CommonResult delete(@PathVariable Integer id)
-//    {
-//        int count = showService.delete(id);
-//        if (count > 0)
-//        {
-//            return CommonResult.success(count);
-//        }
-//        return CommonResult.failed("要删除的演出不存在!");
-//    }
+
 
     @ApiOperation("批量删除演出")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -94,6 +98,20 @@ public class SmsShowController
     public CommonResult delete(@RequestParam("ids") List<Integer> ids)
     {
         int count = showService.delete(ids);
+        if (count > 0)
+        {
+            return CommonResult.success(count);
+        }
+        return CommonResult.failed();
+    }
+
+    @ApiOperation("删除演出(修改演出admin_delete状态为true)")
+    @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult updateStatus(@PathVariable Integer id)
+    {
+
+        int count = showService.updateStatus(id, true);
         if (count > 0)
         {
             return CommonResult.success(count);
