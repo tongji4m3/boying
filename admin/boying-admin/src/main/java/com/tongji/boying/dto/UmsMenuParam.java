@@ -31,5 +31,5 @@ public class UmsMenuParam
     private String icon;
 
     @ApiModelProperty(value = "控制前端是否隐藏")
-    private Boolean hidden;
+    private Boolean status;
 }

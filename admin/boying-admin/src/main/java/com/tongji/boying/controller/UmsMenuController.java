@@ -115,6 +115,7 @@ public class UmsMenuController
     @ResponseBody
     public CommonResult updateHidden(@PathVariable Integer id, @RequestParam("hidden") Boolean hidden)
     {
+        System.out.println("hiddenhidden"+hidden);
         int count = menuService.updateHidden(id, hidden);
         if (count > 0)
         {
