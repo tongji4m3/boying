@@ -113,7 +113,7 @@ public class UmsLoginController
             return CommonResult.unauthorized(null);
         }
         AdminUser currentAdmin = adminService.getCurrentAdmin();
-        Map<AdminMenu, List<AdminMenu>> data = menuService.categoryMap(currentAdmin.getId());
+        Map<String, List<AdminMenu>> data = menuService.categoryMap(currentAdmin.getId());
         if (CollUtil.isEmpty(data))
         {
             Asserts.fail("当前登录管理员的菜单为空!");

@@ -45,11 +45,15 @@ public interface SmsShowService
      */
     int delete(List<Integer> ids);
 
-//    /**
-//     * 删除演出
-//     */
-//    int delete(Integer id);
+    /**
+     * 删除演出
+     */
+    int delete(Integer id);
 
+    /**
+     * 修改演出显示状态
+     */
+    int updateStatus(Integer id, Boolean status);
 
 }
 
