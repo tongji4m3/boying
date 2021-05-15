@@ -184,9 +184,6 @@ public class UmsMenuServiceImpl implements UmsMenuService
     }
 
     @Override
-<<<<<<< Updated upstream
-    public Map<AdminMenu, List<AdminMenu>> categoryMap(Integer adminId)
-=======
     public Map<String, List<AdminMenu>> categoryMap2()
     {
         //用LinkedHashMap保持插入顺序,保证最后结果的权重
@@ -209,7 +206,6 @@ public class UmsMenuServiceImpl implements UmsMenuService
 
     @Override
     public Map<String, List<AdminMenu>> categoryMap(Integer adminId)
->>>>>>> Stashed changes
     {
         //用LinkedHashMap保持插入顺序,保证最后结果的权重
         Map<String, List<AdminMenu>> map = new LinkedHashMap<>();

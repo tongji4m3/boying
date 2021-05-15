@@ -874,8 +874,6 @@ public class BoyingShowExample {
             addCriterion("max_price not between", value1, value2, "maxPrice");
             return (Criteria) this;
         }
-<<<<<<< Updated upstream
-=======
 
         public Criteria andAdminDeleteIsNull() {
             addCriterion("admin_delete is null");
@@ -936,7 +934,6 @@ public class BoyingShowExample {
             addCriterion("admin_delete not between", value1, value2, "adminDelete");
             return (Criteria) this;
         }
->>>>>>> Stashed changes
     }
 
     public static class Criteria extends GeneratedCriteria {
