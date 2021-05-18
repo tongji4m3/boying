@@ -209,7 +209,7 @@ public class UmsMenuServiceImpl implements UmsMenuService
     {
         //用LinkedHashMap保持插入顺序,保证最后结果的权重
         Map<String, List<AdminMenu>> map = new LinkedHashMap<>();
-
+        System.out.println(adminId);
         //管理员Id对应的所有菜单信息,其中role必须有效
         List<AdminMenu> menuList = roleDao.getMenuList(adminId);
         //先获取父级可用菜单 并排序
@@ -218,9 +218,12 @@ public class UmsMenuServiceImpl implements UmsMenuService
                 .sorted((menu1,menu2)->{return menu2.getWeight()-menu1.getWeight();}).
         collect(Collectors.toList());
 
+
+
         //对每个父级菜单
         for (AdminMenu parent : parents)
         {
+            System.out.println(parent.getTitle());
             //获取该父级菜单的子菜单
             List<AdminMenu> sons = menuList.stream().
                     filter(AdminMenu -> AdminMenu.getParentId().equals(parent.getId()) && AdminMenu.getStatus())

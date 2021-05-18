@@ -3,6 +3,7 @@ package com.tongji.boying.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
+import com.tongji.boying.common.api.CommonResult;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dao.UmsAdminRoleDao;
 import com.tongji.boying.dao.UmsRoleDao;
@@ -11,12 +12,15 @@ import com.tongji.boying.mapper.*;
 import com.tongji.boying.model.*;
 import com.tongji.boying.service.UmsAdminCacheService;
 import com.tongji.boying.service.UmsRoleService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -154,7 +158,10 @@ public class UmsRoleServiceImpl implements UmsRoleService
         AdminRoleMenuExample example = new AdminRoleMenuExample();
         example.createCriteria().andRoleIdEqualTo(roleId);
         AdminRoleMenuMapper.deleteByExample(example);
-
+        if(menuIds.size()==0)
+        {
+            return 0;
+        }
         AdminMenuExample AdminMenuExample = new AdminMenuExample();
         AdminMenuExample.createCriteria().andIdIn(menuIds);
         List<AdminMenu> menus = AdminMenuMapper.selectByExample(AdminMenuExample);
@@ -165,14 +172,30 @@ public class UmsRoleServiceImpl implements UmsRoleService
         }
         System.out.println(menuIds);
         //批量插入新关系
+
+        LinkedHashSet<Integer> set = new LinkedHashSet<Integer>();
+        List<Integer> parentList=new ArrayList<>();
+
         for (Integer menuId : menuIds)
+        {
+            AdminMenu adminMenu = AdminMenuMapper.selectByPrimaryKey(menuId);
+            parentList.add(adminMenu.getParentId());
+            AdminRoleMenu relation = new AdminRoleMenu();
+            relation.setRoleId(roleId);
+            relation.setMenuId(menuId);
+            AdminRoleMenuMapper.insert(relation);
+        }
+        set.addAll(parentList);
+        parentList.clear();
+        parentList.addAll(set);
+        for (Integer menuId : parentList)
         {
             AdminRoleMenu relation = new AdminRoleMenu();
             relation.setRoleId(roleId);
             relation.setMenuId(menuId);
             AdminRoleMenuMapper.insert(relation);
         }
-        return menuIds.size();
+        return menuIds.size()+parentList.size();
     }
 
     @Override
