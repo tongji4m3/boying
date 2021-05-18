@@ -53,7 +53,7 @@ public class UmsRoleServiceImpl implements UmsRoleService
         BeanUtils.copyProperties(param, AdminRole);
         AdminRole.setCreateTime(new Date());
         AdminRole.setAdminCount(0);
-        AdminRole.setStatus(true);
+//        AdminRole.setStatus(true);
         return AdminRoleMapper.insertSelective(AdminRole);
     }
 
