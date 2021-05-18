@@ -2,11 +2,14 @@ package com.tongji.boying.controller;
 
 import cn.hutool.core.collection.CollUtil;
 import com.tongji.boying.common.api.CommonResult;
+import com.tongji.boying.dto.SmsCategoryParam;
 import com.tongji.boying.dto.UmsResourceCategoryParam;
 import com.tongji.boying.model.AdminCategory;
+import com.tongji.boying.model.BoyingCategory;
 import com.tongji.boying.service.UmsCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -44,6 +47,7 @@ public class UmsCategoryController
     @ResponseBody
     public CommonResult create(@Validated @RequestBody UmsResourceCategoryParam param)
     {
+        System.out.println(param);
         int count = resourceCategoryService.create(param);
         if (count > 0)
         {
@@ -86,6 +90,31 @@ public class UmsCategoryController
         {
             return CommonResult.failed("要删除的后台资源分类不存在!");
         }
+    }
+
+    @ApiOperation("修改目录启用状态")
+    @RequestMapping(value = "/changeStatus/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult changeStatus(@PathVariable Integer id)
+    {
+        System.out.println(id);
+        AdminCategory  adminCategory = resourceCategoryService.getItem(id);
+        if(adminCategory==null){
+            return CommonResult.failed("目录不存在!");
+        }
+        if(adminCategory.getStatus()==1){
+            System.out.println("false");
+            adminCategory.setStatus(0);
+        }else{
+            System.out.println("true");
+            adminCategory.setStatus(1);
+        }
+        UmsResourceCategoryParam param=new UmsResourceCategoryParam();
+        BeanUtils.copyProperties(adminCategory,param);
+        System.out.println(adminCategory);
+        System.out.println(param);
+        resourceCategoryService.update(id,param);
+        return CommonResult.success("成功!");
     }
 
     @ApiOperation("根据ID获取资源详情")

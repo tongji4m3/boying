@@ -17,5 +17,7 @@ public class UmsResourceCategoryParam
     @NotEmpty(message = "资源分类名称不能为空")
     private String name;
     @ApiModelProperty(value = "该资源分类排序级别", required = true)
-    private Integer sort;
+    private Integer weight;
+    @ApiModelProperty(value = "status", required = true)
+    private Integer status;
 }
