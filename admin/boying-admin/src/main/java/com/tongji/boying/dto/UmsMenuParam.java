@@ -22,7 +22,7 @@ public class UmsMenuParam
     private String title;
 
     @ApiModelProperty(value = "菜单排序")
-    private Integer sort;
+    private Integer weight;
 
     @ApiModelProperty(value = "前端名称")
     private String name;
