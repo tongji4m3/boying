@@ -9,6 +9,7 @@ import com.tongji.boying.service.BoyingShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @Service
 public class BoyingShowServiceImpl implements BoyingShowService {
-    @Autowired
+    @Resource
     private BoyingShowMapper boyingShowMapper;
 
     @Override
@@ -41,11 +42,7 @@ public class BoyingShowServiceImpl implements BoyingShowService {
         if (pageSize == null || pageSize == 0) pageSize = 5;
 
         PageHelper.startPage(pageNum, pageSize);
-        List<BoyingShow> boyingShows = boyingShowMapper.selectList(map);
-        if (boyingShows == null || boyingShows.size() == 0) {
-            Asserts.fail("查询不到演出信息!");
-        }
-        return boyingShows;
+        return boyingShowMapper.selectList(map);
     }
 
     @Override

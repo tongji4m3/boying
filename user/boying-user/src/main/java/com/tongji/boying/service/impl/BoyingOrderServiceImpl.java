@@ -16,11 +16,12 @@ import com.tongji.boying.service.BoyingUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 @Service
 public class BoyingOrderServiceImpl implements BoyingOrderService {
-    @Autowired
+    @Resource
     private BoyingOrderMapper boyingOrderMapper;
     @Autowired
     private BoyingUserService boyingUserService;
@@ -30,14 +31,11 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
 
     @Override
     public void add(UserOrderParam param) {
-        //获取参数
         Integer showId = param.getShowId();
         Integer seatId = param.getSeatId();
         Integer ticketCount = param.getCount();
         String payment = param.getPayment();
         Integer promoId = param.getPromoId(); // 若promoId不为0，则是秒杀座次价格
-
-        //当前用户
         BoyingUser user = boyingUserService.getCurrentUser();
 
         //对showId,payment做校验
@@ -74,7 +72,6 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         if (updateCount == 0) {
             Asserts.fail("库存不足!");
         }
-
 
         //生成订单
         BoyingOrder order = new BoyingOrder();

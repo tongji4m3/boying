@@ -16,31 +16,15 @@ public class BoyingCategoryServiceImpl implements BoyingCategoryService {
     @Resource
     private BoyingCategoryMapper boyingCategoryMapper;
 
-    @Autowired
-    private RedisService redisService;
-
     @Override
     public List<BoyingCategory> categories() {
-//        List<BoyingCategory> categories = (List<BoyingCategory>)redisService.get("boying_categories");
-//        if ( categories != null) {
-//            return categories;
-//        }
-
-        List<BoyingCategory> categories = boyingCategoryMapper.selectList();
-
-//        redisService.set("boying_categories",categories);
-
-        if (categories == null || categories.size() == 0) {
-            Asserts.fail("演出目录为空！");
-        }
-        return categories;
+        return boyingCategoryMapper.selectList();
     }
 
     @Override
     public BoyingCategory getCategory(Integer id) {
         BoyingCategory boyingCategory = boyingCategoryMapper.selectByPrimaryKey(id);
-        if (boyingCategory == null) Asserts.fail("演出目录不存在！");
-        if (boyingCategory.getAdminDelete()) Asserts.fail("该演出目录不存在！");
+        if (boyingCategory == null || boyingCategory.getAdminDelete()) Asserts.fail("该演出目录不存在！");
         return boyingCategory;
     }
 }

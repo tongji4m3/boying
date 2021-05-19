@@ -30,62 +30,33 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 
-/**
- * 用户管理Service实现类
- */
 @Service
 public class BoyingUserServiceImpl implements BoyingUserService {
-    //    便于日志的打印
-    private static final Logger LOGGER = LoggerFactory.getLogger(BoyingUserServiceImpl.class);
-
-    @Autowired
+    @Resource
     private BoyingUserMapper boyingUserMapper;
-
-    /**
-     * 用于密码加密
-     */
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    /**
-     * token工具类
-     */
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
-    /**
-     * 对用户信息进行一些缓存操作
-     */
     @Autowired
     private BoyingUserCacheService boyingUserCacheService;
-    /**
-     * 验证码的前缀与过期时间
-     */
-    @Value("${redis.key.authCode}")
-    private String REDIS_KEY_PREFIX_AUTH_CODE;
-    @Value("${redis.expire.authCode}")
-    private Long AUTH_CODE_EXPIRE_SECONDS;
 
     @Override
     public BoyingUser getByUsername(String username) {
         BoyingUser user = boyingUserCacheService.getUser(username);
-        if (user != null) return user; //缓存里面有数据
+        if (user != null) return user;
 
-        //根据用户名查询是否存在
         user = boyingUserMapper.selectByUsername(username);
-
-        //不能给过于详细的错误提示！
         if (user == null) Asserts.fail("用户名或密码错误");
-
-        //账号未启用
         if (user.getAdminDelete()) Asserts.fail("账号未启用,请联系管理员!");
 
-        boyingUserCacheService.setUser(user);//将查询到的数据放入缓存中
+        boyingUserCacheService.setUser(user);
         return user;
     }
 
@@ -98,7 +69,6 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         String password = param.getPassword();
         String icon = param.getIcon();
 
-        //验证验证码
         if (!verifyAuthCode(authCode, telephone)) {
             Asserts.fail("验证码错误");
         }
@@ -109,25 +79,22 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         map.put("telephone", telephone);
         map.put("username", username);
 
-
         Integer userCount = boyingUserMapper.selectByUsernameOrPhone(map);
         if (userCount != 0) {
             Asserts.fail("该用户已经存在或手机号已注册");
         }
 
-        //没有该用户进行添加操作
         BoyingUser user = new BoyingUser();
         user.setUsername(username);
         user.setPhone(telephone);
-        System.out.println(passwordEncoder.encode(password));
-        user.setPassword(passwordEncoder.encode(password));//存储加密后的
+        user.setPassword(passwordEncoder.encode(password));// 存储加密后的密码
         //设置默认头像
         if (StringUtils.isEmpty(icon)) {
             icon = "https://tongji4m3.oss-cn-beijing.aliyuncs.com/f_f_object_156_s512_f_object_156_0.png";
         }
         user.setIcon(icon);
         boyingUserMapper.insertSelective(user);
-        //注册完删除验证码,每个验证码只能使用一次
+        // 注册完删除验证码,每个验证码只能使用一次
         boyingUserCacheService.delAuthCode(telephone);
     }
 
@@ -171,22 +138,17 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         String telephone = param.getTelephone();
         String password = param.getPassword();
         String authCode = param.getAuthCode();
-        //根据手机号查询是否存在
         BoyingUser user = boyingUserMapper.selectByPhone(telephone);
         if (user == null) {
             Asserts.fail("该账号不存在");
         }
-        //验证验证码
         if (!verifyAuthCode(authCode, telephone)) {
             Asserts.fail("验证码错误");
         }
         user.setPassword(passwordEncoder.encode(password));//密码加密
         boyingUserMapper.updateByPrimaryKeySelective(user);//只更新不为空的字段
-
         boyingUserCacheService.delUser(user.getId());//删除无效缓存
-
-        //注册完删除验证码,每个验证码只能使用一次
-        boyingUserCacheService.delAuthCode(telephone);
+        boyingUserCacheService.delAuthCode(telephone);//注册完删除验证码,每个验证码只能使用一次
     }
 
     @Override
@@ -231,7 +193,7 @@ public class BoyingUserServiceImpl implements BoyingUserService {
     public String telephoneLogin(TelephoneLoginParam param) {
         String telephone = param.getTelephone();
         String password = param.getPassword();
-        String token = null;
+        String token;
         //密码需要客户端加密后传递,但是传递的仍然是明文
 
         BoyingUser user = boyingUserCacheService.getUserByTelephone(telephone);

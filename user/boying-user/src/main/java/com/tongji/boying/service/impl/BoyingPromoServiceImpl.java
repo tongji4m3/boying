@@ -1,5 +1,6 @@
 package com.tongji.boying.service.impl;
 
+import com.tongji.boying.common.common.PromoEnum;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.common.service.RedisService;
 import com.tongji.boying.mapper.BoyingPromoMapper;
@@ -10,11 +11,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 @Service
 public class BoyingPromoServiceImpl implements BoyingPromoService {
-    @Autowired
+    @Resource
     private BoyingPromoMapper boyingPromoMapper;
 
     @Autowired
@@ -24,15 +26,15 @@ public class BoyingPromoServiceImpl implements BoyingPromoService {
     public BoyingPromoModel getPromo(Integer seatId) {
         BoyingPromo promoDO = (BoyingPromo) redisService.get("boying_promo:" + seatId);
 
+        //说明数据库中不存在数据，避免缓存穿透
         if (promoDO != null && promoDO.getId() == -1) {
-            //说明数据库中不存在数据，避免缓存穿透
             return null;
         }
         if (promoDO == null) {
             //获取对应演出座次的秒杀活动信息
             promoDO = boyingPromoMapper.selectBySeatId(seatId);
             if (promoDO == null) {
-                redisService.set("boying_promo:" + seatId, new BoyingPromo(-1),5);
+                redisService.set("boying_promo:" + seatId, new BoyingPromo(-1), 5);
                 return null;
             }
             redisService.set("boying_promo:" + seatId, promoDO);
@@ -46,11 +48,11 @@ public class BoyingPromoServiceImpl implements BoyingPromoService {
         //判断当前时间是否秒杀活动即将开始或正在进行
         //秒杀活动状态 1表示还未开始，2表示进行中，3表示已结束
         if (boyingPromoModel.getStartTime().after(new Date())) {
-            boyingPromoModel.setStatus(1);
+            boyingPromoModel.setStatus(PromoEnum.NOT_START.getValue());
         } else if (boyingPromoModel.getEndTime().before(new Date())) {
-            boyingPromoModel.setStatus(3);
+            boyingPromoModel.setStatus(PromoEnum.FINISH.getValue());
         } else {
-            boyingPromoModel.setStatus(2);
+            boyingPromoModel.setStatus(PromoEnum.DOING_PROMO.getValue());
         }
         return boyingPromoModel;
     }

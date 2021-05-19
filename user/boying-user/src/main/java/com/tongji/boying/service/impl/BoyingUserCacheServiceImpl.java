@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 @Service
 public class BoyingUserCacheServiceImpl implements BoyingUserCacheService {
     @Autowired
     private RedisService redisService;
-    @Autowired
+    @Resource
     private BoyingUserMapper boyingUserMapper;
     @Value("${redis.database}")
     private String REDIS_DATABASE;
