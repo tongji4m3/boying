@@ -1741,7 +1741,7 @@
                 "defaultValue": "0",
                 "isOnUpdateCurrentTimestamp": false,
                 "isAutoInc": false,
-                "comment": "若非0，则代表是秒杀商品的价格",
+                "comment": "若非0，则代表是秒杀商品的id",
                 "columnFormat": "",
                 "storage": "",
                 "isVirtual": false,

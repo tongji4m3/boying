@@ -24,7 +24,7 @@ import java.security.Principal;
  * 用户登录注册等相关信息管理Controller
  */
 @Controller
-@Api(tags = "UserController", description = "用户模块用户相关信息API")
+@Api(tags = "BoyingUserController", description = "用户模块用户相关信息API")
 @RequestMapping("/user")
 public class BoyingUserController {
     @Value("${jwt.tokenHeader}")
@@ -71,9 +71,7 @@ public class BoyingUserController {
     @RequestMapping(value = "/info", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<BoyingUserVO> info(Principal principal) {
-//        防止直接查询时报错
         if (principal == null) return CommonResult.unauthorized(null);
-
         //将核心领域模型用户对象转化为可供UI使用的viewObject对象
         BoyingUserVO boyingUserVO = new BoyingUserVO();
         BeanUtils.copyProperties(boyingUserService.getCurrentUser(), boyingUserVO);
@@ -84,7 +82,6 @@ public class BoyingUserController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<String> updateInfo(Principal principal, @Validated @RequestBody UpdateInfoParam param) {
-        //        防止直接查询时报错
         if (principal == null) return CommonResult.unauthorized(null);
         boyingUserService.updateInfo(param);
         return CommonResult.success("更新个人信息成功!");

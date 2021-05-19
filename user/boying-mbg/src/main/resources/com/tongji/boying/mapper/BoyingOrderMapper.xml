@@ -201,7 +201,7 @@
         select
         <include refid="Base_Column_List"/>
         from boying_order
-        where user_id = #{userId} and user_delete != 1
+        where user_id = #{userId} and user_delete != 1 and admin_delete != 1
         <if test="status != null and status != 0">
             and status = #{status}
         </if>

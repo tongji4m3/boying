@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * 订单管理Controller
  */
 @Controller
-@Api(tags = "UserOrderController", description = "用户模块订单相关API")
+@Api(tags = "BoyingOrderController", description = "用户模块订单相关API")
 @RequestMapping("/order")
 public class BoyingOrderController {
     @Autowired

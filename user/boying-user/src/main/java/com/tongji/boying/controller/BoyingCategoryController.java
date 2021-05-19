@@ -16,14 +16,14 @@ import java.util.List;
  * 查看菜单目录Controller
  */
 @Controller
-@Api(tags = "ShowCategoryController", description = "查看演出菜单目录相关API")
+@Api(tags = "BoyingCategoryController", description = "查看演出菜单目录相关API")
 @RequestMapping("/category")
 public class BoyingCategoryController {
     @Autowired
     private BoyingCategoryService boyingCategoryService;
 
     @ApiOperation("获取菜单")
-        @RequestMapping(value = "/categories", method = RequestMethod.POST)
+    @RequestMapping(value = "/categories", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<BoyingCategory>> getCategories() {
         return CommonResult.success(boyingCategoryService.categories());

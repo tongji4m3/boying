@@ -18,27 +18,26 @@ import java.util.stream.Collectors;
  * 前台演出座次管理Controller
  */
 @Controller
-@Api(tags = "ShowSeatController", description = "前台演出座次相关API")
+@Api(tags = "BoyingSeatController", description = "前台演出座次相关API")
 @RequestMapping("/seat")
 public class BoyingSeatController {
     @Autowired
-    private BoyingSeatService seatService;
+    private BoyingSeatService boyingSeatService;
 
     @ApiOperation("获取某演唱会场次的所有座次信息")
     @RequestMapping(value = "/seatList/{showId}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<BoyingSeatVO>> getShowSeatList(@PathVariable Integer showId) {
-        List<BoyingSeatModel> showSeatList = seatService.getShowSeatList(showId);
-        //使用stream apiJ将list内的itemModel转化为ITEMVO;
+        List<BoyingSeatModel> showSeatList = boyingSeatService.getShowSeatList(showId);
         List<BoyingSeatVO> boyingSeatVOList = showSeatList.stream().map(this::convertVOFromModel).collect(Collectors.toList());
         return CommonResult.success(boyingSeatVOList);
     }
 
-    @ApiOperation("获取某演唱会场次的座次信息")
+    @ApiOperation("获取某演唱会场次的座次信息。秒杀活动状态:0表示没有秒杀活动、1表示还未开始、2表示进行中、3表示已结束")
     @RequestMapping(value = "/detail/{seatId}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<BoyingSeatVO> getShowSeat(@PathVariable Integer seatId) {
-        BoyingSeatModel boyingSeatModel = seatService.getShowSeat(seatId);
+        BoyingSeatModel boyingSeatModel = boyingSeatService.getShowSeat(seatId);
         BoyingSeatVO boyingSeatVO = convertVOFromModel(boyingSeatModel);
         return CommonResult.success(boyingSeatVO);
     }

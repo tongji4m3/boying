@@ -1,7 +1,5 @@
 package com.tongji.boying.config;
 
-//实现整个项目安全管理的内容，boying-security，security涉及到
-
 import com.tongji.boying.model.BoyingUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * SpringSecurity需要的用户详情
@@ -22,8 +21,7 @@ public class BoyingUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        //返回当前用户的角色
-        return Arrays.asList(new SimpleGrantedAuthority("TEST"));
+        return Collections.singletonList(new SimpleGrantedAuthority("TEST"));
     }
 
     @Override

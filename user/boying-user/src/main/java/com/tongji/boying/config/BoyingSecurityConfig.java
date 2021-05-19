@@ -20,14 +20,8 @@ public class BoyingSecurityConfig extends SecurityConfig {
     @Autowired
     private BoyingUserService boyingUserService;
 
-    /**
-     * 注解@Bean放在方法上，产生一个Bean并且交给Spring容器管理
-     * 定义用户信息
-     */
     @Bean
     public UserDetailsService userDetailsService() {
-        //为UserDetailsService定义一个适用与boying-user组件的获取登录用户信息的方法
         return username -> boyingUserService.loadUserByUsername(username);
     }
-    //不添加基于路径的动态权限控制
 }

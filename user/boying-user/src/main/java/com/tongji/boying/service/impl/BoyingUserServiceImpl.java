@@ -278,6 +278,10 @@ public class BoyingUserServiceImpl implements BoyingUserService {
             if (user == null) {
                 Asserts.fail("该账号不存在");
             }
+            //账号未启用
+            if (user.getAdminDelete()) {
+                Asserts.fail("账号未启用,请联系管理员!");
+            }
             boyingUserCacheService.setUser(user);//将查询到的数据放入缓存中
         }
         UserDetails userDetails = loadUserByUsername(user.getUsername());
