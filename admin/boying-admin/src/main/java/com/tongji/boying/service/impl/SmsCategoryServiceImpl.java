@@ -61,7 +61,9 @@ public class SmsCategoryServiceImpl implements SmsCategoryService
     @Override
     public List<BoyingCategory> list()
     {
-        return categoryMapper.selectByExample(new BoyingCategoryExample());
+        BoyingCategoryExample boyingCategoryExample = new BoyingCategoryExample();
+        boyingCategoryExample.setOrderByClause("weight desc");
+        return categoryMapper.selectByExample(boyingCategoryExample);
     }
 
 //    @Override
