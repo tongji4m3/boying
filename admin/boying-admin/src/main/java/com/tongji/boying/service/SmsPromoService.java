@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 后台活动管理
  */
-public interface UmsPromoService {
+public interface SmsPromoService {
     /**
      * 查看活动
      */

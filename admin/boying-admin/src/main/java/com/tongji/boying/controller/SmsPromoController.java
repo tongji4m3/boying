@@ -3,11 +3,10 @@ package com.tongji.boying.controller;
 import cn.hutool.core.util.ObjectUtil;
 import com.tongji.boying.common.api.CommonResult;
 //import com.tongji.boying.dto.UmsRoleParam;
-import com.tongji.boying.dto.SmsShowParam;
 import com.tongji.boying.dto.UmsPromoParam;
 import com.tongji.boying.model.BoyingPromo;
 //import com.tongji.boying.model.Role;
-import com.tongji.boying.service.UmsPromoService;
+import com.tongji.boying.service.SmsPromoService;
 //import com.tongji.boying.service.UmsRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,11 +21,11 @@ import java.util.List;
  * 后台活动管理
  */
 @Controller
-@Api(tags="UmsPromoController",description = "后台活动管理")
+@Api(tags="SmsPromoController",description = "后台活动管理")
 @RequestMapping("/promo")
-public class UmsPromoController {
+public class SmsPromoController {
     @Autowired
-    private UmsPromoService promoService;
+    private SmsPromoService promoService;
 
     @ApiOperation("查看所有活动")
     @RequestMapping(value="/list",method = RequestMethod.GET)

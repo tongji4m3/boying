@@ -6,10 +6,9 @@ import com.tongji.boying.dto.UmsPromoParam;
 import com.tongji.boying.mapper.BoyingPromoMapper;
 import com.tongji.boying.model.BoyingPromo;
 import com.tongji.boying.model.BoyingPromoExample;
-import com.tongji.boying.service.UmsPromoService;
+import com.tongji.boying.service.SmsPromoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
  * 后台活动管理Service实现类
  */
 @Service
-public class UmsPromoSeviceImpl implements UmsPromoService{
+public class SmsPromoSeviceImpl implements SmsPromoService {
     @Autowired
     private BoyingPromoMapper boyingPromoMapper;
 
