@@ -20,14 +20,14 @@ public class BoyingCategoryServiceImpl implements BoyingCategoryService {
 
     @Override
     public List<BoyingCategory> categories() {
-        List<BoyingCategory> categories = (List<BoyingCategory>)redisService.get("boying_categories");
-        if ( categories != null) {
-            return categories;
-        }
+//        List<BoyingCategory> categories = (List<BoyingCategory>)redisService.get("boying_categories");
+//        if ( categories != null) {
+//            return categories;
+//        }
 
-        categories = boyingCategoryMapper.selectList();
+        List<BoyingCategory> categories = boyingCategoryMapper.selectList();
 
-        redisService.set("boying_categories",categories);
+//        redisService.set("boying_categories",categories);
 
         if (categories == null || categories.size() == 0) {
             Asserts.fail("演出目录为空！");
