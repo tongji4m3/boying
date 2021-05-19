@@ -184,6 +184,9 @@ public class UmsAdminServiceImpl implements UmsAdminService
         AdminUser AdminUser = new AdminUser();
         BeanUtils.copyProperties(param, AdminUser);
         AdminUser.setId(id);
+        //将密码进行加密操作
+        String encodePassword = passwordEncoder.encode(AdminUser.getPassword());
+        AdminUser.setPassword(encodePassword);
         int count = adminUserMapper.updateByPrimaryKeySelective(AdminUser);
         adminCacheService.delAdmin(id);
         return count;
