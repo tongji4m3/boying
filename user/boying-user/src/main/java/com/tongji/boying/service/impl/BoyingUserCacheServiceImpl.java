@@ -18,7 +18,6 @@ public class BoyingUserCacheServiceImpl implements BoyingUserCacheService {
     private BoyingUserMapper boyingUserMapper;
     @Value("${redis.database}")
     private String REDIS_DATABASE;
-    //    除验证码之外的过期时间
     @Value("${redis.expire.common}")
     private Long REDIS_EXPIRE;
     @Value("${redis.expire.authCode}")
@@ -31,7 +30,6 @@ public class BoyingUserCacheServiceImpl implements BoyingUserCacheService {
 
     @Override
     public void delUser(int userId) {
-//        确保全局不会redis缓存key混乱
         BoyingUser user = boyingUserMapper.selectByPrimaryKey(userId);
         if (user != null) {
             String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getUsername();
@@ -59,7 +57,6 @@ public class BoyingUserCacheServiceImpl implements BoyingUserCacheService {
     public void setUser(BoyingUser user) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getUsername();
         String key2 = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getPhone();
-//        设置两条,能通过手机号,用户名查到该用户
         redisService.set(key, user, REDIS_EXPIRE);
         redisService.set(key2, user, REDIS_EXPIRE);
     }

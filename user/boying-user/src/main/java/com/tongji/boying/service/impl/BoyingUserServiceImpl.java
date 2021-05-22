@@ -53,8 +53,11 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         if (user != null) return user;
 
         user = boyingUserMapper.selectByUsername(username);
-        if (user == null) Asserts.fail("用户名或密码错误");
-        if (user.getAdminDelete()) Asserts.fail("账号未启用,请联系管理员!");
+        if (user == null) {
+            // 代做，防止缓存穿透：用户一直注册，但是该账号在数据库中不存在 chrome收藏夹 布隆过滤器
+            boyingUserCacheService.setUser(new BoyingUser());
+            Asserts.fail("用户不存在!");
+        }
 
         boyingUserCacheService.setUser(user);
         return user;
@@ -73,12 +76,11 @@ public class BoyingUserServiceImpl implements BoyingUserService {
             Asserts.fail("验证码错误");
         }
 
-        //查询是否已有该用户
-        //用户名,手机号唯一
         Map<String, Object> map = new HashMap<>();
         map.put("telephone", telephone);
         map.put("username", username);
 
+        // 管理员禁用的账号对应的用户名/手机号也不能使用
         Integer userCount = boyingUserMapper.selectByUsernameOrPhone(map);
         if (userCount != 0) {
             Asserts.fail("该用户已经存在或手机号已注册");
@@ -132,7 +134,6 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         }
     }
 
-
     @Override
     public void updatePassword(UpdatePasswordParam param) {
         String telephone = param.getTelephone();
@@ -142,11 +143,14 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         if (user == null) {
             Asserts.fail("该账号不存在");
         }
+        if (user.getAdminDelete()) {
+            Asserts.fail("账号未启用,请联系管理员!");
+        }
         if (!verifyAuthCode(authCode, telephone)) {
             Asserts.fail("验证码错误");
         }
-        user.setPassword(passwordEncoder.encode(password));//密码加密
-        boyingUserMapper.updateByPrimaryKeySelective(user);//只更新不为空的字段
+        user.setPassword(passwordEncoder.encode(password));
+        boyingUserMapper.updateByPrimaryKeySelective(user);
         boyingUserCacheService.delUser(user.getId());//删除无效缓存
         boyingUserCacheService.delAuthCode(telephone);//注册完删除验证码,每个验证码只能使用一次
     }
@@ -157,7 +161,9 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         SecurityContext ctx = SecurityContextHolder.getContext();
         Authentication auth = ctx.getAuthentication();
         BoyingUserDetails userDetails = (BoyingUserDetails) auth.getPrincipal();
-        System.out.println(userDetails.getUser());
+        if (userDetails.getUser().getAdminDelete()) {
+            Asserts.fail("账号未启用,请联系管理员!");
+        }
         return userDetails.getUser();
     }
 
@@ -172,21 +178,16 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         String username = param.getUsername();
         String password = param.getPassword();
 
-        System.out.println(passwordEncoder.encode(password));
+        BoyingUser user = getByUsername(username);
+        UserDetails userDetails = new BoyingUserDetails(user);
 
-        String token = null;
-        //密码需要客户端加密后传递,但是传递的仍然是明文
-        UserDetails userDetails = loadUserByUsername(username);
+        if (user.getAdminDelete()) Asserts.fail("账号未启用,请联系管理员!");
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("密码不正确");
         }
-//            获取该用户的上下文信息
-//            username和password被获得后封装到一个UsernamePasswordAuthenticationToken
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-//            围绕该用户建立安全上下文（security context）
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        token = jwtTokenUtil.generateToken(userDetails);
-        return token;
+        return jwtTokenUtil.generateToken(userDetails);
     }
 
     @Override
@@ -194,21 +195,16 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         String telephone = param.getTelephone();
         String password = param.getPassword();
         String token;
-        //密码需要客户端加密后传递,但是传递的仍然是明文
-
         BoyingUser user = boyingUserCacheService.getUserByTelephone(telephone);
-        //缓存里面没有数据
         if (user == null) {
-            //根据手机号查询是否存在
             user = boyingUserMapper.selectByPhone(telephone);
             if (user == null) {
                 Asserts.fail("该账号不存在");
             }
-            //账号未启用
             if (user.getAdminDelete()) {
                 Asserts.fail("账号未启用,请联系管理员!");
             }
-            boyingUserCacheService.setUser(user);//将查询到的数据放入缓存中
+            boyingUserCacheService.setUser(user);
         }
         //缓存有数据，说明手机号是对的，直接检查密码即可
         if (!passwordEncoder.matches(password, user.getPassword())) {
@@ -230,27 +226,22 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         if (!verifyAuthCode(authCode, telephone)) {
             Asserts.fail("验证码错误");
         }
-        String token = null;
-        //密码需要客户端加密后传递,但是传递的仍然是明文
+        String token;
         BoyingUser user = boyingUserCacheService.getUserByTelephone(telephone);
-        //缓存里面没有数据
         if (user == null) {
-            //根据手机号查询是否存在
             user = boyingUserMapper.selectByPhone(telephone);
             if (user == null) {
                 Asserts.fail("该账号不存在");
             }
-            //账号未启用
             if (user.getAdminDelete()) {
                 Asserts.fail("账号未启用,请联系管理员!");
             }
-            boyingUserCacheService.setUser(user);//将查询到的数据放入缓存中
+            boyingUserCacheService.setUser(user);
         }
         UserDetails userDetails = loadUserByUsername(user.getUsername());
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         token = jwtTokenUtil.generateToken(userDetails);
-        //注册完删除验证码,每个验证码只能使用一次
         boyingUserCacheService.delAuthCode(telephone);
         return token;
     }
@@ -284,18 +275,15 @@ public class BoyingUserServiceImpl implements BoyingUserService {
             currentUser.setAge(age);
         }
 
-
-        int count = boyingUserMapper.updateByPrimaryKeySelective(currentUser);//只更新不为空的字段
+        int count = boyingUserMapper.updateByPrimaryKeySelective(currentUser);
         if (count == 0) Asserts.fail("更新失败！");
-        boyingUserCacheService.delUser(currentUser.getId());//删除无效缓存
+        boyingUserCacheService.delUser(currentUser.getId());
     }
 
-    //对输入的验证码进行校验
     private boolean verifyAuthCode(String authCode, String telephone) {
         if (StringUtils.isEmpty(authCode)) {
             return false;
         }
-//        redis中存储了该手机号未过期的验证码
         String realAuthCode = boyingUserCacheService.getAuthCode(telephone);
         return authCode.equals(realAuthCode);
     }
