@@ -158,7 +158,7 @@ public class UmsRoleServiceImpl implements UmsRoleService
         AdminRoleMenuExample example = new AdminRoleMenuExample();
         example.createCriteria().andRoleIdEqualTo(roleId);
         AdminRoleMenuMapper.deleteByExample(example);
-        if(menuIds.size()==0)
+        if (menuIds.size() == 0)
         {
             return 0;
         }
@@ -174,28 +174,37 @@ public class UmsRoleServiceImpl implements UmsRoleService
         //批量插入新关系
 
         LinkedHashSet<Integer> set = new LinkedHashSet<Integer>();
-        List<Integer> parentList=new ArrayList<>();
+        List<Integer> parentList = new ArrayList<>();
 
         for (Integer menuId : menuIds)
         {
+            System.out.println("a");
+            System.out.println(menuId);
             AdminMenu adminMenu = AdminMenuMapper.selectByPrimaryKey(menuId);
-            parentList.add(adminMenu.getParentId());
-            AdminRoleMenu relation = new AdminRoleMenu();
-            relation.setRoleId(roleId);
-            relation.setMenuId(menuId);
-            AdminRoleMenuMapper.insert(relation);
+            //这里不添加一级菜单
+            if (adminMenu.getParentId() != 0)
+            {
+                parentList.add(adminMenu.getParentId());
+                AdminRoleMenu relation = new AdminRoleMenu();
+                relation.setRoleId(roleId);
+                relation.setMenuId(menuId);
+                AdminRoleMenuMapper.insert(relation);
+            }
+
         }
         set.addAll(parentList);
         parentList.clear();
         parentList.addAll(set);
         for (Integer menuId : parentList)
         {
+            System.out.println("b");
+            System.out.println(menuId);
             AdminRoleMenu relation = new AdminRoleMenu();
             relation.setRoleId(roleId);
             relation.setMenuId(menuId);
             AdminRoleMenuMapper.insert(relation);
         }
-        return menuIds.size()+parentList.size();
+        return menuIds.size() + parentList.size();
     }
 
     @Override
