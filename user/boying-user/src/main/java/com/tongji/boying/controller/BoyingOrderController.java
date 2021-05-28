@@ -61,4 +61,11 @@ public class BoyingOrderController {
     public CommonResult<BoyingOrder> getItem(@PathVariable int id) {
         return CommonResult.success(boyingOrderService.getItem(id));
     }
+
+    @ApiOperation("查看该用户对某演出是否下单过")
+    @RequestMapping(value = "/checkOrder/{showId}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<Boolean> checkOrder(Integer showId) {
+        return CommonResult.success(boyingOrderService.checkOrder(showId));
+    }
 }

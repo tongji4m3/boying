@@ -21,7 +21,7 @@ public interface BoyingSeatMapper {
 
     List<BoyingSeat> selectList(Integer showId);
 
-    Integer decreaseStock(Integer seatId,Integer ticketCount);
+    Integer decreaseStock(@Param("seatId") Integer seatId,@Param("ticketCount") Integer ticketCount);
 
-    void increaseStock(Integer seatId, Integer ticketCount);
+    void increaseStock(@Param("seatId") Integer seatId, @Param("ticketCount") Integer ticketCount);
 }

@@ -182,7 +182,7 @@
                 category_id = #{categoryId}
             </if>
             <if test="keyword != null and keyword != ''">
-                and name like concat('%',#{keyword,jdbcType=VARCHAR},'%')
+                and (name like concat('%',#{keyword,jdbcType=VARCHAR},'%') or address like concat('%',#{keyword,jdbcType=VARCHAR},'%'))
             </if>
             <if test="city != null and city != '' and city != '全国'">
                 and city = #{city}

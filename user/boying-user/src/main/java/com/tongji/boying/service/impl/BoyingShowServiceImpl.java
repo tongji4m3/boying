@@ -3,9 +3,12 @@ package com.tongji.boying.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.showParam.ShowParam;
+import com.tongji.boying.mapper.BoyingOrderMapper;
 import com.tongji.boying.mapper.BoyingShowMapper;
 import com.tongji.boying.model.BoyingShow;
+import com.tongji.boying.model.BoyingUser;
 import com.tongji.boying.service.BoyingShowService;
+import com.tongji.boying.service.BoyingUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,8 @@ import java.util.Map;
 public class BoyingShowServiceImpl implements BoyingShowService {
     @Resource
     private BoyingShowMapper boyingShowMapper;
+    @Resource
+    private BoyingOrderMapper boyingOrderMapper;
 
     @Override
     public List<BoyingShow> search(ShowParam param) {

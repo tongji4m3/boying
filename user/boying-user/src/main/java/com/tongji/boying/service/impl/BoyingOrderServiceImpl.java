@@ -155,4 +155,13 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         PageHelper.startPage(pageNum, pageSize);
         return boyingOrderMapper.selectByCondition(map);
     }
+
+
+    @Override
+    public boolean checkOrder(Integer showId) {
+        BoyingUser user = boyingUserService.getCurrentUser();
+        //查看当前用户该演出是否下单(已退票的不算)
+        Integer orderCount = boyingOrderMapper.selectByShowIdUserId(user.getId(), showId);
+        return orderCount != null && orderCount != 0;
+    }
 }
