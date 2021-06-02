@@ -159,7 +159,7 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         history.setOrderPrice(order.getOrderPrice());
         history.setQrCodeUrl(order.getQrCodeUrl());
         boyingHistoryMapper.insertSelective(history);
-        
+
         //获取对应的演出座次,增加库存
         boyingSeatService.increaseStock(order.getSeatId(), order.getTicketCount());
     }

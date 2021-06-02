@@ -5,14 +5,13 @@ import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.SmsSeatParam;
 import com.tongji.boying.mapper.BoyingSeatMapper;
 import com.tongji.boying.mapper.BoyingShowMapper;
-import com.tongji.boying.model.BoyingSeatExample;
-import com.tongji.boying.model.BoyingShow;
-import com.tongji.boying.model.BoyingShowExample;
+import com.tongji.boying.mapper.BoyingStockMapper;
+import com.tongji.boying.model.*;
 import com.tongji.boying.service.SmsSeatService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.tongji.boying.model.BoyingSeat;
+
 import java.util.List;
 
 @Service
@@ -23,12 +22,17 @@ public class SmsSeatServiceImpl implements SmsSeatService {
     @Autowired
     private BoyingShowMapper boyingShowMapper;
 
+    @Autowired
+    private BoyingStockMapper boyingStockMapper;
     @Override
     public int create(SmsSeatParam param)
     {
         checkBoyingSeatParam(param, -1);
         BoyingSeat seat = new BoyingSeat();
         BeanUtils.copyProperties(param, seat);
+        BoyingStock stock=new BoyingStock();
+        stock.setStock(seat.getCapacity());
+        boyingStockMapper.insert(stock);
         return boyingSeatMapper.insertSelective(seat);
     }
 
