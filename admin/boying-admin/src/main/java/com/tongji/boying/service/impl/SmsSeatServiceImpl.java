@@ -27,13 +27,24 @@ public class SmsSeatServiceImpl implements SmsSeatService {
     @Override
     public int create(SmsSeatParam param)
     {
+//        int insert = orderMapper.insertSelective(order);
+//        //生成票
+//        for (Integer showSeatId : showSeatIds) {
+//            System.out.println(order.getId() + " " + showSeatId);
+//            userTicketService.add(order.getId(), showSeatId);
+//        }
+
         checkBoyingSeatParam(param, -1);
         BoyingSeat seat = new BoyingSeat();
         BeanUtils.copyProperties(param, seat);
+        System.out.println("helloworld");
+        System.out.println(seat);
+        int insert=boyingSeatMapper.insertSelective(seat);
         BoyingStock stock=new BoyingStock();
+        stock.setId(seat.getId());
         stock.setStock(seat.getCapacity());
         boyingStockMapper.insert(stock);
-        return boyingSeatMapper.insertSelective(seat);
+        return insert;
     }
 
     @Override

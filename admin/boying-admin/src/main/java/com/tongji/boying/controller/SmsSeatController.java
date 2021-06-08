@@ -25,6 +25,7 @@ public class SmsSeatController {
     @ResponseBody
     public CommonResult create(@Validated @RequestBody SmsSeatParam param)
     {
+        System.out.println(param);
         int count = seatService.create(param);
         if (count > 0)
         {

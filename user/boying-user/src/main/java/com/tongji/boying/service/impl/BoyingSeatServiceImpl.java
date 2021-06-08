@@ -30,7 +30,11 @@ public class BoyingSeatServiceImpl implements BoyingSeatService {
 
     @Override
     public List<BoyingSeatModel> getShowSeatList(Integer showId) {
+        System.out.println("1234556666");
+        System.out.println(showId);
         List<BoyingSeat> boyingSeats = boyingSeatMapper.selectList(showId);
+        System.out.println("000000000");
+        System.out.println(boyingSeats);
         return boyingSeats.stream().map(this::convertModelFromDataObject).collect(Collectors.toList());
     }
 
