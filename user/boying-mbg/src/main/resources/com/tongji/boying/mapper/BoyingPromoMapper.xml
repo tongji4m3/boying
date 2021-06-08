@@ -108,5 +108,6 @@
         <include refid="Base_Column_List"/>
         from boying_promo
         where seat_id = #{seatId,jdbcType=INTEGER}
+        and end_time > NOW()
     </select>
 </mapper>

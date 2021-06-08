@@ -53,6 +53,8 @@ public class BoyingSeatController {
             boyingSeatVO.setPromoPrice(boyingSeatModel.getBoyingPromoModel().getPrice());
         } else {
             boyingSeatVO.setPromoStatus(0);
+            boyingSeatVO.setPromoId(0);
+            boyingSeatVO.setPromoPrice(boyingSeatModel.getPrice());
         }
         return boyingSeatVO;
     }
