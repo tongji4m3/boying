@@ -97,11 +97,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.tongji.boying.model.BoyingStock">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into boying_stock (stock)
-    values (#{stock,jdbcType=INTEGER})
+    insert into boying_stock (id, stock)
+    values (#{id,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.tongji.boying.model.BoyingStock">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
