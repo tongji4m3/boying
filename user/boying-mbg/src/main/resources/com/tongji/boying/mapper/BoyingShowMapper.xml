@@ -24,6 +24,7 @@
         <include refid="Base_Column_List"/>
         from boying_show
         where id = #{id,jdbcType=INTEGER}
+        and admin_delete = 0
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
@@ -178,8 +179,9 @@
         <include refid="Base_Column_List"/>
         from boying_show
         <where>
+            admin_delete = 0
             <if test="categoryId != null and categoryId != 0">
-                category_id = #{categoryId}
+                and category_id = #{categoryId}
             </if>
             <if test="keyword != null and keyword != ''">
                 and (name like concat('%',#{keyword,jdbcType=VARCHAR},'%') or address like concat('%',#{keyword,jdbcType=VARCHAR},'%'))

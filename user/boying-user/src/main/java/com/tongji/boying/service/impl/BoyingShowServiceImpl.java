@@ -22,8 +22,6 @@ import java.util.Map;
 public class BoyingShowServiceImpl implements BoyingShowService {
     @Resource
     private BoyingShowMapper boyingShowMapper;
-    @Resource
-    private BoyingOrderMapper boyingOrderMapper;
 
     @Override
     public List<BoyingShow> search(ShowParam param) {

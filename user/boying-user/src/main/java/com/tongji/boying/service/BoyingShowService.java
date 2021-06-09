@@ -19,8 +19,5 @@ public interface BoyingShowService {
      */
     List<BoyingShow> search(ShowParam param);
 
-    /**
-     * 获取前台演出详情
-     */
     BoyingShow detail(int id);
 }

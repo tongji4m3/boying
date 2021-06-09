@@ -16,5 +16,4 @@ public class BoyingSeatModel {
     private Integer capacity;
     private Integer stock;
     private BoyingPromoModel boyingPromoModel; // 使用聚合模型，如果promoModel不为空，则表示其拥有还未结束的秒杀活动
-
 }

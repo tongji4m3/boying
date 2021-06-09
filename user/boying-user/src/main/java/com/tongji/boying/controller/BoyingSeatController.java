@@ -28,10 +28,7 @@ public class BoyingSeatController {
     @RequestMapping(value = "/seatList/{showId}", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<List<BoyingSeatVO>> getShowSeatList(@PathVariable Integer showId) {
-        System.out.println(showId);
         List<BoyingSeatModel> showSeatList = boyingSeatService.getShowSeatList(showId);
-        System.out.println("99999912321321321");
-        System.out.println(showSeatList);
         List<BoyingSeatVO> boyingSeatVOList = showSeatList.stream().map(this::convertVOFromModel).collect(Collectors.toList());
         return CommonResult.success(boyingSeatVOList);
     }
@@ -48,8 +45,8 @@ public class BoyingSeatController {
     private BoyingSeatVO convertVOFromModel(BoyingSeatModel boyingSeatModel) {
         BoyingSeatVO boyingSeatVO = new BoyingSeatVO();
         BeanUtils.copyProperties(boyingSeatModel, boyingSeatVO);
+        // 有正在进行或即将进行的秒杀活动
         if (boyingSeatModel.getBoyingPromoModel() != null) {
-            //有正在进行或即将进行的秒杀活动
             boyingSeatVO.setPromoStatus(boyingSeatModel.getBoyingPromoModel().getStatus());
             boyingSeatVO.setPromoId(boyingSeatModel.getBoyingPromoModel().getId());
             boyingSeatVO.setStartTime(boyingSeatModel.getBoyingPromoModel().getStartTime());

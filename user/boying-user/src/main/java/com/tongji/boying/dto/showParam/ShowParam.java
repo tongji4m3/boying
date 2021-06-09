@@ -12,7 +12,7 @@ import java.util.Date;
 @Setter
 @ToString
 public class ShowParam {
-    @ApiModelProperty("演出名称关键词,可模糊查询(空字符串或null为不添加该约束)")
+    @ApiModelProperty("演出名称关键词,或者是演出地点关键字,可模糊查询(空字符串或null为不添加该约束)")
     private String keyword;
 
     @ApiModelProperty("演出所在城市(空字符串或null或全国 为不添加该约束,即全国)")

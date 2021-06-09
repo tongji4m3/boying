@@ -31,8 +31,9 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
     @Autowired
     private BoyingSeatService boyingSeatService;
 
-    @Autowired
+    @Resource
     private BoyingHistoryMapper boyingHistoryMapper;
+
     @Override
     public void add(UserOrderParam param) {
         Integer showId = param.getShowId();
@@ -65,6 +66,7 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
             if (seatModel.getBoyingPromoModel() == null || !promoId.equals(seatModel.getBoyingPromoModel().getId())) {
                 Asserts.fail("活动信息不正确");
             }
+            // 拿刚查出来的活动状态比较
             if (seatModel.getBoyingPromoModel().getStatus() != PromoEnum.DOING_PROMO.getValue()) {
                 Asserts.fail("活动信息还未开始");
             }
@@ -83,7 +85,7 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         order.setShowId(showId);
         order.setSeatId(seatId);
         order.setPromoId(promoId);
-        order.setStatus(1);//待观看状态
+        order.setStatus(OrderEnum.NEED_WATCH.getValue()); // 待观看状态
         order.setTime(new Date());
         order.setUserDelete(false);
         order.setTicketCount(ticketCount);
@@ -98,7 +100,7 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         history.setShowId(showId);
         history.setSeatId(seatId);
         history.setPromoId(promoId);
-        history.setStatus(1);//待观看状态
+        history.setStatus(OrderEnum.NEED_WATCH.getValue()); // 待观看状态
         history.setTime(order.getTime());
         history.setUserDelete(false);
         history.setTicketCount(ticketCount);
@@ -121,7 +123,6 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
             Asserts.fail("待观看订单不能删除！");
         }
         order.setUserDelete(true);
-
 
 
         boyingOrderMapper.updateByPrimaryKeySelective(order);
@@ -200,7 +201,6 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         BoyingUser user = boyingUserService.getCurrentUser();
         //查看当前用户该演出是否下单(已退票的不算)
         Integer orderCount = boyingOrderMapper.selectByShowIdUserId(user.getId(), showId);
-        System.out.println(orderCount);
         return orderCount != null && orderCount != 0;
     }
 }

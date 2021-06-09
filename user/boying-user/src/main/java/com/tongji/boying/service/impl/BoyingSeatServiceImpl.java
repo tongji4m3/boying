@@ -30,11 +30,7 @@ public class BoyingSeatServiceImpl implements BoyingSeatService {
 
     @Override
     public List<BoyingSeatModel> getShowSeatList(Integer showId) {
-        System.out.println("1234556666");
-        System.out.println(showId);
         List<BoyingSeat> boyingSeats = boyingSeatMapper.selectList(showId);
-        System.out.println("000000000");
-        System.out.println(boyingSeats);
         return boyingSeats.stream().map(this::convertModelFromDataObject).collect(Collectors.toList());
     }
 
@@ -64,10 +60,7 @@ public class BoyingSeatServiceImpl implements BoyingSeatService {
         boyingSeatModel.setStock(stockDO.getStock());
 
         BoyingPromoModel boyingPromoModel = boyingPromoService.getPromo(seatDO.getId());
-        //存在秒杀活动，而且是未开始或者是正在进行中的
-        if (boyingPromoModel != null && boyingPromoModel.getStatus() != PromoEnum.FINISH.getValue()) {
-            boyingSeatModel.setBoyingPromoModel(boyingPromoModel);
-        }
+        boyingSeatModel.setBoyingPromoModel(boyingPromoModel); // 此处可能为null,但不影响
         return boyingSeatModel;
     }
 }

@@ -19,34 +19,17 @@ public class BoyingPromoServiceImpl implements BoyingPromoService {
     @Resource
     private BoyingPromoMapper boyingPromoMapper;
 
-    @Autowired
-    private RedisService redisService;
-
+    // todo 之后加上缓存，并且要防止缓存穿透
     @Override
     public BoyingPromoModel getPromo(Integer seatId) {
-        BoyingPromo promoDO = (BoyingPromo) redisService.get("boying_promo:" + seatId);
+        // todo 活动有多个的问题
+        BoyingPromo promoDO = boyingPromoMapper.selectBySeatId(seatId);
 
-        //说明数据库中不存在数据，避免缓存穿透
-        if (promoDO != null && promoDO.getId() == -1) {
-            return null;
-        }
-        if (promoDO == null) {
-            //获取对应演出座次的秒杀活动信息
-            promoDO = boyingPromoMapper.selectBySeatId(seatId);
-            if (promoDO == null) {
-                redisService.set("boying_promo:" + seatId, new BoyingPromo(-1), 5);
-                return null;
-            }
-            redisService.set("boying_promo:" + seatId, promoDO);
-        }
-
-
-        //dataObject->model
         BoyingPromoModel boyingPromoModel = new BoyingPromoModel();
         BeanUtils.copyProperties(promoDO, boyingPromoModel);
 
-        //判断当前时间是否秒杀活动即将开始或正在进行
-        //秒杀活动状态 1表示还未开始，2表示进行中，3表示已结束
+        // 判断当前时间是否秒杀活动即将开始或正在进行
+        // 秒杀活动状态 1表示还未开始，2表示进行中，3表示已结束
         if (boyingPromoModel.getStartTime().after(new Date())) {
             boyingPromoModel.setStatus(PromoEnum.NOT_START.getValue());
         } else if (boyingPromoModel.getEndTime().before(new Date())) {

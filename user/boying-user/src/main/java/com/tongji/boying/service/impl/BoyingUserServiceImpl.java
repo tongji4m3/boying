@@ -54,11 +54,9 @@ public class BoyingUserServiceImpl implements BoyingUserService {
 
         user = boyingUserMapper.selectByUsername(username);
         if (user == null) {
-            // 代做，防止缓存穿透：用户一直注册，但是该账号在数据库中不存在 chrome收藏夹 布隆过滤器
-            boyingUserCacheService.setUser(new BoyingUser());
+            // todo 防止缓存穿透：用户一直查询，但是该账号在数据库中不存在 布隆过滤器
             Asserts.fail("用户不存在!");
         }
-
         boyingUserCacheService.setUser(user);
         return user;
     }
@@ -107,7 +105,7 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < 6; i++) {
-            sb.append(random.nextInt(10));
+            sb.append(random.nextInt(9) + 1);
         }
         //为该手机号生成验证码
         boyingUserCacheService.setAuthCode(telephone, sb.toString());
@@ -206,13 +204,12 @@ public class BoyingUserServiceImpl implements BoyingUserService {
             }
             boyingUserCacheService.setUser(user);
         }
-        //缓存有数据，说明手机号是对的，直接检查密码即可
+        // 缓存有数据，说明手机号是对的，直接检查密码即可
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("密码不正确");
         }
         UserDetails userDetails = loadUserByUsername(user.getUsername());
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        //设置到ThreadLocal中
         SecurityContextHolder.getContext().setAuthentication(authentication);
         token = jwtTokenUtil.generateToken(userDetails);
         return token;

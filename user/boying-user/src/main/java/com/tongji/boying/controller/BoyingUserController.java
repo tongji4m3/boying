@@ -72,7 +72,6 @@ public class BoyingUserController {
     @ResponseBody
     public CommonResult<BoyingUserVO> info(Principal principal) {
         if (principal == null) return CommonResult.unauthorized(null);
-        //将核心领域模型用户对象转化为可供UI使用的viewObject对象
         BoyingUserVO boyingUserVO = new BoyingUserVO();
         BeanUtils.copyProperties(boyingUserService.getCurrentUser(), boyingUserVO);
         return CommonResult.success(boyingUserVO);

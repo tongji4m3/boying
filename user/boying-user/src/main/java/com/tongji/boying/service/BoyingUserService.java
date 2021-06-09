@@ -23,28 +23,13 @@ public interface BoyingUserService {
 
     void updatePassword(UpdatePasswordParam param);
 
-    /**
-     * 根据用户名获取用户
-     */
     BoyingUser getByUsername(String username);
 
-    /**
-     * 生成验证码
-     */
     void generateAuthCode(String telephone);
 
-    /**
-     * 获取当前登录用户
-     */
     BoyingUser getCurrentUser();
 
-    /**
-     * 获取用户信息
-     */
     UserDetails loadUserByUsername(String username);
 
-    /**
-     * 刷新token
-     */
     String refreshToken(String token);
 }
