@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,51 +28,58 @@ public class SmsPromoSeviceImpl implements SmsPromoService {
     }
 
     @Override
-    public BoyingPromo getPromo(Integer id){
+    public BoyingPromo getPromo(Integer id) {
         return boyingPromoMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public int create(UmsPromoParam param){
-        checkBoyingPromoParam(param,-1);
-        BoyingPromo promo=new BoyingPromo();
-        BeanUtils.copyProperties(param,promo);
+    public int create(UmsPromoParam param) {
+        BoyingPromoExample boyingPromoExample = new BoyingPromoExample();
+        boyingPromoExample.createCriteria().andSeatIdEqualTo(param.getSeatId());
+        List<BoyingPromo> boyingPromos = boyingPromoMapper.selectByExample(boyingPromoExample);
+        for (BoyingPromo boyingPromo : boyingPromos) {
+            if (boyingPromo.getEndTime().after(new Date())) {
+                Asserts.fail("该座次有未结束活动!");
+            }
+        }
+
+        BoyingPromo promo = new BoyingPromo();
+        BeanUtils.copyProperties(param, promo);
         return boyingPromoMapper.insertSelective(promo);
     }
 
-    public int update(Integer id,UmsPromoParam param){
-        checkBoyingPromoParam(param,id);
-        BoyingPromo promo=new BoyingPromo();
+    public int update(Integer id, UmsPromoParam param) {
+        BoyingPromo promo = new BoyingPromo();
 
-        BeanUtils.copyProperties(param,promo);
+        BeanUtils.copyProperties(param, promo);
         promo.setId(id);
         return boyingPromoMapper.updateByPrimaryKeySelective(promo);
     }
 
     @Override
-    public int delete(Integer id){
+    public int delete(Integer id) {
         return boyingPromoMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public int delete(List<Integer> ids){
-        BoyingPromoExample example=new BoyingPromoExample();
+    public int delete(List<Integer> ids) {
+        BoyingPromoExample example = new BoyingPromoExample();
         example.createCriteria().andIdIn(ids);
-        if(boyingPromoMapper.selectByExample(example).size()!=ids.size()){
+        if (boyingPromoMapper.selectByExample(example).size() != ids.size()) {
             Asserts.fail("某些演出Id不存在！");
         }
         return boyingPromoMapper.deleteByExample(example);
     }
 
-    private void checkBoyingPromoParam(UmsPromoParam param,Integer id){
-        BoyingPromoExample boyingPromoExample=new BoyingPromoExample();
-        BoyingPromoExample.Criteria criteria=boyingPromoExample.createCriteria();
+    private void checkBoyingPromoParam(UmsPromoParam param, Integer id) {
+        BoyingPromoExample boyingPromoExample = new BoyingPromoExample();
+        BoyingPromoExample.Criteria criteria = boyingPromoExample.createCriteria();
         criteria.andNameEqualTo(param.getName());
-        if(id!=-1){
+        if (id != -1) {
             criteria.andIdNotEqualTo(id);
         }
-        List<BoyingPromo> promos=boyingPromoMapper.selectByExample(boyingPromoExample);
-        if(CollUtil.isNotEmpty(promos)){
+        List<BoyingPromo> promos = boyingPromoMapper.selectByExample(boyingPromoExample);
+        if (CollUtil.isNotEmpty(promos)) {
             Asserts.fail("活动名称不能重复");
         }
     }

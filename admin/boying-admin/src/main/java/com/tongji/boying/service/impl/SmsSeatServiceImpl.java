@@ -24,9 +24,9 @@ public class SmsSeatServiceImpl implements SmsSeatService {
 
     @Autowired
     private BoyingStockMapper boyingStockMapper;
+
     @Override
-    public int create(SmsSeatParam param)
-    {
+    public int create(SmsSeatParam param) {
 //        int insert = orderMapper.insertSelective(order);
 //        //生成票
 //        for (Integer showSeatId : showSeatIds) {
@@ -39,11 +39,12 @@ public class SmsSeatServiceImpl implements SmsSeatService {
         BeanUtils.copyProperties(param, seat);
         System.out.println("helloworld");
         System.out.println(seat);
-        int insert=boyingSeatMapper.insertSelective(seat);
-        BoyingStock stock=new BoyingStock();
+        int insert = boyingSeatMapper.insertSelective(seat);
+        BoyingStock stock = new BoyingStock();
         stock.setId(seat.getId());
         stock.setStock(seat.getCapacity());
         boyingStockMapper.insert(stock);
+        updateShowPrice(param.getShowId());
         return insert;
     }
 
@@ -53,12 +54,37 @@ public class SmsSeatServiceImpl implements SmsSeatService {
         BoyingSeat seat = new BoyingSeat();
         BeanUtils.copyProperties(param, seat);
         seat.setId(id);
-        return boyingSeatMapper.updateByPrimaryKeySelective(seat);
+
+        int result = boyingSeatMapper.updateByPrimaryKeySelective(seat);
+        updateShowPrice(param.getShowId());
+        return result;
     }
 
     @Override
     public int delete(Integer id) {
-        return boyingSeatMapper.deleteByPrimaryKey(id);
+        BoyingSeat boyingSeat = boyingSeatMapper.selectByPrimaryKey(id);
+        int result = boyingSeatMapper.deleteByPrimaryKey(id);
+        updateShowPrice(boyingSeat.getShowId());
+        return result;
+    }
+
+    private void updateShowPrice(Integer showId) {
+        BoyingSeatExample boyingSeatExample = new BoyingSeatExample();
+        boyingSeatExample.createCriteria().andShowIdEqualTo(showId);
+        List<BoyingSeat> boyingSeats = boyingSeatMapper.selectByExample(boyingSeatExample);
+
+
+        double maxPrice = Double.MIN_VALUE, minPrice = Double.MAX_VALUE;
+        for (BoyingSeat boyingSeat : boyingSeats) {
+            maxPrice = Math.max(maxPrice, boyingSeat.getPrice());
+            minPrice = Math.min(minPrice, boyingSeat.getPrice());
+        }
+
+        BoyingShow boyingShow = new BoyingShow();
+        boyingShow.setId(showId);
+        boyingShow.setMaxPrice(maxPrice);
+        boyingShow.setMinPrice(minPrice);
+        boyingShowMapper.updateByPrimaryKeySelective(boyingShow);
     }
 
     @Override
@@ -67,36 +93,30 @@ public class SmsSeatServiceImpl implements SmsSeatService {
     }
 
     @Override
-    public List<BoyingSeat> getShowSeat(Integer id)
-    {
+    public List<BoyingSeat> getShowSeat(Integer id) {
         BoyingSeatExample example = new BoyingSeatExample();
         example.createCriteria().andShowIdEqualTo(id);
         return boyingSeatMapper.selectByExample(example);
     }
 
-    private void checkBoyingSeatParam(SmsSeatParam param, Integer id)
-    {
+    private void checkBoyingSeatParam(SmsSeatParam param, Integer id) {
         BoyingShowExample boyingShowExample = new BoyingShowExample();
         BoyingShowExample.Criteria criteria = boyingShowExample.createCriteria();
-        BoyingSeatExample boyingSeatExample=new BoyingSeatExample();
-        BoyingSeatExample.Criteria criteria1=boyingSeatExample.createCriteria();
+        BoyingSeatExample boyingSeatExample = new BoyingSeatExample();
+        BoyingSeatExample.Criteria criteria1 = boyingSeatExample.createCriteria();
         criteria.andIdEqualTo(param.getShowId());
-        if (id != -1)
-        {
+        if (id != -1) {
             criteria.andIdNotEqualTo(id);
-        }
-        else{
+        } else {
             criteria1.andShowIdEqualTo(param.getShowId());
             criteria1.andNameEqualTo(param.getName());
-            List<BoyingSeat> seats=boyingSeatMapper.selectByExample(boyingSeatExample);
-            if(CollUtil.isNotEmpty(seats))
-            {
+            List<BoyingSeat> seats = boyingSeatMapper.selectByExample(boyingSeatExample);
+            if (CollUtil.isNotEmpty(seats)) {
                 Asserts.fail("不能重复添加座次");
             }
         }
         List<BoyingShow> shows = boyingShowMapper.selectByExample(boyingShowExample);
-        if (CollUtil.isEmpty(shows))
-        {
+        if (CollUtil.isEmpty(shows)) {
             Asserts.fail("没有此演出，无法为其添加座次!");
         }
     }
