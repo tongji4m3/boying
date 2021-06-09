@@ -1,7 +1,7 @@
 package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.BoyingOrder;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -21,5 +21,5 @@ public interface BoyingOrderMapper {
 
     List<BoyingOrder> selectByCondition(Map<String, Object> map);
 
-    Integer selectByShowIdUserId(@Param("userId") Integer userId,@Param("showId")  Integer showId);
+    Integer selectByShowIdUserId(@Param("userId") Integer userId, @Param("showId")  Integer showId);
 }
