@@ -40,9 +40,16 @@ public class SmsShowServiceImpl implements SmsShowService
     @Override
     public int create(SmsShowParam param)
     {
+        System.out.println(param);
         checkBoyingShowParam(param, -1);
         BoyingShow show = new BoyingShow();
         BeanUtils.copyProperties(param, show);
+        System.out.println(show);
+        //这里不懂为啥要手动设置，直接copyProperties日期没法copy
+        show.setStartTime(param.getDayStart());
+        show.setEndTime(param.getDayEnd());
+        System.out.println(show);
+
         return boyingShowMapper.insertSelective(show);
     }
 
@@ -53,6 +60,11 @@ public class SmsShowServiceImpl implements SmsShowService
         BoyingShow show = new BoyingShow();
 
         BeanUtils.copyProperties(param, show);
+        System.out.println(show);
+        //这里不懂为啥要手动设置，直接copyProperties日期没法copy
+        show.setStartTime(param.getDayStart());
+        show.setEndTime(param.getDayEnd());
+        System.out.println(show);
         show.setId(id);
         return boyingShowMapper.updateByPrimaryKeySelective(show);
 
