@@ -41,7 +41,7 @@ public class SmsShowServiceImpl implements SmsShowService
     public int create(SmsShowParam param)
     {
         System.out.println(param);
-        checkBoyingShowParam(param, -1);
+//        checkBoyingShowParam(param, -1);
         BoyingShow show = new BoyingShow();
         BeanUtils.copyProperties(param, show);
         System.out.println(show);
@@ -56,7 +56,7 @@ public class SmsShowServiceImpl implements SmsShowService
     @Override
     public int update(Integer id, SmsShowParam param)
     {
-        checkBoyingShowParam(param, id);
+//        checkBoyingShowParam(param, id);
         BoyingShow show = new BoyingShow();
 
         BeanUtils.copyProperties(param, show);
@@ -97,19 +97,19 @@ public class SmsShowServiceImpl implements SmsShowService
         return boyingShowMapper.updateByPrimaryKeySelective(boyingShow);
     }
 
-    private void checkBoyingShowParam(SmsShowParam param, Integer id)
-    {
-        BoyingShowExample boyingShowExample = new BoyingShowExample();
-        BoyingShowExample.Criteria criteria = boyingShowExample.createCriteria();
-        criteria.andNameEqualTo(param.getName());
-        if (id != -1)
-        {
-            criteria.andIdNotEqualTo(id);
-        }
-        List<BoyingShow> shows = boyingShowMapper.selectByExample(boyingShowExample);
-        if (CollUtil.isNotEmpty(shows))
-        {
-            Asserts.fail("演出名称不能重复!");
-        }
-    }
+//    private void checkBoyingShowParam(SmsShowParam param, Integer id)
+//    {
+//        BoyingShowExample boyingShowExample = new BoyingShowExample();
+//        BoyingShowExample.Criteria criteria = boyingShowExample.createCriteria();
+//        criteria.andNameEqualTo(param.getName());
+//        if (id != -1)
+//        {
+//            criteria.andIdNotEqualTo(id);
+//        }
+//        List<BoyingShow> shows = boyingShowMapper.selectByExample(boyingShowExample);
+//        if (CollUtil.isNotEmpty(shows))
+//        {
+//            Asserts.fail("演出名称不能重复!");
+//        }
+//    }
 }
