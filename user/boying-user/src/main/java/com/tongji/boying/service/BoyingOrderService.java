@@ -3,7 +3,6 @@ package com.tongji.boying.service;
 import com.tongji.boying.dto.orderParam.GetOrdersParam;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
 import com.tongji.boying.model.BoyingOrder;
-import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

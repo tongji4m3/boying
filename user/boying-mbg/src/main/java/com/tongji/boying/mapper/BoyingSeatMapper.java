@@ -1,8 +1,7 @@
 package com.tongji.boying.mapper;
 
 import com.tongji.boying.model.BoyingSeat;
-import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

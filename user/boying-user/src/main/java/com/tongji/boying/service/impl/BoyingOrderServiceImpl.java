@@ -200,6 +200,7 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         BoyingUser user = boyingUserService.getCurrentUser();
         //查看当前用户该演出是否下单(已退票的不算)
         Integer orderCount = boyingOrderMapper.selectByShowIdUserId(user.getId(), showId);
+        System.out.println(orderCount);
         return orderCount != null && orderCount != 0;
     }
 }
