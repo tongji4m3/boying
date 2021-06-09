@@ -22,10 +22,10 @@ public class BoyingPromoServiceImpl implements BoyingPromoService {
     // todo 之后加上缓存，并且要防止缓存穿透
     @Override
     public BoyingPromoModel getPromo(Integer seatId) {
-        // todo 活动有多个的问题
         BoyingPromo promoDO = boyingPromoMapper.selectBySeatId(seatId);
 
         BoyingPromoModel boyingPromoModel = new BoyingPromoModel();
+        if (promoDO == null) return null;
         BeanUtils.copyProperties(promoDO, boyingPromoModel);
 
         // 判断当前时间是否秒杀活动即将开始或正在进行

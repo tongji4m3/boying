@@ -180,6 +180,7 @@
         from boying_show
         <where>
             admin_delete = 0
+            and end_time > NOW()
             <if test="categoryId != null and categoryId != 0">
                 and category_id = #{categoryId}
             </if>

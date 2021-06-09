@@ -88,9 +88,10 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         user.setUsername(username);
         user.setPhone(telephone);
         user.setPassword(passwordEncoder.encode(password));// 存储加密后的密码
+        System.out.println(passwordEncoder.encode(password));
         //设置默认头像
         if (StringUtils.isEmpty(icon)) {
-            icon = "https://tongji4m3.oss-cn-beijing.aliyuncs.com/f_f_object_156_s512_f_object_156_0.png";
+            icon = "https://img.alicdn.com/bao/uploaded/i3/2251059038/O1CN01dDK7Uv2GdSHFQPZa3_!!2-item_pic.png";
         }
         user.setIcon(icon);
         boyingUserMapper.insertSelective(user);
