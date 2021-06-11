@@ -1,0 +1,284 @@
+## sql
+
+```sql
+// 查询所有目录
+select * from boying_category where admin_delete = 0 order by weight desc
+
+select * from boying_order 
+	where user_id = #{userId} and user_delete != 1 and admin_delete != 1
+        <if test="status != null and status != 0">
+            and status = #{status}
+        </if>
+        <if test="name != null and name != ''">
+            and show_id in
+            (select id from boying_show where name like concat('%',#{name},'%')
+        </if>
+             
+// 查询用户是否下单过(已取消的不算)
+select count(*) from boying_order 
+             where user_id = #{userId} and show_id = #{showId} and status != 3
+```
+
+
+
+## 座次与活动
+
+当获取座次信息时，BoyingSeatController会把**BoyingSeatModel**封装成**BoyingSeatVO**传递给前端
+
+```java
+@Getter
+@Setter
+@ToString
+public class BoyingSeatVO {
+    private Integer id;
+
+    @ApiModelProperty(value = "所属演出Id")
+    private Integer showId;
+
+    @ApiModelProperty(value = "所属哪个级别,例如'A等票“，”B等票“")
+    private String name;
+
+    @ApiModelProperty(value = "该级别座位的定价")
+    private Double price;
+
+    @ApiModelProperty(value = "该级别座位的容量")
+    private Integer capacity;
+
+    @ApiModelProperty(value = "剩余的库存")
+    private Integer stock;
+
+    @ApiModelProperty(value = "记录商品秒杀活动状态：0表示没有秒杀活动，1表示秒杀活动待开始，2表示秒杀活动进行中")
+    private Integer promoStatus;
+
+    @ApiModelProperty(value = "秒杀活动价格")
+    private double promoPrice;
+
+    @ApiModelProperty(value = "秒杀活动ID")
+    private Integer promoId;
+
+    @ApiModelProperty(value = "秒杀活动开始时间")
+    private Date startTime;
+}
+```
+
+转换函数为：
+
+```java
+private BoyingSeatVO convertVOFromModel(BoyingSeatModel boyingSeatModel) {
+    BoyingSeatVO boyingSeatVO = new BoyingSeatVO();
+    BeanUtils.copyProperties(boyingSeatModel, boyingSeatVO);
+    // 有正在进行或即将进行的秒杀活动
+    if (boyingSeatModel.getBoyingPromoModel() != null) {
+        boyingSeatVO.setPromoStatus(boyingSeatModel.getBoyingPromoModel().getStatus());
+        boyingSeatVO.setPromoId(boyingSeatModel.getBoyingPromoModel().getId());
+        boyingSeatVO.setStartTime(boyingSeatModel.getBoyingPromoModel().getStartTime());
+        boyingSeatVO.setPromoPrice(boyingSeatModel.getBoyingPromoModel().getPrice());
+    } else {
+        boyingSeatVO.setPromoStatus(0);
+        boyingSeatVO.setPromoId(0);
+        boyingSeatVO.setPromoPrice(boyingSeatModel.getPrice());
+    }
+    return boyingSeatVO;
+}
+```
+
+注意，一个座次只可能有**零个或者一个**个活动。
+
+```java
+@Getter
+@Setter
+@ToString
+public class BoyingSeatModel {
+    private Integer id;
+    private Integer showId;
+    private String name;
+    private Double price;
+    private Integer capacity;
+    private Integer stock;
+    private BoyingPromoModel boyingPromoModel; 
+    // 使用聚合模型，如果promoModel不为空，则表示其拥有还未结束的秒杀活动
+}
+
+@Getter
+@Setter
+@ToString
+public class BoyingPromoModel {
+    private Integer id;
+    private Integer status; 
+    private Integer seatId;
+    private String name;
+    private Date startTime;
+    private Date endTime;
+    private Double price;
+}
+```
+
+**数据库——DO——Model**
+
+```java
+@Override
+public BoyingSeatModel getShowSeat(Integer seatId) {
+    BoyingSeat seatDO = boyingSeatMapper.selectByPrimaryKey(seatId);
+    return convertModelFromDataObject(seatDO);
+}
+
+private BoyingSeatModel convertModelFromDataObject(BoyingSeat seatDO) {
+    BoyingStock stockDO = boyingStockService.selectByPrimaryKey(seatDO.getId());
+
+    BoyingSeatModel boyingSeatModel = new BoyingSeatModel();
+    BeanUtils.copyProperties(seatDO, boyingSeatModel);
+    boyingSeatModel.setStock(stockDO.getStock());
+
+    BoyingPromoModel boyingPromoModel = boyingPromoService.getPromo(seatDO.getId());
+    boyingSeatModel.setBoyingPromoModel(boyingPromoModel); // 此处可能为null,但不影响
+    return boyingSeatModel;
+}
+```
+
+**从数据库中查询非结束状态的活动，并且封装成为BoyingPromoModel（只是根据活动时间加了一个status）**
+
+```java
+// todo 之后加上缓存，并且要防止缓存穿透
+@Override
+public BoyingPromoModel getPromo(Integer seatId) {
+    // 不查过期的活动，而且要保证当前活动只有一个
+    BoyingPromo promoDO = boyingPromoMapper.selectBySeatId(seatId); 
+
+    BoyingPromoModel boyingPromoModel = new BoyingPromoModel();
+    BeanUtils.copyProperties(promoDO, boyingPromoModel);
+
+    // 判断当前时间是否秒杀活动即将开始或正在进行
+    // 秒杀活动状态 1表示还未开始，2表示进行中，3表示已结束
+    if (boyingPromoModel.getStartTime().after(new Date())) {
+        boyingPromoModel.setStatus(PromoEnum.NOT_START.getValue());
+    } else if (boyingPromoModel.getEndTime().before(new Date())) {
+        boyingPromoModel.setStatus(PromoEnum.FINISH.getValue());
+    } else {
+        boyingPromoModel.setStatus(PromoEnum.DOING_PROMO.getValue());
+    }
+    return boyingPromoModel;
+}
+
+select * from boying_promo where seat_id = #{seatId} and end_time > NOW()
+```
+
+## 订单
+
+```java
+@Getter
+@Setter
+@ToString
+public class UserOrderParam {
+    @ApiModelProperty(value = "showId")
+    @NotNull(message = "演出Id不能为空")
+    private Integer showId;
+
+    @ApiModelProperty(value = "seatId")
+    @NotNull(message = "演出座次Id不能为空")
+    private Integer seatId;
+
+    @ApiModelProperty(value = "promoId")
+    private Integer promoId;
+
+    @ApiModelProperty(value = "购买的票数（最多三张)")
+    @NotNull(message = "购买的演出票数不能为空")
+    @Max(3)
+    @Min(1)
+    private Integer count;
+
+    @ApiModelProperty(value = "订单支付方式")
+    @NotEmpty(message = "订单支付方式不能为空!")
+    private String payment;
+}
+
+/**
+     * 通过前端url上传过来秒杀活动id，然后下单接口内校验对应id是否属于对应商品且活动已开始
+*/
+@Transactional
+void add(UserOrderParam param);
+
+@Override
+public void add(UserOrderParam param) {
+    Integer showId = param.getShowId();
+    Integer seatId = param.getSeatId();
+    Integer ticketCount = param.getCount();
+    String payment = param.getPayment();
+    Integer promoId = param.getPromoId(); // 若promoId不为0，则是秒杀座次价格
+    BoyingUser user = boyingUserService.getCurrentUser();
+
+    //对showId,payment做校验
+    BoyingSeatModel seatModel = boyingSeatService.getShowSeat(seatId);
+    if (seatModel == null) {
+        Asserts.fail("演出座次不存在！");
+    }
+    if (!seatModel.getShowId().equals(showId)) {
+        Asserts.fail("该演出座次不属于该演出！");
+    }
+
+    //查看当前用户该演出是否下单(已退票的不算)
+    Integer orderCount = boyingOrderMapper.selectByShowIdUserId(user.getId(), showId);
+    if (orderCount != null && orderCount != 0) {
+        Asserts.fail("您已经对该演出下单过了,不能重复下单!");
+    }
+
+    Double ticketPrice = seatModel.getPrice();
+
+    // 校验活动信息
+    if (promoId == null) promoId = 0;
+    if (promoId != 0) {
+        if (seatModel.getBoyingPromoModel() == null || !promoId.equals(seatModel.getBoyingPromoModel().getId())) {
+            Asserts.fail("活动信息不正确");
+        }
+        // 拿刚查出来的活动状态比较
+        if (seatModel.getBoyingPromoModel().getStatus() != PromoEnum.DOING_PROMO.getValue()) {
+            Asserts.fail("活动信息还未开始");
+        }
+        ticketPrice = seatModel.getBoyingPromoModel().getPrice();
+    }
+
+    //查看库存状态 并减库存
+    Integer updateCount = boyingSeatService.decreaseStock(seatId, ticketCount);
+    if (updateCount == 0) {
+        Asserts.fail("库存不足!");
+    }
+
+    //生成订单
+    BoyingOrder order = new BoyingOrder();
+    order.setUserId(user.getId());
+    order.setShowId(showId);
+    order.setSeatId(seatId);
+    order.setPromoId(promoId);
+    order.setStatus(OrderEnum.NEED_WATCH.getValue()); // 待观看状态
+    order.setTime(new Date());
+    order.setUserDelete(false);
+    order.setTicketCount(ticketCount);
+    order.setPayment(payment);
+    order.setTicketPrice(ticketPrice);
+    order.setOrderPrice(ticketPrice * ticketCount);
+    order.setQrCodeUrl("二维码");
+    boyingOrderMapper.insertSelective(order);
+}
+
+```
+
+## 缓存
+
++ 对User信息进行缓存，但是要注意缓存穿透
+
+```java
+@Override
+public BoyingUser getByUsername(String username) {
+    BoyingUser user = boyingUserCacheService.getUser(username);
+    if (user != null) return user;
+
+    user = boyingUserMapper.selectByUsername(username);
+    if (user == null) {
+        // todo 防止缓存穿透：用户一直查询，但是该账号在数据库中不存在 布隆过滤器
+        Asserts.fail("用户不存在!");
+    }
+    boyingUserCacheService.setUser(user);
+    return user;
+}
+```
+
++ 之后要注意对其他的也加上缓存，但是要注意缓存穿透，尤其是**活动**！
