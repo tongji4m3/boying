@@ -133,7 +133,9 @@ public class UmsResourceServiceImpl implements UmsResourceService
     @Override
     public List<AdminResource> listAll()
     {
-        return AdminResourceMapper.selectByExample(new AdminResourceExample());
+        AdminResourceExample adminResourceExample = new AdminResourceExample();
+        adminResourceExample.setOrderByClause("weight desc");
+        return AdminResourceMapper.selectByExample(adminResourceExample);
     }
 
 }
