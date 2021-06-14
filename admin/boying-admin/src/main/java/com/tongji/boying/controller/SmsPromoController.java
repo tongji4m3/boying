@@ -32,7 +32,7 @@ public class SmsPromoController {
     @ResponseBody
     public CommonResult<Object> list(){
         List<BoyingPromo> promoList=promoService.list();
-        if(ObjectUtil.isEmpty(promoList))return CommonResult.failed("无角色！");
+        if(ObjectUtil.isEmpty(promoList))return CommonResult.failed("无活动！");
         return CommonResult.success(promoList);
     }
 
