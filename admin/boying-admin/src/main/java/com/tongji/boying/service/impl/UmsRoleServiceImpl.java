@@ -215,7 +215,11 @@ public class UmsRoleServiceImpl implements UmsRoleService
         AdminRoleResourceExample example = new AdminRoleResourceExample();
         example.createCriteria().andRoleIdEqualTo(roleId);
         roleResourceRelationMapper.deleteByExample(example);
-
+        System.out.println(roleId);
+        System.out.println(resourceIds);
+        if(resourceIds.size()==0){
+            return resourceIds.size();
+        }
         //不在Resource表中则不加
         AdminResourceExample AdminResourceExample = new AdminResourceExample();
         AdminResourceExample.createCriteria().andIdIn(resourceIds);
