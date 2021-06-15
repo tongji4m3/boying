@@ -59,6 +59,9 @@ public class SmsShowServiceImpl implements SmsShowService
     @Override
     public int update(Integer id, SmsShowParam param)
     {
+        if(param.getDayEnd().before(param.getDayStart())){
+            Asserts.fail("演出时间错误!");
+        }
 //        checkBoyingShowParam(param, id);
         BoyingShow show = new BoyingShow();
 

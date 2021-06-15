@@ -46,6 +46,9 @@ public class SmsPromoSeviceImpl implements SmsPromoService
     @Override
     public int create(UmsPromoParam param)
     {
+        if(param.getEndTime().before(param.getStartTime())){
+            Asserts.fail("时间错误!");
+        }
         BoyingPromoExample boyingPromoExample = new BoyingPromoExample();
         boyingPromoExample.createCriteria().andSeatIdEqualTo(param.getSeatId());
         List<BoyingPromo> boyingPromos = boyingPromoMapper.selectByExample(boyingPromoExample);
