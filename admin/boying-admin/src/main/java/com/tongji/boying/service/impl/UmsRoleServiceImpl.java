@@ -217,7 +217,9 @@ public class UmsRoleServiceImpl implements UmsRoleService
         roleResourceRelationMapper.deleteByExample(example);
         System.out.println(roleId);
         System.out.println(resourceIds);
-        if(resourceIds.size()==0){
+        if (resourceIds.size() == 0)
+        {
+            adminCacheService.delResourceListByRole(roleId);
             return resourceIds.size();
         }
         //不在Resource表中则不加
