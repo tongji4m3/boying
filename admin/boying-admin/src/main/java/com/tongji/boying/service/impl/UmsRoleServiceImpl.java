@@ -49,6 +49,9 @@ public class UmsRoleServiceImpl implements UmsRoleService
     @Autowired
     private UmsAdminRoleDao adminRoleDao;
 
+
+    @Autowired
+    private  AdminUserRoleMapper adminUserRoleMapper;
     @Override
     public int create(UmsRoleParam param)
     {
@@ -215,12 +218,19 @@ public class UmsRoleServiceImpl implements UmsRoleService
         AdminRoleResourceExample example = new AdminRoleResourceExample();
         example.createCriteria().andRoleIdEqualTo(roleId);
         roleResourceRelationMapper.deleteByExample(example);
-        System.out.println(roleId);
-        System.out.println(resourceIds);
-        if (resourceIds.size() == 0)
-        {
-            adminCacheService.delResourceListByRole(roleId);
-            return resourceIds.size();
+        adminCacheService.delResourceListByRole(roleId);
+
+        AdminUserRoleExample adminUserRoleExample=new AdminUserRoleExample();
+        adminUserRoleExample.createCriteria().andRoleIdEqualTo(roleId);
+        List<AdminUserRole> adminUserRoles = adminUserRoleMapper.selectByExample(adminUserRoleExample);
+        System.out.println("000");
+        for(AdminUserRole adminUserRole:adminUserRoles){
+            System.out.println(adminUserRole.getId());
+            adminCacheService.delResourceList(adminUserRole.getUserId());
+        }
+
+        if (resourceIds == null || resourceIds.size() == 0) {
+            return 0;
         }
         //不在Resource表中则不加
         AdminResourceExample AdminResourceExample = new AdminResourceExample();
@@ -240,7 +250,6 @@ public class UmsRoleServiceImpl implements UmsRoleService
             relation.setResourceId(resourceId);
             roleResourceRelationMapper.insert(relation);
         }
-        adminCacheService.delResourceListByRole(roleId);
         return resourceIds.size();
     }
 

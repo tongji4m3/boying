@@ -13,6 +13,6 @@ public class UmsAllocResourceParam
     @NotEmpty(message = "roleId不能为空")
     private Integer roleId;
     @ApiModelProperty(value = "resourceIds", required = true)
-    @NotEmpty(message = "resourceIds不能为空")
+//    @NotEmpty(message = "resourceIds不能为空")
     private List<Integer> resourceIds;
 }

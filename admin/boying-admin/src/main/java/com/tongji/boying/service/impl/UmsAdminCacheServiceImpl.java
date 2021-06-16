@@ -70,6 +70,11 @@ public class UmsAdminCacheServiceImpl implements UmsAdminCacheService
         {
             String keyPrefix = REDIS_DATABASE + ":" + REDIS_KEY_RESOURCE_LIST + ":";
             List<String> keys = relationList.stream().map(relation -> keyPrefix + relation.getId()).collect(Collectors.toList());
+            System.out.println("456");
+            System.out.println(keys.toArray().toString());
+            for (String s :keys){
+                System.out.println(s);
+            };
             redisService.del(keys);
         }
     }

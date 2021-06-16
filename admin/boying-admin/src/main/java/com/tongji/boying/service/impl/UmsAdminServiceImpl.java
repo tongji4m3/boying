@@ -233,6 +233,7 @@ public class UmsAdminServiceImpl implements UmsAdminService
         //如果不分配角色，直接返回
         if (roleIds.size() == 0)
         {
+            adminCacheService.delResourceList(userId);
             return 1;
         }
         //判断角色是否都是存在与数据库中的
