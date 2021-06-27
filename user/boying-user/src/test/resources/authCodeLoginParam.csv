@@ -1,0 +1,3 @@
+telephone,authCode,expected
+13127525101,123456,success
+13127525101,000000,fail

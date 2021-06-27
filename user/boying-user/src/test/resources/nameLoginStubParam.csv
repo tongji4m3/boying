@@ -1,0 +1,4 @@
+username,password,expected,token
+string,string,操作成功,token
+"",string,用户名不能为空,token
+string,"",密码不能为空,token
