@@ -35,7 +35,6 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         Integer seatId = param.getSeatId();
         Integer ticketCount = param.getCount();
         String payment = param.getPayment();
-        Integer promoId = param.getPromoId(); // 若promoId不为0，则是秒杀座次价格
         BoyingUser user = boyingUserService.getCurrentUser();
 
         //对showId,payment做校验
@@ -47,26 +46,7 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
             Asserts.fail("该演出座次不属于该演出！");
         }
 
-        //查看当前用户该演出是否下单(已退票的不算)
-        Integer orderCount = boyingOrderMapper.selectByShowIdUserId(user.getId(), showId);
-        if (orderCount != null && orderCount != 0) {
-            Asserts.fail("您已经对该演出下单过了,不能重复下单!");
-        }
-
         Double ticketPrice = seatModel.getPrice();
-
-        // 校验活动信息
-        if (promoId == null) promoId = 0;
-        if (promoId != 0) {
-            if (seatModel.getBoyingPromoModel() == null || !promoId.equals(seatModel.getBoyingPromoModel().getId())) {
-                Asserts.fail("活动信息不正确");
-            }
-            // 拿刚查出来的活动状态比较
-            if (seatModel.getBoyingPromoModel().getStatus() != PromoEnum.DOING_PROMO.getValue()) {
-                Asserts.fail("活动信息还未开始");
-            }
-            ticketPrice = seatModel.getBoyingPromoModel().getPrice();
-        }
 
         //查看库存状态 并减库存
         Integer updateCount = boyingSeatService.decreaseStock(seatId, ticketCount);
@@ -79,7 +59,6 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         order.setUserId(user.getId());
         order.setShowId(showId);
         order.setSeatId(seatId);
-        order.setPromoId(promoId);
         order.setStatus(OrderEnum.NEED_WATCH.getValue()); // 待观看状态
         order.setTime(new Date());
         order.setUserDelete(false);
