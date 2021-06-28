@@ -59,8 +59,8 @@ public class BoyingSeatServiceImpl implements BoyingSeatService {
         BeanUtils.copyProperties(seatDO, boyingSeatModel);
         boyingSeatModel.setStock(stockDO.getStock());
 
-        BoyingPromoModel boyingPromoModel = boyingPromoService.getPromo(seatDO.getId());
-        boyingSeatModel.setBoyingPromoModel(boyingPromoModel); // 此处可能为null,但不影响
+//        BoyingPromoModel boyingPromoModel = boyingPromoService.getPromo(seatDO.getId());
+//        boyingSeatModel.setBoyingPromoModel(boyingPromoModel); // 此处可能为null,但不影响
         return boyingSeatModel;
     }
 }
