@@ -1,0 +1,8 @@
+username,password,expected
+"","123",用户名不能为空,token
+string,"",密码不能为空,token
+string,"123",用户不存在!,token
+tongji4m3,"123",密码不正确,token
+tongji4m3,"123",密码不正确,token
+tongji4m3,"123",密码不正确，请稍后重试,token
+tongji4m3,"123456",操作成功,token

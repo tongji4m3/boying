@@ -4,28 +4,28 @@ import com.google.common.collect.Maps;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.NetworkMode;
 import com.relevantcodes.extentreports.ReporterType;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import lombok.extern.slf4j.Slf4j; //日志对象
+import org.junit.jupiter.api.AfterAll; //它用于表示在当前测试类中的所有测试后应执行注解方法。
+import org.junit.jupiter.api.BeforeAll; //它用于表示在当前测试类中的所有测试之前应该执行注解的方法。
+import org.junit.jupiter.api.BeforeEach; //它用于表示@Test在当前类中的每个方法之前应该执行注解方法。
 import org.junit.jupiter.api.extension.RegisterExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired; //自动依赖注入
+import org.springframework.boot.test.context.SpringBootTest; //SpringBootTest模块
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpEntity; //Http？
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestTemplate; //RestTemplate类是spring-web模块中进行HTTP访问的REST客户端核心类。RestTemplate请求使用阻塞式IO，适合低并发的应用场景。
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Map;
 
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) //加载一个EmbeddedWebApplicationContext并提供一个真正的servlet环境。嵌入式servlet容器启动并在随机端口上侦听。加载一个EmbeddedWebApplicationContext并提供一个真正的servlet环境。嵌入式servlet容器启动并在随机端口上侦听。
 @Slf4j
 public class InitHttpCase {
     //测试报告输出目录
@@ -42,6 +42,7 @@ public class InitHttpCase {
     @RegisterExtension
     public DefaultTestWatcher testWatcher = new DefaultTestWatcher(extent);
 
+    //在所有测试之前，执行下面注解的方法，应该是设定了一些报告的基本显示信息
     @BeforeAll
     static void initAll() {
         try {

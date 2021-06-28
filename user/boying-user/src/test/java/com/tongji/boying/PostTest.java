@@ -1,12 +1,14 @@
 package com.tongji.boying;
 
 import base.InitHttpCase;
-import com.tongji.boying.controller.BoyingUserController;
+import com.tongji.boying.controller.BoyingUserController; //boyingUserController类
+//dto层的参数封装类
 import com.tongji.boying.dto.userParam.AuthCodeLoginParam;
 import com.tongji.boying.dto.userParam.TelephoneLoginParam;
 import com.tongji.boying.dto.userParam.UserRegisterParam;
 import com.tongji.boying.dto.userParam.UsernameLoginParam;
-import com.tongji.boying.service.BoyingUserService;
+import com.tongji.boying.service.BoyingUserService; //boyingUserService类
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 //@SpringBootTest
 public class PostTest extends InitHttpCase
 {
+
     @Autowired
     BoyingUserController boyingUserController;
     @Autowired
