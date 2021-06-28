@@ -37,6 +37,9 @@ public class BoyingSeatServiceImpl implements BoyingSeatService {
     @Override
     @Transactional
     public Integer decreaseStock(Integer seatId, Integer ticketCount) {
+        if (!(seatId >= 1 && seatId <= 280) || !(ticketCount >= 1 && ticketCount <= 3)) {
+            return 0;
+        }
         return boyingSeatMapper.decreaseStock(seatId, ticketCount);
     }
 
@@ -59,8 +62,6 @@ public class BoyingSeatServiceImpl implements BoyingSeatService {
         BeanUtils.copyProperties(seatDO, boyingSeatModel);
         boyingSeatModel.setStock(stockDO.getStock());
 
-        BoyingPromoModel boyingPromoModel = boyingPromoService.getPromo(seatDO.getId());
-        boyingSeatModel.setBoyingPromoModel(boyingPromoModel); // 此处可能为null,但不影响
         return boyingSeatModel;
     }
 }
