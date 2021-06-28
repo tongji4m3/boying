@@ -6,7 +6,6 @@ import com.tongji.boying.common.common.PromoEnum;
 import com.tongji.boying.common.exception.Asserts;
 import com.tongji.boying.dto.orderParam.GetOrdersParam;
 import com.tongji.boying.dto.orderParam.UserOrderParam;
-import com.tongji.boying.mapper.BoyingHistoryMapper;
 import com.tongji.boying.mapper.BoyingOrderMapper;
 import com.tongji.boying.model.BoyingHistory;
 import com.tongji.boying.model.BoyingOrder;
@@ -27,12 +26,8 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
     private BoyingOrderMapper boyingOrderMapper;
     @Autowired
     private BoyingUserService boyingUserService;
-
     @Autowired
     private BoyingSeatService boyingSeatService;
-
-    @Resource
-    private BoyingHistoryMapper boyingHistoryMapper;
 
     @Override
     public void add(UserOrderParam param) {
@@ -94,21 +89,6 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         order.setOrderPrice(ticketPrice * ticketCount);
         order.setQrCodeUrl("二维码");
         boyingOrderMapper.insertSelective(order);
-        //生成订单历史
-        BoyingHistory history = new BoyingHistory();
-        history.setUserId(user.getId());
-        history.setShowId(showId);
-        history.setSeatId(seatId);
-        history.setPromoId(promoId);
-        history.setStatus(OrderEnum.NEED_WATCH.getValue()); // 待观看状态
-        history.setTime(order.getTime());
-        history.setUserDelete(false);
-        history.setTicketCount(ticketCount);
-        history.setPayment(payment);
-        history.setTicketPrice(ticketPrice);
-        history.setOrderPrice(ticketPrice * ticketCount);
-        history.setQrCodeUrl("二维码");
-        boyingHistoryMapper.insertSelective(history);
     }
 
     @Override
@@ -144,22 +124,6 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         //更新订单的信息
         order.setStatus(OrderEnum.CANCEL.getValue());
         boyingOrderMapper.updateByPrimaryKeySelective(order);
-
-        //生成订单历史
-        BoyingHistory history = new BoyingHistory();
-        history.setUserId(order.getUserId());
-        history.setShowId(order.getShowId());
-        history.setSeatId(order.getSeatId());
-        history.setPromoId(order.getPromoId());
-        history.setStatus(order.getStatus());
-        history.setTime(new Date());
-        history.setUserDelete(order.getUserDelete());
-        history.setTicketCount(order.getTicketCount());
-        history.setPayment(order.getPayment());
-        history.setTicketPrice(order.getTicketPrice());
-        history.setOrderPrice(order.getOrderPrice());
-        history.setQrCodeUrl(order.getQrCodeUrl());
-        boyingHistoryMapper.insertSelective(history);
 
         //获取对应的演出座次,增加库存
         boyingSeatService.increaseStock(order.getSeatId(), order.getTicketCount());
