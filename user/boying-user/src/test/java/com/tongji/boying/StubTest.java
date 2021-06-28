@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StubTest extends InitHttpCase
 {
+
     BoyingUserController boyingUserController = new BoyingUserController();
 
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
