@@ -1,5 +1,0 @@
-username,password,expected
-string,string,success
-string,123,密码不正确
-string,"",密码不能为空
-"",123,用户名不能为空
