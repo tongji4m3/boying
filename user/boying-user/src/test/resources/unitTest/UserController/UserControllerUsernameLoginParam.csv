@@ -1,8 +1,4 @@
 username,password,expected,token
 "","123",用户名不能为空,token
 string,"",密码不能为空,token
-string1,"123",用户名不存在，token
-string,"123",密码不正确，请重试，token
-string,"123",密码不正确，请重试，token
-string,"123",密码不正确，请过3分钟再试，token
-string,string,操作成功,token
+string,123,,token
