@@ -52,6 +52,7 @@ public class BoyingSeatServiceImpl implements BoyingSeatService {
     @Override
     public BoyingSeatModel getShowSeat(Integer seatId) {
         BoyingSeat seatDO = boyingSeatMapper.selectByPrimaryKey(seatId);
+        if (seatDO == null) return null;
         return convertModelFromDataObject(seatDO);
     }
 
