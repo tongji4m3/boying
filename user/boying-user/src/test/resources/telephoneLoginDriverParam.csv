@@ -1,5 +1,0 @@
-telephone,password,expected
-15316162191,string,success
-15316162191,000000,密码不正确
-"",string,手机号不能为空
-15316162191,"",密码不能为空

@@ -46,6 +46,12 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
             Asserts.fail("该演出座次不属于该演出！");
         }
 
+        //查看当前用户该演出是否下单(已退票的不算)
+        Integer orderCount = boyingOrderMapper.selectByShowIdUserId(user.getId(), showId);
+        if (orderCount != null && orderCount != 0) {
+            Asserts.fail("您已经对该演出下单过了,不能重复下单!");
+        }
+
         Double ticketPrice = seatModel.getPrice();
 
         //查看库存状态 并减库存
