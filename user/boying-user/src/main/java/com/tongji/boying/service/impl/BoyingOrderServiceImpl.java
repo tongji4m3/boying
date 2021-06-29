@@ -120,6 +120,10 @@ public class BoyingOrderServiceImpl implements BoyingOrderService {
         if (order == null || order.getUserDelete()) {
             Asserts.fail("无此订单!");
         }
+        BoyingUser currentUser = boyingUserService.getCurrentUser();
+        if (!currentUser.getId().equals(order.getUserId())) {
+            Asserts.fail("不能查看他人订单");
+        }
         if (order.getAdminDelete()) {
             Asserts.fail("管理员已删除此订单！如有疑惑，请联系客服！");
         }

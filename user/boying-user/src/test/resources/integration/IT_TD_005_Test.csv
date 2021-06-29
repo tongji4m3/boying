@@ -2,6 +2,8 @@ username,password,expected
 "","123",用户名不能为空
 string,"",密码不能为空
 string1,"123",用户不存在!
+tongji4m3,"123456",操作成功
+tongji4m3,"123",密码不正确
+tongji4m3,"123",密码不正确
 tongji4m3,"123",密码不正确
 tongji4m3,"123",密码不正确，请稍后重试
-tongji4m3,"123456",操作成功

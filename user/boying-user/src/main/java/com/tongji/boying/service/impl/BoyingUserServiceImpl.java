@@ -8,6 +8,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.tongji.boying.common.exception.Asserts;
+import com.tongji.boying.common.service.RedisService;
 import com.tongji.boying.config.BoyingUserDetails;
 import com.tongji.boying.dto.userParam.*;
 import com.tongji.boying.mapper.BoyingUserMapper;
@@ -19,6 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,6 +37,7 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 
 @Service
@@ -46,6 +50,8 @@ public class BoyingUserServiceImpl implements BoyingUserService {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private BoyingUserCacheService boyingUserCacheService;
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @Override
     public BoyingUser getByUsername(String username) {
@@ -180,10 +186,24 @@ public class BoyingUserServiceImpl implements BoyingUserService {
         BoyingUser user = getByUsername(username);
         UserDetails userDetails = new BoyingUserDetails(user);
 
+        // 登录接口登录3次后不让其再次去数据库中查询数据，直接返回友好提示，待5分钟后再试
+        String loginTime = redisTemplate.opsForValue().get(username); // 查询登录的错误次数
+        if (loginTime != null && Integer.parseInt(loginTime) > 2) {
+            // 登录错误次数超过3次后，直接返回错误提示，不走数据库。防止人为错误5分钟key值过期
+            redisTemplate.opsForValue().set(username, "3", 60 * 5, TimeUnit.SECONDS);
+            Asserts.fail("密码不正确，请稍后重试");
+        }
+
         if (user.getAdminDelete()) Asserts.fail("账号未启用,请联系管理员!");
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+            if (loginTime == null) {
+                redisTemplate.opsForValue().set(username, "1", 60 * 5 * 60, TimeUnit.SECONDS); // 记录登录次数
+            } else {
+                redisTemplate.boundValueOps(username).increment(1); // 累加登录次数
+            }
             throw new BadCredentialsException("密码不正确");
         }
+
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return jwtTokenUtil.generateToken(userDetails);
@@ -205,8 +225,22 @@ public class BoyingUserServiceImpl implements BoyingUserService {
             }
             boyingUserCacheService.setUser(user);
         }
+
+        // 登录接口登录3次后不让其再次去数据库中查询数据，直接返回友好提示，待5分钟后再试
+        String loginTime = redisTemplate.opsForValue().get(telephone); // 查询登录的错误次数
+        if (loginTime != null && Integer.parseInt(loginTime) > 2) {
+            // 登录错误次数超过3次后，直接返回错误提示，不走数据库。防止人为错误5分钟key值过期
+            redisTemplate.opsForValue().set(telephone, "3", 60 * 5, TimeUnit.SECONDS);
+            Asserts.fail("密码不正确，请稍后重试");
+        }
+
         // 缓存有数据，说明手机号是对的，直接检查密码即可
         if (!passwordEncoder.matches(password, user.getPassword())) {
+            if (loginTime == null) {
+                redisTemplate.opsForValue().set(telephone, "1", 60 * 5 * 60, TimeUnit.SECONDS); // 记录登录次数
+            } else {
+                redisTemplate.boundValueOps(telephone).increment(1); // 累加登录次数
+            }
             throw new BadCredentialsException("密码不正确");
         }
         UserDetails userDetails = loadUserByUsername(user.getUsername());
